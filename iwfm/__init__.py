@@ -35,6 +35,7 @@ from iwfm.iwfm_read_elements import iwfm_read_elements
 from iwfm.iwfm_read_nodes import iwfm_read_nodes
 from iwfm.iwfm_read_lake import iwfm_read_lake
 from iwfm.iwfm_read_streams import iwfm_read_streams
+from iwfm.iwfm_read_stream_reaches import iwfm_read_stream_reaches
 from iwfm.iwfm_read_strat import iwfm_read_strat
 from iwfm.read_elements_csv import read_elements_csv
 from iwfm.read_nodes_csv import read_nodes_csv

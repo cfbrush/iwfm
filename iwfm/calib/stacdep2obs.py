@@ -107,45 +107,19 @@ def process_budget(budget_file, cwidth=12):
     return budget_table, reach_list, dates
 
 
-def read_reaches(reach_file):
-    """ read_reaches() - Read list of reaches and stream nodes
-        
-        Parameters
-        ----------        
-        reach_file: str
-            Name of reach list file
-
-        Returns
-        -------
-        reaches: list
-            Observation names and associates stream reach(es)
-    """
-
-    with open(reach_file) as f:
-        reach_list = f.read().splitlines()
-
-    reaches = []
-    for line in reach_list[3:]: # skip header lines
-        if len(line) > 2:
-           temp = line.split()
-           reaches.append([temp[0],[int(n) for n in temp[2].split(',')]])
-    # return error when len(line) <= 2?
-    return reaches
-
-
-def stacdep2obs(budget_table, dates, reaches, nwidth=20):
+def stacdep2obs(budget_file, reach_file,  nwidth=20):
     ''' sestacdep2obs() - Convert stream-groundwater flows from IWFM Stream Budget 
         to the SMP file format for use by PEST. (Based on STACDEP2OBS.F90 by Matt 
         Tonkin, SSPA with routines by John Doherty.)
 
     Parameters
     ----------
-    budget_table: list
+    budget_file: list
         Numpy arrays of stream-groundwater flows (inside and outside model)for 
         each stream node
 
-    dates: list
-        Dates for budget rows
+    reach_file: str
+        Name of reach list file
     
     reaches: list
         List of ouput reaches, containing [name, [reach nos]]
@@ -162,7 +136,14 @@ def stacdep2obs(budget_table, dates, reaches, nwidth=20):
         Corresponding Pest instructions for smp file
 
     '''
-    import iwfm
+    from iwfm import iwfm_read_stream_reaches
+
+    # read input files
+    budget_table, reach_list, dates = process_budget(budget_file)
+
+    # reaches = read_reaches(reach_file)
+    reaches = iwfm_read_stream_reaches(reach_file)
+
 
     # dates to 'MM/DD/YYY'
     smp_dates, ins_dates = [], []
@@ -196,9 +177,8 @@ if __name__ == "__main__":
     ''' Run stacdep2obs() from command line '''
 
     import sys
-    import iwfm
-    import iwfm.debug as idb
-    from iwfm.debug import parse_cli_flags
+    from iwfm import file_test
+    from iwfm.debug import parse_cli_flags, exe_time
 
     verbose, debug = parse_cli_flags()
   
@@ -211,18 +191,15 @@ if __name__ == "__main__":
         reach_file    = input("Reach list file name.: ")
         output_file   = input("Output SMP file name: ")
 
-    iwfm.file_test(budget_file)
-    iwfm.file_test(reach_file)
+    file_test(budget_file)
+    file_test(reach_file)
 
-    idb.exe_time()  # initialize timer
+    outins_file = output_file.replace('.smp','.ins')
 
-    # read input files
-    budget_table, reach_list, dates = process_budget(budget_file)
+    exe_time()  # initialize timer
 
-    reaches = read_reaches(reach_file)
-
-    # process
-    stacdep, ins = stacdep2obs(budget_table, dates, reaches)
+    # read input files and process
+    stacdep, ins = stacdep2obs(budget_file, reach_file)
 
     # write results to output smp file
     with open(output_file, 'w') as out_file:
@@ -230,7 +207,6 @@ if __name__ == "__main__":
             out_file.write(f'{item}\n')
 
     # write results to output ins file
-    outins_file = output_file.replace('.smp','.ins')
     with open(outins_file, 'w') as out_file:
         out_file.write(f'pif #\n')
         for item in ins:
@@ -238,6 +214,6 @@ if __name__ == "__main__":
 
     print(f'\n  Read {budget_file} and wrote {output_file} and {outins_file}.')  # update cli
 
-    idb.exe_time()  # print elapsed time
+    exe_time()  # print elapsed time
 
   

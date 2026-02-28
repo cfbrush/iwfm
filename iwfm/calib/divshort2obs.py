@@ -119,7 +119,7 @@ def read_reaches(reach_file):
     return reaches
 
 
-def divshort2obs(budget_table, dates, reaches, nwidth=20):
+def divshort2obs(budget_file, reach_file, nwidth=20):
     ''' divshort2obs() - Convert diversion shortages from IWFM Stream Budget 
         to the SMP file format for use by PEST. (Based on STACDEP2OBS.F90 by Matt 
         Tonkin, SSPA with routines by John Doherty.)
@@ -150,6 +150,13 @@ def divshort2obs(budget_table, dates, reaches, nwidth=20):
     '''
     import iwfm 
 
+    # read input files
+    budget_table, reach_list, dates = process_budget(budget_file)
+
+    reaches = read_reaches(reach_file)
+
+
+
     # dates to 'MM/DD/YYY'
     smp_dates, ins_dates = [], []
     for date in dates:       # convert date from text m/d/yy to mm/dd/yyyy
@@ -179,9 +186,8 @@ if __name__ == "__main__":
     ''' Run divshort2obs() from command line '''
 
     import sys
-    import iwfm
-    import iwfm.debug as dbg
-    from iwfm.debug import parse_cli_flags
+    from iwfm import file_test
+    from iwfm.debug import parse_cli_flags, exe_time
 
     verbose, debug = parse_cli_flags()
   
@@ -194,18 +200,18 @@ if __name__ == "__main__":
         reach_file    = input("Stream file name: ")
         output_file   = input("Output SMP file name: ")
 
-    iwfm.file_test(budget_file)
-    iwfm.file_test(reach_file)
+    file_test(budget_file)
+    file_test(reach_file)
 
-    dbg.exe_time()  # initialize timer
+    exe_time()  # initialize timer
 
-    # read input files
-    budget_table, reach_list, dates = process_budget(budget_file)
-
-    reaches = read_reaches(reach_file)
+#    # read input files
+#    budget_table, reach_list, dates = process_budget(budget_file)
+#
+#    reaches = read_reaches(reach_file)
 
     # process
-    divshort, ins = divshort2obs(budget_table, dates, reaches)
+    divshort, ins = divshort2obs(budget_file, reach_file)
 
     # write results to output smp file
     with open(output_file, 'w') as out_file:
@@ -221,6 +227,6 @@ if __name__ == "__main__":
 
     print(f'  Read {budget_file} and wrote {output_file} and {outins_file}.')  # update cli
 
-    dbg.exe_time()  # print elapsed time
+    exe_time()  # print elapsed time
 
   
