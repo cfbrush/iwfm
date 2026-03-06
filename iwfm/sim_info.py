@@ -50,8 +50,8 @@ def sim_info(in_file, verbose=False):
     with open(in_file) as f:
         sim_lines = f.read().splitlines()
 
-    # skip 14 non-comment lines to get to start_date
-    start_date, in_index = read_next_line_value(sim_lines, 0, skip_lines=14)
+    # skip 15 non-comment lines to get to start_date
+    start_date, in_index = read_next_line_value(sim_lines, 0, skip_lines=15)
 
     # Validate start_date format
     try:

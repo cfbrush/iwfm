@@ -16,8 +16,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+from iwfm.debug.logger_setup import logger
 
-def get_hyd_info(ftype,file_dict):
+
+def get_hyd_info(ftype,file_dict,model_dir=''):
     ''' get_hyd_info() - unpack control variables from file_dict for one hydrograph type
 
     Parameters
@@ -28,6 +30,10 @@ def get_hyd_info(ftype,file_dict):
     file_dict : dictionary
         information for ftypes
 
+    model_dir : str, default=''
+        directory containing the model files, prepended to relative paths
+        read from inside the IWFM files
+
     Returns
     -------
     hyd_file : str
@@ -35,7 +41,7 @@ def get_hyd_info(ftype,file_dict):
 
     hyd_names : list
         hydrograph names
-    
+
     '''
 
     import os
@@ -44,11 +50,13 @@ def get_hyd_info(ftype,file_dict):
     main_file = file_dict[ftype][0]   # IWFM input file
     colid     = file_dict[ftype][8]   # col no of observation site name
     skips     = file_dict[ftype][9]   # lines to skip, different for each ftype
+    logger.debug(f'get_hyd_info({ftype}): main_file={main_file}, colid={colid}, skips={skips}')
 
     iwfm.file_test(main_file)
     with open(main_file) as f:
         in_lines = f.read().splitlines()                      # open and read input file
     line_index = 5  # skip first few lines
+    logger.debug(f'  Read {len(in_lines):,} lines from {main_file}')
 
     if ftype == 'Tile drains':
         # -- the first part of the tile drain file is different
@@ -58,17 +66,39 @@ def get_hyd_info(ftype,file_dict):
         line_index = iwfm.skip_ahead(line_index,in_lines,1)
         sd_no = int(in_lines[line_index].split()[0])                    # no. subsurface irrigation points
         line_index = iwfm.skip_ahead(line_index,in_lines,sd_no + 4)     # skip subsurface irrigation params + 4  lines
+        logger.debug(f'  Tile drains: td_no={td_no}, sd_no={sd_no}, line_index={line_index}')
+    elif ftype == 'Groundwater':
+        # IWFM groundwater files vary between versions (optional IHTPFLAG,
+        # KDEB, etc.), so search for the / NOUTH marker instead of using a
+        # fixed skip count.
+        found = False
+        for i, line in enumerate(in_lines):
+            if '/ NOUTH' in line:
+                line_index = i
+                found = True
+                break
+        if not found:                                                    # fallback to skip count
+            line_index = iwfm.skip_ahead(line_index,in_lines,skips[0])
+            logger.debug(f'  Groundwater: NOUTH marker not found, used skip count, line_index={line_index}')
+        else:
+            logger.debug(f'  Groundwater: found NOUTH marker at line {line_index}')
     else:
-        # -- all of the other types
+        # -- Streams, Subsidence, and other types
         line_index = iwfm.skip_ahead(line_index,in_lines,skips[0])
+        logger.debug(f'  {ftype}: skipped {skips[0]} lines, line_index={line_index}')
 
     # -- get NOUT - number of hydrographs
     nout = int(in_lines[line_index].split()[0])
+    logger.info(f'  {ftype}: {nout:,} hydrographs (NOUT)')
 
     # -- get hydrographs output file name
     line_index = iwfm.skip_ahead(line_index,in_lines,skips[1])
-    hyd_file = in_lines[line_index].split()[0]
+    hyd_file = in_lines[line_index].split()[0].replace('\\', os.sep)
+    if model_dir:
+        hyd_file = os.path.normpath(os.path.join(model_dir, hyd_file))
+    logger.info(f'  {ftype}: hydrograph output file: {hyd_file}')
     if not os.path.isfile(hyd_file):                                    # test for input file
+        logger.error(f'  {ftype}: hydrograph file not found: {hyd_file}')
         iwfm.file_missing(hyd_file)                                     # stop
 
     # -- get hydrograph names and locations as list
@@ -76,5 +106,6 @@ def get_hyd_info(ftype,file_dict):
     for i in range(0,nout):
         line_index = iwfm.skip_ahead(line_index,in_lines,1)
         hyd_names.append(in_lines[line_index].split()[colid])
+    logger.debug(f'  {ftype}: read {len(hyd_names):,} hydrograph names')
 
     return hyd_file, hyd_names

@@ -40,6 +40,7 @@ def iwfm2obs(verbose=False):
 
     '''
     import sys
+    import os
     import iwfm
     import iwfm.calib as calib
     import numpy as np
@@ -47,45 +48,69 @@ def iwfm2obs(verbose=False):
     from scipy.interpolate import interp1d
     from itertools import islice
     from datetime import datetime
+    from iwfm.debug.logger_setup import logger
 
     # == Get main simulation file name via prompt -----------------------------------
     sim_file    = input('IWFM Simulation main file: ')
+    sim_dir     = os.path.dirname(sim_file)                                    # directory of simulation file
+    logger.info(f'Simulation file: {sim_file}')
+    logger.info(f'Model directory: {sim_dir if sim_dir else "(current directory)"}')
+
+    def sim_path(filename):
+        ''' Prepend simulation file directory to a filename, unless it is 'none'.
+            Converts Windows backslash paths to OS-native separators. '''
+        if filename == 'none' or not sim_dir:
+            return filename.replace('\\', os.sep)
+        return os.path.normpath(os.path.join(sim_dir, filename.replace('\\', os.sep)))
 
     # == Read Time Step info from IWFM Simulation Input File ------------------------
     start_date, end_date, time_step = iwfm.sim_info(sim_file)
+    logger.info(f'Read Simulation Main File {sim_file}')
     if verbose: print(f'\n  Read Simulation Main File {sim_file}')
 
     start_date = datetime.strptime(start_date[0:10], '%m/%d/%Y')  # string to datetime
     end_date = datetime.strptime(end_date[0:10], '%m/%d/%Y')  # string to datetime
     no_days = (end_date - start_date).days  # days between start and end
     time_step  = time_step.lower()
+    logger.info(f'Simulation period: {start_date.strftime("%m/%d/%Y")} to {end_date.strftime("%m/%d/%Y")} ({no_days:,} days, {time_step} steps)')
 
     sim_file_d = iwfm.iwfm_read_sim(sim_file)                                # get package file names from simulation file
-    gw_file_d, node_id, layers, Kh, Ss, Sy, Kq, Kv, init_cond, units, hydrographs, factxy = iwfm.iwfm_read_gw(sim_file_d['gw_file'])                          # get groundwater file names from groundwater file
+    logger.debug(f'Stream file: {sim_file_d["stream_file"]}')
+    logger.debug(f'GW file: {sim_file_d["gw_file"]}')
+    gw_file_d, node_id, layers, Kh, Ss, Sy, Kq, Kv, init_cond, units, hydrographs, factxy = iwfm.iwfm_read_gw(sim_path(sim_file_d['gw_file']))                  # get groundwater file names from groundwater file
+    logger.debug(f'Subsidence file: {gw_file_d.subs_file}')
+    logger.debug(f'Tile drain file: {gw_file_d.drain_file}')
 
     # check for existence of subprocess file names
     file_dict = {   # 0                              1             2             3             4             5    6     7       8     9
-        # name/type     main_file                smp_obs       smp_out       ins_out       pcf_out       proc wrins rthresh colid skips
-        'Streams':     [sim_file_d['stream_file'],'st_obs.smp','st_temp.smp','st_temp.ins','st_temp.pcf',True,True, 0,      1,    [ 6,6]],
-        'Groundwater': [sim_file_d['gw_file']  ,'gw_obs.smp','gw_temp.smp','gw_temp.ins','gw_temp.pcf',True,True, 0,      5,    [20,2]],
-        'Subsidence':  [gw_file_d.subs_file    ,'sb_obs.smp','sb_temp.smp','sb_temp.ins','sb_temp.pcf',True,True, 0,      5,    [ 5,2]],
-        'Tile drains': [gw_file_d.drain_file   ,'td_obs.smp','td_temp.smp','td_temp.ins','td_temp.pcf',True,True, 0,      2,    [-1,3]]
+        # name/type     main_file                    smp_obs       smp_out       ins_out       pcf_out       proc wrins rthresh colid skips
+        'Streams':     [sim_path(sim_file_d['stream_file']),'st_obs.smp','st_temp.smp','st_temp.ins','st_temp.pcf',True,True, 0,      1,    [ 6,6]],
+        'Groundwater': [sim_path(sim_file_d['gw_file'])    ,'gw_obs.smp','gw_temp.smp','gw_temp.ins','gw_temp.pcf',True,True, 0,      5,    [20,2]],
+        'Subsidence':  [sim_path(gw_file_d.subs_file)      ,'sb_obs.smp','sb_temp.smp','sb_temp.ins','sb_temp.pcf',True,True, 0,      5,    [ 5,2]],
+        'Tile drains': [sim_path(gw_file_d.drain_file)     ,'td_obs.smp','td_temp.smp','td_temp.ins','td_temp.pcf',True,True, 0,      2,    [-1,3]]
     }
+    for nt in ['Streams', 'Groundwater', 'Subsidence', 'Tile drains']:
+        logger.debug(f'{nt} main file: {file_dict[nt][0]}')
 
     # == Get other inputs via prompts -------------------------------------------------------------
     headdiffs, missing_file = False, 'sim_miss.out'
     nametype   = ['Streams', 'Groundwater', 'Subsidence', 'Tile drains']
     for nt in nametype:
         main_file  = file_dict[nt][0]
+        obs_file, out_file, ins_file, pcf_file = '', '', '', ''
+        bprocess, bwriteins, rthresh = False, False, 0
         if main_file != 'none':
-            obs_file, out_file, ins_file, pcf_file = '', '', '', ''
-            bprocess, bwriteins, rthresh = False, False, 0
-            if main_file != 'none':
-                iwfm.file_test(main_file)                                      # stop
+            iwfm.file_test(main_file)
+            obs_file = input(f'{nt} observation smp file: ')
+            if obs_file.strip().lower() in ('none', ''):                       # skip this output type
+                bprocess = False
+                logger.info(f'{nt}: skipped (no observation file provided)')
+                if verbose: print(f'{nt}: skipped (no observation file provided)')
+            else:
+                iwfm.file_test(obs_file)
                 bprocess = True
-                obs_file = input(f'{nt} observation smp file: ')
-                iwfm.file_test(obs_file)                                       # stop
                 rthresh = float(input('Extrapolation threshold (days, float): '))
+                logger.info(f'{nt}: obs_file={obs_file}, rthresh={rthresh}')
                 if nt == 'Groundwater':
                     head_diff = input('Calculate head differences? [y/n]: ').lower()
                     if head_diff[0] == 'n':
@@ -93,7 +118,8 @@ def iwfm2obs(verbose=False):
                     else:
                         headdiffs = True
                         hdiffile  = input('Name of well pairs file: ')
-                        iwfm.file_test(hdiffile)                               
+                        iwfm.file_test(hdiffile)
+                    logger.info(f'  Head differences: {headdiffs}, file: {hdiffile if headdiffs else "n/a"}')
                 out_file = input('SMP output file name: ')
                 ins_file = input('PEST instruction file (or \'none\'): ')
                 if ins_file.lower()[0] == 'n':
@@ -102,9 +128,7 @@ def iwfm2obs(verbose=False):
                 else:
                     bwriteins = True
                     pcf_file = ins_file[0:ins_file.find('.')]+'.pcf'                  # replace 'ins' with '.pcf'
-        else:
-            obs_file, out_file, ins_file, pcf_file = '', '', '', ''
-            bprocess, bwriteins, rthresh = False, False, 0
+                logger.info(f'  out_file={out_file}, ins_file={ins_file}, bwriteins={bwriteins}')
         # replace file_dict place-holders with new info
         old_value = file_dict[nt]
         new_value = [old_value[0],obs_file,out_file,ins_file,pcf_file,bprocess,bwriteins,rthresh,old_value[8],old_value[9]]
@@ -112,15 +136,19 @@ def iwfm2obs(verbose=False):
     print(' ') # clean screen
 
     # == Process hydrographs --------------------------------------------------------
+    logger.info('Reading hydrograph info from IWFM input files')
     hyd_info = []
     hyd_file, hyd_names, hdiff_sites, hdiff_pairs = 'none', [], '', ''
     for nt in nametype:
         if file_dict[nt][0] != 'none'and file_dict[nt][5] == True:
+            logger.info(f'Reading {nt} Main File {file_dict[nt][0]}')
             if verbose: print(f'\n  Reading {nt} Main File {file_dict[nt][0]}')
-            hyd_file, hyd_names = calib.get_hyd_info(nt,file_dict)
+            hyd_file, hyd_names = calib.get_hyd_info(nt,file_dict,model_dir=sim_dir)
+            logger.info(f'  {len(hyd_names):,} {nt.lower()} hydrograph locations')
             if verbose: print(f'    Read {len(hyd_names):,} {nt.lower()} hydrograph locations')
             if nt == 'Groundwater' and headdiffs == True:
                 hdiff_sites, hdiff_pairs, hdiff_link = calib.headdiff_read(hdiffile)
+                logger.info(f'  {len(hdiff_sites):,} vertical well pairs from {hdiffile}')
                 if verbose: print(f'    Read {len(hdiff_sites):,} vertical well pairs')
         hyd_info.append([hyd_file, hyd_names])
 
@@ -132,6 +160,7 @@ def iwfm2obs(verbose=False):
         if file_dict[nt][5] == True:
             todo += len(hyd_dict[nt][1])                                          # count number of nametypes with work
     if todo == 0:
+        logger.warning('Nothing to do, exiting')
         if verbose: print('\n  Nothing to do, exiting')
         sys.exit()
         return 0
@@ -140,12 +169,19 @@ def iwfm2obs(verbose=False):
         fmiss.write('')
 
     # == read simulated hydrographs --------------------------------------------------------
+    logger.info('Processing simulated hydrographs')
     for nt in nametype:
         if file_dict[nt][0] != 'none'and file_dict[nt][5] == True:
+            logger.info(f'Processing {nt.lower()} hydrographs')
             if verbose: print(f'\n  Processing {nt.lower()} hydrographs')
             sim_sites = hyd_dict[nt][1]                                           # list of site names from Streams.dat file
 
             sim_hyd, sim_dates = calib.get_sim_hyd(nt,hyd_dict[nt][0],start_date) # read simulated hydrograph values into lists
+            if len(sim_dates) == 0:
+                logger.warning(f'No simulation data in {hyd_dict[nt][0]}, skipping {nt.lower()}')
+                if verbose: print(f'    No simulation data in {hyd_dict[nt][0]}, skipping {nt.lower()}')
+                continue
+            logger.info(f'  Read {len(sim_dates):,} time steps, {len(sim_sites):,} sites from {hyd_dict[nt][0]}')
 
             # set up function to interpolate time step from date
             time_steps = [x+1 for x in list(range(len(sim_dates)))]
@@ -155,8 +191,12 @@ def iwfm2obs(verbose=False):
 
             obs_file = file_dict[nt][1]
             obs_sites, obs_data = calib.get_obs_hyd(obs_file,start_date)          # get the observation sites and dates
+            logger.info(f'  Read {len(obs_sites):,} observation sites, {len(obs_data):,} observations from {obs_file}')
 
             sim_miss, sim_both = calib.compare(sim_sites,obs_sites)               # how many obs_sites not in sim_sites?
+            if len(sim_miss) > 0:
+                logger.warning(f'  {len(sim_miss):,} observation sites not found in simulated sites')
+            logger.info(f'  {len(sim_both):,} sites matched between obs and sim')
             calib.write_missing(sim_miss,obs_file,fname=missing_file)
 
             # -- interpolate simulated values to observation dates and put into smp- and ins-format strings
@@ -197,6 +237,7 @@ def iwfm2obs(verbose=False):
             with open(smp_outfile, 'w') as f:
                 for item in smp_out:
                     f.write("%s\n" % item)
+            logger.info(f'  Wrote {len(smp_out):,} simulated {nt.lower()} values to {smp_outfile}')
             if verbose: print(f'    Wrote {len(smp_out):,} simulated {nt.lower()} values to {smp_outfile}')
 
             # -- write ins file ----------------------------------------------------------------
@@ -206,6 +247,7 @@ def iwfm2obs(verbose=False):
                     f.write("pif #\n")
                     for item in ins_out:
                         f.write("%s\n" % item)
+                logger.info(f'  Wrote instructions to {ins_outfile}')
                 if verbose: print(f'    Wrote instrutions to {ins_outfile}')
 
                 # -- if pcf creation is added to smp2smp, write pcf file -------------------------
@@ -218,14 +260,29 @@ def iwfm2obs(verbose=False):
 
 if __name__ == "__main__":
     ''' Run iwfm2obs() from command line '''
+    import sys
     import iwfm.debug as idb
     from iwfm.debug import parse_cli_flags
+    from iwfm.debug.logger_setup import logger, setup_debug_logger
 
     verbose, debug = parse_cli_flags()
+
+    if not debug:
+        # Always create a log file, even without --debug
+        from datetime import datetime as dt
+        timestamp = dt.now().strftime("%Y%m%d_%H%M%S")
+        log_file = f"iwfm2obs_{timestamp}.log"
+        logger.add(
+            log_file,
+            format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {message}",
+            level="INFO"
+        )
+        logger.info(f"Logging to {log_file}")
 
     idb.exe_time()  # initialize timer
     iwfm2obs(verbose=verbose)
 
+    logger.info('iwfm2obs completed')
     print(' ') # clean screen
     idb.exe_time()  # print elapsed time
 
