@@ -669,3 +669,138 @@ class TestIwfmReadGw:
 
         finally:
             os.unlink(temp_file)
+
+    def test_parametric_grid_ngroup1(self):
+        """Test reading a file with NGROUP=1 (parametric grid).
+
+        For parametric grid files:
+        - Kh/Ss/Sy/Kq/Kv are returned as empty lists (interpolation not implemented)
+        - node_id and init_cond are derived from the initial conditions section
+        - layers is determined from the parametric data structure
+        """
+        # Build a minimal parametric grid groundwater file in memory.
+        # Structure after units:
+        #   range spec "1-5"
+        #   NDP=3  (3 parametric grid nodes)
+        #   NEP=2  (2 parametric grid elements)
+        #   2 element connectivity lines
+        #   C  (separator — treated as comment, auto-skipped)
+        #   3 parametric node data lines (1 layer: id x y Kh Ss Sy Kq Kv)
+        #   NEBK section
+        #   FACTHP
+        #   5 initial condition lines (5 model nodes)
+
+        content  = "#4.0\n"
+        content += "C IWFM Groundwater File (parametric grid test)\n"
+        content += "C\n"
+        content += "   BC.dat                       / BCFL\n"
+        content += "   /                            / TDFL\n"
+        content += "   /                            / PUMPFL\n"
+        content += "   /                            / SUBSFL\n"
+        content += "                                / OVRWRTFL\n"
+        content += "   1                            / FACTLTOU\n"
+        content += "   FEET                         / UNITLTOU\n"
+        content += "   0.000022957                  / FACTVLOU\n"
+        content += "   ACRE-FEET                    / UNITVLOU\n"
+        content += "   0.000022957                  / FACTVROU\n"
+        content += "   AC-FT/MON                    / UNITVROU\n"
+        content += "                                / VELOUTFL\n"
+        content += "                                / VFLOWOUTFL\n"
+        content += "   headall.out                  / GWALLOUTFL\n"
+        content += "                                / HTPOUTFL\n"
+        content += "                                / VTPOUTFL\n"
+        content += "                                / GWBUDFL\n"
+        content += "                                / ZBUDFL\n"
+        content += "                                / FNGWFL\n"
+        content += "C\n"
+        content += "      1                         / KDEB\n"
+        content += "C\n"
+        content += "     1                          / NOUTH\n"
+        content += "     1.0                        / FACTXY\n"
+        content += "     hydrographs.out            / GWHYDOUTFL\n"
+        content += "C\n"
+        content += "1  0  1  100.0  200.0  Well1\n"
+        content += "C\n"
+        content += "     0                          / NOUTF\n"
+        content += "                                / GWFFLOUTFL\n"
+        content += "C\n"
+        content += "          1                     / NGROUP\n"
+        content += "C\n"
+        content += "   1.0    1.0    1.0    1.0    1.0    1.0   / FACTKH FACTSS FACTSY FACTAQ FACTV FACTLV\n"
+        content += "    1DAY               / TUNITKH\n"
+        content += "    1DAY               / TUNITV\n"
+        content += "    1DAY               / TUNITL\n"
+        content += "C\n"
+        # Parametric grid section (NGROUP=1):
+        content += "   1-5                          / node range spec\n"
+        content += "   3                            / NDP (parametric grid nodes)\n"
+        content += "   2                            / NEP (parametric grid elements)\n"
+        content += "   1  2  3  4\n"   # element connectivity line 1
+        content += "   2  3  4  5\n"   # element connectivity line 2
+        content += "C                               separator\n"
+        # 3 parametric node data lines (1 layer: id x y Kh Ss Sy Kq Kv)
+        content += "   1  1000  2000  50.0  0.0001  0.15  1.0  0.1\n"
+        content += "   2  1100  2100  55.0  0.00011  0.16  1.1  0.11\n"
+        content += "   3  1200  2200  60.0  0.00012  0.17  1.2  0.12\n"
+        # Anomaly section
+        content += "C\n"
+        content += "   0                            / NEBK\n"
+        content += "   1.0                          / FACT\n"
+        content += "   1MON                         / TUNITH\n"
+        # Initial conditions (5 model nodes — different count from NDP=3)
+        content += "   1.0                          / FACTHP\n"
+        content += "C\n"
+        content += "C  Initial Conditions\n"
+        content += "C  ID  Head[Layer1]\n"
+        content += "C\n"
+        content += "1  100.0\n"
+        content += "2  101.0\n"
+        content += "3  102.0\n"
+        content += "4  103.0\n"
+        content += "5  104.0\n"
+
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.dat', delete=False) as f:
+            f.write(content)
+            temp_file = f.name
+
+        try:
+            from iwfm.iwfm_read_gw import iwfm_read_gw
+
+            gw_files, node_id, layers, Kh, Ss, Sy, Kq, Kv, init_cond, units, hydrographs_out, factxy_out = iwfm_read_gw(temp_file, verbose=False)
+
+            # Parametric grid: parameter arrays must be empty
+            assert Kh == [], f"Expected Kh=[], got {Kh}"
+            assert Ss == [], f"Expected Ss=[], got {Ss}"
+            assert Sy == [], f"Expected Sy=[], got {Sy}"
+            assert Kq == [], f"Expected Kq=[], got {Kq}"
+            assert Kv == [], f"Expected Kv=[], got {Kv}"
+
+            # node_id comes from init_cond (5 model nodes)
+            assert len(node_id) == 5
+            assert node_id == [1, 2, 3, 4, 5]
+
+            # init_cond must match: [id, head1, ...]
+            assert len(init_cond) == 5
+            assert init_cond[0] == [1, 100.0]
+            assert init_cond[4] == [5, 104.0]
+
+            # layers detected from parametric data
+            assert layers >= 1
+
+            # node_id and init_cond are consistent
+            assert len(node_id) == len(init_cond)
+
+            # file names parsed correctly
+            assert gw_files.bc_file == 'BC.dat'
+            assert gw_files.headall == 'headall.out'
+
+            # units are a list of 3 strings
+            assert len(units) == 3
+            assert all(isinstance(u, str) for u in units)
+
+            # hydrographs is a dict
+            assert isinstance(hydrographs_out, dict)
+            assert len(hydrographs_out) == 1
+
+        finally:
+            os.unlink(temp_file)

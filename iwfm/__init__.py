@@ -250,5 +250,8 @@ new_sim_dict = new_sim_files  # backward compatibility
 # -- multiprocessing --------------------------------------
 from iwfm.multiproc import multiproc
 
+# -- diagnostics module ------------------------------------
+from iwfm import diagnostics
+
 # -- other methods -----------------------------------------
 # from iwfm.meas_bounds import meas_bounds

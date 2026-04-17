@@ -37,6 +37,8 @@ def iwfm_read_gw_params(gw_file):
     iwfm.file_test(gw_file)
 
     gw_files, node_id, layers, Kh, Ss, Sy, Kq, Kv, init_cond, units, hydrographs, factxy = iwfm.iwfm_read_gw(gw_file)
+    if not Kh:
+        return []   # parametric grid file — parameters not available at model nodes
     data = [Kh, Ss, Sy, Kq, Kv, init_cond]
 
     return data

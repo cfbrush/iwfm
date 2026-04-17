@@ -218,62 +218,43 @@ def iwfm_read_gw(gw_file, verbose=False):
     _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
     logger.debug(f'file_lines[{line_index}] = {file_lines[line_index]}')
 
-    if ngroup > 0:                                                      # read parameter grid
-        _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
-        logger.debug(f'file_lines[{line_index}] = {file_lines[line_index]}')
-
-        nodes = int(file_lines[line_index].split()[0])                  # number of parametric grid nodes
-        _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
-        nep = int(file_lines[line_index].split()[0])                    # number of parametric grid elements
-        logger.debug(f'{nodes=}')
+    if ngroup > 0:                                                      # parametric grid
+        # skip range spec ("1-1393" or similar), read NDP and NEP
+        ndp_str, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
+        ndp = int(ndp_str)                                              # NDP: parametric grid nodes
+        nep_str, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
+        nep = int(nep_str)                                              # NEP: parametric grid elements
+        logger.debug(f'{ndp=}')
         logger.debug(f'{nep=}')
 
-        _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=nep+1)
+        # skip NEP connectivity lines + separator (separator is a comment, auto-skipped)
+        _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=nep + 1)
         logger.debug(f'file_lines[{line_index}] = {file_lines[line_index]}')
 
-        # how many layers?
+        # determine layers from first parametric node data line
         layers = 1
-        len1 = len(file_lines[line_index].split())                          # includes node number
-        len2 = len(file_lines[line_index+1].split())                        # does not include node number unless one layer
-        if len2 == len1:
-            layers = 1
-        else:
+        len1 = len(file_lines[line_index].split())
+        len2 = len(file_lines[line_index + 1].split())
+        if len2 < len1:
             while (line_index + layers < len(file_lines) and
-                   len(file_lines[line_index+layers].split()) < len1):
+                   len(file_lines[line_index + layers].split()) < len1):
                 layers += 1
+        logger.debug(f'{layers=} (parametric)')
 
-            if line_index + layers >= len(file_lines):
-                raise ValueError(
-                    f"Unexpected end of file while determining layers at line {line_index}"
-                )
+        # skip all NDP * layers parametric data lines
+        line_index += ndp * layers
 
-        logger.debug(f'{layers=}')
-        logger.debug(f'{nodes=}')
-
-        # initialize parameter arrays
-        node_id = [0 for row in range(nodes)]
-        x = [0 for row in range(nodes)]
-        y = [0 for row in range(nodes)]
-        Kh = [[0.0 for col in range(layers)] for row in range(nodes)]
-        Ss = [[0.0 for col in range(layers)] for row in range(nodes)]
-        Sy = [[0.0 for col in range(layers)] for row in range(nodes)]
-        Kq = [[0.0 for col in range(layers)] for row in range(nodes)]
-        Kv = [[0.0 for col in range(layers)] for row in range(nodes)]
-
-        # read parameter values
-        for node in range(nodes):
-            for layer in range(layers):
-                values = file_lines[line_index].split()
-                if layer == 0:
-                    node_id[node] = int(values.pop(0))
-                    x[node] = int(values.pop(0))
-                    y[node] = int(values.pop(0))
-                Kh[node][layer] = float(values[0])
-                Ss[node][layer] = float(values[1])
-                Sy[node][layer] = float(values[2])
-                Kq[node][layer] = np.float32(values[3])
-                Kv[node][layer] = float(values[4])
-                line_index += 1
+        # parameter arrays unavailable — interpolation not yet implemented
+        # TODO: implement parametric grid → model node interpolation:
+        #   - read preprocessor node file for model node (x, y) coordinates
+        #   - interpolate Kh, Ss, Sy, Kq, Kv from parametric nodes to model nodes
+        logger.warning(
+            f'{gw_file}: parametric grid (NGROUP={ngroup}) — '
+            'aquifer parameters not interpolated to model nodes; '
+            'Kh/Ss/Sy/Kq/Kv returned as empty lists.'
+        )
+        nodes = None
+        Kh, Ss, Sy, Kq, Kv = [], [], [], [], []
 
     else:                                                               # read parameter values
         # how many layers?
@@ -306,7 +287,6 @@ def iwfm_read_gw(gw_file, verbose=False):
         nodes -= 1
 
         # initialize parameter arrays
-        node_id = [0 for row in range(nodes)]
         Kh = [[0.0 for col in range(layers)] for row in range(nodes)]
         Ss = [[0.0 for col in range(layers)] for row in range(nodes)]
         Sy = [[0.0 for col in range(layers)] for row in range(nodes)]
@@ -318,7 +298,7 @@ def iwfm_read_gw(gw_file, verbose=False):
             for layer in range(layers):
                 values = file_lines[line_index].split()
                 if layer == 0:
-                    node_id[node] = int(values.pop(0))
+                    _ = values.pop(0)                                   # discard node ID (derived from init_cond)
                 Kh[node][layer] = float(values[0])
                 Ss[node][layer] = float(values[1])
                 Sy[node][layer] = float(values[2])
@@ -348,7 +328,23 @@ def iwfm_read_gw(gw_file, verbose=False):
         iflagrf = int(current_val)
         logger.debug(f'{iflagrf=}')
         if iflagrf == 1:
-            _, line_index = read_next_line_value(file_lines, line_index, column=0, skip_lines=nodes)
+            if nodes is not None:
+                _, line_index = read_next_line_value(file_lines, line_index, column=0, skip_lines=nodes)
+            else:
+                _, line_index = read_next_line_value(file_lines, line_index, column=0)
+                while line_index < len(file_lines):
+                    ln = file_lines[line_index]
+                    if not ln.strip() or ln.strip()[0] in comments:
+                        line_index += 1
+                        continue
+                    parts = ln.split()
+                    if len(parts) != 3:
+                        break
+                    try:
+                        int(parts[0]); int(parts[1]); int(parts[2])
+                        line_index += 1
+                    except ValueError:
+                        break
         else:
             _, line_index = read_next_line_value(file_lines, line_index, column=0)
         logger.debug(f'After return flow, line_index={line_index}: {file_lines[line_index][:80]}')
@@ -375,7 +371,23 @@ def iwfm_read_gw(gw_file, verbose=False):
                     iflagrf = test_val
                     logger.debug(f'{iflagrf=} (detected)')
                     if iflagrf == 1:
-                        _, line_index = read_next_line_value(file_lines, line_index, column=0, skip_lines=nodes)
+                        if nodes is not None:
+                            _, line_index = read_next_line_value(file_lines, line_index, column=0, skip_lines=nodes)
+                        else:
+                            _, line_index = read_next_line_value(file_lines, line_index, column=0)
+                            while line_index < len(file_lines):
+                                ln = file_lines[line_index]
+                                if not ln.strip() or ln.strip()[0] in comments:
+                                    line_index += 1
+                                    continue
+                                parts = ln.split()
+                                if len(parts) != 3:
+                                    break
+                                try:
+                                    int(parts[0]); int(parts[1]); int(parts[2])
+                                    line_index += 1
+                                except ValueError:
+                                    break
                     else:
                         _, line_index = read_next_line_value(file_lines, line_index, column=0)
                     logger.debug(f'After return flow, line_index={line_index}: {file_lines[line_index][:80]}')
@@ -393,13 +405,33 @@ def iwfm_read_gw(gw_file, verbose=False):
     logger.debug(f'Init cond start at line_index={line_index}: {file_lines[line_index][:80]}')
 
     init_cond = []
-    for node in range(nodes):
-        items = file_lines[line_index].split()
-        temp = [int(items[0])]
-        for l in range(layers):
-            temp.append(float(items[l + 1]))
-        init_cond.append(temp)
-        line_index += 1
+    if nodes is not None:
+        for node in range(nodes):
+            items = file_lines[line_index].split()
+            temp = [int(items[0])]
+            for l in range(layers):
+                temp.append(float(items[l + 1]))
+            init_cond.append(temp)
+            line_index += 1
+    else:
+        # parametric case: init_cond is last section — read until EOF / non-matching line
+        while line_index < len(file_lines):
+            line = file_lines[line_index].strip()
+            if not line or line[0] in comments:
+                line_index += 1
+                continue
+            items = line.split()
+            try:
+                temp = [int(items[0])]
+                for l in range(layers):
+                    temp.append(float(items[l + 1]))
+                init_cond.append(temp)
+                line_index += 1
+            except (ValueError, IndexError):
+                break
+
+    # derive node_id from init_cond for all ngroup values (single source of truth)
+    node_id = [row[0] for row in init_cond]
     logger.debug('leaving iwfm_read_gw.py')
 
     gw_files = GroundwaterFiles(

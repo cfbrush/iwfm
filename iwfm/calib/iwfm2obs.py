@@ -228,7 +228,7 @@ def iwfm2obs(verbose=False):
                             hdiff_data.append([obs_site[i],obs_dt[i],obs_val,ts])
 
             if nt == 'Groundwater' and headdiffs == True and len(hdiff_data) > 0:  # process headdiffs
-                smp, ins = calib.headdiff_hyds(hdiff_pairs, hdiff_data, file_dict[nt][5], ts_func, start_date, verbose)
+                smp, ins = calib.headdiff_hyds(hdiff_pairs, hdiff_data, file_dict[nt][7], ts_func, start_date, verbose)
                 smp_out.extend(smp)                                                # add smp string list to smp_out list
                 ins_out.extend(ins)                                                # add ins string list to ins_out list
 

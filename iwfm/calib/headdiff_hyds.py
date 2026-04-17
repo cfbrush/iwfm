@@ -74,8 +74,9 @@ def headdiff_hyds(hdiff_pairs, hdiff_data, rthresh, ts_func, start_date, verbose
 
     # now step through hdiff_pairs, and calculate head differences
     for pair in hdiff_pairs:
-        if pair[1] in sites and pair[2] in sites:
-            site, left, right = pair[0], pair[1], pair[2]
+        if pair[0] in sites and pair[1] in sites:
+            left, right = pair[0], pair[1]
+            site = f'{left}_{right}'
             left_col, right_col = sites.index(left), sites.index(right)     # which columns of data
 
             for i in range(0,len(data[left_col])):
