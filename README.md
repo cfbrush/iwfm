@@ -12,7 +12,7 @@ This repository contains a python package for working with IWFM model input and 
 
 * Version
 
-Initial release: Alpha January 2021, most recent update February 2026
+Initial release: Alpha January 2021, most recent update April 2026
 
 ### How do I get set up? ###
 
@@ -98,4 +98,4 @@ iwfm.foo()
 
 ### Who do I talk to? ###
 
-* Repo owner/admin: cfbrush_AT_ucdavis_DOT_edu or charles_DOT_brush_AT_hydrolytics-llc_DOT_com
+* Repo owner/admin: cfbrush_AT_gmail_DOT_com or charles_DOT_brush_AT_hydrolytics-llc_DOT_com
