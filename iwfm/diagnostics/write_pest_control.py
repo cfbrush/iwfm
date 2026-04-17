@@ -124,6 +124,14 @@ def write_pest_control(template_pst, output_pst, recommendations,
             pdata['lower'] = bound_changes[pname]['lower']
             pdata['upper'] = bound_changes[pname]['upper']
 
+    # Validate: every tied param must reference an adjustable parent
+    for child, parent in tied_map.items():
+        if parent not in rep_set:
+            raise ValueError(
+                f'Tied param {child} references {parent} which is not '
+                f'adjustable (not in rep_set). PEST requires tied params '
+                f'to reference an adjustable parent.')
+
     # Write new .pst
     _write_pst(sections, new_params, tied_map, output_pst)
 

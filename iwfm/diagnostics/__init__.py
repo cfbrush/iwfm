@@ -3,6 +3,12 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+# Disable HDF5 POSIX file locking before any h5py import.
+# Required on macOS where parallel IWFM Simulation processes hold locks
+# on their HDF5 files, blocking read-only opens from Python.
+import os as _os
+_os.environ.setdefault('HDF5_USE_FILE_LOCKING', 'FALSE')
+
 from iwfm.diagnostics.diag_dataclasses import (
     DiagnosticBundle,
     ConvergenceSummary,
@@ -11,6 +17,7 @@ from iwfm.diagnostics.diag_dataclasses import (
     StreamSummary,
     PestStateSummary,
     StructuralSignals,
+    StabilityJacobianSummary,
 )
 from iwfm.diagnostics.read_convergence_hdf import read_convergence_hdf
 from iwfm.diagnostics.read_elemmb_hdf import read_elemmb_hdf
@@ -34,3 +41,10 @@ from iwfm.diagnostics.parse_model_geometry import (
     parse_node_coords, parse_pst_param_nodes, parse_stream_nodes,
 )
 from iwfm.diagnostics.iteration_callback import iteration_callback
+from iwfm.diagnostics.stability_jacobian import (
+    StabilityCollector,
+    StabilityJacobian,
+    ConvergenceMetrics,
+    read_convergence_quick,
+    compute_stability_scores,
+)

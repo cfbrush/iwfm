@@ -23,6 +23,9 @@ def build_tied_groups(node_coords, representative_ids):
     dict
         {representative_node_id: [list of tied node IDs]} — the groups.
     """
+    if not representative_ids:
+        return {}, {}
+
     rep_set = set(representative_ids)
     all_ids = sorted(node_coords.keys())
 

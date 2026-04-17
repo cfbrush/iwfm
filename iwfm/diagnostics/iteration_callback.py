@@ -15,7 +15,8 @@ from iwfm.diagnostics.parse_model_geometry import parse_node_coords
 
 
 def iteration_callback(pest_dir, iteration=None, model_config=None,
-                       apply_changes=False, verbose=False):
+                       apply_changes=False, stability_result=None,
+                       verbose=False):
     """Post-iteration callback for LLM-supervised PEST.
 
     Assembles diagnostic bundle from HDF5 files and PEST output,
@@ -38,6 +39,9 @@ def iteration_callback(pest_dir, iteration=None, model_config=None,
     apply_changes : bool
         If True, generate parameter recommendations and write a
         new .pst file. If False, only produce diagnostic bundle.
+    stability_result : StabilityJacobian, optional
+        Stability Jacobian from StabilityCollector.compute().
+        If provided, attached to the diagnostic bundle.
     verbose : bool
         Print progress.
 
@@ -96,6 +100,26 @@ def iteration_callback(pest_dir, iteration=None, model_config=None,
     # Update iteration from bundle if auto-detected
     if iteration is None:
         iteration = bundle.pest_state.iteration if bundle.pest_state else 0
+
+    # Attach stability Jacobian if provided
+    if stability_result is not None:
+        from iwfm.diagnostics.diag_dataclasses import StabilityJacobianSummary
+        from dataclasses import asdict
+        # Convert StabilityJacobian → StabilityJacobianSummary for bundle
+        if hasattr(stability_result, 'n_params'):
+            bundle.stability_jacobian = StabilityJacobianSummary(
+                n_params=stability_result.n_params,
+                n_timesteps=stability_result.n_timesteps,
+                base_max_iter=stability_result.base_max_iter,
+                base_mean_iter=stability_result.base_mean_iter,
+                base_max_diffmax=stability_result.base_max_diffmax,
+                base_n_trouble=stability_result.base_n_trouble,
+                param_scores=stability_result.param_scores,
+                top_destabilizers=stability_result.top_destabilizers,
+                n_destabilizing=stability_result.n_destabilizing,
+                mean_stability_score=stability_result.mean_stability_score,
+                max_stability_score=stability_result.max_stability_score,
+            )
 
     # Step 2: Serialize to JSON
     bundle_json = serialize_bundle(bundle, max_list_items=5, float_precision=3)

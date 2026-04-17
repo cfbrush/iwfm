@@ -71,6 +71,26 @@ class StructuralSignals:
 
 
 @dataclass
+class StabilityJacobianSummary:
+    """Per-parameter stability impact from Jacobian perturbation runs.
+
+    Identifies parameters that destabilize model convergence when
+    perturbed — structural hotspots that wreck calibration.
+    """
+    n_params: int = 0
+    n_timesteps: int = 0
+    base_max_iter: int = 0
+    base_mean_iter: float = 0.0
+    base_max_diffmax: float = 0.0
+    base_n_trouble: int = 0
+    param_scores: List[Dict] = field(default_factory=list)
+    top_destabilizers: List[Dict] = field(default_factory=list)
+    n_destabilizing: int = 0
+    mean_stability_score: float = 0.0
+    max_stability_score: float = 0.0
+
+
+@dataclass
 class DiagnosticBundle:
     """Complete diagnostic bundle for one PEST iteration."""
     model_name: str = ''
@@ -83,6 +103,7 @@ class DiagnosticBundle:
     streams: Optional[StreamSummary] = None
     pest_state: Optional[PestStateSummary] = None
     structural_signals: Optional[StructuralSignals] = None
+    stability_jacobian: Optional[StabilityJacobianSummary] = None
 
     def to_dict(self):
         """Convert to plain dict for JSON serialization."""
