@@ -150,6 +150,155 @@ def write_pest_control(template_pst, output_pst, recommendations,
     return summary
 
 
+def modify_pst(template_pst, output_pst, modifications, verbose=False):
+    """Apply targeted modifications to a .pst file.
+
+    Simpler than write_pest_control — applies specific fix/unfix/bound
+    changes without full parameter selection. Used by the LLM supervisor
+    for between-epoch PST modifications.
+
+    Parameters
+    ----------
+    template_pst : str
+        Path to existing .pst file.
+    output_pst : str
+        Path for modified .pst file.
+    modifications : dict
+        {
+            'fix_params': [str],         # Param names to set fixed
+            'unfix_params': [str],       # Param names to set none (adjustable)
+            'bound_changes': [           # Bound adjustments
+                {'name': str, 'lower': float, 'upper': float}
+            ],
+            'perturbation_changes': [    # Group-level step size changes
+                {'group': str, 'derinc': float}
+            ],
+            'initial_values': {str: float},  # Override initial param values
+        }
+    verbose : bool
+        Print progress.
+
+    Returns
+    -------
+    dict
+        Summary: {'n_adjustable', 'n_tied', 'n_fixed', 'n_total',
+                  'n_modified'}.
+    """
+    sections = _parse_pst(template_pst)
+
+    # Build param lookup
+    new_params = {p['name']: dict(p) for p in sections['param_data']}
+
+    fix_params = set(modifications.get('fix_params', []))
+    unfix_params = set(modifications.get('unfix_params', []))
+    bound_changes = {b['name']: b for b in modifications.get('bound_changes', [])}
+    initial_values = modifications.get('initial_values', {})
+    n_modified = 0
+
+    # Rebuild tied map from existing PST (read tied data lines)
+    tied_map = _read_tied_lines(template_pst)
+
+    # Apply fix/unfix
+    for pname in fix_params:
+        if pname in new_params and new_params[pname]['transform'] != 'fixed':
+            new_params[pname]['transform'] = 'fixed'
+            # Remove any tied mappings that reference this param as parent
+            orphans = [c for c, p in tied_map.items() if p == pname]
+            for c in orphans:
+                new_params[c]['transform'] = 'fixed'
+                tied_map.pop(c)
+            # Remove this param if it was a tied child
+            if pname in tied_map:
+                tied_map.pop(pname)
+            n_modified += 1
+
+    for pname in unfix_params:
+        if pname in new_params and new_params[pname]['transform'] == 'fixed':
+            new_params[pname]['transform'] = 'none'
+            n_modified += 1
+
+    # Apply bound changes
+    for pname, bc in bound_changes.items():
+        if pname in new_params:
+            if 'lower' in bc:
+                new_params[pname]['lower'] = bc['lower']
+            if 'upper' in bc:
+                new_params[pname]['upper'] = bc['upper']
+            n_modified += 1
+
+    # Apply initial value overrides
+    for pname, val in initial_values.items():
+        if pname in new_params:
+            new_params[pname]['initial'] = val
+
+    # Apply perturbation step changes to parameter groups section
+    pert_changes = {p['group']: p['derinc']
+                    for p in modifications.get('perturbation_changes', [])}
+    if pert_changes:
+        new_group_lines = []
+        for line in sections['param_groups_lines']:
+            parts = line.split()
+            if len(parts) >= 3 and parts[0] in pert_changes:
+                parts[2] = str(pert_changes[parts[0]])
+                new_group_lines.append('  ' + '   '.join(parts) + '\n')
+                n_modified += 1
+            else:
+                new_group_lines.append(line)
+        sections['param_groups_lines'] = new_group_lines
+
+    # Count transforms
+    n_adjustable = sum(1 for p in new_params.values()
+                       if p['transform'] == 'none')
+    n_tied = sum(1 for p in new_params.values()
+                 if p['transform'] == 'tied')
+    n_fixed = sum(1 for p in new_params.values()
+                  if p['transform'] == 'fixed')
+
+    # Write
+    _write_pst(sections, new_params, tied_map, output_pst)
+
+    summary = {
+        'n_adjustable': n_adjustable,
+        'n_tied': n_tied,
+        'n_fixed': n_fixed,
+        'n_total': len(new_params),
+        'n_modified': n_modified,
+    }
+
+    if verbose:
+        print(f'  PST modified: {output_pst}')
+        print(f'    {n_adjustable} adjustable, {n_tied} tied, '
+              f'{n_fixed} fixed, {n_modified} changes')
+
+    return summary
+
+
+def _read_tied_lines(pst_path):
+    """Read existing tied parameter mapping lines from .pst file."""
+    tied_map = {}
+    with open(pst_path) as f:
+        lines = f.readlines()
+
+    in_param_data = False
+    for line in lines:
+        stripped = line.strip()
+        if stripped == '* parameter data':
+            in_param_data = True
+            continue
+        if stripped == '* observation groups':
+            break
+        if not in_param_data:
+            continue
+        parts = stripped.split()
+        # Tied data lines have exactly 2 columns: child parent
+        if len(parts) == 2:
+            child, parent = parts
+            # Verify these look like param names (not a 7+ field param line)
+            tied_map[child] = parent
+
+    return tied_map
+
+
 def _make_param_name(prefix, node_id, layer):
     """Build PEST parameter name from prefix, node ID, and layer."""
     if prefix == 'c_sn':

@@ -35,7 +35,7 @@ from iwfm.diagnostics.read_pest_sensitivity import read_pest_sensitivity
 from iwfm.diagnostics.select_parameters import select_parameters
 from iwfm.diagnostics.build_tied_groups import build_tied_groups
 from iwfm.diagnostics.suggest_parameter_changes import suggest_parameter_changes
-from iwfm.diagnostics.write_pest_control import write_pest_control
+from iwfm.diagnostics.write_pest_control import write_pest_control, modify_pst
 from iwfm.diagnostics.setup_pest_run import setup_pest_run
 from iwfm.diagnostics.parse_model_geometry import (
     parse_node_coords, parse_pst_param_nodes, parse_stream_nodes,
