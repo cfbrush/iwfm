@@ -30,7 +30,9 @@ def shp_get_PyShp(infile, verbose=False):
 
     Returns
     -------
-    shp : PyShp shapefile object
+    shp : PyShp shapefile.Reader
+        The caller is responsible for closing it (``shp.close()`` or
+        use as a context manager: ``with iwfm.shp_get_PyShp(...) as shp``).
 
     '''
     import shapefile  # pyshp

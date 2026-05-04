@@ -18,21 +18,26 @@
 
 
 def file_type_error(filename, filetype):
-    ''' file_type_error() - Exits with a message that the program doesn't 
+    ''' file_type_error() - Exits with a message that the program doesn't
         work with this input file
-    
+
     Parameters
     ----------
     filename : str
         file name for message
-    
+
     filetype : str
         file type for message
 
     Returns
     -------
-    nothing (exits program)    
-    
+    nothing — this function never returns normally.
+
+    Raises
+    ------
+    SystemExit
+        Always — calls ``sys.exit()`` after printing the message.
+
     '''
     import sys
 

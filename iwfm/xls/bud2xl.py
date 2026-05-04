@@ -18,7 +18,11 @@
 
 def bud2xl(budget_file, excel_file, verbose=False, row=6):
     ''' bud2xl() - Read IWFM Budget or Z-Budget output file and paste
-        into existing Excel workbook
+        into existing Excel workbook.
+
+    .. deprecated::
+        Use :func:`iwfm.xls.open_workbook`, :func:`iwfm.xls.write_cells`,
+        and :func:`iwfm.xls.save_workbook` directly instead.
 
     Parameters
     ----------
@@ -36,8 +40,16 @@ def bud2xl(budget_file, excel_file, verbose=False, row=6):
     nothing
     '''
     import os
+    import warnings
     from iwfm.xls import open_workbook, save_workbook, get_worksheet, write_cells, add_worksheet, close_workbook
     from iwfm.debug.logger_setup import logger
+
+    warnings.warn(
+        "bud2xl() is deprecated. Use open_workbook(), write_cells(), save_workbook() instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    logger.warning("Deprecated function bud2xl() called")
 
     cwd = os.getcwd()
 

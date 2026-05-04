@@ -24,11 +24,19 @@ def file_test(filename):
     ----------
     filename : str
         file name
-    
-    Return
-    ------
+
+    Returns
+    -------
     nothing
-    
+
+    Raises
+    ------
+    SystemExit
+        Raised (via :func:`iwfm.file_missing`) if ``filename`` does not
+        resolve to an existing file. Callers that want a recoverable
+        signal should pre-check with ``os.path.isfile`` or
+        ``Path(...).is_file()`` instead.
+
     '''
     import os
     import iwfm

@@ -30,7 +30,14 @@ def file_missing(filename, context=None):
 
     Returns
     -------
-        nothing
+        nothing — this function never returns normally.
+
+    Raises
+    ------
+    SystemExit
+        Always — calls ``sys.exit()`` after printing the formatted error
+        block. Tests that exercise paths reaching ``file_missing`` should
+        wrap them in ``pytest.raises(SystemExit)``.
 
     '''
     import sys

@@ -31,7 +31,9 @@ def shp_get_writer(outfile, type):
 
     Returns
     -------
-    w : Shapefile writer
+    w : shapefile.Writer
+        The caller MUST call ``w.close()`` (or use it as a context
+        manager) for the shapefile to be flushed to disk.
 
     '''
     import shapefile  # PyShp

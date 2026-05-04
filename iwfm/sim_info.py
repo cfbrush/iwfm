@@ -40,6 +40,14 @@ def sim_info(in_file, verbose=False):
     time_step : str
         time step in DSS format
 
+    Raises
+    ------
+    SystemExit
+        If ``in_file`` does not exist (via :func:`iwfm.file_test`).
+    ValueError
+        If the parsed start_date or end_date does not match the expected
+        ``MM/DD/YYYY`` (or ``MM/DD/YYYY_HH:MM``) format.
+
     '''
     import re
     import iwfm

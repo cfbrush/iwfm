@@ -122,6 +122,14 @@ def read_reaches(reach_file):
         reaches: list
             One entry per group, ``[name, [reach_num, ...]]``. Reach numbers
             are 1-based integers as they appear in the budget file.
+
+        Raises
+        ------
+        FileNotFoundError
+            If ``reach_file`` does not exist (raised by ``open``).
+        ValueError
+            If a data line's ``num_per_group`` token cannot be parsed as
+            ``int``, or if any reach number token cannot be parsed.
     """
     with open(reach_file) as f:
         lines = f.read().splitlines()
@@ -169,6 +177,16 @@ def format_divshort_smp(budget_table, dates, reaches, nwidth=20):
             SMP-format diversion shortage rows.
         ins: list
             Matching PEST INS instructions for the SMP file.
+
+        Raises
+        ------
+        IndexError
+            If a group's ``reach_nums`` references a 1-based reach number
+            that exceeds ``len(budget_table)``. Pre-filter your groups
+            against the budget reach count to avoid this.
+        ValueError
+            If a date in ``dates`` does not match the expected
+            ``M/D/YYYY`` or ``MM/DD/YYYY`` format.
     """
     smp_dates, ins_dates = [], []
     for date in dates:
@@ -223,6 +241,17 @@ def divshort2obs(budget_file, reach_file, nwidth=20):
 
     ins : list
         Corresponding PEST instructions for the SMP file.
+
+    Raises
+    ------
+    FileNotFoundError
+        If ``reach_file`` does not exist.
+    IndexError
+        If any group references a reach number beyond the budget file's
+        reach count (propagated from :func:`format_divshort_smp`).
+    ValueError
+        If the budget or reach file is malformed (numeric tokens fail
+        to parse).
 
     '''
     budget_table, _reach_list, dates = process_budget(budget_file)

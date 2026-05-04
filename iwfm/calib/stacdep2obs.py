@@ -135,6 +135,15 @@ def format_stacdep_smp(budget_table, dates, reaches, nwidth=20):
             SMP-format stream-depletion rows.
         ins: list
             Matching PEST INS instructions for the SMP file.
+
+        Raises
+        ------
+        IndexError
+            If a group's ``reach_nums`` references a 1-based reach number
+            that exceeds ``len(budget_table)``.
+        ValueError
+            If a date in ``dates`` does not match the expected
+            ``M/D/YYYY`` or ``MM/DD/YYYY`` format.
     """
     smp_dates, ins_dates = [], []
     for date in dates:
@@ -189,6 +198,17 @@ def stacdep2obs(budget_file, reach_file, nwidth=20):
 
     ins : list
         Corresponding PEST instructions for the SMP file.
+
+    Raises
+    ------
+    FileNotFoundError
+        If ``reach_file`` does not exist.
+    IndexError
+        If any group references a reach number beyond the budget file's
+        reach count (propagated from :func:`format_stacdep_smp`).
+    ValueError
+        If the budget or reach file is malformed (numeric tokens fail
+        to parse).
 
     '''
     from iwfm.calib.divshort2obs import read_reaches

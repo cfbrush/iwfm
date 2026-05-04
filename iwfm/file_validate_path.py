@@ -19,16 +19,23 @@
 
 def file_validate_path(output_file):
     """Validate output file path and create parent directories if needed.
-    
+
     Parameters
     ----------
     output_file : str
         Path to the output file
-        
+
     Raises
     ------
+    SystemExit
+        On any error (the inner ``ValueError`` and any OS-level exception
+        from ``Path.mkdir`` are caught and reported to stdout, then
+        ``sys.exit()`` is called). To get a recoverable signal instead,
+        validate the path yourself.
     ValueError
-        If output path exists but is not a file
+        Documented for symmetry — the function raises ``ValueError`` on
+        the "path exists but is not a file" case, but the broad
+        ``except Exception`` catches it and converts to ``SystemExit``.
     """
     import sys
     from pathlib import Path

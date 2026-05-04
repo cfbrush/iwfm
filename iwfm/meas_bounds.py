@@ -40,6 +40,12 @@ def meas_bounds(gwhyd_obs):
         Latest measurement date in the file. ``None`` if the file
         contains no parseable data lines.
 
+    Raises
+    ------
+    SystemExit
+        If ``gwhyd_obs`` does not exist (raised via :func:`iwfm.file_test`
+        → :func:`iwfm.file_missing`).
+
     '''
     from datetime import datetime
     import iwfm

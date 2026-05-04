@@ -27,7 +27,9 @@ def read_hdf5(filename, verbose=False):
 
     Returns
     -------
-    f : file object
+    f : h5py.File
+        Open in read mode. The caller is responsible for closing it
+        (``f.close()`` or use as a context manager).
 
     '''
     import h5py
