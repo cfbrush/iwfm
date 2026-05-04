@@ -41,29 +41,26 @@ def print_methods_hdf(filename, spacing=20, verbose=False):
 
     iwfm.file_test(filename)
 
-    object = h5py.File(filename)
+    with h5py.File(filename, 'r') as h5obj:
 
-    if verbose:
-        print(f'  Opened {filename}')
+        if verbose:
+            print(f'  Opened {filename}')
 
-#    methodList = [method for method in dir(object) if callable(getattr(object, method))]
-
-    methodList = []
-    for method_name in dir(object):
-        logger.debug(f'{method_name=}')
-        try:
-            if callable(getattr(object, method_name)):
+        methodList = []
+        for method_name in dir(h5obj):
+            logger.debug(f'{method_name=}')
+            try:
+                if callable(getattr(h5obj, method_name)):
+                    methodList.append(str(method_name))
+            except Exception:
                 methodList.append(str(method_name))
-        except Exception:
-            methodList.append(str(method_name))
-    processFunc = (lambda s: ' '.join(s.split())) or (lambda s: s)
-    for method in methodList:
-        try:
-            print(str(method.ljust(spacing)) + ' ' +
-                processFunc(str(getattr(object, method).__doc__)[0:90]))
-        except Exception:
-            print(method.ljust(spacing) + ' ' + ' getattr() failed')
-
+        processFunc = (lambda s: ' '.join(s.split())) or (lambda s: s)
+        for method in methodList:
+            try:
+                print(str(method.ljust(spacing)) + ' ' +
+                    processFunc(str(getattr(h5obj, method).__doc__)[0:90]))
+            except Exception:
+                print(method.ljust(spacing) + ' ' + ' getattr() failed')
 
     return methodList
 

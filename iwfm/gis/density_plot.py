@@ -52,40 +52,39 @@ def density_plot(infile,fieldname,iwidth=600,iheight=400,
 
     '''
 
-    inShp = shapefile.Reader(infile)
+    with shapefile.Reader(infile) as inShp:
+        val_index = None
+        for i, f in enumerate(inShp.fields):  # Get field index
+            if f[0] == fieldname:
+                val_index = i - 1  # Account for the Deletion Flag field
 
-    val_index = None
-    for i, f in enumerate(inShp.fields):  # Get field index
-        if f[0] == fieldname:
-            val_index = i - 1  # Account for the Deletion Flag field
+        dots = []
+        for shaperec in inShp.iterShapeRecords():
+            value = shaperec.record[val_index]  # get value from field <fieldname>
+            density = value / denrat
+            found = 0
+            while found < density:
+                minx, miny, maxx, maxy = shaperec.shape.bbox
+                x = random.uniform(minx, maxx)
+                y = random.uniform(miny, maxy)
+                if point_in_poly(x, y, shaperec.shape.points):
+                    dots.append((x, y))
+                    found += 1
 
-    dots = []
-    for shaperec in inShp.iterShapeRecords(): 
-        value = shaperec.record[val_index]  # get value from field <fieldname>
-        density = value / denrat 
-        found = 0
-        while found < density:
-            minx, miny, maxx, maxy = shaperec.shape.bbox
-            x = random.uniform(minx, maxx)
-            y = random.uniform(miny, maxy)
-            if point_in_poly(x, y, shaperec.shape.points):
-                dots.append((x, y))
-                found += 1
+        canvas = pngcanvas.PNGCanvas(iwidth, iheight)
 
-    canvas = pngcanvas.PNGCanvas(iwidth, iheight) 
+        canvas.color = (255, 0, 0, 0xFF)  # red dots
+        for dot in dots:
+            x, y = world2screen(inShp.bbox, iwidth, iheight, *dot)
+            canvas.filled_rectangle(x - 1, y - 1, x + 1, y + 1)
 
-    canvas.color = (255, 0, 0, 0xFF)  # red dots
-    for dot in dots:
-        x, y = world2screen(inShp.bbox, iwidth, iheight, *dot)
-        canvas.filled_rectangle(x - 1, y - 1, x + 1, y + 1) 
-
-    canvas.color = (0, 0, 0, 0xFF)  # black lines for shape boundaries
-    for shp in inShp.iterShapes():
-        pixels = []
-        for p in shp.points:
-            pixel = world2screen(inShp.bbox, iwidth, iheight, *p)
-            pixels.append(pixel)
-        canvas.polyline(pixels)
+        canvas.color = (0, 0, 0, 0xFF)  # black lines for shape boundaries
+        for shp in inShp.iterShapes():
+            pixels = []
+            for p in shp.points:
+                pixel = world2screen(inShp.bbox, iwidth, iheight, *p)
+                pixels.append(pixel)
+            canvas.polyline(pixels)
 
     if savename:
         with open(savename, 'wb') as img:

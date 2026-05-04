@@ -46,28 +46,28 @@ def contour2png(source, target, iwidth=800, iheight=600):
         source += '.shp'
     if target[-4:] != '.png':
         target += '.png'
-    r = shapefile.Reader(source)  # Open the contour shapefile
-    # Setup the world to pixels conversion
-    xdist = r.bbox[2] - r.bbox[0]
-    ydist = r.bbox[3] - r.bbox[1]
-    xratio = iwidth / xdist
-    yratio = iheight / ydist
-    contours = []
-    # Loop through all shapes
-    for shape in r.shapes():
-        # Loop through all parts
-        for i in range(len(shape.parts)):
-            pixels = []
-            pt = None
-            if i < len(shape.parts) - 1:
-                pt = shape.points[shape.parts[i] : shape.parts[i + 1]]
-            else:
-                pt = shape.points[shape.parts[i] :]
-            for x, y in pt:
-                px = int(iwidth - ((r.bbox[2] - x) * xratio))
-                py = int((r.bbox[3] - y) * yratio)
-                pixels.append([px, py])
-            contours.append(pixels)
+    with shapefile.Reader(source) as r:  # Open the contour shapefile
+        # Setup the world to pixels conversion
+        xdist = r.bbox[2] - r.bbox[0]
+        ydist = r.bbox[3] - r.bbox[1]
+        xratio = iwidth / xdist
+        yratio = iheight / ydist
+        contours = []
+        # Loop through all shapes
+        for shape in r.shapes():
+            # Loop through all parts
+            for i in range(len(shape.parts)):
+                pixels = []
+                pt = None
+                if i < len(shape.parts) - 1:
+                    pt = shape.points[shape.parts[i] : shape.parts[i + 1]]
+                else:
+                    pt = shape.points[shape.parts[i] :]
+                for x, y in pt:
+                    px = int(iwidth - ((r.bbox[2] - x) * xratio))
+                    py = int((r.bbox[3] - y) * yratio)
+                    pixels.append([px, py])
+                contours.append(pixels)
     # Set up the output canvas
     canvas = pngcanvas.PNGCanvas(iwidth, iheight)
     # PNGCanvas accepts rgba byte arrays for colors
