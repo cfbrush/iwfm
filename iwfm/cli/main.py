@@ -133,10 +133,18 @@ def _register_commands():
         pass
 
     try:
+        from iwfm.hdf5 import hdf5
+        app.add_typer(hdf5.app, name="hdf5", help="HDF5 budget conversion utilities")
+    except (ImportError, AttributeError):
+        pass
+
+    try:
         from iwfm.debug import debug
-        app.add_typer(debug.app, name="debug", help="Developer and diagnostic commands",
-             hidden=not get_context().user_level.is_dev(),
-         )
+        # Note: `hidden` can't be computed from get_context() here because there
+        # is no active typer context at registration time (this runs at import).
+        # Always-visible for now; hide-by-default-unless-dev would need each
+        # command to inspect ctx.obj.user_level at invocation.
+        app.add_typer(debug.app, name="debug", help="Developer and diagnostic commands")
     except (ImportError, AttributeError):
         pass
 

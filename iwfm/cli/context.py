@@ -20,8 +20,12 @@ from enum import Enum
 import typer
 
 
-class UserLevel(Enum):
-    """User level for CLI access control."""
+class UserLevel(str, Enum):
+    """User level for CLI access control.
+
+    Subclasses ``str`` so that typer's ``case_sensitive=False`` option
+    can call ``.casefold()`` on enum members directly.
+    """
     USER = "user"
     POWER = "power"
     DEV = "dev"

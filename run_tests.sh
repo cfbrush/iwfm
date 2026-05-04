@@ -3,7 +3,12 @@
 # run_tests.sh
 # Unix shell script to run all unit tests for the iwfm package
 # Logs output to files and provides summary statistics
-# Copyright (C) 2025 University of California
+# Copyright (C) 2025-2026 University of California
+
+# Propagate pytest's exit code through the `tee` pipeline so the per-file
+# loop's `if pytest ... | tee ...; then` actually reflects pytest's status
+# rather than tee's (which is always 0).
+set -o pipefail
 
 # Script configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

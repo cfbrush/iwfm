@@ -21,3 +21,6 @@ classifiers= [
 [[project.authors]]
 name = "Charles Brush"
 email = "cfbrush@ucdavis.edu"
+
+[project.scripts]
+iwfm = "iwfm.cli.main:run"

@@ -37,9 +37,14 @@ setup(
             'geojson', 'geopandas', 'loguru', 'matplotlib', 'numpy', 'ogr',
             'openpyxl', 'osmnx', 'pandas', 'pathlib', 'pillow', 'pngcanvas',
             'pynmea', 'pypdf2', 'pyshp', 'python_dateutil', 'rasterio',
-            'requests', 'scipy', 'statistics', 'utm', 'xlrd'
+            'requests', 'scipy', 'statistics', 'typer', 'utm', 'xlrd'
             # add any additional packages that need to be installed along with your package. Eg: 'qgis'
         ],
+        entry_points={
+            'console_scripts': [
+                'iwfm = iwfm.cli.main:run',
+            ],
+        },
         python_requires='~=3.8',
         
         keywords=['python', 'first package', 'iwfm'],

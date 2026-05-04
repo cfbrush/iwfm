@@ -1,6 +1,6 @@
-# iwfm_read_stream_reaches.py
-# read IWFM stream reach file
-# Copyright (C) 2020-2026 University of California
+# debug.py
+# Typer subapp for `iwfm debug ...` subcommands
+# Copyright (C) 2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -16,25 +16,28 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+"""Typer subapp for IWFM developer/diagnostic commands."""
 
-def iwfm_read_stream_reaches(reach_file):
-    """ iwfm_read_stream_reaches() - Read group definitions of stream reaches.
+from __future__ import annotations
 
-        Thin wrapper around :func:`iwfm.calib.divshort2obs.read_reaches`,
-        which is the canonical parser for the stream-groundwater group file
-        format (e.g. ``stgwgroups.in``).
+import typer
 
-        Parameters
-        ----------
-        reach_file: str
-            Path to the reach groups file.
-
-        Returns
-        -------
-        reaches: list
-            One entry per group, ``[name, [reach_num, ...]]``.
-    """
-    from iwfm.calib.divshort2obs import read_reaches
-    return read_reaches(reach_file)
+app = typer.Typer(
+    name="debug",
+    help="Developer and diagnostic commands.",
+    no_args_is_help=True,
+)
 
 
+@app.command("env")
+def env() -> None:
+    """Print environment info (PATH, PYTHONPATH, system, cwd)."""
+    from iwfm.debug.print_env import print_env
+    print_env()
+
+
+@app.command("python")
+def python_info() -> None:
+    """Print info about the running Python interpreter (version, path, platform)."""
+    from iwfm.debug.this_python import this_python
+    this_python()
