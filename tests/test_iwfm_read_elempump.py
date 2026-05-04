@@ -440,3 +440,28 @@ class TestIwfmReadElempump:
 
         finally:
             os.unlink(temp_file)
+
+
+# -----------------------------------------------------------------------------
+# Error-path tests
+# -----------------------------------------------------------------------------
+
+def test_iwfm_read_elempump_missing_file_exits(tmp_path):
+    """Calling with a nonexistent path bails out via iwfm.file_test() → sys.exit()."""
+    import pytest
+    from iwfm.iwfm_read_elempump import iwfm_read_elempump
+
+    bogus = str(tmp_path / "does_not_exist.dat")
+    with pytest.raises(SystemExit):
+        iwfm_read_elempump(bogus, [1, 2, 3])
+
+
+def test_iwfm_read_elempump_empty_file_raises(tmp_path):
+    """An empty element-pump file should fail the parser."""
+    import pytest
+    from iwfm.iwfm_read_elempump import iwfm_read_elempump
+
+    empty = tmp_path / "empty.dat"
+    empty.write_text("")
+    with pytest.raises((IndexError, ValueError)):
+        iwfm_read_elempump(str(empty), [1, 2, 3])

@@ -491,3 +491,28 @@ class TestIgsmReadStreams:
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
+
+
+# -----------------------------------------------------------------------------
+# Error-path tests
+# -----------------------------------------------------------------------------
+
+def test_igsm_read_streams_missing_file_exits(tmp_path):
+    """Calling with a nonexistent path bails out via iwfm.file_test() → sys.exit()."""
+    import pytest
+    from iwfm.igsm_read_streams import igsm_read_streams
+
+    bogus = str(tmp_path / "does_not_exist.dat")
+    with pytest.raises(SystemExit):
+        igsm_read_streams(bogus)
+
+
+def test_igsm_read_streams_empty_file_raises(tmp_path):
+    """An empty stream file should fail the parser (not silently return empty)."""
+    import pytest
+    from iwfm.igsm_read_streams import igsm_read_streams
+
+    empty = tmp_path / "empty.dat"
+    empty.write_text("")
+    with pytest.raises((IndexError, ValueError)):
+        igsm_read_streams(str(empty))

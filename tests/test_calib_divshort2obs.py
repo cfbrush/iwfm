@@ -79,30 +79,158 @@ def _build_budget_lines(num_reaches=2, num_dates=3):
                       'Delivery             ')
         # Line 4 - header row 2 (ends with 'Shortage', no trailing spaces)
         lines.append(header4)
-        # Line 5 - header row 3
-        lines.append('                    Diversion   Shortage    Loss        '
-                      'Elem Grp             ')
+        # Line 5 - units row
+        lines.append('                       (+)         (-)          (+)       '
+                      '   (+)            (=)')
         # Line 6 - dash separator
         lines.append('-' * 80)
+
         # Data lines
-        for i in range(num_dates):
-            shortage = shortage_values[i] * reach
-            # Build data line so that data_line[loc:] is a parseable float.
-            # Fill columns before 'loc' with date and placeholder values,
-            # then right-justify the shortage value starting at column loc.
-            prefix = f'{base_dates[i]}      0.0         0.0         0.0         0.0'
-            # Pad or trim prefix to exactly 'loc' characters
-            if len(prefix) < loc:
-                prefix = prefix + ' ' * (loc - len(prefix))
-            else:
-                prefix = prefix[:loc]
-            data_line = prefix + str(shortage)
-            lines.append(data_line)
-        # Two blank lines between tables
+        for d in range(num_dates):
+            date = base_dates[d % len(base_dates)]
+            value = shortage_values[d % len(shortage_values)]
+            # Build a line where columns >= loc parse as a float
+            line = ' ' * loc + f'{value:>16.2f}'
+            # Prepend the date in the first 16 chars
+            line = date.ljust(16) + line[16:]
+            lines.append(line)
+
+        # Two blank lines per table (only one needed, but match real file pattern)
         lines.append('')
         lines.append('')
 
     return lines
+
+
+def _build_groups_file(tmp_path, groups, maxpergroup=4):
+    """Build a stgwgroups.in-style reach groups file.
+
+    Parameters
+    ----------
+    tmp_path : pathlib.Path
+        Temp dir from pytest fixture.
+    groups : list of (name, [reach_nums]) tuples
+        Each tuple becomes one data row.
+    maxpergroup : int
+        Header value (informational).
+
+    Returns
+    -------
+    str
+        Path to the written file.
+    """
+    reach_file = tmp_path / 'stgwgroups.in'
+    lines = [
+        f'maxpergroup  {maxpergroup}',
+        f'numrchgroup {len(groups)}',
+        'groupname\tnum_per_group\treaches',
+    ]
+    for name, reach_nums in groups:
+        cols = [name, str(len(reach_nums))] + [str(n) for n in reach_nums]
+        lines.append('\t'.join(cols))
+    reach_file.write_text('\n'.join(lines))
+    return str(reach_file)
+
+
+class TestReadReaches:
+    """Tests for read_reaches() against the real stgwgroups.in format.
+
+    Format (3 header lines, then `name<sep>num_per_group<sep>reach_nums...`).
+    Separators between reach_nums can be tabs, spaces, OR commas.
+    """
+
+    def test_returns_list(self, tmp_path):
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = _build_groups_file(tmp_path, [('REACH1', [1])])
+        result = read_reaches(reach_file)
+        assert isinstance(result, list)
+
+    def test_parses_reach_name(self, tmp_path):
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = _build_groups_file(tmp_path, [('MY_REACH', [1])])
+        result = read_reaches(reach_file)
+        assert result[0][0] == 'MY_REACH'
+
+    def test_parses_reach_numbers(self, tmp_path):
+        """Multiple reach numbers in one group are returned as a list of ints."""
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = _build_groups_file(tmp_path, [('REACH1', [1, 2, 3])])
+        result = read_reaches(reach_file)
+        assert result[0][1] == [1, 2, 3]
+
+    def test_multiple_reaches(self, tmp_path):
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = _build_groups_file(tmp_path, [
+            ('REACH1', [1]),
+            ('REACH2', [2, 3]),
+            ('REACH3', [4, 5, 6]),
+        ])
+        result = read_reaches(reach_file)
+        assert len(result) == 3
+
+    def test_skips_header_lines(self, tmp_path):
+        """The first 3 lines (maxpergroup, numrchgroup, column header) are skipped."""
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = _build_groups_file(tmp_path, [
+            ('FIRST_GROUP', [1]),
+            ('SECOND_GROUP', [2]),
+        ])
+        result = read_reaches(reach_file)
+        assert len(result) == 2
+        assert result[0][0] == 'FIRST_GROUP'
+        assert result[1][0] == 'SECOND_GROUP'
+
+    def test_returns_list_of_lists(self, tmp_path):
+        """Each entry is [name, [reach_num, ...]]."""
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = _build_groups_file(tmp_path, [('TestReach', [42])])
+        result = read_reaches(reach_file)
+        assert isinstance(result[0], list)
+        assert len(result[0]) == 2
+        assert isinstance(result[0][0], str)
+        assert isinstance(result[0][1], list)
+        assert isinstance(result[0][1][0], int)
+
+    def test_uses_num_per_group(self, tmp_path):
+        """num_per_group controls how many trailing tokens are read as reaches."""
+        from iwfm.calib.divshort2obs import read_reaches
+        # Manually build a line where extra trailing whitespace tokens exist
+        # (the real file has trailing tabs); only num_per_group should be read.
+        reach_file = tmp_path / 'stgwgroups.in'
+        reach_file.write_text(
+            'maxpergroup  4\n'
+            'numrchgroup 1\n'
+            'groupname\tnum_per_group\treaches\n'
+            'GROUP_A\t2\t10\t20\t\t\t\n'
+        )
+        result = read_reaches(str(reach_file))
+        assert result == [['GROUP_A', [10, 20]]]
+
+    def test_comma_separated_reach_nums(self, tmp_path):
+        """Reach numbers separated by commas are parsed too."""
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = tmp_path / 'stgwgroups.in'
+        reach_file.write_text(
+            'maxpergroup  4\n'
+            'numrchgroup 1\n'
+            'groupname\tnum_per_group\treaches\n'
+            'GROUP_B\t3\t1,2,3\n'
+        )
+        result = read_reaches(str(reach_file))
+        assert result == [['GROUP_B', [1, 2, 3]]]
+
+    def test_mixed_separators(self, tmp_path):
+        """Reach numbers separated by mix of tabs/spaces/commas are parsed."""
+        from iwfm.calib.divshort2obs import read_reaches
+        reach_file = tmp_path / 'stgwgroups.in'
+        reach_file.write_text(
+            'maxpergroup  4\n'
+            'numrchgroup 1\n'
+            'groupname\tnum_per_group\treaches\n'
+            'GROUP_C\t4\t55,56\t58 66\n'
+        )
+        result = read_reaches(str(reach_file))
+        assert result == [['GROUP_C', [55, 56, 58, 66]]]
 
 
 class TestProcessBudget:
@@ -117,351 +245,200 @@ class TestProcessBudget:
         return str(budget_file)
 
     def test_process_budget_returns_three_items(self, tmp_path):
-        """Test that process_budget returns budget_table, reach_list, dates."""
         from iwfm.calib.divshort2obs import process_budget
-
         budget_file = self.create_mock_budget_file(tmp_path)
         result = process_budget(budget_file)
-
         assert isinstance(result, tuple)
         assert len(result) == 3
 
     def test_process_budget_reach_list(self, tmp_path):
-        """Test that reach_list contains correct reach numbers."""
         from iwfm.calib.divshort2obs import process_budget
-
         budget_file = self.create_mock_budget_file(tmp_path, num_reaches=3, num_dates=5)
         budget_table, reach_list, dates = process_budget(budget_file)
-
-        assert len(reach_list) == 3
-        assert 1 in reach_list
-        assert 2 in reach_list
-        assert 3 in reach_list
+        assert reach_list == [1, 2, 3]
 
     def test_process_budget_dates(self, tmp_path):
-        """Test that dates are extracted correctly."""
         from iwfm.calib.divshort2obs import process_budget
-
         budget_file = self.create_mock_budget_file(tmp_path, num_dates=3)
         budget_table, reach_list, dates = process_budget(budget_file)
-
         assert len(dates) == 3
-        # Dates should have _24:00 removed
-        assert '10/31/1973' in dates[0]
-        assert '11/30/1973' in dates[1]
-        assert '12/31/1973' in dates[2]
+        for date in dates:
+            assert '_24:00' not in date
 
     def test_process_budget_table_structure(self, tmp_path):
-        """Test that budget_table has correct structure."""
         from iwfm.calib.divshort2obs import process_budget
-
         budget_file = self.create_mock_budget_file(tmp_path, num_reaches=2, num_dates=3)
         budget_table, reach_list, dates = process_budget(budget_file)
-
-        # Should have one array per reach
         assert len(budget_table) == 2
-        # Each array should be numpy array
-        assert isinstance(budget_table[0], np.ndarray)
-        assert isinstance(budget_table[1], np.ndarray)
+        for table in budget_table:
+            assert isinstance(table, np.ndarray)
+            assert len(table) == 3
 
 
-class TestReadReaches:
-    """Tests for read_reaches function"""
+class TestFormatDivshortSmp:
+    """Tests for the pure formatter helper."""
 
-    def test_read_reaches_basic(self, tmp_path):
-        """Test basic functionality of read_reaches."""
-        from iwfm.calib.divshort2obs import read_reaches
-
-        reach_file = tmp_path / 'reaches.dat'
-        content = """Name    Reach
-DIV_001    1
-DIV_002    2
-DIV_003    3
-"""
-        reach_file.write_text(content)
-
-        reaches = read_reaches(str(reach_file))
-
-        assert len(reaches) == 3
-        assert reaches[0] == ['DIV_001', 1]
-        assert reaches[1] == ['DIV_002', 2]
-        assert reaches[2] == ['DIV_003', 3]
-
-    def test_read_reaches_skips_header(self, tmp_path):
-        """Test that first line (header) is skipped."""
-        from iwfm.calib.divshort2obs import read_reaches
-
-        reach_file = tmp_path / 'reaches.dat'
-        content = """HEADER_LINE SHOULD_BE_SKIPPED
-REACH_A    5
-REACH_B    10
-"""
-        reach_file.write_text(content)
-
-        reaches = read_reaches(str(reach_file))
-
-        assert len(reaches) == 2
-        assert reaches[0][0] == 'REACH_A'
-        assert reaches[1][0] == 'REACH_B'
-
-    def test_read_reaches_returns_list_of_lists(self, tmp_path):
-        """Test that each reach is [name, reach_number]."""
-        from iwfm.calib.divshort2obs import read_reaches
-
-        reach_file = tmp_path / 'reaches.dat'
-        content = """Header
-TestReach    42
-"""
-        reach_file.write_text(content)
-
-        reaches = read_reaches(str(reach_file))
-
-        assert isinstance(reaches, list)
-        assert isinstance(reaches[0], list)
-        assert len(reaches[0]) == 2
-        assert isinstance(reaches[0][0], str)
-        assert isinstance(reaches[0][1], int)
-
-    def test_read_reaches_single_reach(self, tmp_path):
-        """Test with single reach."""
-        from iwfm.calib.divshort2obs import read_reaches
-
-        reach_file = tmp_path / 'reaches.dat'
-        content = """Name    Reach
-OnlyReach    99
-"""
-        reach_file.write_text(content)
-
-        reaches = read_reaches(str(reach_file))
-
-        assert len(reaches) == 1
-        assert reaches[0] == ['OnlyReach', 99]
-
-    def test_read_reaches_many_reaches(self, tmp_path):
-        """Test with many reaches."""
-        from iwfm.calib.divshort2obs import read_reaches
-
-        reach_file = tmp_path / 'reaches.dat'
-        lines = ['Name    Reach']
-        for i in range(50):
-            lines.append(f'REACH_{i:03d}    {i+1}')
-        reach_file.write_text('\n'.join(lines))
-
-        reaches = read_reaches(str(reach_file))
-
-        assert len(reaches) == 50
-        assert reaches[0] == ['REACH_000', 1]
-        assert reaches[49] == ['REACH_049', 50]
-
-
-class TestDivshort2Obs:
-    """Tests for divshort2obs function"""
-
-    def test_divshort2obs_returns_two_lists(self):
-        """Test that divshort2obs returns divshort and ins lists."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_returns_two_lists(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([100.0, 200.0])]
         dates = ['10/31/1973', '11/30/1973']
-        reaches = [['DIV_001', 1]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
+        reaches = [['DIV_001', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert isinstance(divshort, list)
         assert isinstance(ins, list)
 
-    def test_divshort2obs_smp_format(self):
-        """Test that output is in SMP format."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_smp_format(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([123.45])]
         dates = ['10/31/1973']
-        reaches = [['TEST_DIV', 1]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
+        reaches = [['TEST_DIV', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert len(divshort) == 1
-        # SMP format: name date time value
         assert 'TEST_DIV' in divshort[0]
         assert '0:00:00' in divshort[0]
         assert '123.45' in divshort[0]
 
-    def test_divshort2obs_ins_format(self):
-        """Test that instruction file format is correct."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_ins_format(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([100.0])]
         dates = ['10/31/1973']
-        reaches = [['DIV_001', 1]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
+        reaches = [['DIV_001', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert len(ins) == 1
-        # INS format: l1  [name_MMDDYY]45:56
         assert 'l1' in ins[0]
         assert 'DIV_001_' in ins[0]
         assert '45:56' in ins[0]
 
-    def test_divshort2obs_multiple_dates(self):
-        """Test with multiple dates."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_multiple_dates(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([100.0, 200.0, 300.0])]
         dates = ['10/31/1973', '11/30/1973', '12/31/1973']
-        reaches = [['DIV_001', 1]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
+        reaches = [['DIV_001', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert len(divshort) == 3
         assert len(ins) == 3
 
-    def test_divshort2obs_multiple_reaches(self):
-        """Test with multiple reaches."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_multiple_reaches(self):
+        """Two single-reach groups produce 2 reaches * 2 dates = 4 outputs."""
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [
             np.array([100.0, 200.0]),
             np.array([150.0, 250.0]),
         ]
         dates = ['10/31/1973', '11/30/1973']
-        reaches = [['DIV_001', 1], ['DIV_002', 2]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
-        # 2 reaches * 2 dates = 4 outputs
+        reaches = [['DIV_001', [1]], ['DIV_002', [2]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert len(divshort) == 4
         assert len(ins) == 4
 
-    def test_divshort2obs_date_conversion(self):
-        """Test that dates are converted to MM/DD/YYYY format."""
-        from iwfm.calib.divshort2obs import divshort2obs
+    def test_sums_multiple_reaches_in_group(self):
+        """A group with multiple reach numbers sums their values."""
+        from iwfm.calib.divshort2obs import format_divshort_smp
+        budget_table = [
+            np.array([100.0]),
+            np.array([10.0]),
+            np.array([1.0]),
+        ]
+        dates = ['10/31/1973']
+        reaches = [['SUMGROUP', [1, 2, 3]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
+        # 100 + 10 + 1 = 111
+        assert '111.0' in divshort[0]
 
+    def test_does_not_mutate_caller_arrays(self):
+        """Summing across a group must not mutate the caller's budget_table arrays."""
+        from iwfm.calib.divshort2obs import format_divshort_smp
+        a = np.array([100.0])
+        b = np.array([10.0])
+        budget_table = [a, b]
+        dates = ['10/31/1973']
+        reaches = [['SUM', [1, 2]]]
+        format_divshort_smp(budget_table, dates, reaches)
+        assert a[0] == 100.0  # would be 110.0 if mutated
+        assert b[0] == 10.0
+
+    def test_date_conversion(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([100.0])]
-        dates = ['1/5/1980']  # Single digit month and day
-        reaches = [['DIV_001', 1]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
-        # Should be converted to proper format
-        # The exact format depends on date2text implementation
+        dates = ['1/5/1980']  # single-digit month and day
+        reaches = [['DIV_001', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert len(divshort) == 1
+        assert '01/05/1980' in divshort[0]
 
-    def test_divshort2obs_name_padding(self):
-        """Test that reach names are padded to nwidth."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_name_padding(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([100.0])]
         dates = ['10/31/1973']
-        reaches = [['A', 1]]  # Short name
+        reaches = [['A', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches, nwidth=20)
+        assert divshort[0].startswith('A' + ' ' * 19)
 
-        divshort, ins = divshort2obs(budget_table, dates, reaches, nwidth=20)
-
-        # Name should be padded
-        assert len(divshort) == 1
-        # First 20 characters should be the padded name
-        assert divshort[0].startswith('A')
-
-    def test_divshort2obs_negative_values(self):
-        """Test with negative shortage values."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_negative_values(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([-50.0, -100.0])]
         dates = ['10/31/1973', '11/30/1973']
-        reaches = [['DIV_001', 1]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
+        reaches = [['DIV_001', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert '-50.0' in divshort[0]
         assert '-100.0' in divshort[1]
 
-    def test_divshort2obs_zero_values(self):
-        """Test with zero shortage values."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
+    def test_zero_values(self):
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [np.array([0.0, 0.0])]
         dates = ['10/31/1973', '11/30/1973']
-        reaches = [['DIV_001', 1]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
+        reaches = [['DIV_001', [1]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert '0.0' in divshort[0]
 
-    def test_divshort2obs_reach_index(self):
-        """Test that correct reach index is used (reach_num - 1)."""
-        from iwfm.calib.divshort2obs import divshort2obs
-
-        # Three reaches in budget_table
+    def test_reach_index(self):
+        """Group with reach=[2] picks budget_table[1]."""
+        from iwfm.calib.divshort2obs import format_divshort_smp
         budget_table = [
-            np.array([100.0]),  # Reach 1
-            np.array([200.0]),  # Reach 2
-            np.array([300.0]),  # Reach 3
+            np.array([100.0]),  # reach 1
+            np.array([200.0]),  # reach 2
+            np.array([300.0]),  # reach 3
         ]
         dates = ['10/31/1973']
-        # Only request reach 2
-        reaches = [['DIV_002', 2]]
-
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
-        # Should get value from reach 2 (index 1)
+        reaches = [['DIV_002', [2]]]
+        divshort, ins = format_divshort_smp(budget_table, dates, reaches)
         assert '200.0' in divshort[0]
 
 
 class TestDivshort2ObsIntegration:
-    """Integration tests using all three functions together"""
+    """Integration tests using all three functions together via temp files."""
 
     def create_test_files(self, tmp_path, num_reaches=2, num_dates=3):
-        """Create both budget and reach files for integration testing."""
-        # Create budget file using the shared helper
+        """Create budget and reach group files for integration testing."""
         budget_file = tmp_path / 'diversions.bud'
-        lines = _build_budget_lines(num_reaches=num_reaches,
-                                    num_dates=num_dates)
+        lines = _build_budget_lines(num_reaches=num_reaches, num_dates=num_dates)
         budget_file.write_text('\n'.join(lines))
 
-        # Create reach file
-        reach_file = tmp_path / 'reaches.dat'
-        reach_lines = ['Name    Reach']
-        for i in range(1, num_reaches + 1):
-            reach_lines.append(f'DIV_{i:03d}    {i}')
-        reach_file.write_text('\n'.join(reach_lines))
-
-        return str(budget_file), str(reach_file)
+        reach_file = _build_groups_file(
+            tmp_path,
+            [(f'DIV_{i:03d}', [i]) for i in range(1, num_reaches + 1)],
+        )
+        return str(budget_file), reach_file
 
     def test_full_workflow(self, tmp_path):
-        """Test the complete workflow from files to SMP output."""
-        from iwfm.calib.divshort2obs import process_budget, read_reaches, divshort2obs
-
-        budget_file, reach_file = self.create_test_files(tmp_path, num_reaches=2, num_dates=3)
-
-        # Process budget file
-        budget_table, reach_list, dates = process_budget(budget_file)
-
-        # Read reaches
-        reaches = read_reaches(reach_file)
-
-        # Convert to SMP format
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
-
-        # 2 reaches * 3 dates = 6 outputs
+        from iwfm.calib.divshort2obs import divshort2obs
+        budget_file, reach_file = self.create_test_files(tmp_path,
+                                                          num_reaches=2,
+                                                          num_dates=3)
+        divshort, ins = divshort2obs(budget_file, reach_file)
+        # 2 groups * 3 dates = 6 outputs
         assert len(divshort) == 6
         assert len(ins) == 6
 
     def test_output_can_be_written_to_file(self, tmp_path):
-        """Test that output can be written to SMP and INS files."""
-        from iwfm.calib.divshort2obs import process_budget, read_reaches, divshort2obs
-
+        from iwfm.calib.divshort2obs import divshort2obs
         budget_file, reach_file = self.create_test_files(tmp_path)
-        
-        budget_table, reach_list, dates = process_budget(budget_file)
-        reaches = read_reaches(reach_file)
-        divshort, ins = divshort2obs(budget_table, dates, reaches)
+        divshort, ins = divshort2obs(budget_file, reach_file)
 
-        # Write SMP file
         smp_file = tmp_path / 'output.smp'
         with open(smp_file, 'w') as f:
             for item in divshort:
                 f.write(f'{item}\n')
-
-        # Write INS file
         ins_file = tmp_path / 'output.ins'
         with open(ins_file, 'w') as f:
             f.write('pif #\n')
@@ -481,48 +458,74 @@ class TestWithRealFile:
     def real_budget_file(self):
         """Get path to real budget file if it exists."""
         test_dir = os.path.dirname(__file__)
-        budget_path = os.path.join(
-            test_dir, 
-            'C2VSimCG-2021/Results/C2VSimCG_Diversions.bud'
-        )
-        if os.path.exists(budget_path):
-            return budget_path
-        pytest.skip("C2VSimCG diversions file not found")
+        # Either a dedicated diversions file or the streams budget (which
+        # contains the Diversion Shortage column).
+        for name in ('C2VSimCG_Diversions.bud', 'C2VSimCG_Streams_Budget.bud'):
+            budget_path = os.path.join(test_dir, 'C2VSimCG-2021', 'Results', name)
+            if os.path.exists(budget_path):
+                return budget_path
+        pytest.skip("No C2VSimCG budget file (Diversions or Streams_Budget) found")
+
+    @pytest.fixture
+    def real_reach_file(self):
+        """Get path to real stgwgroups.in if it exists."""
+        test_dir = os.path.dirname(__file__)
+        reach_path = os.path.join(test_dir, 'C2VSimCG-2021', 'Calib', 'stgwgroups.in')
+        if not os.path.exists(reach_path):
+            pytest.skip(f"Reach groups file not found: {reach_path}")
+        return reach_path
 
     def test_process_real_budget_file(self, real_budget_file):
-        """Test process_budget with real C2VSimCG file."""
         from iwfm.calib.divshort2obs import process_budget
-
         try:
             budget_table, reach_list, dates = process_budget(real_budget_file)
         except (ValueError, IndexError):
             pytest.skip("Budget file format not compatible with process_budget()")
-
-        # Should have data
         assert len(budget_table) > 0
         assert len(reach_list) > 0
         assert len(dates) > 0
-
-        # Reach list should be integers
         assert all(isinstance(r, int) for r in reach_list)
-
-        # Budget table should contain numpy arrays
         assert all(isinstance(bt, np.ndarray) for bt in budget_table)
 
     def test_dates_format_real_file(self, real_budget_file):
-        """Test that dates are properly extracted from real file."""
         from iwfm.calib.divshort2obs import process_budget
-
         try:
             budget_table, reach_list, dates = process_budget(real_budget_file)
         except (ValueError, IndexError):
             pytest.skip("Budget file format not compatible with process_budget()")
-
-        # Dates should be in M/D/YYYY format (without _24:00)
         for date in dates:
             assert '_24:00' not in date
             parts = date.split('/')
-            assert len(parts) == 3  # M/D/YYYY
+            assert len(parts) == 3
+
+    def test_read_real_groups_file(self, real_reach_file):
+        from iwfm.calib.divshort2obs import read_reaches
+        reaches = read_reaches(real_reach_file)
+        assert len(reaches) > 0
+        for entry in reaches:
+            assert isinstance(entry, list) and len(entry) == 2
+            assert isinstance(entry[0], str)
+            assert isinstance(entry[1], list)
+            assert all(isinstance(n, int) for n in entry[1])
+
+    def test_end_to_end_real_files(self, real_budget_file, real_reach_file):
+        """End-to-end with real fixtures: compute SMP/INS for groups whose
+        reach numbers are all within range of the budget file's reach count.
+        """
+        from iwfm.calib.divshort2obs import (
+            process_budget, read_reaches, format_divshort_smp,
+        )
+        budget_table, _reach_list, dates = process_budget(real_budget_file)
+        groups = read_reaches(real_reach_file)
+        # Filter out groups whose reach numbers exceed the budget file's
+        # reach count (the user's stgwgroups.in may target a larger model).
+        valid = [g for g in groups if max(g[1]) <= len(budget_table)]
+        assert valid, "no groups in stgwgroups.in fit within the budget reach count"
+
+        divshort, ins = format_divshort_smp(budget_table, dates, valid)
+        # one row per group per date
+        assert len(divshort) == len(valid) * len(dates)
+        assert len(ins) == len(divshort)
 
 
 if __name__ == '__main__':

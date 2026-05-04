@@ -20,7 +20,7 @@
 import pytest
 import tempfile
 import os
-from iwfm.calib.real2iwfm import read_overwrite_file
+from iwfm.calib import read_overwrite_file
 
 
 def create_overwrite_test_file(nwrite, factors, time_units, param_data):

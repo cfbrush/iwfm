@@ -25,30 +25,24 @@ import importlib.util
 
 
 def _import_choropleth_directly():
-    '''Import choropleth module directly bypassing iwfm.gis.__init__.py'''
-    choropleth_path = Path(__file__).parent.parent / 'iwfm' / 'gis' / 'choropleth.py'
-    world2screen_path = Path(__file__).parent.parent / 'iwfm' / 'gis' / 'world2screen.py'
+    '''Return the iwfm.gis.choropleth module object and register a sys.modules
+    alias under which mock.patch can address attributes of that module.
 
-    # Import world2screen first
-    spec_w2s = importlib.util.spec_from_file_location("world2screen_module", world2screen_path)
-    module_w2s = importlib.util.module_from_spec(spec_w2s)
-    sys.modules['world2screen_module'] = module_w2s
-    spec_w2s.loader.exec_module(module_w2s)
+    The complication: iwfm/gis/__init__.py does
+    ``from iwfm.gis.choropleth import choropleth``, which rebinds the
+    ``choropleth`` attribute on the ``iwfm.gis`` package to the function. So
+    ``patch('iwfm.gis.choropleth.shapefile.Reader')`` walks attributes via
+    ``iwfm.gis.choropleth`` and lands on the function, not the module — and
+    mock raises "iwfm.gis.choropleth is not a package".
 
-    # Create mock iwfm.gis module
-    if 'iwfm' not in sys.modules:
-        sys.modules['iwfm'] = type(sys)('iwfm')
-    if 'iwfm.gis' not in sys.modules:
-        sys.modules['iwfm.gis'] = type(sys)('iwfm.gis')
-    sys.modules['iwfm'].gis = sys.modules['iwfm.gis']
-    sys.modules['iwfm.gis'].world2screen = module_w2s.world2screen
-
-    # Now import choropleth
-    spec = importlib.util.spec_from_file_location("choropleth_module", choropleth_path)
-    module = importlib.util.module_from_spec(spec)
-    sys.modules['choropleth_module'] = module
-    spec.loader.exec_module(module)
-    return module
+    We sidestep this by exposing the actual module under an alias name
+    ``_choropleth_under_test`` in sys.modules. Patches address that name.
+    '''
+    import importlib
+    importlib.import_module('iwfm.gis.choropleth')
+    mod = sys.modules['iwfm.gis.choropleth']
+    sys.modules['_choropleth_under_test'] = mod
+    return mod
 
 
 def test_choropleth_imports():
@@ -87,7 +81,7 @@ def test_choropleth_error_handling_field_not_found():
     mock_reader.bbox = [0, 0, 100, 100]
     mock_reader.shapeRecords.return_value = []
 
-    with patch('choropleth_module.shapefile.Reader', return_value=mock_reader):
+    with patch('_choropleth_under_test.shapefile.Reader', return_value=mock_reader):
         # Test missing fieldname1
         with pytest.raises(ValueError, match="Field 'NonexistentField' not found"):
             choropleth('test.shp', 'NonexistentField', 'Field2')
@@ -118,8 +112,8 @@ def test_choropleth_division_by_zero_handling():
 
     mock_reader.shapeRecords.return_value = [mock_shape]
 
-    with patch('choropleth_module.shapefile.Reader', return_value=mock_reader):
-        with patch('iwfm.gis.world2screen', return_value=(50, 50)):
+    with patch('_choropleth_under_test.shapefile.Reader', return_value=mock_reader):
+        with patch('_choropleth_under_test.world2screen', return_value=(50, 50)):
             # Should not raise ZeroDivisionError, should skip the shape
             try:
                 choropleth('test.shp', 'Field1', 'Field2')
@@ -150,8 +144,8 @@ def test_choropleth_basic(tmp_path):
 
     output_file = tmp_path / 'test_choropleth.png'
 
-    with patch('choropleth_module.shapefile.Reader', return_value=mock_reader):
-        with patch('iwfm.gis.world2screen', return_value=(50, 50)):
+    with patch('_choropleth_under_test.shapefile.Reader', return_value=mock_reader):
+        with patch('_choropleth_under_test.world2screen', return_value=(50, 50)):
             # Should not raise any errors
             choropleth('test.shp', 'Population', 'Area', savename=str(output_file))
 
@@ -179,8 +173,8 @@ def test_choropleth_no_save():
 
     mock_reader.shapeRecords.return_value = [mock_shape]
 
-    with patch('choropleth_module.shapefile.Reader', return_value=mock_reader):
-        with patch('iwfm.gis.world2screen', return_value=(50, 50)):
+    with patch('_choropleth_under_test.shapefile.Reader', return_value=mock_reader):
+        with patch('_choropleth_under_test.world2screen', return_value=(50, 50)):
             # Should not raise any errors and not save
             choropleth('test.shp', 'Value1', 'Value2', savename=None)
 

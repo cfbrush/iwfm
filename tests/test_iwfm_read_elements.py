@@ -406,3 +406,30 @@ class TestIwfmReadElements:
 
         finally:
             os.unlink(temp_file)
+
+
+# -----------------------------------------------------------------------------
+# Error-path tests
+# -----------------------------------------------------------------------------
+
+def test_iwfm_read_elements_missing_file_exits(tmp_path):
+    """Calling with a nonexistent path bails out via iwfm.file_test() → sys.exit()."""
+    import pytest
+    from iwfm.iwfm_read_elements import iwfm_read_elements
+
+    bogus = str(tmp_path / "does_not_exist.dat")
+    with pytest.raises(SystemExit):
+        iwfm_read_elements(bogus)
+
+
+def test_iwfm_read_elements_empty_file_raises(tmp_path):
+    """An empty (but existing) elements file fails the parser, not silently."""
+    import pytest
+    from iwfm.iwfm_read_elements import iwfm_read_elements
+
+    empty = tmp_path / "empty.dat"
+    empty.write_text("")
+    # The parser raises IndexError when it tries to read the element count line
+    # from an empty/all-comment file — assert that we don't silently succeed.
+    with pytest.raises((IndexError, ValueError)):
+        iwfm_read_elements(str(empty))
