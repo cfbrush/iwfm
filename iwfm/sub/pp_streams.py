@@ -118,9 +118,10 @@ def sub_pp_streams(stream_file, node_list):
 
 
 def exit_now(stream_type):
-    print(f'  ** Error: sub_pp_streams() ')
-    print(f'  ** No method to read stream specification type {stream_type}')
-    print(f'  ** Exiting...\n')
-
     import sys
+    from iwfm.debug.logger_setup import logger
+    logger.error(
+        f'sub_pp_streams(): no method to read stream specification type '
+        f'{stream_type!r}; exiting.'
+    )
     sys.exit()

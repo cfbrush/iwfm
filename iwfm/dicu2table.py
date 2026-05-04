@@ -105,9 +105,9 @@ def dicu2table(data_file, verbose=False):
             seep_table.append(temp_values)
             site_info_seep.append(site_info)
         else:
-            print(f' \n** Flow data type {kind} not recognized **')
-            print(' ** Quitting.')
             import sys
+            from iwfm.debug.logger_setup import logger
+            logger.error(f'Flow data type {kind!r} not recognized; quitting.')
             sys.exit()
             return 0
 

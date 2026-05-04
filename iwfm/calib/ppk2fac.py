@@ -93,8 +93,8 @@ def par2fac_idw2(pp_coord, node_coord, n_ppoints=3, min_ppoints=3, max_ppoints=1
 
     # check that n_ppoints is within range
     if n_ppoints < min_ppoints or n_ppoints > max_ppoints:
-        print(f'  Error: n_ppoints = {n_ppoints} is outside of range {min_ppoints} to {max_ppoints}')
-        print(f'  Exiting...')
+        from iwfm.debug.logger_setup import logger
+        logger.error(f'n_ppoints = {n_ppoints} is outside of range {min_ppoints} to {max_ppoints}; exiting.')
         sys.exit()
 
     ppoints, weights = [], []

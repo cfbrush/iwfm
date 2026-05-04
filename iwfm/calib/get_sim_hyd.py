@@ -58,7 +58,6 @@ def get_sim_hyd(nt,file_name,start_date):
 
     if hyd_index >= len(hyd_lines):
         logger.warning(f'No simulation data found in {file_name} (empty hydrograph file)')
-        print(f'  ** Warning: No simulation data found in {file_name}')
         return sim_hyd, dates
 
     while hyd_index < len(hyd_lines) and hyd_lines[hyd_index][0].isdigit() == True:   # get the dates

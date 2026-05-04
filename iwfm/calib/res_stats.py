@@ -77,17 +77,19 @@ def res_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
     well_names, rmse_values, bias_values, sim_all = [], [], [], []
     meas_all, count, dates, meas = [], [], [], []
 
+    from iwfm.debug.logger_setup import logger
+
     name, date = head_obs[0][0], head_obs[0][1]
-    print(f' => name: {name},\tdate: {date}\tmeas: {head_obs[0][3]}')
+    logger.debug(f'name: {name}, date: {date}, meas: {head_obs[0][3]}')
     dates.append(date)
     meas.append(head_obs[0][3])
 
     # use hyd_dict to find the column no for this obs well in simhyd_obs
     simhyd_col = int(hyd_dict.get(name).column)
-    print(f' => simhyd_col: {simhyd_col}')
+    logger.debug(f'simhyd_col: {simhyd_col}')
 
     # calculate the simulated value for this observation
-    print(f'  simhyd.sim_head({date},{simhyd_col}): {simhyd.sim_head(date,simhyd_col)}')
+    logger.debug(f'simhyd.sim_head({date},{simhyd_col}): {simhyd.sim_head(date,simhyd_col)}')
     sim.append(simhyd.sim_head(date,simhyd_col))    
 
     # move through the file

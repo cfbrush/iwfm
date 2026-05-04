@@ -163,11 +163,11 @@ def hdf2zxlsx_gw(hdf_file, zone_file, output_file,
         setup_debug_logger()  # Auto-detects script name
 
     if not os.path.exists(hdf_file):
-        print(f"Error: HDF5 file '{hdf_file}' not found")
+        logger.error(f"HDF5 file '{hdf_file}' not found")
         sys.exit(1)
 
     if not os.path.exists(zone_file):
-        print(f"Error: Zone definition file '{zone_file}' not found")
+        logger.error(f"Zone definition file '{zone_file}' not found")
         sys.exit(1)
 
     if debug:

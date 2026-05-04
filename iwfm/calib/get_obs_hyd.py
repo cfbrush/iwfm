@@ -54,12 +54,10 @@ def get_obs_hyd(obs_file,start_date):
     for count, line in enumerate(obs_lines):
         item = line.split()
 
-        if len(item) < 2:                                                  # error
+        if len(item) < 2:
             logger.error(f'Error at line {count:,} of {obs_file}: "{line}"')
-            print(f'\n * Error at line {count:,} of {obs_file}: ')         # error
-            print(f' * "{line}"\n\n')                                      # error
-            import sys                                                     # error
-            sys.exit()                                                     # error
+            import sys
+            sys.exit()
 
         if item[0] not in obs_sites:
             obs_sites.append(item[0])

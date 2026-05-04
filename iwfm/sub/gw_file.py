@@ -71,8 +71,11 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
 
     # Check if groundwater file exists
     if not sim_files.gw_file:
-        print('\n*** ERROR: Groundwater file path not specified in simulation files.')
-        print('    Check that the simulation input file specifies a groundwater file.')
+        from iwfm.debug.logger_setup import logger
+        logger.error(
+            'Groundwater file path not specified in simulation files.\n'
+            '    Check that the simulation input file specifies a groundwater file.'
+        )
         sys.exit(1)
 
     gw_file_path = sim_files.gw_file

@@ -69,10 +69,13 @@ def map_param2shp_rz_urban(param_types, param_vals, elem_shp_name, out_shp_name=
         try:
             data = param_vals[:,j]                                          # compile data for the field
         except IndexError as e:
-            print(f'\n*** Error: Cannot access parameter index {j} (param: {param_types_main[j]})')
-            print(f'*** param_types_main has {len(param_types_main)} items: {param_types_main}')
-            print(f'*** param_vals shape: {param_vals.shape}')
-            print(f'*** Index {j} is out of bounds for axis 1 with size {param_vals.shape[1]}')
+            from iwfm.debug.logger_setup import logger
+            logger.error(
+                f'Cannot access parameter index {j} (param: {param_types_main[j]})\n'
+                f'    param_types_main has {len(param_types_main)} items: {param_types_main}\n'
+                f'    param_vals shape: {param_vals.shape}\n'
+                f'    Index {j} is out of bounds for axis 1 with size {param_vals.shape[1]}'
+            )
             raise
 
         gdf_new[field_name] = data                                      # add a field to the geopandas dataframe

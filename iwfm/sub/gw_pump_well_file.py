@@ -107,24 +107,27 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
         line_data = well_lines[line_index].split()
         if len(line_data) < 3:
             import sys
-            print(f'\n*** ERROR: Malformed well file while processing element groups')
-            print(f'    File: {old_filename}')
-            print(f'    Processing group {id + 1} of {ngrp}')
-            print(f'    Current line {line_index + 1}: "{well_lines[line_index]}"')
-            print(f'\n    Expected format for group header line:')
-            print(f'      group_id num_elements first_element [additional_data]')
-            print(f'    Found {len(line_data)} value(s) but expected at least 3')
-            print('\n    Well file format:')
-            print('      - Each group starts with: <ID> <NELEM> <first_element>')
-            print('      - Followed by NELEM-1 lines with one element ID each')
-            print('\n    This error may occur if:')
-            print('      1. The number of element groups (NGRP) is wrong')
-            print('      2. The number of elements (NELEM) in a previous group was incorrect')
-            print('      3. There is a bug in the line deletion logic when filtering groups')
-            print('\n    Please verify:')
-            print('      - The NGRP value matches the actual number of groups in the file')
-            print('      - Each group header has the correct NELEM value')
-            print(f'      - Check the format around line {line_index + 1} in the original file')
+            from iwfm.debug.logger_setup import logger
+            logger.error(
+                'Malformed well file while processing element groups\n'
+                f'    File: {old_filename}\n'
+                f'    Processing group {id + 1} of {ngrp}\n'
+                f'    Current line {line_index + 1}: "{well_lines[line_index]}"\n'
+                '\n    Expected format for group header line:\n'
+                '      group_id num_elements first_element [additional_data]\n'
+                f'    Found {len(line_data)} value(s) but expected at least 3\n'
+                '\n    Well file format:\n'
+                '      - Each group starts with: <ID> <NELEM> <first_element>\n'
+                '      - Followed by NELEM-1 lines with one element ID each\n'
+                '\n    This error may occur if:\n'
+                '      1. The number of element groups (NGRP) is wrong\n'
+                '      2. The number of elements (NELEM) in a previous group was incorrect\n'
+                '      3. There is a bug in the line deletion logic when filtering groups\n'
+                '\n    Please verify:\n'
+                '      - The NGRP value matches the actual number of groups in the file\n'
+                '      - Each group header has the correct NELEM value\n'
+                f'      - Check the format around line {line_index + 1} in the original file'
+            )
             sys.exit(1)
 
         grp_id, nelem, ielem, *z = [int(e) for e in line_data]

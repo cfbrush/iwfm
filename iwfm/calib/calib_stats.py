@@ -189,12 +189,12 @@ def calib_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
         logger.error(f'OS error writing file {out_file}: {e}')
         raise
     logger.debug(f'Wrote {len(sim_all)} simulated/observed values to {out_file}')
-    print(f'\n  Wrote all simulated and observed values to {out_file}')
+    logger.info(f'Wrote all simulated and observed values to {out_file}')
 
     # write out results for each well
     out_file = gwhyd_file.replace('.out','_rmse.txt')
     ical.write_rmse_bias(out_file,gw_hyd_dict,well_names,rmse_values,bias_values,count)
-    print(f'  Wrote results for each well to {out_file}')
+    logger.info(f'Wrote results for each well to {out_file}')
 
 
     # write out results for all wells
@@ -212,7 +212,7 @@ def calib_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
         logger.error(f'OS error writing file {out_file}: {e}')
         raise
     logger.debug(f'Wrote overall RMSE={rmse_all} and BIAS={bias_all} to {out_file}')
-    print(f'  Wrote results for all wells to {out_file}')
+    logger.info(f'Wrote results for all wells to {out_file}')
     
     return
 

@@ -221,9 +221,10 @@ snodes_header_42 = [
 
 
 def exit_now(stream_type):
-    print(f'  ** Error.')
-    print(f'  ** No method to wrwite stream specification type {stream_type}')
-    print(f'  ** Exiting...\n')
     import sys
-
+    from iwfm.debug.logger_setup import logger
+    logger.error(
+        f'sub_pp_stream_file(): no method to write stream specification type '
+        f'{stream_type!r}; exiting.'
+    )
     sys.exit()

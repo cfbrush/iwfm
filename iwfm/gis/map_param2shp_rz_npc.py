@@ -92,7 +92,8 @@ def map_param2shp_rz_npc(param_types, param_vals, crops, elem_shp_name, out_shp_
             if verbose: print(f'  Created IWFM parameter shapefile {out_shp_name}')
 
         else:
-            print(f'  Skipping parameter {param_types[j]}')
+            from iwfm.debug.logger_setup import logger
+            logger.info(f'Skipping parameter {param_types[j]}')
 
 
     return 

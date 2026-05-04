@@ -22,7 +22,15 @@ from datetime import datetime
 
 try:
     from loguru import logger
-    logger.remove()  # silence loguru's default stderr handler
+    # Replace loguru's verbose default handler with a concise INFO+ handler
+    # that is on by default. logger.info/warning/error are visible without
+    # any setup; logger.debug only fires once setup_debug_logger() is called.
+    logger.remove()
+    logger.add(
+        sys.stderr,
+        level="INFO",
+        format="<level>{level: <7}</level> | {message}",
+    )
 except ImportError:
     import logging
     logger = logging.getLogger(__name__)

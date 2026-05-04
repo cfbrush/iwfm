@@ -49,7 +49,8 @@ def krige(A, B):
         
         # Append the kriging factors for the current point in B to the list
         kriging_factors.append(normalized_weights.tolist()[0])
-    print(len(kriging_factors))
+    from iwfm.debug.logger_setup import logger
+    logger.debug(f'krige: computed {len(kriging_factors)} kriging factor sets')
     return kriging_factors
 
 

@@ -67,7 +67,8 @@ def headall2shp(heads_file, pre_file, out_date, basename, label='Heads', units='
 
     # find index of out_date in dates
     if out_date not in dates:
-        print(f'  Error: Date {out_date} not found in {heads_file}')
+        from iwfm.debug.logger_setup import logger
+        logger.error(f'Date {out_date} not found in {heads_file}')
         return
     index = dates.index(out_date)
 

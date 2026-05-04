@@ -63,7 +63,8 @@ def plot_one(param_name, plot_data, bounding_poly, layer, basename, units='', po
 
     # if all plot_data values are equal then they can't be contoured
     if len(set([i[2] for i in plot_data])) == 1:
-        print(f'  Skipping {param_name} contour plots for layer {layer+1}, all values are the same')
+        from iwfm.debug.logger_setup import logger
+        logger.warning(f'Skipping {param_name} contour plots for layer {layer+1}, all values are the same')
     else:
         #  Produce contour lines map
         image_name = f'{basename}_{param_name}{layer+1}_contour.'+format       #  Set image file name

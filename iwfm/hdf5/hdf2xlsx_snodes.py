@@ -91,7 +91,7 @@ def hdf2xlsx_snodes(hdf_file, output_file,
         setup_debug_logger()  # Auto-detects script name
 
     if not os.path.exists(hdf_file):
-        print(f"Error: File '{hdf_file}' not found")
+        logger.error(f"File '{hdf_file}' not found")
         sys.exit(1)
 
     if debug:

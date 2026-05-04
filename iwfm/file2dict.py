@@ -58,6 +58,7 @@ def file2dict(infile, key_field=0, val_field=1, skip=0, key_type=str, val_type=s
                 values = val_type(items[val_field])
                 d[key] = values
             except (ValueError, IndexError) as e:
-                print(f"Warning: Could not convert line {i+1}: {e}")
+                from iwfm.debug.logger_setup import logger
+                logger.warning(f"Could not convert line {i+1}: {e}")
                 continue
     return d

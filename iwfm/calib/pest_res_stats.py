@@ -95,7 +95,8 @@ def pest_res_stats(pest_res_file, verbose=False):
 
     # write out results
     out_file = pest_res_file.replace('.res','_stats.out')
-    print(f'  Writing {out_file}')
+    from iwfm.debug.logger_setup import logger
+    logger.info(f'Writing {out_file}')
     with open(out_file,"w") as of:
         of.write(f'Name\tN\tMean\tBias\tRMSE\tStdev\tGroup\n')
         for i in range(0, len(obs)):

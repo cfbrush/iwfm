@@ -47,11 +47,12 @@ def read_settings(in_file='settings.fig'):
     idate, iheader, datespec, headerspec = 0, 0, 0, ' '
 
     if not os.path.isfile(in_file):                         # test for input file
-        print(f' Settings file \'{in_file}\' was not found in the current directory.')
+        from iwfm.debug.logger_setup import logger
+        logger.warning(f"Settings file '{in_file}' not found in current directory; creating defaults.")
         datespec, headerspec, idate, iheader = 2, 'no', 0, 0
         with open(in_file, 'w') as output_file:
             output_file.write("{}\n{}\n".format('colrow=no','date=mm/dd/yyyy'))
-        print(f' Created a default \'{in_file}\' file')
+        logger.info(f"Created a default '{in_file}' file.")
         return datespec, headerspec, idate, iheader
 
     # == read the file into array file_lines
