@@ -43,7 +43,8 @@ def gw_hyd_annual(gwhyd_file):
         gwhyd_lines = f.read().splitlines()
 
     # Skip header lines to reach first data line
-    line_index = iwfm.skip_ahead(0, gwhyd_lines, 0)
+    from iwfm.file_utils import read_next_line_value
+    _, line_index = read_next_line_value(gwhyd_lines, -1, skip_lines=0)
     start_index = line_index
     start_len = len(gwhyd_lines) - start_index  # Count of data lines
 

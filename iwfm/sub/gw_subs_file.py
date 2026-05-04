@@ -64,7 +64,7 @@ def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbo
     new_nouts, nouts_line = 0, line_index
 
     # Skip factors (3 data lines) to reach hydrograph locations
-    line_index = iwfm.skip_ahead(line_index, subs_lines, 3)
+    _, line_index = read_next_line_value(subs_lines, line_index - 1, skip_lines=3)
 
     # remove hydrographs that are not in the submodel
     keep_hyd = []
@@ -78,7 +78,7 @@ def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbo
             new_nouts += 1
             keep_hyd.append(id)
             line_index += 1
-        line_index = iwfm.skip_ahead(line_index, subs_lines, 0)       # skip comments to next section
+        _, line_index = read_next_line_value(subs_lines, line_index - 1, skip_lines=0)       # skip comments to next section
 
     subs_lines[nouts_line] = '         ' + str(new_nouts) + '                       / NOUTS'
 

@@ -43,7 +43,7 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
 
     '''
     import iwfm
-    from iwfm.file_utils import read_next_line_value
+    from iwfm.file_utils import read_next_line_value, skip_to_next_line
 
     if verbose: print(f"Entered sub_gw_td_file() with {old_filename}")
 
@@ -61,7 +61,7 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
     ntd_line = line_index
 
     # Skip factors (4 data lines) to reach tile drain data
-    line_index = iwfm.skip_ahead(line_index, td_lines, 4)
+    line_index = skip_to_next_line(td_lines, line_index - 1, skip_lines=4)
     new_ntd = 0
 
     # remove tile drains nodes that are not in the submodel
@@ -75,7 +75,7 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
                 td_keep.append(int(t[1]))
                 new_ntd += 1
                 line_index += 1
-        line_index = iwfm.skip_ahead(line_index, td_lines, 0)       # skip comments to next section
+        line_index = skip_to_next_line(td_lines, line_index - 1, skip_lines=0)       # skip comments to next section
 
     td_lines[ntd_line] = '         ' + str(new_ntd) + '                       / NTD'
 
@@ -96,7 +96,7 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
             else:
                 new_nsi += 1
                 line_index += 1
-        line_index = iwfm.skip_ahead(line_index, td_lines, 0)       # skip comments to next section
+        line_index = skip_to_next_line(td_lines, line_index - 1, skip_lines=0)       # skip comments to next section
 
     td_lines[nsi_line] = '         ' + str(new_nsi) + '                       / NSI'
 
@@ -105,7 +105,7 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
     nhyd_line = line_index
 
     # Skip factors (4 data lines) to reach hydrograph data
-    line_index = iwfm.skip_ahead(line_index, td_lines, 4)
+    line_index = skip_to_next_line(td_lines, line_index - 1, skip_lines=4)
     new_nhyd = 0
 
     # remove hydrographs for tile drains that are not in the submodel

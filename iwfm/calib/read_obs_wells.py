@@ -33,18 +33,21 @@ def read_obs_wells(gw_file):
         dictionary of groundwater hydrograph info, values are WellInfo instances
     '''
     import iwfm
+    from iwfm.file_utils import read_next_line_value
     from iwfm.iwfm_dataclasses import WellInfo
 
     well_dict = {}
     iwfm.file_test(gw_file)
     with open(gw_file) as f:
         gwhyd_info = f.read().splitlines()           # open and read input file
-    line_index = iwfm.skip_ahead(1,gwhyd_info,20)            # skip to NOUTH, number of hydrographs
-    line = gwhyd_info[line_index].split()
-    nouth = int(line[0])
 
-    line_index = iwfm.skip_ahead(line_index,gwhyd_info,3)    # skip to first hydrograph
-    for i in range(0,nouth):                                 # process each hydrograph
+    # skip to NOUTH (number of hydrographs)
+    nouth_str, line_index = read_next_line_value(gwhyd_info, 0, column=0, skip_lines=20)
+    nouth = int(nouth_str)
+
+    # skip to first hydrograph
+    _, line_index = read_next_line_value(gwhyd_info, line_index - 1, skip_lines=3)
+    for i in range(0, nouth):                                 # process each hydrograph
         line = gwhyd_info[line_index].split()
         key = line[5]                 # well name = key
         well_dict[key] = WellInfo(
@@ -54,6 +57,6 @@ def read_obs_wells(gw_file):
             layer=int(line[2]),
             name=line[5].lower(),
         )
-        line_index = iwfm.skip_ahead(line_index,gwhyd_info,1)
+        _, line_index = read_next_line_value(gwhyd_info, line_index - 1, skip_lines=1)
     return well_dict
 

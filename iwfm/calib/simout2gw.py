@@ -36,18 +36,19 @@ def read_gw_file(gw_file):
 
     '''
     import iwfm
+    from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(gw_file)
     with open(gw_file) as f:
-        gw_data = f.read().splitlines() 
+        gw_data = f.read().splitlines()
 
-    comments = 'Cc*#'
+    nouth_str, line_index = read_next_line_value(gw_data, 0, column=0, skip_lines=20)
+    nouth = int(nouth_str)             # number of hydrograph lines to skip
 
-    line_index = iwfm.skip_ahead(1, gw_data, 20)
-    nouth = int(gw_data[line_index].split()[0])             # number of hydrograph lines to skip
-    line_index = iwfm. skip_ahead(line_index, gw_data, nouth + 3)
-    noutf = int(gw_data[line_index].split()[0])             # number of flow lines to skip
-    line_index = iwfm. skip_ahead(line_index, gw_data, noutf + 7)
+    noutf_str, line_index = read_next_line_value(gw_data, line_index - 1, column=0, skip_lines=nouth + 3)
+    noutf = int(noutf_str)             # number of flow lines to skip
+
+    _, line_index = read_next_line_value(gw_data, line_index - 1, skip_lines=noutf + 7)
     param_line = line_index
 
     return gw_data, param_line

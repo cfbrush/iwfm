@@ -46,6 +46,7 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
 
     import os
     import iwfm
+    from iwfm.file_utils import read_next_line_value
 
     main_file = file_dict[ftype][0]   # IWFM input file
     colid     = file_dict[ftype][8]   # col no of observation site name
@@ -60,12 +61,14 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
 
     if ftype == 'Tile drains':
         # -- the first part of the tile drain file is different
-        line_index = iwfm.skip_ahead(line_index,in_lines,0)
-        td_no = int(in_lines[line_index].split()[0])                    # no. tile drain param rows
-        line_index = iwfm.skip_ahead(line_index,in_lines,td_no + 3)     # skip tile drain parameters + 3 lines
-        line_index = iwfm.skip_ahead(line_index,in_lines,1)
-        sd_no = int(in_lines[line_index].split()[0])                    # no. subsurface irrigation points
-        line_index = iwfm.skip_ahead(line_index,in_lines,sd_no + 4)     # skip subsurface irrigation params + 4  lines
+        td_no_str, line_index = read_next_line_value(in_lines, line_index - 1, column=0)
+        td_no = int(td_no_str)                                # no. tile drain param rows
+        # skip tile drain parameters + 3 lines
+        _, line_index = read_next_line_value(in_lines, line_index - 1, skip_lines=td_no + 3)
+        sd_no_str, line_index = read_next_line_value(in_lines, line_index - 1, column=0, skip_lines=1)
+        sd_no = int(sd_no_str)                                # no. subsurface irrigation points
+        # skip subsurface irrigation params + 4 lines
+        _, line_index = read_next_line_value(in_lines, line_index - 1, skip_lines=sd_no + 4)
         logger.debug(f'  Tile drains: td_no={td_no}, sd_no={sd_no}, line_index={line_index}')
     elif ftype == 'Groundwater':
         # IWFM groundwater files vary between versions (optional IHTPFLAG,
@@ -78,13 +81,13 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
                 found = True
                 break
         if not found:                                                    # fallback to skip count
-            line_index = iwfm.skip_ahead(line_index,in_lines,skips[0])
+            _, line_index = read_next_line_value(in_lines, line_index - 1, skip_lines=skips[0])
             logger.debug(f'  Groundwater: NOUTH marker not found, used skip count, line_index={line_index}')
         else:
             logger.debug(f'  Groundwater: found NOUTH marker at line {line_index}')
     else:
         # -- Streams, Subsidence, and other types
-        line_index = iwfm.skip_ahead(line_index,in_lines,skips[0])
+        _, line_index = read_next_line_value(in_lines, line_index - 1, skip_lines=skips[0])
         logger.debug(f'  {ftype}: skipped {skips[0]} lines, line_index={line_index}')
 
     # -- get NOUT - number of hydrographs
@@ -92,8 +95,8 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
     logger.info(f'  {ftype}: {nout:,} hydrographs (NOUT)')
 
     # -- get hydrographs output file name
-    line_index = iwfm.skip_ahead(line_index,in_lines,skips[1])
-    hyd_file = in_lines[line_index].split()[0].replace('\\', os.sep)
+    hyd_file_raw, line_index = read_next_line_value(in_lines, line_index - 1, column=0, skip_lines=skips[1])
+    hyd_file = hyd_file_raw.replace('\\', os.sep)
     if model_dir:
         hyd_file = os.path.normpath(os.path.join(model_dir, hyd_file))
     logger.info(f'  {ftype}: hydrograph output file: {hyd_file}')
@@ -103,9 +106,9 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
 
     # -- get hydrograph names and locations as list
     hyd_names = []
-    for i in range(0,nout):
-        line_index = iwfm.skip_ahead(line_index,in_lines,1)
-        hyd_names.append(in_lines[line_index].split()[colid])
+    for i in range(0, nout):
+        name, line_index = read_next_line_value(in_lines, line_index - 1, column=colid, skip_lines=1)
+        hyd_names.append(name)
     logger.debug(f'  {ftype}: read {len(hyd_names):,} hydrograph names')
 
     return hyd_file, hyd_names

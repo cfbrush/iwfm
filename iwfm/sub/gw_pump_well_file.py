@@ -80,7 +80,7 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
 
     well_lines[nwells_line] = '         ' + str(new_nwells) + '                       / NWELL'
     # Skip comments to well pumping characteristics section
-    line_index = iwfm.skip_ahead(line_index, well_lines, 0)
+    _, line_index = read_next_line_value(well_lines, line_index - 1, skip_lines=0)
 
     for l in range(0, nwells):
         t = well_lines[line_index].split()

@@ -60,6 +60,7 @@ def read_overwrite_file(overwrite_file, nnodes, nlay, param_types, verbose=False
     
     '''
     import iwfm
+    from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(overwrite_file)
     with open(overwrite_file) as f:
@@ -70,21 +71,20 @@ def read_overwrite_file(overwrite_file, nnodes, nlay, param_types, verbose=False
                         f'       This file must contain a valid IWFM overwrite template.\n'
                         f'       Please provide a valid overwrite file or create a template file.')
 
-    line_index = 0
-    line_index = iwfm.skip_ahead(line_index,in_lines,0)               # skip comments
+    nwrite_str, line_index = read_next_line_value(in_lines, -1, column=0, skip_lines=0)
 
     if line_index >= len(in_lines):
         raise ValueError(f'ERROR: Overwrite file "{overwrite_file}" contains only comments or is improperly formatted.\n'
                         f'       Expected NWRITE value after comment lines but reached end of file.')
 
-    nwrite = int(in_lines[line_index].split()[0])                     # no. of parameter lines
+    nwrite = int(nwrite_str)                                          # no. of parameter lines
 
-    line_index = iwfm.skip_ahead(line_index,in_lines,1)               # skip comments
+    _, line_index = read_next_line_value(in_lines, line_index - 1, skip_lines=1)
     factors = [in_lines[line_index].split()[0] for i in range(0,7)]   # scaling factors
 
-    line_index = iwfm.skip_ahead(line_index,in_lines,4)
+    _, line_index = read_next_line_value(in_lines, line_index - 1, skip_lines=4)
 
-    line_index = iwfm.skip_ahead(line_index,in_lines,0)
+    _, line_index = read_next_line_value(in_lines, line_index - 1, skip_lines=0)
 
     parvals_d = {}
     for line in in_lines[line_index:]:                                # skip comments

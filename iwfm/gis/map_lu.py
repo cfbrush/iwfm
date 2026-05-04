@@ -69,7 +69,7 @@ def map_lu(land_use_file, elem_shp_name, out_shp_basename, verbose=False):
     area_factor = float(area_factor_str)  # factor to convert area to square feet - not used here
 
     # Skip 4 lines (NSPLNP, NFQLNP, DSSFL, comments) to reach data section
-    line_index = iwfm.skip_ahead(line_index, file_lines, 4)
+    _, line_index = iwfm.read_next_line_value(file_lines, line_index - 1, skip_lines=4)
 
     lu_lines = 1                                                # how many lines per time-step? count lines to next date
     while file_lines[line_index + lu_lines].find('_24:00') == -1:
