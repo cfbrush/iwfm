@@ -21,22 +21,19 @@
 def nearest_node(point, node_set):
     ''' nearest_node() - Find the nearest node to a point from the node array
 
-    ** INCOMPLETE **
-    TODO: NEED TO UPDATE TO READ WELL FILE 
-
     Parameters
     ----------
     point : tuple
         (x,y) point
-    
+
     node_set : list
-        list of node numbers with x and y of each
+        list of [node_id, x, y] entries
 
     Returns
     -------
     nearest : int
-        number of nearest node
-    
+        node id of the nearest node, or -1 if node_set is empty
+
     '''
     import math
 

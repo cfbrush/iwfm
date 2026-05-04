@@ -186,8 +186,15 @@ def iwfm2obs(verbose=False):
             # set up function to interpolate time step from date
             time_steps = [x+1 for x in list(range(len(sim_dates)))]
 
-            # scipy interpolation function for time steps
-            ts_func = interp1d(np.array(sim_dates), np.array(time_steps), kind='linear')
+            # scipy interpolation function for time steps. Same clamped-extrapolation
+            # behaviour as sim_func below, so observation dates outside a truncated
+            # simulation map to the first/last available time step instead of crashing.
+            ts_func = interp1d(
+                np.array(sim_dates), np.array(time_steps),
+                kind='linear',
+                bounds_error=False,
+                fill_value=(float(time_steps[0]), float(time_steps[-1])),
+            )
 
             obs_file = file_dict[nt][1]
             obs_sites, obs_data = calib.get_obs_hyd(obs_file,start_date)          # get the observation sites and dates
@@ -213,11 +220,22 @@ def iwfm2obs(verbose=False):
                         for j in range(0,len(sim_hyd)):
                             sim.append(sim_hyd[j][col_id])
 
-                        # set up function to interpolate simulated values to obs dates
-                        sim_func = interp1d(np.array(sim_dates), np.array(sim), kind='linear')
+                        # Set up interpolation function. Use clamped extrapolation
+                        # (fill with first/last sim value) so observation dates outside
+                        # the simulated range — e.g. when a perturbed-param run truncates
+                        # the simulation early — produce a finite (large) residual instead
+                        # of crashing iwfm2obs. PEST then sees a strong "bad direction"
+                        # signal and naturally avoids the broken region.
+                        sim_arr = np.array(sim)
+                        sim_func = interp1d(
+                            np.array(sim_dates), sim_arr,
+                            kind='linear',
+                            bounds_error=False,
+                            fill_value=(float(sim_arr[0]), float(sim_arr[-1])),
+                        )
 
                     if obs_date[i] <= no_days:                                      # should latest be end_date?
-                        obs_val = float(sim_func(obs_date[i]))                    # use interpolation function
+                        obs_val = float(sim_func(obs_date[i]))                    # use interpolation function (clamped at sim range edges)
                         ts = ceil(float(ts_func(obs_date[i])))                    # use interpolation function
 
                         smp, ins = calib.to_smp_ins(obs_site[i],obs_dt[i],round(obs_val,3),ts)   # put into smp and ins strings

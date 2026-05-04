@@ -141,6 +141,7 @@ from iwfm.find_line_num import find_line_num
 
 # -- finite-element methods -------------------------------
 from iwfm.elem_poly_coords import elem_poly_coords
+from iwfm.elem_poly_coords_wkt import elem_poly_coords_wkt
 from iwfm.iwfm_nearest_nodes import iwfm_nearest_nodes
 from iwfm.iwfm_nearest_node import iwfm_nearest_node
 from iwfm.nearest_node import nearest_node
@@ -254,4 +255,4 @@ from iwfm.multiproc import multiproc
 from iwfm import diagnostics
 
 # -- other methods -----------------------------------------
-# from iwfm.meas_bounds import meas_bounds
+from iwfm.meas_bounds import meas_bounds

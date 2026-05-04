@@ -376,14 +376,13 @@ if __name__ == "__main__":
 
     # TODO: Add command line arguments
     
-    """Run the main script to extract text from websites and save it to CSV files.
+    """Run the main script to extract text from websites and save it to CSV files."""
     
     from iwfm.debug import parse_cli_flags
 
     verbose, debug = parse_cli_flags()
-    WARNING: if 'Name' property is the same for any file(s), their output csv file will have the same name and be overwritten.
 
-    NOTE: The 'files' list expects information about each website in the form of a list. Each sublist should contain 
+    """NOTE: The 'files' list expects information about each website in the form of a list. Each sublist should contain 
     [name, data source, url]. This format could be changed. However, then each function/input probably would need to be changed as well. 
 
     It's essential to have the required dependencies (requests, csv, BeautifulSoup) installed to run this script 
@@ -394,6 +393,7 @@ if __name__ == "__main__":
     file_info1 = ["Chowchilla River", "Buchanan Reservoir releases (USACOE)", "https://www.spk-wc.usace.army.mil/fcgi-bin/annual.py?year=2023&res=Buchanan+Dam-H.V.+Eastman+Lake%2C+Chowchilla+River+Basin%2C+California&report=bucqt"]
     files = [file_info1]
 
+    print("WARNING: if 'Name' property is the same for any file(s), their output csv file will have the same name and be overwritten")
     get_usacoe(files)
 
 

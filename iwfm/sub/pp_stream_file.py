@@ -113,8 +113,12 @@ def add_streams_42(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating
         sumbodel stream file being assembled
     
     reach_info : list
-        ** TODO description **
-    
+        one entry per reach as [id, nrd, idwn, name, [stream_node_ids]]:
+        id (int) reach number; nrd (int) count of stream nodes in the reach;
+        idwn (int) outflow stream node (0 = leaves model, -nlk = into lake);
+        name (str) reach name; followed by the list of stream node ids that
+        make up the reach.
+
     snode_dict : dictionary
         key = stream node ID, values = groundwater node
     
@@ -130,7 +134,9 @@ def add_streams_42(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating
     Returns
     -------
     sub_stream_lines : list
-        ** TODO description **
+        the input list with the new model's reach descriptions, rating
+        tables, and stream-aquifer section appended in stream-file v4.2
+        format. Ready to be written out as the submodel stream file.
 
     '''
 

@@ -107,70 +107,95 @@ def process_budget(budget_file, cwidth=12):
     return budget_table, reach_list, dates
 
 
-def stacdep2obs(budget_file, reach_file,  nwidth=20):
-    ''' sestacdep2obs() - Convert stream-groundwater flows from IWFM Stream Budget 
-        to the SMP file format for use by PEST. (Based on STACDEP2OBS.F90 by Matt 
-        Tonkin, SSPA with routines by John Doherty.)
+def format_stacdep_smp(budget_table, dates, reaches, nwidth=20):
+    """ format_stacdep_smp() - Format already-parsed budget data into SMP
+        stream-depletion rows and matching PEST INS instructions.
 
-    Parameters
-    ----------
-    budget_file: list
-        Numpy arrays of stream-groundwater flows (inside and outside model)for 
-        each stream node
+        This is the pure formatting half of :func:`stacdep2obs`, exposed so
+        callers (and unit tests) can drive it without reading files.
 
-    reach_file: str
-        Name of reach list file
-    
-    reaches: list
-        List of ouput reaches, containing [name, [reach nos]]
+        Parameters
+        ----------
+        budget_table: list
+            One numpy array per stream reach. ``budget_table[n - 1]`` is the
+            stream-groundwater (inside + outside model) time series for the
+            1-based reach number ``n``.
+        dates: list
+            Dates corresponding to each row of ``budget_table[i]``, formatted
+            as 'M/D/YYYY' or 'MM/DD/YYYY'.
+        reaches: list
+            Group definitions: ``[[name, [reach_num, ...]], ...]``. When a
+            group has multiple reach numbers, their values are summed.
+        nwidth: int, default=20
+            Width of the name column in SMP output.
 
-    nwidth: int, default = 20
-        Width of name column
-
-    Returns
-    -------
-    stacdep : list 
-        Observation values for each reach in smp format
-
-    ins : list 
-        Corresponding Pest instructions for smp file
-
-    '''
-    from iwfm import iwfm_read_stream_reaches
-
-    # read input files
-    budget_table, reach_list, dates = process_budget(budget_file)
-
-    # reaches = read_reaches(reach_file)
-    reaches = iwfm_read_stream_reaches(reach_file)
-
-
-    # dates to 'MM/DD/YYY'
+        Returns
+        -------
+        stacdep: list
+            SMP-format stream-depletion rows.
+        ins: list
+            Matching PEST INS instructions for the SMP file.
+    """
     smp_dates, ins_dates = [], []
-    for date in dates:       # convert date from text m/d/yy to mm/dd/yyyy
+    for date in dates:
         temp = [int(i) for i in date.split('/')]
-        smp_dates.append(f'{temp[0]:02d}/{temp[1]:02d}/{temp[2]}')  # format as MM/DD/YYYY
+        smp_dates.append(f'{temp[0]:02d}/{temp[1]:02d}/{temp[2]}')
         temp = date.split('/')
-        ins_dates.append(f'{temp[0]}{temp[2]}') 
+        ins_dates.append(f'{temp[0]}{temp[2]}')
 
     stacdep, ins = [], []
     for reach in reaches:
-        reach_name = reach[0].ljust(nwidth)   # left-justify to nwidth chars
+        reach_name_field = reach[0].ljust(nwidth)
         reach_nums = reach[1]
-
-        # sum the reach values
-        budget = budget_table[reach_nums[0]-1]
-        if len(reach_nums) > 1:
-            for i in range(1, len(reach_nums)):
-                budget += budget_table[reach_nums[i]]
-
+        # Sum across all reaches in the group. Use `+` (not `+=`) so we never
+        # mutate the caller's arrays.
+        budget = budget_table[reach_nums[0] - 1]
+        for n in reach_nums[1:]:
+            budget = budget + budget_table[n - 1]
         for i in range(len(budget)):
-            smp_out = f'{reach_name} {smp_dates[i]}  0:00:00   {budget[i]}' # smp format
+            smp_out = f'{reach_name_field} {smp_dates[i]}  0:00:00   {budget[i]}'
             ins_out = f'l1  [{reach[0]}_{ins_dates[i]}]41:56'
             stacdep.append(smp_out)
             ins.append(ins_out)
-
     return stacdep, ins
+
+
+def stacdep2obs(budget_file, reach_file, nwidth=20):
+    ''' stacdep2obs() - Convert stream-groundwater flows from IWFM Stream
+        Budget to the SMP file format for use by PEST. (Based on
+        STACDEP2OBS.F90 by Matt Tonkin, SSPA with routines by John Doherty.)
+
+        Reads ``budget_file`` and ``reach_file``, then delegates the SMP/INS
+        formatting to :func:`format_stacdep_smp`. Use that helper directly if
+        you already have parsed budget data.
+
+    Parameters
+    ----------
+    budget_file: str
+        Path to the IWFM stream budget output file (e.g.
+        ``C2VSimCG_Streams_Budget.bud``).
+
+    reach_file: str
+        Path to the reach groups file (e.g. ``stgwgroups.in``). See
+        :func:`iwfm.calib.divshort2obs.read_reaches` for format details.
+
+    nwidth: int, default=20
+        Width of the name column in SMP output.
+
+    Returns
+    -------
+    stacdep : list
+        Stream-depletion observation values for each group in SMP format.
+
+    ins : list
+        Corresponding PEST instructions for the SMP file.
+
+    '''
+    from iwfm.calib.divshort2obs import read_reaches
+
+    budget_table, _reach_list, dates = process_budget(budget_file)
+    reaches = read_reaches(reach_file)
+    return format_stacdep_smp(budget_table, dates, reaches, nwidth=nwidth)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 # meas_bounds.py
-# determine upper and lower bounds of a list of values
+# Determine the earliest and latest measurement dates in a SMP observation file
 # Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
@@ -16,41 +16,50 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-# ** in development **
-
 
 def meas_bounds(gwhyd_obs):
-    ''' meas_bounds() - Determine the earliest and latest measurement dates 
-        for a group of head observations in a linear list gwhyd_obs
-
-    TODO: incomplete - finish this
+    ''' meas_bounds() - Determine the earliest and latest measurement dates
+        in a SMP-format groundwater head observation file.
 
     Parameters
     ----------
     gwhyd_obs : str
-        observation file name
-        format:       ' well_name              MM/DD/YYYY   HH:MM:SS   head_obs'
-        example line: ' 11N19W05Q001S          01/28/1987   00:00:00   108.530'
+        SMP observation file name. Each data line has the form:
+            ``<well_name>  <MM/DD/YYYY>  <HH:MM:SS>  <head_obs>``
+        e.g. ``11N19W05Q001S  01/28/1987  00:00:00  108.530``.
+        Blank lines and lines whose date column does not parse as
+        ``MM/DD/YYYY`` are silently skipped.
 
     Returns
     -------
-    nothing (yet)
+    earliest : datetime.datetime or None
+        Earliest measurement date in the file. ``None`` if the file
+        contains no parseable data lines.
+
+    latest : datetime.datetime or None
+        Latest measurement date in the file. ``None`` if the file
+        contains no parseable data lines.
 
     '''
+    from datetime import datetime
+    import iwfm
 
-    well_names, earliest, latest = [], [], []
+    iwfm.file_test(gwhyd_obs)
 
-    # Dead code - commented out due to undefined variables (incomplete implementation)
-    # get the info from the first line
-    # temp = gwhyd_obs[0].split()  # Fixed: added parentheses
-    # with open(filename) as f:  # Error: 'filename' undefined - needs to be passed as parameter
-    #     line = f.readline().split()  # Fixed: changed readline(f) to f.readline()
-    #     well_name_temp = line[0]  # Fixed: changed line(0) to line[0]
-    #  early_temp      =
-    #  late_temp       =
-    #    for i in range(0,len(gwhyd_obs[j])):
-    #      date_temp.append(datetime.datetime.strptime(gwhyd_obs[j][i][0],'%m/%d/%Y'))
-    #      sim_temp.append(gwhyd_obs[j][i][col])
-    #    sim_dates.append(date_temp)
-    #    sim_heads.append(sim_temp)
-    print(f'  *** iwfm.meas_bounds.py: meas_bounds() not implemented yet ***')
+    earliest = None
+    latest = None
+    with open(gwhyd_obs) as f:
+        for line in f:
+            tokens = line.split()
+            if len(tokens) < 2:
+                continue
+            try:
+                date = datetime.strptime(tokens[1], '%m/%d/%Y')
+            except ValueError:
+                continue
+            if earliest is None or date < earliest:
+                earliest = date
+            if latest is None or date > latest:
+                latest = date
+
+    return earliest, latest

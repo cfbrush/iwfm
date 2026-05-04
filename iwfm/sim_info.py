@@ -41,6 +41,7 @@ def sim_info(in_file, verbose=False):
         time step in DSS format
 
     '''
+    import re
     import iwfm
     from iwfm.file_utils import read_next_line_value
 
@@ -50,14 +51,24 @@ def sim_info(in_file, verbose=False):
     with open(in_file) as f:
         sim_lines = f.read().splitlines()
 
-    # skip 15 non-comment lines to get to start_date
-    start_date, in_index = read_next_line_value(sim_lines, 0, skip_lines=15)
+    # Scan for start_date (BDT) by matching MM/DD/YYYY_HH:MM date format
+    # on a non-comment data line, instead of counting lines
+    date_pattern = re.compile(r'^\d{1,2}/\d{1,2}/\d{4}(_\d{2}:\d{2})?$')
+    in_index = None
+    for i, line in enumerate(sim_lines):
+        stripped = line.strip()
+        if not stripped or stripped[0] in 'Cc*#':
+            continue
+        first_token = stripped.split()[0]
+        if date_pattern.match(first_token):
+            in_index = i
+            break
 
-    # Validate start_date format
-    try:
-        iwfm.validate_date_format(start_date, f'{in_file} line {in_index+1} start_date')
-    except ValueError as e:
-        raise ValueError(f"Error reading start date from {in_file} line {in_index+1}: {str(e)}") from e
+    if in_index is None:
+        raise ValueError(f"Could not find start date (BDT) in {in_file}. "
+                         f"Expected a line with MM/DD/YYYY or MM/DD/YYYY_HH:MM format.")
+
+    start_date = sim_lines[in_index].split()[0]
 
     # skip 1 non-comment line (RESTART) to get to time_step
     time_step, in_index = read_next_line_value(sim_lines, in_index, skip_lines=1)

@@ -34,6 +34,39 @@ utility functions in this module.
 """
 
 
+def skip_to_next_line(lines, line_index, skip_lines=0):
+    """
+    Advance to the next non-comment line without parsing it.
+
+    This is the positioning-only counterpart to :func:`read_next_line_value`.
+    Use it when you just need to move the cursor between sections of an IWFM
+    file and don't need a value at the new position. Unlike
+    :func:`read_next_line_value`, it doesn't raise IndexError when the
+    resulting line is empty or past EOF — it returns the raw skip_ahead
+    result (-1 at EOF).
+
+    Parameters
+    ----------
+    lines : list
+        List of file lines.
+    line_index : int
+        Current line index (0-based). The function starts looking from
+        ``line_index + 1`` (matching ``read_next_line_value`` semantics, so
+        a literal ``iwfm.skip_ahead(start, lines, N)`` translates to
+        ``skip_to_next_line(lines, start - 1, skip_lines=N)``).
+    skip_lines : int, default=0
+        Number of non-comment lines to skip.
+
+    Returns
+    -------
+    new_line_index : int
+        Updated line index, or -1 if EOF was reached.
+    """
+    import iwfm
+
+    return iwfm.skip_ahead(line_index + 1, lines, skip_lines)
+
+
 def read_next_line_value(lines, line_index, column=0, skip_lines=0, strip=True):
     """
     Skip ahead and read a value from the next line.
