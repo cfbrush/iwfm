@@ -1,5 +1,6 @@
 # Unbuffered.py
 # Print unbuffered output to console
+# Copyright (C) 2020 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
