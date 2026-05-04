@@ -271,7 +271,8 @@ def iwfm_map_params(dataset, bounding_poly, image_basename, cmap='rainbow',
     import numpy as np
     from iwfm.plot import get_XYvalues, contour_levels
 
-    image_name = os.path.join(output_dir, f'{image_basename}.png')
+    from pathlib import Path
+    image_name = str(Path(output_dir) / f'{image_basename}.png')
 
     X, Y, Z = get_XYvalues(dataset)
 
@@ -321,8 +322,7 @@ def iwfm_map_params(dataset, bounding_poly, image_basename, cmap='rainbow',
     plt.axis('off')
 
     # Create output directory if needed
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     plt.savefig(image_name)
     plt.close('all')

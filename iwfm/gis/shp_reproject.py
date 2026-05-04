@@ -55,10 +55,11 @@ def shp_reproject(srcName, tgtName, epsg=26910):
     src_spatRef = srcLyr.GetSpatialRef()  # Source spatial reference
 
     # Target shapefile - delete if it's already there.
-    if os.path.exists(tgtName):
+    from pathlib import Path
+    if Path(tgtName).exists():
         driver.DeleteDataSource(tgtName)
     tgt = driver.CreateDataSource(tgtName)
-    lyrName = os.path.splitext(tgtName)[0]
+    lyrName = str(Path(tgtName).with_suffix(''))
     tgtLyr = tgt.CreateLayer(lyrName, geom_type=ogr.wkbPoint)
     # Layer definition
     featDef = srcLyr.GetLayerDefn()
@@ -86,7 +87,7 @@ def shp_reproject(srcName, tgtName, epsg=26910):
 
     # Just copy dbf contents over rather than rebuild the dbf using the
     # ogr API since we're not changing anything.
-    srcDbf = f'{os.path.splitext(srcName)[0]}.dbf'
+    srcDbf = str(Path(srcName).with_suffix('.dbf'))
     tgtDbf = f'{lyrName}.dbf'
     try:
         shutil.copyfile(srcDbf, tgtDbf)

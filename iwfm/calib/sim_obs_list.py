@@ -98,11 +98,12 @@ if __name__ == '__main__':
         output_file     = input("Output file name: ")
 
     # test that the input files exist
-    if not os.path.isfile(obs_file):          # test for input file
+    from pathlib import Path
+    if not Path(obs_file).is_file():
         iwfm.file_missing(obs_file)
-    if not os.path.isfile(gwhyd_info_file):   # test for input file
+    if not Path(gwhyd_info_file).is_file():
         iwfm.file_missing(gwhyd_info_file)
-    if not os.path.isfile(gwhyd_file):        # test for input file
+    if not Path(gwhyd_file).is_file():
         iwfm.file_missing(gwhyd_file)
 
     well_dict = ical.read_obs_wells(gwhyd_info_file)          # build groundwater hydrograph dictionary

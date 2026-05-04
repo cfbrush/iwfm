@@ -42,17 +42,22 @@ def headall2dtw(heads_file, pre_file, output_root, verbose=False):
     nothing
     
     '''
+    from pathlib import Path
+
     import numpy as np
-    import os
     import iwfm
 
-    pre_path, pre_proc = os.path.split(pre_file)
+    heads_path = Path(heads_file)
+    if not heads_path.is_file():
+        raise FileNotFoundError(f"heads file not found: {heads_file}")
+
+    pre_path = Path(pre_file).parent
     pre_files, _ = iwfm.iwfm_read_preproc(pre_file)
 
-    node_file = os.path.join(pre_path, pre_files.node_file)
+    node_file = str(pre_path / pre_files.node_file)
     node_coords, node_list, factor = iwfm.iwfm_read_nodes(node_file)
 
-    strat_file = os.path.join(pre_path, pre_files.strat_file)
+    strat_file = str(pre_path / pre_files.strat_file)
     strat, nlayers = iwfm.iwfm_read_strat(strat_file, node_coords)
 
     elevations = iwfm.iwfm_lse(strat)

@@ -43,8 +43,9 @@ def iwfm_read_rz_file_names(rz_file_name, verbose=False):
         Native and riparian vegetation file name (NVRVFL)
 
     """
+    from pathlib import Path
+
     import iwfm
-    import os
     from iwfm.file_utils import read_next_line_value
 
     if verbose: print(f"  Reading rootzone file names from {rz_file_name}")
@@ -60,30 +61,27 @@ def iwfm_read_rz_file_names(rz_file_name, verbose=False):
     rz_ur_file_name, line_index = read_next_line_value(rz_lines, line_index)
     rz_nv_file_name, line_index = read_next_line_value(rz_lines, line_index)
 
-    # Normalize path separators (convert backslashes to forward slashes)
-    rz_npc_file_name = rz_npc_file_name.replace('\\', '/')
-    rz_pc_file_name = rz_pc_file_name.replace('\\', '/')
-    rz_ur_file_name = rz_ur_file_name.replace('\\', '/')
-    rz_nv_file_name = rz_nv_file_name.replace('\\', '/')
+    rz_dir = Path(rz_file_name).parent
 
-    # Remove "RootZone/" prefix if present (case-insensitive)
-    # Files are typically in the same directory as the main RZ file
-    if rz_npc_file_name.lower().startswith('rootzone/'):
-        rz_npc_file_name = rz_npc_file_name[9:]
-    if rz_pc_file_name.lower().startswith('rootzone/'):
-        rz_pc_file_name = rz_pc_file_name[9:]
-    if rz_ur_file_name.lower().startswith('rootzone/'):
-        rz_ur_file_name = rz_ur_file_name[9:]
-    if rz_nv_file_name.lower().startswith('rootzone/'):
-        rz_nv_file_name = rz_nv_file_name[9:]
+    def _resolve(name):
+        # IWFM input files often hold Windows-style paths with `\\` separators
+        # even when running on POSIX, so normalize to `/` before constructing
+        # the Path. Then strip a leading "RootZone/" prefix (case-insensitive)
+        # since the listed files are usually siblings of the main RZ file, and
+        # finally resolve relative to the RZ file's directory.
+        normalized = name.replace('\\', '/')
+        if normalized.lower().startswith('rootzone/'):
+            normalized = normalized[len('rootzone/'):]
+        candidate = Path(normalized)
+        if rz_dir != Path('') and not candidate.is_absolute():
+            candidate = rz_dir / candidate
+        # os.path.normpath -> Path resolution: collapse '..' / '.' segments
+        return str(Path(*candidate.parts))
 
-    # Convert relative paths to absolute paths based on the rootzone file location
-    rz_dir = os.path.dirname(rz_file_name)
-    if rz_dir:
-        rz_npc_file_name = os.path.normpath(os.path.join(rz_dir, rz_npc_file_name))
-        rz_pc_file_name = os.path.normpath(os.path.join(rz_dir, rz_pc_file_name))
-        rz_ur_file_name = os.path.normpath(os.path.join(rz_dir, rz_ur_file_name))
-        rz_nv_file_name = os.path.normpath(os.path.join(rz_dir, rz_nv_file_name))
+    rz_npc_file_name = _resolve(rz_npc_file_name)
+    rz_pc_file_name = _resolve(rz_pc_file_name)
+    rz_ur_file_name = _resolve(rz_ur_file_name)
+    rz_nv_file_name = _resolve(rz_nv_file_name)
 
     if verbose:
         print(f"    Non-ponded crop file: {rz_npc_file_name}")

@@ -48,9 +48,10 @@ def qgis_open_proj(filename, verbose=False, debug=0):
         print(f'  Opening QGIS project {filename}')  
 
     # check for the project file
-    if not os.path.isfile(os.path.join(os.getcwd(), filename)):  
-        print(f'  Could not find {os.path.join(os.getcwd(), filename)}')
+    if not os.path.isfile(os.path.join(os.getcwd(), filename)):
         import sys
+        from iwfm.debug.logger_setup import logger
+        logger.error(f'Could not find {os.path.join(os.getcwd(), filename)}; exiting.')
         sys.exit()
 
     #  # for QGIS standalone app, bridge to sync loaded project with canvas
