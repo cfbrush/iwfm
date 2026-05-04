@@ -238,10 +238,8 @@ def bud_diversions(
     debug: bool = typer.Option(False, "--debug"),
 ) -> None:
     """Convert IWFM stream-diversions budget HDF5 to text format."""
-    # Note: the underlying function name is `hdf2bud_diverions` (typo in source);
-    # CLI command spelling is correct.
-    from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
-    hdf2bud_diverions(hdf_file, output_file,
+    from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
+    hdf2bud_diversions(hdf_file, output_file,
                       len_fact=len_fact, len_units=len_units,
                       area_fact=area_fact, area_units=area_units,
                       vol_fact=vol_fact, vol_units=vol_units,

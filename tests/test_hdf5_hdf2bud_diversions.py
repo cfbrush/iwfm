@@ -21,34 +21,34 @@ import inspect
 
 
 class TestHdf2budDiversionsImports:
-    """Tests for hdf2bud_diverions imports."""
+    """Tests for hdf2bud_diversions imports."""
 
     def test_import_from_hdf5(self):
         """Test import from iwfm.hdf5."""
-        from iwfm.hdf5 import hdf2bud_diverions
-        assert callable(hdf2bud_diverions)
+        from iwfm.hdf5 import hdf2bud_diversions
+        assert callable(hdf2bud_diversions)
 
     def test_import_directly(self):
         """Test direct module import."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
-        assert callable(hdf2bud_diverions)
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
+        assert callable(hdf2bud_diversions)
 
     def test_function_has_docstring(self):
         """Test that function has documentation."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        assert hdf2bud_diverions.__doc__ is not None
-        assert 'diversion' in hdf2bud_diverions.__doc__.lower() or 'hdf5' in hdf2bud_diverions.__doc__.lower()
+        assert hdf2bud_diversions.__doc__ is not None
+        assert 'diversion' in hdf2bud_diversions.__doc__.lower() or 'hdf5' in hdf2bud_diversions.__doc__.lower()
 
 
 class TestHdf2budDiversionsSignature:
-    """Tests for hdf2bud_diverions function signature."""
+    """Tests for hdf2bud_diversions function signature."""
 
     def test_function_signature(self):
-        """Test that hdf2bud_diverions has correct function signature."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        """Test that hdf2bud_diversions has correct function signature."""
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         params = list(sig.parameters.keys())
 
         # Required parameters
@@ -67,64 +67,64 @@ class TestHdf2budDiversionsSignature:
 
     def test_default_len_fact(self):
         """Test that len_fact defaults to 1.0."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         assert sig.parameters['len_fact'].default == 1.0
 
     def test_default_len_units(self):
         """Test that len_units defaults to FEET."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         assert sig.parameters['len_units'].default == 'FEET'
 
     def test_default_area_fact(self):
         """Test that area_fact defaults to 0.000022957."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         assert abs(sig.parameters['area_fact'].default - 0.000022957) < 1e-10
 
     def test_default_area_units(self):
         """Test that area_units defaults to AC."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         assert sig.parameters['area_units'].default == 'AC'
 
     def test_default_vol_fact(self):
         """Test that vol_fact defaults to 0.000022957."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         assert abs(sig.parameters['vol_fact'].default - 0.000022957) < 1e-10
 
     def test_default_vol_units(self):
         """Test that vol_units defaults to ACFT."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         assert sig.parameters['vol_units'].default == 'ACFT'
 
     def test_default_verbose(self):
         """Test that verbose defaults to True for diversions."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         # Note: diversions defaults to True for verbose
         assert sig.parameters['verbose'].default == True
 
     def test_default_debug(self):
         """Test that debug defaults to False."""
-        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+        from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 
-        sig = inspect.signature(hdf2bud_diverions)
+        sig = inspect.signature(hdf2bud_diversions)
         assert sig.parameters['debug'].default == False
 
 
 class TestHdf2budDiversionsDependencies:
-    """Tests for hdf2bud_diverions dependencies."""
+    """Tests for hdf2bud_diversions dependencies."""
 
     def test_h5py_available(self):
         """Test that h5py is available."""

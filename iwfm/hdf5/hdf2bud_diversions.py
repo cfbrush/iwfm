@@ -33,7 +33,7 @@ from iwfm.debug.logger_setup import logger, setup_debug_logger
 
 
 
-def hdf2bud_diverions(hdf_file, output_file,
+def hdf2bud_diversions(hdf_file, output_file,
             len_fact=1.0, len_units='FEET',
             area_fact=0.000022957, area_units='AC',
             vol_fact=0.000022957, vol_units='ACFT',
@@ -308,7 +308,7 @@ Default conversion factors:
     idb.exe_time()  # initialize timer
 
     # Convert the file
-    hdf2bud_diverions(hdf_file, output_file,
+    hdf2bud_diversions(hdf_file, output_file,
             len_fact=args.len_fact, len_units=args.len_units,
             area_fact=args.area_fact, area_units=args.area_units,
             vol_fact=args.vol_fact, vol_units=args.vol_units,

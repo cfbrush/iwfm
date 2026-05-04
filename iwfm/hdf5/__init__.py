@@ -75,7 +75,7 @@ from iwfm.hdf5.hdfbud2csv import hdfbud2csv
 from iwfm.hdf5.cropbud2csv import cropbud2csv
 
 # -- HDF to text budget methods ---------------------------
-from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diverions
+from iwfm.hdf5.hdf2bud_diversions import hdf2bud_diversions
 from iwfm.hdf5.hdf2bud_gw import hdf2bud_gw
 from iwfm.hdf5.hdf2bud_lw import hdf2bud_lw
 from iwfm.hdf5.hdf2bud_rz import hdf2bud_rz
