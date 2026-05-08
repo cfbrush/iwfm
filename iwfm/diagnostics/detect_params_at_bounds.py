@@ -39,4 +39,8 @@ def detect_params_at_bounds(pest_state, bound_pct_threshold=0.05):
                 'pct_of_range': pct,
                 'bound': bound,
             })
+    # Phase 8.12: sort by distance-to-nearest-bound (most-pinned first) so
+    # downstream serializer's [:max_items] truncation surfaces the most
+    # pinned params, not the lexicographically-first ones.
+    results.sort(key=lambda r: min(r['pct_of_range'], 1.0 - r['pct_of_range']))
     return results

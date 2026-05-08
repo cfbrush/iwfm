@@ -179,6 +179,31 @@ class TestDetectParamsAtBounds:
         result = detect_params_at_bounds(pest)
         assert result == []
 
+    def test_sorted_by_distance_to_nearest_bound(self):
+        # Phase 8.12: most-pinned params must come first so downstream [:5]
+        # truncation surfaces the right ones, not the lexicographic-first ones.
+        # distances: PKH=0.05, RZK=0.01, STCOND=0.005, FACSS=0.04
+        # expected order: STCOND (0.005) < RZK (0.01) < FACSS (0.04) < PKH (0.05)
+        pest = PestStateSummary(
+            iteration=3, phi=500.0, n_observations=500,
+            rmse=3.0, bias=0.0,
+            obs_group_stats=[],
+            params_at_bounds=[
+                {'name': 'PKH001',  'value': 9.5,  'lower': 0.0,
+                 'upper': 10.0, 'pct_of_range': 0.95},   # dist=0.05 (upper)
+                {'name': 'RZK001',  'value': 9.9,  'lower': 0.0,
+                 'upper': 10.0, 'pct_of_range': 0.99},   # dist=0.01 (upper)
+                {'name': 'STCOND1', 'value': 0.05, 'lower': 0.0,
+                 'upper': 10.0, 'pct_of_range': 0.005},  # dist=0.005 (lower)
+                {'name': 'FACSS1',  'value': 0.4,  'lower': 0.0,
+                 'upper': 10.0, 'pct_of_range': 0.04},   # dist=0.04 (lower)
+            ],
+        )
+        result = detect_params_at_bounds(pest, bound_pct_threshold=0.05)
+        assert len(result) == 4
+        names = [r['name'] for r in result]
+        assert names == ['STCOND1', 'RZK001', 'FACSS1', 'PKH001']
+
 
 # =========================================================================
 # detect_residual_clusters
