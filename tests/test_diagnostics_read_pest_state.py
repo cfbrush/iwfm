@@ -128,3 +128,25 @@ class TestReadPestState:
         finally:
             os.unlink(par_path)
             os.unlink(pst_path)
+
+    def test_params_at_bounds_phase_8_12_sort_and_group_summary(self):
+        """Phase 8.12: at-bounds list sorted by distance-from-bound (most
+        pinned first), each entry includes group, and aggregate counts by
+        group are populated so the picture survives serialize_bundle
+        truncation."""
+        par_path = _write_temp(PAR_CONTENT, '.par')
+        pst_path = _write_temp(PST_BOUNDS_CONTENT, '.pst')
+        try:
+            result = read_pest_state(par_file=par_path, pst_file=pst_path)
+            distances = [p['distance_from_bound']
+                         for p in result.params_at_bounds]
+            assert distances == sorted(distances)
+            assert all('group' in p for p in result.params_at_bounds)
+            assert (sum(result.params_at_bounds_by_group.values())
+                    == len(result.params_at_bounds))
+            assert (result.n_params_at_bounds
+                    == len(result.params_at_bounds))
+            assert result.params_at_bounds_by_group.get('fackh', 0) >= 2
+        finally:
+            os.unlink(par_path)
+            os.unlink(pst_path)

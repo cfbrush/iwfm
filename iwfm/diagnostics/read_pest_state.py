@@ -63,10 +63,18 @@ def read_pest_state(res_file=None, rec_file=None, par_file=None,
 
     # Parse .par + bounds for params-at-bounds detection
     params_at_bounds = []
+    params_at_bounds_by_group = {}
+    n_params_at_bounds = 0
     if par_file and param_bounds:
         params_at_bounds = _detect_bounds(par_file, param_bounds)
+        n_params_at_bounds = len(params_at_bounds)
+        # Phase 8.12: aggregate by group so total picture survives truncation
+        for rec in params_at_bounds:
+            grp = rec.get('group', 'unknown')
+            params_at_bounds_by_group[grp] = params_at_bounds_by_group.get(grp, 0) + 1
         if verbose:
-            print(f'  PEST par: {len(params_at_bounds)} params near bounds')
+            print(f'  PEST par: {n_params_at_bounds} params near bounds; '
+                  f'by group: {params_at_bounds_by_group}')
 
     return PestStateSummary(
         iteration=rec_iteration,
@@ -76,6 +84,8 @@ def read_pest_state(res_file=None, rec_file=None, par_file=None,
         bias=bias,
         obs_group_stats=obs_group_stats,
         params_at_bounds=params_at_bounds,
+        params_at_bounds_by_group=params_at_bounds_by_group,
+        n_params_at_bounds=n_params_at_bounds,
     )
 
 
@@ -169,14 +179,16 @@ def _parse_rec_last_iteration(rec_file):
 
 
 def _parse_pst_bounds(pst_file):
-    """Parse PEST .pst control file for parameter bounds.
+    """Parse PEST .pst control file for parameter bounds (and group).
 
     Parameter data section format:
       name  transform  type  initial  lower  upper  group  ...
 
     Only returns adjustable parameters (transform != 'fixed' and != 'tied').
 
-    Returns dict: {name: (lower, upper)}
+    Returns dict: {name: (lower, upper, group)}.
+    Group is captured so downstream diagnostics can aggregate at-bounds
+    counts by group (Phase 8.12).
     """
     bounds = {}
     in_param_section = False
@@ -193,7 +205,7 @@ def _parse_pst_bounds(pst_file):
                 continue
 
             parts = stripped.split()
-            if len(parts) < 6:
+            if len(parts) < 7:
                 continue
 
             name = parts[0]
@@ -205,7 +217,8 @@ def _parse_pst_bounds(pst_file):
             try:
                 lower = float(parts[4])
                 upper = float(parts[5])
-                bounds[name] = (lower, upper)
+                group = parts[6]
+                bounds[name] = (lower, upper, group)
             except (ValueError, IndexError):
                 continue
 
@@ -219,7 +232,9 @@ def _detect_bounds(par_file, param_bounds, threshold=0.05):
       Line 1: "single point"
       Lines 2+: name  value  scale  offset
 
-    Returns list of dicts for params within threshold of bounds.
+    Returns list of dicts for params within threshold of bounds, sorted
+    by distance-from-nearest-bound (most pinned first) so downstream
+    truncation in serialize_bundle keeps the most informative rows.
     """
     results = []
 
@@ -239,7 +254,13 @@ def _detect_bounds(par_file, param_bounds, threshold=0.05):
             if name not in param_bounds:
                 continue
 
-            lower, upper = param_bounds[name]
+            entry = param_bounds[name]
+            # Backward-compat: param_bounds may be (lo, hi) or (lo, hi, group)
+            if len(entry) == 3:
+                lower, upper, group = entry
+            else:
+                lower, upper = entry
+                group = None
             span = upper - lower
             if span <= 0:
                 continue
@@ -247,12 +268,19 @@ def _detect_bounds(par_file, param_bounds, threshold=0.05):
             pct = (value - lower) / span
 
             if pct <= threshold or pct >= (1.0 - threshold):
-                results.append({
+                rec = {
                     'name': name,
                     'value': value,
                     'lower': lower,
                     'upper': upper,
                     'pct_of_range': pct,
-                })
+                    'distance_from_bound': min(pct, 1.0 - pct),
+                }
+                if group is not None:
+                    rec['group'] = group
+                results.append(rec)
 
+    # Sort by distance_from_bound ascending (most pinned first). Equal
+    # distances fall back to name for stable order.
+    results.sort(key=lambda r: (r['distance_from_bound'], r['name']))
     return results

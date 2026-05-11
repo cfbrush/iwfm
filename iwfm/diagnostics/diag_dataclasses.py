@@ -57,6 +57,12 @@ class PestStateSummary:
     bias: float = 0.0
     obs_group_stats: List[Dict] = field(default_factory=list)
     params_at_bounds: List[Dict] = field(default_factory=list)
+    # Phase 8.12: aggregate counts of at-bounds params by parameter group,
+    # so the LLM sees the full distribution even when params_at_bounds is
+    # truncated to N entries by serialize_bundle.
+    params_at_bounds_by_group: Dict[str, int] = field(default_factory=dict)
+    # Phase 8.12: total count before truncation
+    n_params_at_bounds: int = 0
 
 
 @dataclass
