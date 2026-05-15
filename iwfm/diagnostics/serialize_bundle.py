@@ -7,7 +7,7 @@ import json
 import math
 
 
-def serialize_bundle(bundle, output_path=None, indent=2, max_list_items=5,
+def serialize_bundle(bundle, output_path=None, indent=2, max_list_items=15,
                      float_precision=3):
     """Convert DiagnosticBundle to compact JSON string.
 

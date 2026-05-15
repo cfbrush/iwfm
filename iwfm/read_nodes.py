@@ -42,12 +42,12 @@ def read_nodes(node_file, factor=0.0, verbose=False):
         Node numbers
 
     '''
-    import iwfm
+    from iwfm.file_test import file_test
     from iwfm.file_utils import read_next_line_value
 
     if verbose: print(f"Entered read_nodes() with {node_file}")
 
-    iwfm.file_test(node_file)
+    file_test(node_file)
 
     with open(node_file) as f:
         node_lines = f.read().splitlines()

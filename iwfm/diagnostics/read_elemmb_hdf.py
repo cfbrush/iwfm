@@ -7,7 +7,7 @@ import numpy as np
 from iwfm.diagnostics.diag_dataclasses import MassBalanceSummary
 
 
-def read_elemmb_hdf(hdf_path, n_elements, n_layers, threshold=1.0,
+def read_elemmb_hdf(hdf_path, n_elements, n_layers, threshold=1e5,
                     top_n_elements=20, verbose=False):
     """Read Diagnostics_ElemMB.hdf and compute summary statistics.
 
@@ -19,11 +19,12 @@ def read_elemmb_hdf(hdf_path, n_elements, n_layers, threshold=1.0,
         Number of model elements.
     n_layers : int
         Number of model layers.
-    threshold : float
-        Absolute residual threshold for flagging elements.
-    top_n_elements : int
+    threshold : float, default = 1e5
+        Absolute residual threshold (ft^3/day) for flagging elements as
+        hotspots. 
+    top_n_elements : int, default = 20
         Max number of hotspot elements to report.
-    verbose : bool
+    verbose : bool, default = False
         Print progress.
 
     Returns

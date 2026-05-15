@@ -109,14 +109,27 @@ def write_pest_control(template_pst, output_pst, recommendations,
     n_fixed = 0
 
     for pname, pdata in new_params.items():
+        original_trans = pdata.get('transform', 'none')
         if pname in rep_set:
-            pdata['transform'] = 'none'
+            # Representative → adjustable. Preserve original adjustable
+            # transform if it was already 'log' (log-scaled params like
+            # hydraulic conductivity span orders of magnitude and lose
+            # convergence quality when forced into linear space).
+            # Otherwise (was 'fixed' or 'tied'), promote to 'none'.
+            if original_trans in ('none', 'log'):
+                pdata['transform'] = original_trans
+            else:
+                pdata['transform'] = 'none'
             n_adjustable += 1
         elif pname in tied_map:
             pdata['transform'] = 'tied'
             n_tied += 1
         else:
-            # Keep as fixed (global factors or unused params)
+            # Demote to fixed (global factors or params not selected by
+            # the dimensionality-reduction recommendations). The original
+            # transform ('log' / 'none') is lost here by design — caller
+            # treats this set as "do not estimate". If a param needs to
+            # be re-enabled later, its transform must be re-specified.
             pdata['transform'] = 'fixed'
             n_fixed += 1
 
@@ -200,20 +213,29 @@ def modify_pst(template_pst, output_pst, modifications, verbose=False):
 
     # Apply fix/unfix
     for pname in fix_params:
-        if pname in new_params and new_params[pname]['transform'] != 'fixed':
+        if pname not in new_params:
+            print(f'  WARN modify_pst: fix_params {pname!r} not in param data; skipping')
+            continue
+        if new_params[pname]['transform'] != 'fixed':
             new_params[pname]['transform'] = 'fixed'
             # Remove any tied mappings that reference this param as parent
             orphans = [c for c, p in tied_map.items() if p == pname]
             for c in orphans:
-                new_params[c]['transform'] = 'fixed'
-                tied_map.pop(c)
+                if c in new_params:
+                    new_params[c]['transform'] = 'fixed'
+                else:
+                    print(f'  WARN modify_pst: orphan tied-child {c!r} not in param data; skipping')
+                tied_map.pop(c, None)
             # Remove this param if it was a tied child
             if pname in tied_map:
                 tied_map.pop(pname)
             n_modified += 1
 
     for pname in unfix_params:
-        if pname in new_params and new_params[pname]['transform'] == 'fixed':
+        if pname not in new_params:
+            print(f'  WARN modify_pst: unfix_params {pname!r} not in param data; skipping')
+            continue
+        if new_params[pname]['transform'] == 'fixed':
             new_params[pname]['transform'] = 'none'
             n_modified += 1
 
