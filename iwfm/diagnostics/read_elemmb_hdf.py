@@ -36,6 +36,17 @@ def read_elemmb_hdf(hdf_path, n_elements, n_layers, threshold=1e5,
     with h5py.File(hdf_path, 'r') as f:
         # Shape: (NTIME, n_elements * n_layers)
         data = f['/MassBalanceResidual'][:]
+        # IWFM diagnostics HDF stores residuals per-timestep where the
+        # timestep length is set by the model's UNITT (1DAY, 1MON, etc.).
+        # The threshold here is documented as ft^3/day, so normalize the
+        # raw values to a per-day basis. DeltaT_InMinutes = 43200 means
+        # 1MON (30 days exactly), giving days_per_step = 30.
+        attrs = dict(f['Attributes'].attrs) if 'Attributes' in f else {}
+    dt_minutes = attrs.get('TimeStep%DeltaT_InMinutes', None)
+    if dt_minutes is None or dt_minutes <= 0:
+        days_per_step = 1.0  # assume already per-day if metadata absent
+    else:
+        days_per_step = float(dt_minutes) / 1440.0  # 1440 min = 1 day
 
     n_ts, n_cols = data.shape
     expected_cols = n_layers * n_elements
@@ -44,7 +55,7 @@ def read_elemmb_hdf(hdf_path, n_elements, n_layers, threshold=1e5,
             f'ElemMB has {n_cols} columns, expected n_layers*n_elements='
             f'{expected_cols} ({n_layers}*{n_elements})')
 
-    abs_data = np.abs(data)
+    abs_data = np.abs(data) / days_per_step  # convert ft^3/step → ft^3/day
 
     # Reshape to (NTIME, n_layers, n_elements) — columns are layer-major
     reshaped = abs_data.reshape(n_ts, n_layers, n_elements)

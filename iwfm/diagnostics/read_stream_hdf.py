@@ -31,6 +31,16 @@ def read_stream_hdf(hdf_path, last_n_timesteps=12, top_n_nodes=20,
     with h5py.File(hdf_path, 'r') as f:
         # All datasets shape (NTIME, NStrmNodes)
         strmgw = f['/StrmGWFlow'][:]
+        # StrmGWFlow is volumetric flux per timestep (ft^3/timestep).
+        # Normalize to per-day so reported magnitudes are comparable to
+        # the per-day threshold semantics used elsewhere in the bundle.
+        attrs = dict(f['Attributes'].attrs) if 'Attributes' in f else {}
+    dt_minutes = attrs.get('TimeStep%DeltaT_InMinutes', None)
+    if dt_minutes is None or dt_minutes <= 0:
+        days_per_step = 1.0
+    else:
+        days_per_step = float(dt_minutes) / 1440.0
+    strmgw = strmgw / days_per_step  # ft^3/timestep → ft^3/day
 
     n_ts, n_nodes = strmgw.shape
 

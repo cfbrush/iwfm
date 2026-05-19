@@ -42,6 +42,15 @@ def read_residual_hdf(hdf_path, n_gw_nodes, n_layers, max_iter_store=50,
     with h5py.File(hdf_path, 'r') as f:
         rhs_ds = f['/RHS']
         hdelta_ds = f['/HDelta']
+        # IWFM diagnostics HDF stores per-timestep values. RHS is volumetric
+        # flux balance (ft^3/timestep); HDelta is head change (ft, no time).
+        # Normalize RHS to per-day. DeltaT_InMinutes=43200 for 1MON = 30 days.
+        attrs = dict(f['Attributes'].attrs) if 'Attributes' in f else {}
+        dt_minutes = attrs.get('TimeStep%DeltaT_InMinutes', None)
+        if dt_minutes is None or dt_minutes <= 0:
+            days_per_step = 1.0  # assume per-day if metadata absent
+        else:
+            days_per_step = float(dt_minutes) / 1440.0
         actual_cols = rhs_ds.shape[1]
         if actual_cols != n_cols:
             raise ValueError(
@@ -82,7 +91,9 @@ def read_residual_hdf(hdf_path, n_gw_nodes, n_layers, max_iter_store=50,
 
             # Use the last valid row (converged state)
             last_valid_idx = valid_rows[-1]
-            rhs_converged = np.abs(rhs_block[last_valid_idx, :])
+            # RHS has time dimension → normalize to per-day. HDelta is
+            # head change (ft) — no time conversion needed.
+            rhs_converged = np.abs(rhs_block[last_valid_idx, :]) / days_per_step
             hdelta_converged = np.abs(hdelta_block[last_valid_idx, :])
 
             rhs_sum += rhs_converged
