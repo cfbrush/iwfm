@@ -17,7 +17,6 @@
 # -----------------------------------------------------------------------------
 
 import shapefile  # pyshp
-from PIL import Image, ImageDraw
 from iwfm.gis.world2screen import world2screen
 import math
 
@@ -53,6 +52,7 @@ def choropleth(infile,fieldname1,fieldname2,iwidth=600,
     nothing
 
     '''
+    from PIL import Image, ImageDraw
 
     inShp = shapefile.Reader(infile)
 

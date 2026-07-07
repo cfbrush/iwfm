@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-import geopandas as gpd
 import re
 import sys
 import iwfm.debug as idb
@@ -48,6 +47,7 @@ def map_lu(land_use_file, elem_shp_name, out_shp_basename, verbose=False):
     nothing
 
     '''
+    import geopandas as gpd
     
     iwfm.file_test(elem_shp_name)
     gdf = gpd.read_file(elem_shp_name)                          # read elements shapefile into geopandas dataframe

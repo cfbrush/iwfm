@@ -37,33 +37,14 @@ def test_grid_colorize_imports():
 
 
 def test_grid_colorize_basic(tmp_path):
-    '''Test basic functionality of grid_colorize.'''
-    mod = _get_grid_colorize_module()
+    '''Test grid_colorize end-to-end on a small ASCII DEM.'''
+    from PIL import Image
+    from iwfm.gis.grid_colorize import grid_colorize
 
-    with patch.object(mod, 'ImageOps') as mock_ImageOps, \
-         patch.object(mod, 'Image') as mock_Image, \
-         patch.object(mod, 'np') as mock_np:
+    source = tmp_path / 'input.asc'
+    target = tmp_path / 'output.png'
 
-        from iwfm.gis.grid_colorize import grid_colorize
-
-        # Create mock array from loadtxt
-        mock_array = np.array([[0, 50, 100], [150, 200, 255]])
-        mock_np.loadtxt.return_value = mock_array
-
-        # Create mock PIL image
-        mock_image = Mock()
-        mock_image.convert.return_value = mock_image
-        mock_Image.fromarray.return_value = mock_image
-
-        # Mock ImageOps operations
-        mock_ImageOps.equalize.return_value = mock_image
-        mock_ImageOps.autocontrast.return_value = mock_image
-
-        source = tmp_path / 'input.asc'
-        target = tmp_path / 'output.png'
-
-        # Create a proper ASCII DEM file for testing
-        ascii_dem_content = '''ncols 3
+    ascii_dem_content = '''ncols 3
 nrows 2
 xllcorner 0
 yllcorner 0
@@ -71,18 +52,13 @@ cellsize 1
 NODATA_value -9999
 0 50 100
 150 200 255'''
-        source.write_text(ascii_dem_content)
+    source.write_text(ascii_dem_content)
 
-        grid_colorize(str(source), str(target))
+    grid_colorize(str(source), str(target))
 
-        # Verify the function called the expected methods
-        mock_np.loadtxt.assert_called_once_with(str(source), skiprows=6)
-        mock_Image.fromarray.assert_called_once()
-        mock_image.convert.assert_called_once_with("L")
-        mock_ImageOps.equalize.assert_called_once()
-        mock_ImageOps.autocontrast.assert_called_once()
-        mock_image.putpalette.assert_called_once()
-        mock_image.save.assert_called_once_with(str(target))
+    assert target.exists()
+    im = Image.open(str(target))
+    assert im.size == (3, 2)
 
 
 def test_grid_colorize_function_signature():

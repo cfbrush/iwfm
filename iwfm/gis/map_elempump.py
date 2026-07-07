@@ -22,7 +22,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-import geopandas as gpd
 import sys
 import iwfm.debug as idb
 import iwfm
@@ -88,6 +87,7 @@ def map_elempump(elempump_file_name, elem_shp_name, out_shp_root, verbose=False)
     nothing
     
     '''
+    import geopandas as gpd
 
     gdf = gpd.read_file(elem_shp_name)                                      # read elements shapefile into geopandas dataframe
 

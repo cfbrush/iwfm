@@ -19,8 +19,6 @@
 import shapefile  # pyshp
 import random
 
-from PIL import Image, ImageDraw
-from shapely.geometry import Point, Polygon
 
 from iwfm.gis.world2screen import world2screen
 
@@ -53,6 +51,8 @@ def density_plot(infile,fieldname,iwidth=600,iheight=400,
     nothing
 
     '''
+    from PIL import Image, ImageDraw
+    from shapely.geometry import Point, Polygon
 
     with shapefile.Reader(infile) as inShp:
         val_index = None

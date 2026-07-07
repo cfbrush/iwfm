@@ -17,7 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-from geopy.geocoders import Nominatim
 
 def geocode_ex(address, verbose=False):
     ''' geocode_ex() - example: finds the lat-lon of a street address and then
@@ -37,6 +36,7 @@ def geocode_ex(address, verbose=False):
         A tuple containing the reversed address (str) and the geocode of the address (str)
 
     '''
+    from geopy.geocoders import Nominatim
 
     g = Nominatim(user_agent="geoapiExercises")
     location = g.geocode(address)

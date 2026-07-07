@@ -16,7 +16,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-import matplotlib.pyplot as plt
 
 
 def geop_saveplot(gdf, outname, **kwargs):
@@ -38,6 +37,7 @@ def geop_saveplot(gdf, outname, **kwargs):
     nothing
 
     '''
+    import matplotlib.pyplot as plt
     gdf.plot(**kwargs)
     plt.savefig(outname)
     plt.close()

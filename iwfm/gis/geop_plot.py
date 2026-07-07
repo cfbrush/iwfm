@@ -16,7 +16,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-import matplotlib.pyplot as plt
 
 
 def geop_plot(gdf, **kwargs):
@@ -35,6 +34,7 @@ def geop_plot(gdf, **kwargs):
     nothing
 
     '''
+    import matplotlib.pyplot as plt
     fig = gdf.plot(**kwargs)
     plt.show()
     plt.close()

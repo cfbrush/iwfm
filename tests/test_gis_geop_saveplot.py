@@ -27,19 +27,15 @@ def _get_geop_saveplot_module():
 
 
 def test_geop_saveplot_imports():
-    '''Test that geop_saveplot imports matplotlib.pyplot (verifies fix).'''
-    # This verifies the fix: added 'import matplotlib.pyplot as plt'
+    '''Test that the geop_saveplot module exposes a callable function.'''
     mod = _get_geop_saveplot_module()
 
-    assert hasattr(mod, 'plt')
-    assert hasattr(mod.plt, 'savefig')
+    assert callable(mod.geop_saveplot)
 
 
 def test_geop_saveplot_basic(tmp_path):
     '''Test basic functionality of geop_saveplot.'''
-    mod = _get_geop_saveplot_module()
-
-    with patch.object(mod, 'plt') as mock_plt:
+    with patch('matplotlib.pyplot.savefig') as mock_savefig:
         from iwfm.gis.geop_saveplot import geop_saveplot
 
         # Create mock geopandas dataframe
@@ -51,14 +47,12 @@ def test_geop_saveplot_basic(tmp_path):
         geop_saveplot(mock_gdf, str(outfile))
 
         mock_gdf.plot.assert_called_once()
-        mock_plt.savefig.assert_called_once()
+        mock_savefig.assert_called_once()
 
 
 def test_geop_saveplot_with_args(tmp_path):
     '''Test geop_saveplot with plot arguments.'''
-    mod = _get_geop_saveplot_module()
-
-    with patch.object(mod, 'plt') as mock_plt:
+    with patch('matplotlib.pyplot.savefig') as mock_savefig:
         from iwfm.gis.geop_saveplot import geop_saveplot
 
         mock_gdf = Mock()

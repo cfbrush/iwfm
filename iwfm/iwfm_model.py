@@ -19,7 +19,6 @@
 import iwfm
 import re
 from pathlib import Path
-from shapely.geometry import Point, Polygon
 from iwfm.file_utils import read_next_line_value
 from iwfm.iwfm_dataclasses import PreprocessorFiles, SimulationFiles
 
@@ -496,8 +495,9 @@ class iwfm_model:
 
 
     def elems2poly(self):
-        ''' elem_poly() - Compile a dictionary of model elements as shapely 
+        ''' elem_poly() - Compile a dictionary of model elements as shapely
             polygons'''
+        from shapely.geometry import Point, Polygon
 
         self.d_elem_polys = {}
         for key in self.d_elem_nodes:  # for each element ...
@@ -517,8 +517,10 @@ class iwfm_model:
 
 
     def point_in_elem(self, x, y):
-        ''' point_in_elem() - Return the element number if the point (x,y) is 
+        ''' point_in_elem() - Return the element number if the point (x,y) is
             in an element, 0 otherwise'''
+        from shapely.geometry import Point
+
         p = Point(x, y)
         for key in self.d_elem_polys:  # for each element ...
             elem = key

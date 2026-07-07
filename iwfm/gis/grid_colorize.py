@@ -18,11 +18,6 @@
 
 import colorsys
 import numpy as np
-from PIL import Image, ImageOps  # pillow
-try:
-    from osgeo import gdal_array
-except ImportError:
-    gdal_array = None  # GDAL not available
 
 
 def grid_colorize(source, target):
@@ -42,6 +37,7 @@ def grid_colorize(source, target):
     nothing
 
     '''
+    from PIL import Image, ImageOps
 
     arr = np.loadtxt(source, skiprows=6)  # Load the ASCII DEM into a numpy array
     im = Image.fromarray(arr).convert("L")  # Convert the numpy array to a PIL image

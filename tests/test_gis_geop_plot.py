@@ -27,19 +27,15 @@ def _get_geop_plot_module():
 
 
 def test_geop_plot_imports():
-    '''Test that geop_plot imports matplotlib.pyplot (verifies fix).'''
-    # This verifies the fix: added 'import matplotlib.pyplot as plt'
+    '''Test that the geop_plot module exposes a callable function.'''
     mod = _get_geop_plot_module()
 
-    assert hasattr(mod, 'plt')
-    assert hasattr(mod.plt, 'show')
+    assert callable(mod.geop_plot)
 
 
 def test_geop_plot_basic():
     '''Test basic functionality of geop_plot.'''
-    mod = _get_geop_plot_module()
-
-    with patch.object(mod, 'plt') as mock_plt:
+    with patch('matplotlib.pyplot.show') as mock_show:
         from iwfm.gis.geop_plot import geop_plot
 
         # Create mock geopandas dataframe
@@ -49,14 +45,12 @@ def test_geop_plot_basic():
         geop_plot(mock_gdf)
 
         mock_gdf.plot.assert_called_once()
-        mock_plt.show.assert_called_once()
+        mock_show.assert_called_once()
 
 
 def test_geop_plot_with_args():
     '''Test geop_plot with arguments passed to plot.'''
-    mod = _get_geop_plot_module()
-
-    with patch.object(mod, 'plt') as mock_plt:
+    with patch('matplotlib.pyplot.show') as mock_show:
         from iwfm.gis.geop_plot import geop_plot
 
         mock_gdf = Mock()
