@@ -33,8 +33,15 @@ The skip_ahead() function implements this convention and is used internally by t
 utility functions in this module.
 """
 
+from __future__ import annotations
 
-def skip_to_next_line(lines, line_index, skip_lines=0):
+from typing import Any, Callable, Dict, List, Tuple, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import numpy as np
+
+
+def skip_to_next_line(lines: List[str], line_index: int, skip_lines: int = 0) -> int:
     """
     Advance to the next non-comment line without parsing it.
 
@@ -67,7 +74,8 @@ def skip_to_next_line(lines, line_index, skip_lines=0):
     return iwfm.skip_ahead(line_index + 1, lines, skip_lines)
 
 
-def read_next_line_value(lines, line_index, column=0, skip_lines=0, strip=True):
+def read_next_line_value(lines: List[str], line_index: int, column: int = 0,
+                         skip_lines: int = 0, strip: bool = True) -> Tuple[str, int]:
     """
     Skip ahead and read a value from the next line.
 
@@ -136,7 +144,8 @@ def read_next_line_value(lines, line_index, column=0, skip_lines=0, strip=True):
     return value, line_index
 
 
-def read_multiple_line_values(lines, start_index, count, column=0, skip_lines=0):
+def read_multiple_line_values(lines: List[str], start_index: int, count: int,
+                              column: int = 0, skip_lines: int = 0) -> Tuple[List[str], int]:
     """
     Read multiple consecutive line values.
 
@@ -201,7 +210,8 @@ def read_multiple_line_values(lines, start_index, count, column=0, skip_lines=0)
     return values, line_index
 
 
-def read_line_values_to_dict(lines, start_index, keys, column=0, skip_lines=0):
+def read_line_values_to_dict(lines: List[str], start_index: int, keys: List[str],
+                             column: int = 0, skip_lines: int = 0) -> Tuple[Dict[str, str], int]:
     """
     Read multiple line values directly into a dictionary.
 
@@ -253,7 +263,8 @@ def read_line_values_to_dict(lines, start_index, keys, column=0, skip_lines=0):
     return result_dict, line_index
 
 
-def read_param_table(file_lines, line_index, lines, cast=float):
+def read_param_table(file_lines: List[str], line_index: int, lines: int,
+                     cast: Callable[[str], Any] = float) -> Tuple['np.ndarray', int]:
     """read_param_table() - Read a table of numeric parameters and return
     a numpy array.
 

@@ -16,8 +16,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+from __future__ import annotations
 
-def validate_date_format(date_str, param_name='date'):
+from typing import Tuple, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import datetime
+
+
+def validate_date_format(date_str: str, param_name: str = 'date') -> Tuple[int, int, int]:
     """Validate that a date string is in MM/DD/YYYY format.
 
     Accepts dates with optional time component (e.g., '09/30/1973_24:00').
@@ -87,7 +94,8 @@ def validate_date_format(date_str, param_name='date'):
     return month, day, year
 
 
-def safe_parse_date(date_str, param_name='date', fmt='%m/%d/%Y'):
+def safe_parse_date(date_str: str, param_name: str = 'date',
+                    fmt: str = '%m/%d/%Y') -> 'datetime.datetime':
     """Safely parse a date string with validation.
 
     Parameters
@@ -128,7 +136,8 @@ def safe_parse_date(date_str, param_name='date', fmt='%m/%d/%Y'):
         ) from e
 
 
-def validate_dss_date_format(date_str, param_name='date'):
+def validate_dss_date_format(date_str: str,
+                             param_name: str = 'date') -> Tuple[int, int, int, int, int]:
     """Validate DSS date format (e.g., '10/31/1973_24:00').
 
     IWFM uses DSS format: MM/DD/YYYY_hh:mm where midnight is represented as 24:00.
