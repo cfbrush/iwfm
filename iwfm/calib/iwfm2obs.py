@@ -25,10 +25,19 @@
 #-----------------------------------------------------------------------------
 
 
-def iwfm2obs(verbose=False):
+def iwfm2obs(verbose=False, head_divisor=None):
     ''' iwfm2obs() interpolates model output to match the times and
         locations of calibration observations and puts them into a PEST-compatible
         smp-formatted output file.
+
+        head_divisor : float or None (default None)
+            Divisor applied to simulated GROUNDWATER heads before writing, to undo the
+            model head output unit-scale (FACTLTOU) so heads are reported in model units.
+            None (default) = auto-detect FACTLTOU from the groundwater file. For legacy
+            models FACTLTOU=1 -> no scaling, 3-decimal output (unchanged behavior). When
+            the effective divisor is >1 (e.g. FACTLTOU=100 to boost printed precision),
+            heads are divided and written to 6 decimals. Passing a value overrides the
+            auto-detected FACTLTOU.
 
     Parameters
     ----------
@@ -80,6 +89,24 @@ def iwfm2obs(verbose=False):
     gw_file_d, node_id, layers, Kh, Ss, Sy, Kq, Kv, init_cond, units, hydrographs, factxy = iwfm.iwfm_read_gw(sim_path(sim_file_d['gw_file']))                  # get groundwater file names from groundwater file
     logger.debug(f'Subsidence file: {gw_file_d.subs_file}')
     logger.debug(f'Tile drain file: {gw_file_d.drain_file}')
+
+    # Groundwater head output unit-scale (FACTLTOU): iwfm2obs divides simulated GW heads
+    # by it so heads are reported in model units regardless of the output factor. A high
+    # FACTLTOU (e.g. 100) is used to boost printed precision; dividing recovers ~1e-5 ft.
+    # Auto-detected from the GW file unless head_divisor is passed explicitly (override).
+    # Legacy models have FACTLTOU=1 -> divisor 1 -> unchanged 3-decimal output.
+    def _read_factltou(path):
+        try:
+            for ln in open(path, encoding='latin-1', errors='ignore'):
+                if 'FACTLTOU' in ln and not ln.lstrip().startswith('C'):
+                    return float(ln.split()[0])
+        except Exception:
+            pass
+        return 1.0
+    gw_divisor = head_divisor if head_divisor is not None else _read_factltou(sim_path(sim_file_d['gw_file']))
+    logger.info(f'Groundwater head divisor (FACTLTOU) = {gw_divisor}'
+                + (' -> 6-decimal output' if gw_divisor != 1.0 else ' -> 3-decimal output (legacy)'))
+    if verbose: print(f'  GW head divisor (FACTLTOU) = {gw_divisor}')
 
     # check for existence of subprocess file names
     file_dict = {   # 0                              1             2             3             4             5    6     7       8     9
@@ -238,12 +265,19 @@ def iwfm2obs(verbose=False):
                         obs_val = float(sim_func(obs_date[i]))                    # use interpolation function (clamped at sim range edges)
                         ts = ceil(float(ts_func(obs_date[i])))                    # use interpolation function
 
-                        smp, ins = calib.to_smp_ins(obs_site[i],obs_dt[i],round(obs_val,3),ts)   # put into smp and ins strings
+                        # Groundwater heads: divide by FACTLTOU (auto-detected above) to report
+                        # heads in model units; gw_divisor==1.0 for legacy models -> 3 decimals.
+                        if nt == 'Groundwater' and gw_divisor != 1.0:
+                            obs_val = obs_val / gw_divisor
+                            ndec = 6
+                        else:
+                            ndec = 3
+                        smp, ins = calib.to_smp_ins(obs_site[i],obs_dt[i],round(obs_val,ndec),ts)   # put into smp and ins strings
                         smp_out.append(smp)                                       # add smp string to smp_out list
                         ins_out.append(ins)                                       # add ins string to ins_out list
 
                         if nt == 'Groundwater' and headdiffs == True and obs_site[i] in hdiff_sites:
-                            hdiff_data.append([obs_site[i],obs_dt[i],obs_val,ts])
+                            hdiff_data.append([obs_site[i],obs_dt[i],obs_val,ts])   # obs_val already unscaled above
 
             if nt == 'Groundwater' and headdiffs == True and len(hdiff_data) > 0:  # process headdiffs
                 smp, ins = calib.headdiff_hyds(hdiff_pairs, hdiff_data, file_dict[nt][7], ts_func, start_date, verbose)
@@ -285,6 +319,14 @@ if __name__ == "__main__":
 
     verbose, debug = parse_cli_flags()
 
+    # Optional override: --head-divisor N. If omitted, iwfm2obs auto-detects FACTLTOU from the GW file.
+    head_divisor = None
+    for _i, _a in enumerate(sys.argv):
+        if _a.startswith('--head-divisor='):
+            head_divisor = float(_a.split('=', 1)[1])
+        elif _a == '--head-divisor' and _i + 1 < len(sys.argv):
+            head_divisor = float(sys.argv[_i + 1])
+
     if not debug:
         # Always create a log file, even without --debug
         from datetime import datetime as dt
@@ -298,7 +340,7 @@ if __name__ == "__main__":
         logger.info(f"Logging to {log_file}")
 
     idb.exe_time()  # initialize timer
-    iwfm2obs(verbose=verbose)
+    iwfm2obs(verbose=verbose, head_divisor=head_divisor)
 
     logger.info('iwfm2obs completed')
     print(' ') # clean screen
