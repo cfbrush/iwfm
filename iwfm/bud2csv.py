@@ -51,7 +51,6 @@ def bud2csv(f, loc_names, column_headers, loc_values, budget_info,
     nothing
     '''
 
-    print(f' => ')
 
     # determine budget type and location type
     budget_type = budget_info[0][1].split()[0]

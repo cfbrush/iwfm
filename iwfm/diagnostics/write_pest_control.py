@@ -3,7 +3,10 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+import logging
 import os
+
+logger = logging.getLogger('iwfm.diagnostics.write_pest_control')
 
 
 def write_pest_control(template_pst, output_pst, recommendations,
@@ -214,7 +217,7 @@ def modify_pst(template_pst, output_pst, modifications, verbose=False):
     # Apply fix/unfix
     for pname in fix_params:
         if pname not in new_params:
-            print(f'  WARN modify_pst: fix_params {pname!r} not in param data; skipping')
+            logger.warning(f'modify_pst: fix_params {pname!r} not in param data; skipping')
             continue
         if new_params[pname]['transform'] != 'fixed':
             new_params[pname]['transform'] = 'fixed'
@@ -224,7 +227,7 @@ def modify_pst(template_pst, output_pst, modifications, verbose=False):
                 if c in new_params:
                     new_params[c]['transform'] = 'fixed'
                 else:
-                    print(f'  WARN modify_pst: orphan tied-child {c!r} not in param data; skipping')
+                    logger.warning(f'modify_pst: orphan tied-child {c!r} not in param data; skipping')
                 tied_map.pop(c, None)
             # Remove this param if it was a tied child
             if pname in tied_map:
@@ -233,7 +236,7 @@ def modify_pst(template_pst, output_pst, modifications, verbose=False):
 
     for pname in unfix_params:
         if pname not in new_params:
-            print(f'  WARN modify_pst: unfix_params {pname!r} not in param data; skipping')
+            logger.warning(f'modify_pst: unfix_params {pname!r} not in param data; skipping')
             continue
         if new_params[pname]['transform'] == 'fixed':
             new_params[pname]['transform'] = 'none'

@@ -160,7 +160,6 @@ def iwfm2obs(verbose=False, head_divisor=None):
         old_value = file_dict[nt]
         new_value = [old_value[0],obs_file,out_file,ins_file,pcf_file,bprocess,bwriteins,rthresh,old_value[8],old_value[9]]
         file_dict.update({nt: new_value})
-    print(' ') # clean screen
 
     # == Process hydrographs --------------------------------------------------------
     logger.info('Reading hydrograph info from IWFM input files')
