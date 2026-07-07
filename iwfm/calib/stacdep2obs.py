@@ -43,7 +43,7 @@ def process_budget(budget_file, cwidth=12):
     """
     import numpy as np
 
-    with open(budget_file) as f:
+    with open(budget_file, encoding='utf-8') as f:
         budget_lines = f.read().splitlines()
 
     # How many lines per table? ----------------------------------
@@ -247,12 +247,12 @@ if __name__ == "__main__":
     stacdep, ins = stacdep2obs(budget_file, reach_file)
 
     # write results to output smp file
-    with open(output_file, 'w') as out_file:
+    with open(output_file, 'w', encoding='utf-8') as out_file:
         for item in stacdep:
             out_file.write(f'{item}\n')
 
     # write results to output ins file
-    with open(outins_file, 'w') as out_file:
+    with open(outins_file, 'w', encoding='utf-8') as out_file:
         out_file.write(f'pif #\n')
         for item in ins:
             out_file.write(f'{item}\n')

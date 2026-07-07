@@ -201,7 +201,7 @@ class TestReadHydDict:
         """Test that nonexistent file causes system exit."""
         nonexistent = tmp_path / "nonexistent.dat"
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.read_hyd_dict(str(nonexistent))
 
     def test_debug_logger_output(self, tmp_path):

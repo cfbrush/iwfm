@@ -216,11 +216,11 @@ def format_file(info):
 
         #  Read file contents with error handling
         try:
-            with open(file, 'r') as raw:
+            with open(file, 'r', encoding='utf-8') as raw:
                 csv_reader = csv.reader(raw)
 
                 #  Write to new file
-                with open(name, 'w', newline='') as new_file:
+                with open(name, 'w', newline='', encoding='utf-8') as new_file:
                     csv_writer = csv.writer(new_file)
 
                     # Write the header to the new CSV file

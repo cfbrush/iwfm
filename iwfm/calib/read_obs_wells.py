@@ -38,7 +38,7 @@ def read_obs_wells(gw_file):
 
     well_dict = {}
     iwfm.file_test(gw_file)
-    with open(gw_file) as f:
+    with open(gw_file, encoding='utf-8') as f:
         gwhyd_info = f.read().splitlines()           # open and read input file
 
     # skip to NOUTH (number of hydrographs)

@@ -61,7 +61,7 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
     # Use iwfm utility for file validation
     iwfm.file_test(sim_files.root_file)
 
-    with open(sim_files.root_file) as f:
+    with open(sim_files.root_file, encoding='utf-8') as f:
         rz_lines = f.read().splitlines()
 
     # Skip initial comments and 4 factor lines
@@ -164,7 +164,7 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
         iwfm.sub_rz_nv_file(nv_file, sim_files_new, elems, base_path, verbose=verbose)
 
     # -- write out rootzone main file --
-    with open(sim_files_new.root_file, 'w') as outfile:
+    with open(sim_files_new.root_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(rz_lines))
     if verbose:
         print(f'  Wrote rootzone main file {sim_files_new.root_file}')

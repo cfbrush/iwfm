@@ -503,7 +503,7 @@ def test_igsm_read_streams_missing_file_exits(tmp_path):
     from iwfm.igsm_read_streams import igsm_read_streams
 
     bogus = str(tmp_path / "does_not_exist.dat")
-    with pytest.raises(SystemExit):
+    with pytest.raises(FileNotFoundError):
         igsm_read_streams(bogus)
 
 

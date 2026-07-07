@@ -54,7 +54,7 @@ def sub_rz_urban_file(old_filename, sim_files_new, elems, base_path=None, verbos
     # Use iwfm utility for file validation
     iwfm.file_test(old_filename)
 
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         ur_lines = f.read().splitlines()
     ur_lines.append('')
 
@@ -91,7 +91,7 @@ def sub_rz_urban_file(old_filename, sim_files_new, elems, base_path=None, verbos
 
     ur_lines.append('')
 
-    with open(sim_files_new.ur_file, 'w') as outfile:
+    with open(sim_files_new.ur_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(ur_lines))
     if verbose:
         print(f'      Wrote urban file {sim_files_new.ur_file}')

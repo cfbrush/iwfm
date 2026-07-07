@@ -126,7 +126,7 @@ def iteration_callback(pest_dir, iteration=None, model_config=None,
 
     # Save bundle to file
     bundle_path = os.path.join(pest_dir, f'diagnostics_iter_{iteration:03d}.json')
-    with open(bundle_path, 'w') as f:
+    with open(bundle_path, 'w', encoding='utf-8') as f:
         f.write(bundle_json)
 
     if verbose:
@@ -179,7 +179,7 @@ def iteration_callback(pest_dir, iteration=None, model_config=None,
                 for k, v in recs['param_groups'].items()
             },
         }
-        with open(recs_path, 'w') as f:
+        with open(recs_path, 'w', encoding='utf-8') as f:
             json.dump(recs_serializable, f, indent=2)
 
         result['recommendations'] = recs

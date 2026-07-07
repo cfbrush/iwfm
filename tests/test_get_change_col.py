@@ -120,27 +120,27 @@ class TestGetChangeColYearNotFound:
         ]
 
         # Year 1999 is not in the table
-        with pytest.raises(SystemExit):
+        with pytest.raises(ValueError):
             get_change_col(changes_table, 1999, 'test.csv')
 
     def test_year_after_range_exits(self):
-        """Test that function exits when year is after all years in table."""
+        """Test that function raises when year is after all years in table."""
         changes_table = [
             ['Zone', 2000, 2005, 2010],
             [1, 1.0, 1.1, 1.2],
         ]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(ValueError):
             get_change_col(changes_table, 2020, 'test.csv')
 
     def test_year_before_range_exits(self):
-        """Test that function exits when year is before all years in table."""
+        """Test that function raises when year is before all years in table."""
         changes_table = [
             ['Zone', 2000, 2005, 2010],
             [1, 1.0, 1.1, 1.2],
         ]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(ValueError):
             get_change_col(changes_table, 1990, 'test.csv')
 
 
@@ -247,7 +247,7 @@ class TestGetChangeColEdgeCases:
         ]
 
         # String '2000' != int 2000, so year not found
-        with pytest.raises(SystemExit):
+        with pytest.raises(ValueError):
             get_change_col(changes_table, 2000, 'test.csv')
 
 
@@ -324,12 +324,11 @@ class TestGetChangeColFilenameParameter:
 
         filename = 'my_custom_changes.csv'
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(ValueError) as exc_info:
             get_change_col(changes_table, 1999, filename)
 
-        captured = capsys.readouterr()
-        assert filename in captured.out
-        assert '1999' in captured.out
+        assert filename in str(exc_info.value)
+        assert '1999' in str(exc_info.value)
 
 
 class TestGetChangeColConsecutiveYears:

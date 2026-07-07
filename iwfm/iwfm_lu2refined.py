@@ -44,7 +44,7 @@ def iwfm_lu2refined(in_lu_file,lu_factors,verbose=False):
 
     # read the original IWFM Land Use file
     iwfm.file_test(in_lu_file)
-    with open(in_lu_file) as f:
+    with open(in_lu_file, encoding='utf-8') as f:
         lu_lines = f.read().splitlines()  # open and read input file
     _, line_index = read_next_line_value(lu_lines, -1, column=0, skip_lines=4)  # skip comments and header
 
@@ -62,7 +62,7 @@ def iwfm_lu2refined(in_lu_file,lu_factors,verbose=False):
     # get the number of lines per time period
     nlines = int((len(lu_lines) - line_index) / ntimes)
 
-    with open(out_lu_file_name, 'w') as out_lu_file:
+    with open(out_lu_file_name, 'w', encoding='utf-8') as out_lu_file:
         # write the header to the new land use file
         for line in range(line_index):
             out_lu_file.write(lu_lines[line]+'\n')

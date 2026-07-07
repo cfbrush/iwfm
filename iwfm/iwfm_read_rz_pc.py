@@ -49,7 +49,7 @@ def iwfm_read_rz_pc(file, verbose=False):
     if verbose: print(f"Entered iwfm_read_rz_pc() with {file}")
 
     iwfm.file_test(file)
-    with open(file) as f:
+    with open(file, encoding='utf-8') as f:
         pc_lines = f.read().splitlines()                   # open and read input file
 
     pc_area_file, line_index = read_next_line_value(pc_lines, -1)

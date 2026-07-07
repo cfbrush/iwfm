@@ -41,7 +41,7 @@ def igsm_read_elements(elem_file):
 
     # -- read the Element file into array file_lines
     iwfm.file_test(elem_file)
-    with open(elem_file) as f:
+    with open(elem_file, encoding='utf-8') as f:
         elem_lines = f.read().splitlines()  # open and read input file
 
     # skip comments and read number of elements

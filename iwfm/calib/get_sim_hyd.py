@@ -48,7 +48,7 @@ def get_sim_hyd(nt,file_name,start_date):
     import numpy as np
 
     logger.debug(f'get_sim_hyd({nt}): reading {file_name}')
-    with open(file_name) as f:
+    with open(file_name, encoding='utf-8') as f:
         hyd_lines = f.read().splitlines()
     hyd_index, dates, sim_hyd = 1, [], []
     logger.debug(f'  Read {len(hyd_lines):,} lines from {file_name}')

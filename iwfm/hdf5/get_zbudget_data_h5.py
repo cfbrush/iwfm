@@ -21,10 +21,7 @@ import numpy as np
 import pandas as pd
 from collections import defaultdict
 
-try:
-    import h5py
-except ImportError:
-    h5py = None
+import h5py
 
 from iwfm.hdf5.hdf5_utils import (
     decode_hdf5_string,
@@ -96,11 +93,6 @@ def get_zbudget_data(zbud_file, zone_file,
         Zone extent (1=horizontal plane, 0=per-layer)
     """
     import iwfm
-
-    if h5py is None:
-        print("Error: h5py module not found")
-        print("Install with: pip install h5py")
-        sys.exit(1)
 
     iwfm.file_test(zbud_file)
     iwfm.file_test(zone_file)

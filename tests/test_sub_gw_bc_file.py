@@ -443,7 +443,7 @@ class TestSubGwBcFile:
             tsbc_file='new_tsbc'
         )
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_gw_bc_file('nonexistent_file.dat', sim_files_new, [1, 2, 3], [1, 2], bounding_poly)
 
     def test_returns_none(self):

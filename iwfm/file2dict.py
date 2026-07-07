@@ -48,7 +48,7 @@ def file2dict(infile, key_field=0, val_field=1, skip=0, key_type=str, val_type=s
     import re
 
     d = {}
-    with open(infile) as f:
+    with open(infile, encoding='utf-8') as f:
         info = f.read().splitlines()
     for i, line in enumerate(info):
         if i > skip - 1:

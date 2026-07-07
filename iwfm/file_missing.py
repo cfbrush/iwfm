@@ -1,6 +1,6 @@
 # file_missing.py
-# Print message to console and exit
-# Copyright (C) 2020-2023 University of California
+# Raise FileNotFoundError for a missing file
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -18,7 +18,8 @@
 
 
 def file_missing(filename, context=None):
-    ''' file_missing() - Exit with a message that the file does not exist
+    ''' file_missing() - Raise FileNotFoundError for a file that does
+        not exist
 
     Parameters
     ----------
@@ -30,27 +31,19 @@ def file_missing(filename, context=None):
 
     Returns
     -------
-        nothing — this function never returns normally.
+    nothing — this function never returns normally.
 
     Raises
     ------
-    SystemExit
-        Always — calls ``sys.exit()`` after printing the formatted error
-        block. Tests that exercise paths reaching ``file_missing`` should
-        wrap them in ``pytest.raises(SystemExit)``.
+    FileNotFoundError
+        Always, with the file name, optional context, and current
+        working directory in the message.
 
     '''
-    import sys
     import os
 
-    print('  *****************************************************************')
-    print('  * ')
-    print(f'  *   File path {filename} does not exist.')
+    msg = f'File path {filename} does not exist.'
     if context:
-        print(f'  *   {context}')
-    print(f'  *   ')
-    print(f'  *   Current working directory: {os.getcwd()}')
-    print('  *   Quitting.')
-    print('  * ')
-    print('  *****************************************************************')
-    sys.exit()
+        msg += f' {context}.'
+    msg += f' Current working directory: {os.getcwd()}'
+    raise FileNotFoundError(msg)

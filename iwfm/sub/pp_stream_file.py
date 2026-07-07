@@ -56,7 +56,7 @@ def sub_pp_stream_file(stream_file, new_stream_file, snode_dict, reach_info,
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(stream_file)
-    with open(stream_file) as f:
+    with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
 
     stream_type = stream_lines[0][1:]
@@ -97,7 +97,7 @@ def sub_pp_stream_file(stream_file, new_stream_file, snode_dict, reach_info,
 
     sub_stream_lines.append('')
     # -- write new stream specification file
-    with open(new_stream_file, 'w') as outfile:
+    with open(new_stream_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(sub_stream_lines))
 
     return
@@ -221,10 +221,7 @@ snodes_header_42 = [
 
 
 def exit_now(stream_type):
-    import sys
-    from iwfm.debug.logger_setup import logger
-    logger.error(
+    raise NotImplementedError(
         f'sub_pp_stream_file(): no method to write stream specification type '
-        f'{stream_type!r}; exiting.'
+        f'{stream_type!r}'
     )
-    sys.exit()

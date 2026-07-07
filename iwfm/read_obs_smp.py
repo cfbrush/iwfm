@@ -47,7 +47,7 @@ def read_obs_smp(smp_file):
     times = []
     values = []
 
-    with open(smp_file) as f:
+    with open(smp_file, encoding='utf-8') as f:
         for line in f:
             line = line.replace("_", " ")
             parts = line.split()

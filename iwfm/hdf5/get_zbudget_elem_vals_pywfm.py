@@ -147,7 +147,7 @@ if __name__ == '__main__':
     with open(pickle_base + '.pkl', 'wb') as f:
         pickle.dump(zone_data, f)
 
-    with open( out_file, 'w') as f:
+    with open( out_file, 'w', encoding='utf-8') as f:
 #        f.write('ElemID\tNP Ag Pumping\tRice Pumping\tRefuge Pumping\tUrban Pumping\n')         # Land and Water Use
         f.write('ElemID\tElem Pumping\tWell Pumping\n')                                         # Groundwater
 

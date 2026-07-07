@@ -75,9 +75,7 @@ def qgis_init_paths(debug=0):  # must run this
         sys.path.append(APPPATH_MAC)
         app_path = APPPATH_MAC
     else:
-        from iwfm.debug.logger_setup import logger
-        logger.error(f'init_Qgis_Paths() called with unsupported qos = {qos!r}; exiting.')
-        sys.exit()
+        raise RuntimeError(f'qgis_init_paths() called with unsupported qos = {qos!r}')
     if debug:
         print('  => After adding to paths:')  # debugging
         debug.print_env()  # debugging

@@ -57,7 +57,7 @@ def nodes2shp(node_coords, shape_name, epsg=26910, verbose=False):
         w.record(node_id=node_coords[i][0])  # Add attributes
     
     # Create .prj file for spatial reference
-    with open(f"{shapename[:-4]}.prj", "w") as prj:
+    with open(f"{shapename[:-4]}.prj", "w", encoding='utf-8') as prj:
         epsg = pyproj.CRS.from_epsg(epsg)
         prj.write(epsg.to_wkt())
     

@@ -397,7 +397,7 @@ class TestIwfmReadLake:
         """Test error handling for non-existent file"""
         from iwfm.iwfm_read_lake import iwfm_read_lake
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm_read_lake('nonexistent_file.dat')
 
 

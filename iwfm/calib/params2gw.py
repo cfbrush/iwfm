@@ -45,7 +45,7 @@ def read_gw_file(gw_file, verbose=False):
     params_d = {}
     comments = 'Cc*#'
 
-    with open(gw_file, 'r') as f:
+    with open(gw_file, 'r', encoding='utf-8') as f:
         gw_lines = f.read().splitlines()
 
     line_index = 10
@@ -98,7 +98,7 @@ def read_gw_file(gw_file, verbose=False):
     while gw_lines[line_index][0] in comments:                  # skip comment lines
         line_index += 1
 
-    with open('parvals_keys.txt', 'w') as f:                    # write parameter values to file
+    with open('parvals_keys.txt', 'w', encoding='utf-8') as f:                    # write parameter values to file
         parvals_d = {}                                          # initialize dictionary
         while gw_lines[line_index][0] not in comments:          # process parameter lines
             for l in range(0, nlay):                            # cycle through layers
@@ -113,7 +113,7 @@ def read_gw_file(gw_file, verbose=False):
 
                 line_index += 1
 
-    with open('parvals_d.txt', 'w') as f:                       # write parameter values to file
+    with open('parvals_d.txt', 'w', encoding='utf-8') as f:                       # write parameter values to file
         for key in parvals_d.keys():
             f.write(f'{key} {parvals_d[key]}\n')
 
@@ -156,7 +156,7 @@ def read_params(param_types, verbose=False):
 
                 else:
                     iwfm.file_test(param_file)
-                    with open(param_file) as pf:
+                    with open(param_file, encoding='utf-8') as pf:
                         file_lines = pf.read().splitlines()
                     for line in file_lines:
                         text = line.split()
@@ -177,11 +177,11 @@ def read_params(param_types, verbose=False):
         parvals.append(pvals)
         parnodes.append(pnodes)
 
-    with open('parvals_new.txt', 'w') as f:                       # write parameter values to file
+    with open('parvals_new.txt', 'w', encoding='utf-8') as f:                       # write parameter values to file
         for item in parvals:
             f.write(f'{item}\n')
 
-    with open('parnodes.txt', 'w') as f:                          # write parameter values to file
+    with open('parnodes.txt', 'w', encoding='utf-8') as f:                          # write parameter values to file
         for item in parnodes:
             f.write(f'{item}\n')
 
@@ -226,7 +226,7 @@ def write_gw_file(outfile, gw_lines, nlay, parnodes, parvals, fp, parvals_d, ver
     comments = 'Cc*#'
 
     line_index = 0
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding='utf-8') as f:
 
         while gw_lines[line_index][0] in comments:      # write comment lines
             f.write(f'{gw_lines[line_index]}\n')

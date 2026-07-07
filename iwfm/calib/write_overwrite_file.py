@@ -52,7 +52,7 @@ def write_overwrite_file(overwrite_file, in_lines, parnodes, nlay, parvals, fp, 
     '''
 
     line_index = 0
-    with open(overwrite_file, 'w') as f:
+    with open(overwrite_file, 'w', encoding='utf-8') as f:
 
         while in_lines[line_index][0] == 'C':           # write comment lines
             f.write(f'{in_lines[line_index]}\n')

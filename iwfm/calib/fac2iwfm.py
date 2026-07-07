@@ -56,7 +56,7 @@ def fac2iwfm(pp_file_name, param_file_name, save_name, rlow=0.0, rhigh=1000000.0
         print(' From FAC2REALI.F90 by Matt Tonkin, SSPA.')
     
     iwfm.file_test(pp_file_name)
-    with open(pp_file_name) as f:
+    with open(pp_file_name, encoding='utf-8') as f:
         pp_file_lines = f.read().splitlines()
     if verbose: print(f'\n Read {pp_file_name}')
  
@@ -69,7 +69,7 @@ def fac2iwfm(pp_file_name, param_file_name, save_name, rlow=0.0, rhigh=1000000.0
 
     # read parameter values at pilot points into a dictionary
     iwfm.file_test(param_file_name)
-    with open(param_file_name) as f:
+    with open(param_file_name, encoding='utf-8') as f:
         param_file_lines = f.read().splitlines()
     if verbose: print(f' Read {param_file_name}')
     pp_params, i = {}, 0
@@ -80,7 +80,7 @@ def fac2iwfm(pp_file_name, param_file_name, save_name, rlow=0.0, rhigh=1000000.0
 
 
     # parse the spatial interpolation factors and calculate the parameter value
-    with open(save_name, 'w') as f:
+    with open(save_name, 'w', encoding='utf-8') as f:
         for item in pp_factors:
             item = item.split()
             node, na, pval = int(item[0]), int(item[2]), 0

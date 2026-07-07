@@ -45,7 +45,7 @@ def read_sim_wells(gw_file, verbose=False):
     if verbose: print(f"Entered read_sim_wells() with {gw_file}")
 
     well_dict, well_list = {}, []
-    with open(gw_file) as f:
+    with open(gw_file, encoding='utf-8') as f:
         gwhyd_info = f.read().splitlines()
 
     # skip to NOUTH, number of hydrographs (skip 20 non-comment lines after start)

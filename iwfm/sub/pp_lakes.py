@@ -46,7 +46,7 @@ def sub_pp_lakes(lake_file, elem_list):
     elems = [int(e[0]) for e in elem_list]
 
     iwfm.file_test(lake_file)
-    with open(lake_file) as f:
+    with open(lake_file, encoding='utf-8') as f:
         lake_lines = f.read().splitlines()  # open and read input file
 
     # Check if first line has at least 2 characters before slicing

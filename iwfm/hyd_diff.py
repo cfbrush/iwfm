@@ -42,7 +42,7 @@ def hyd_diff(gwhyd_file_1, gwhyd_file_2, outname):
 
     iwfm.file_test(gwhyd_file_1)
     try:
-        with open(gwhyd_file_1) as f:
+        with open(gwhyd_file_1, encoding='utf-8') as f:
             gwhyd_lines_1 = (f.read().splitlines())
     except FileNotFoundError:
         logger.error(f'File not found: {gwhyd_file_1}')
@@ -57,7 +57,7 @@ def hyd_diff(gwhyd_file_1, gwhyd_file_2, outname):
 
     iwfm.file_test(gwhyd_file_2)
     try:
-        with open(gwhyd_file_2) as f:
+        with open(gwhyd_file_2, encoding='utf-8') as f:
             gwhyd_lines_2 = (f.read().splitlines())
     except FileNotFoundError:
         logger.error(f'File not found: {gwhyd_file_2}')
@@ -81,7 +81,7 @@ def hyd_diff(gwhyd_file_1, gwhyd_file_2, outname):
       gwhyd_lines_out.append(as_str)
 
     try:
-        with open(outname, 'w') as f:
+        with open(outname, 'w', encoding='utf-8') as f:
           for line in gwhyd_lines_out:
             f.write("%s\n" % line )
     except PermissionError:

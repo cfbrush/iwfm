@@ -63,7 +63,7 @@ def read_overwrite_file(overwrite_file, nnodes, nlay, param_types, verbose=False
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(overwrite_file)
-    with open(overwrite_file) as f:
+    with open(overwrite_file, encoding='utf-8') as f:
         in_lines = f.read().splitlines()               # open and read input file
 
     if not in_lines:

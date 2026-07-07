@@ -189,10 +189,9 @@ def iwfm2obs(verbose=False, head_divisor=None):
     if todo == 0:
         logger.warning('Nothing to do, exiting')
         if verbose: print('\n  Nothing to do, exiting')
-        sys.exit()
         return 0
 
-    with open(missing_file, 'w') as fmiss:                                        # erase old version
+    with open(missing_file, 'w', encoding='utf-8') as fmiss:                                        # erase old version
         fmiss.write('')
 
     # == read simulated hydrographs --------------------------------------------------------
@@ -286,7 +285,7 @@ def iwfm2obs(verbose=False, head_divisor=None):
 
             # -- write smp file ----------------------------------------------------------------
             smp_outfile  = file_dict[nt][2]
-            with open(smp_outfile, 'w') as f:
+            with open(smp_outfile, 'w', encoding='utf-8') as f:
                 for item in smp_out:
                     f.write("%s\n" % item)
             logger.info(f'  Wrote {len(smp_out):,} simulated {nt.lower()} values to {smp_outfile}')
@@ -295,7 +294,7 @@ def iwfm2obs(verbose=False, head_divisor=None):
             # -- write ins file ----------------------------------------------------------------
             if file_dict[nt][6] == True:        # iwriteins
                 ins_outfile  = file_dict[nt][3]
-                with open(ins_outfile, 'w') as f:
+                with open(ins_outfile, 'w', encoding='utf-8') as f:
                     f.write("pif #\n")
                     for item in ins_out:
                         f.write("%s\n" % item)

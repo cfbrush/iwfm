@@ -43,7 +43,7 @@ def read_wells(infile, verbose=False):
     if verbose: print(f"Entered read_wells() with {infile}")
 
     iwfm.file_test(infile)
-    with open(infile) as f:
+    with open(infile, encoding='utf-8') as f:
         gwhyd_info = f.read().splitlines()
 
     # skip to NOUTH, number of hydrographs (skip 20 non-comment lines after start)

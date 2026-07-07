@@ -46,7 +46,7 @@ def vic_2_table(factorsFileName, outFileName, col, verbose=False):
 
     iwfm.file_test(factorsFileName)
     try:
-        with open(factorsFileName) as f:
+        with open(factorsFileName, encoding='utf-8') as f:
             factors = f.read().splitlines()  # get climate thance gactors
     except FileNotFoundError:
         logger.error(f'File not found: {factorsFileName}')
@@ -106,7 +106,7 @@ def vic_2_table(factorsFileName, outFileName, col, verbose=False):
     factors = []  # clear memory
 
     try:
-        with open(outFileName, 'w') as out_file:
+        with open(outFileName, 'w', encoding='utf-8') as out_file:
             if verbose:
                 print(f'  Opened {outFileName} for output')
 

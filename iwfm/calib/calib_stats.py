@@ -56,7 +56,7 @@ def calib_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
     
     # == read pest observation file into array obs
     try:
-        with open(pest_smp_file) as f:
+        with open(pest_smp_file, encoding='utf-8') as f:
             head_obs = f.read().splitlines()
     except FileNotFoundError:
         logger.error(f'File not found: {pest_smp_file}')
@@ -178,7 +178,7 @@ def calib_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
     # write all simulated and measured values to a file
     out_file = gwhyd_file.replace('.out','_sim_obs.txt')
     try:
-        with open(out_file,'w') as of:
+        with open(out_file,'w', encoding='utf-8') as of:
             of.write('Well Name\tDate\tSimulated\tObserved\n')
             for i in range(0,len(sim_all)):
                 of.write(f'{names_all[i]}\t{dates_all[i].strftime("%m/%d/%y")}\t{sim_all[i]}\t{meas_all[i]}\n')
@@ -200,7 +200,7 @@ def calib_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
     # write out results for all wells
     out_file = gwhyd_file.replace('.out','_rmse_all.txt')
     try:
-        with open(out_file,'w') as of:
+        with open(out_file,'w', encoding='utf-8') as of:
             of.write(f'Filename\tRMSE\tBIAS\n')
             rmse_all = round(ical.rmse_calc(sim_all,meas_all),2)
             bias_all = round(ical.bias_calc(sim_all,meas_all),2)

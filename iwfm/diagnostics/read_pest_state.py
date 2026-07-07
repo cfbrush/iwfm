@@ -99,7 +99,7 @@ def _parse_res_file(res_file):
     """
     groups = {}  # group -> {n, sum_res, sum_res_sq}
 
-    with open(res_file) as f:
+    with open(res_file, encoding='utf-8') as f:
         header = f.readline()  # skip header
         for line in f:
             parts = line.split()
@@ -162,7 +162,7 @@ def _parse_rec_last_iteration(rec_file):
     last_iter = 0
     last_phi = 0.0
 
-    with open(rec_file) as f:
+    with open(rec_file, encoding='utf-8') as f:
         for line in f:
             parts = line.split()
             if len(parts) < 2:
@@ -193,7 +193,7 @@ def _parse_pst_bounds(pst_file):
     bounds = {}
     in_param_section = False
 
-    with open(pst_file) as f:
+    with open(pst_file, encoding='utf-8') as f:
         for line in f:
             stripped = line.strip()
             if stripped.startswith('* parameter data'):
@@ -238,7 +238,7 @@ def _detect_bounds(par_file, param_bounds, threshold=0.05):
     """
     results = []
 
-    with open(par_file) as f:
+    with open(par_file, encoding='utf-8') as f:
         header = f.readline()  # skip "single point"
         for line in f:
             parts = line.split()

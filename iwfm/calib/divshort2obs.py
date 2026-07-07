@@ -38,7 +38,7 @@ def process_budget(budget_file, cwidth=12):
     """
     import numpy as np
 
-    with open(budget_file) as f:
+    with open(budget_file, encoding='utf-8') as f:
         budget_lines = f.read().splitlines()
 
     # How many lines per table? ----------------------------------
@@ -131,7 +131,7 @@ def read_reaches(reach_file):
             If a data line's ``num_per_group`` token cannot be parsed as
             ``int``, or if any reach number token cannot be parsed.
     """
-    with open(reach_file) as f:
+    with open(reach_file, encoding='utf-8') as f:
         lines = f.read().splitlines()
 
     reaches = []
@@ -291,13 +291,13 @@ if __name__ == "__main__":
     divshort, ins = divshort2obs(budget_file, reach_file)
 
     # write results to output smp file
-    with open(output_file, 'w') as out_file:
+    with open(output_file, 'w', encoding='utf-8') as out_file:
         for item in divshort:
             out_file.write(f'{item}\n')
 
     # write results to output ins file
     outins_file = output_file.replace('.smp','.ins')
-    with open(outins_file, 'w') as out_file:
+    with open(outins_file, 'w', encoding='utf-8') as out_file:
         out_file.write(f'pif #\n')
         for item in ins:
             out_file.write(f'{item}\n')

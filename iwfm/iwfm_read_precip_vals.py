@@ -38,7 +38,7 @@ def iwfm_read_precip_vals(precip_file, verbose=False):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(precip_file)
-    with open(precip_file) as f:
+    with open(precip_file, encoding='utf-8') as f:
         pr_lines = f.read().splitlines()                                # open and read input file
 
     nrain, line_index = read_next_line_value(pr_lines, -1)              # number of columns

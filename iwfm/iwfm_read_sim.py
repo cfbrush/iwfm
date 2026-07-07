@@ -45,7 +45,7 @@ def iwfm_read_sim(sim_file, verbose=False):
     if verbose: print(f"Entered iwfm_read_sim() with {sim_file}")
 
     iwfm.file_test(sim_file)
-    with open(sim_file) as f:
+    with open(sim_file, encoding='utf-8') as f:
         sim_lines = f.read().splitlines()
 
     preout, line_index = read_next_line_value(sim_lines, -1, skip_lines=3)

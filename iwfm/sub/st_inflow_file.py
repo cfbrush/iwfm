@@ -49,7 +49,7 @@ def sub_st_inflow_file(old_filename, new_filename, snode_list, verbose=False):
     # Check if inflow file exists using iwfm utility
     iwfm.file_test(old_filename)
 
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         inflow_lines = f.read().splitlines()
     inflow_lines.append('')
 
@@ -71,7 +71,7 @@ def sub_st_inflow_file(old_filename, new_filename, snode_list, verbose=False):
 
     inflow_lines.append('')
 
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(inflow_lines))
     if verbose:
         print(f'      Wrote stream inflow file {new_filename}')

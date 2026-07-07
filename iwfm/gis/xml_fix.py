@@ -36,9 +36,9 @@ def xml_fix(infile, outfile, verbose=False):
     '''
     from bs4 import BeautifulSoup
 
-    with open(infile) as data:
+    with open(infile, encoding='utf-8') as data:
         new_data = BeautifulSoup(data.read(), features='xml')
-    with open(outfile, 'w') as fixed:
+    with open(outfile, 'w', encoding='utf-8') as fixed:
         fixed.write(new_data.prettify())
     if verbose:
         print(f'  Fixed file \'{infile}\' and wrote to \'{outfile}\' ')

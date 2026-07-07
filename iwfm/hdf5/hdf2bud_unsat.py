@@ -21,12 +21,7 @@ import sys
 import os
 import numpy as np
 
-try:
-    import h5py
-except ImportError:
-    print("Error: h5py module not found")
-    print("Install with: pip install h5py")
-    sys.exit(1)
+import h5py
 
 from iwfm.debug.logger_setup import logger, setup_debug_logger
 
@@ -76,8 +71,7 @@ def hdf2bud_unsat(hdf_file, output_file,
         setup_debug_logger()  # Auto-detects script name
 
     if not os.path.exists(hdf_file):
-        logger.error(f"File '{hdf_file}' not found")
-        sys.exit(1)
+        raise FileNotFoundError(f"File '{hdf_file}' not found")
 
     if debug:
         logger.debug(f"Opening HDF5 file: {hdf_file}")
@@ -142,7 +136,7 @@ def hdf2bud_unsat(hdf_file, output_file,
         descriptor = attrs['Descriptor'].decode('utf-8')
 
         # Write output file
-        with open(output_file, 'w') as out:
+        with open(output_file, 'w', encoding='utf-8') as out:
             # Process each location
             for loc_idx in range(n_locations):
                 loc_name = location_names[loc_idx]

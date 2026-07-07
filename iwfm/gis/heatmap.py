@@ -40,7 +40,7 @@ def heatmap(infile, outfile, title):
     import folium
     from folium.plugins import HeatMap
 
-    with open(infile, "r") as f:
+    with open(infile, "r", encoding='utf-8') as f:
         lines = f.readlines()
     lines.pop(0)
     data = []

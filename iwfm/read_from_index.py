@@ -36,7 +36,7 @@ def read_from_index(file_name, start_index):
     #  List to hold the read lines
     lines = []
 
-    with open(file_name, 'r') as file:
+    with open(file_name, 'r', encoding='utf-8') as file:
         #  Skip lines until the start_index
         for _ in range(start_index - 1):
             next(file)

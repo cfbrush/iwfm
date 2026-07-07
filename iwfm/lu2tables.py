@@ -68,7 +68,7 @@ def lu2tables(land_use_file, output_file_type, verbose=False, debug=1):
         print(f'  Creating land use area tables from {land_use_file}')  
 
     try:
-        with open(land_use_file) as f:
+        with open(land_use_file, encoding='utf-8') as f:
             file_lines = f.read().splitlines()  # open input file
     except FileNotFoundError as e:
         logger.error(f'lu2tables: file not found {land_use_file}: {e}')

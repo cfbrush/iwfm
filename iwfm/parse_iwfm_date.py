@@ -42,6 +42,6 @@ def parse_iwfm_date(date_str):
         else:
             dt = datetime.strptime(f"{date_part} {time_part}", '%m/%d/%Y %H:%M')
         return dt
-    except:
+    except (ValueError, AttributeError):  # unparseable string or None input
         return None
 

@@ -50,7 +50,7 @@ def sub_unsat_file(old_filename, new_filename, elem_list, verbose=False):
         elems.append(e[0])
 
     iwfm.file_test(old_filename)
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         unsat_lines = f.read().splitlines()
     unsat_lines.append('')
 
@@ -68,7 +68,7 @@ def sub_unsat_file(old_filename, new_filename, elem_list, verbose=False):
 
     unsat_lines.append('')
 
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(unsat_lines))
 
     if verbose:

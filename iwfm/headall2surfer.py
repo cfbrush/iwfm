@@ -91,7 +91,7 @@ if __name__ == '__main__':
     data, layers, dates, nodes = iwfm.headall_read(heads_file)
 
     # read dates to create ooutput files for
-    with open(out_dates_file) as f:
+    with open(out_dates_file, encoding='utf-8') as f:
         date_lines = f.read().splitlines() 
     out_dates = [line for line in date_lines]
 

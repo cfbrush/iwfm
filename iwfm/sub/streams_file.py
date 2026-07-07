@@ -59,7 +59,7 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
     # Use iwfm utility for file validation
     iwfm.file_test(stream_file)
 
-    with open(stream_file) as f:
+    with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
     stream_lines.append('')
 
@@ -203,7 +203,7 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
 
     # -- don't modify diversion time series file file --
     new_stream_file = sim_files_new.stream_file
-    with open(new_stream_file, 'w') as outfile:
+    with open(new_stream_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(stream_lines))
     if verbose:
         print(f'  Wrote stream main file {new_stream_file}')

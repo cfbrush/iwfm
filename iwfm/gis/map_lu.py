@@ -59,7 +59,7 @@ def map_lu(land_use_file, elem_shp_name, out_shp_basename, verbose=False):
     #gdf['area'] = gdf['geometry'].area                          # calculate area of each element in shapefile - not used here
 
     iwfm.file_test(land_use_file)
-    with open(land_use_file) as f:
+    with open(land_use_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines()        # open input file
 
     # Read FACTLNP (area conversion factor) using utility function

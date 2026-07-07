@@ -54,7 +54,7 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
     # Check if well file exists using iwfm utility
     iwfm.file_test(old_filename)
 
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         well_lines = f.read().splitlines()
     well_lines.append('')
 
@@ -106,9 +106,7 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
         # Parse element group line with error checking
         line_data = well_lines[line_index].split()
         if len(line_data) < 3:
-            import sys
-            from iwfm.debug.logger_setup import logger
-            logger.error(
+            raise ValueError(
                 'Malformed well file while processing element groups\n'
                 f'    File: {old_filename}\n'
                 f'    Processing group {id + 1} of {ngrp}\n'
@@ -128,7 +126,6 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
                 '      - Each group header has the correct NELEM value\n'
                 f'      - Check the format around line {line_index + 1} in the original file'
             )
-            sys.exit(1)
 
         grp_id, nelem, ielem, *z = [int(e) for e in line_data]
         if ielem in elems:  # keep the item
@@ -163,7 +160,7 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
     well_lines.append('')
 
     # -- write out the submodel well specification file
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(well_lines))
 
     if verbose:

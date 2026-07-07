@@ -305,9 +305,7 @@ class TestBuds2xlWithRealInputFile:
             pytest.skip("Budget input test file not found")
 
         # buds2xl should fail because the HDF5 files don't exist at relative paths.
-        # file_missing() calls sys.exit() which raises SystemExit (a BaseException,
-        # not an Exception), so we must catch SystemExit specifically.
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             buds2xl(budget_input_path, verbose=False)
 
 
@@ -337,9 +335,8 @@ class TestBuds2xlOutputTypes:
             with os.fdopen(fd, 'w') as f:
                 f.write(content)
 
-            # Should fail with SystemExit on missing HDF file (file_missing
-            # calls sys.exit()), not on the type parameter itself
-            with pytest.raises(SystemExit):
+            # Should fail on the missing HDF file, not on the type parameter itself
+            with pytest.raises(FileNotFoundError):
                 buds2xl(temp_file, type='xlsx', verbose=False)
 
         finally:
@@ -369,9 +366,8 @@ class TestBuds2xlOutputTypes:
             with os.fdopen(fd, 'w') as f:
                 f.write(content)
 
-            # Should fail with SystemExit on missing HDF file (file_missing
-            # calls sys.exit()), not on the type parameter itself
-            with pytest.raises(SystemExit):
+            # Should fail on the missing HDF file, not on the type parameter itself
+            with pytest.raises(FileNotFoundError):
                 buds2xl(temp_file, type='csv', verbose=False)
 
         finally:
@@ -384,8 +380,7 @@ class TestBuds2xlErrorHandling:
 
     def test_missing_input_file(self):
         """Test that buds2xl raises error for missing input file."""
-        # The function calls sys.exit() when file is missing
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             buds2xl("nonexistent_budget_file.in", verbose=False)
 
     def test_empty_budget_list(self):
@@ -448,9 +443,8 @@ class TestBuds2xlVerboseMode:
             with os.fdopen(fd, 'w') as f:
                 f.write(content)
 
-            # Should fail with SystemExit on missing HDF file (file_missing
-            # calls sys.exit()), not on the verbose parameter itself
-            with pytest.raises(SystemExit):
+            # Should fail on the missing HDF file, not on the verbose parameter itself
+            with pytest.raises(FileNotFoundError):
                 buds2xl(temp_file, verbose=False)
 
         finally:
@@ -480,9 +474,8 @@ class TestBuds2xlVerboseMode:
             with os.fdopen(fd, 'w') as f:
                 f.write(content)
 
-            # Should fail with SystemExit on missing HDF file (file_missing
-            # calls sys.exit()), not on the verbose parameter itself
-            with pytest.raises(SystemExit):
+            # Should fail on the missing HDF file, not on the verbose parameter itself
+            with pytest.raises(FileNotFoundError):
                 buds2xl(temp_file, verbose=True)
 
         finally:

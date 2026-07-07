@@ -39,7 +39,7 @@ def read_gw_file(gw_file):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(gw_file)
-    with open(gw_file) as f:
+    with open(gw_file, encoding='utf-8') as f:
         gw_data = f.read().splitlines()
 
     nouth_str, line_index = read_next_line_value(gw_data, 0, column=0, skip_lines=20)
@@ -74,7 +74,7 @@ def read_gw_params(simout_file):
     import iwfm
 
     iwfm.file_test(simout_file)
-    with open(simout_file) as f:
+    with open(simout_file, encoding='utf-8') as f:
         sim_lines = f.read().splitlines() 
 
     #  Find line number
@@ -147,7 +147,7 @@ def simout2gw(simout_file, gw_in_file, output_file):
     gw_data = replace_params(gw_params, gw_data, param_line)
 
     # write output file
-    with open(output_file, 'w') as out_file:
+    with open(output_file, 'w', encoding='utf-8') as out_file:
         for item in gw_data:
             out_file.write(f'{item}\n')
 

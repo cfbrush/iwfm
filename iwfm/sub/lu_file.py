@@ -51,7 +51,7 @@ def sub_lu_file(in_filename, out_filename, elems, verbose=False):
 
     # -- read the land use file into array lu_lines
     try:
-        with open(in_filename) as f:
+        with open(in_filename, encoding='utf-8') as f:
             lu_lines = f.read().splitlines()  # open and read input file
     except FileNotFoundError as e:
         logger.error(f'sub_lu_file: file not found {in_filename}: {e}')
@@ -98,7 +98,7 @@ def sub_lu_file(in_filename, out_filename, elems, verbose=False):
 
     # -- write new preprocessor input file
     try:
-        with open(out_filename, 'w') as outfile:
+        with open(out_filename, 'w', encoding='utf-8') as outfile:
             outfile.write('\n'.join(lu_lines))
     except (PermissionError, OSError) as e:
         logger.error(f'sub_lu_file: failed to write {out_filename}: {e}')

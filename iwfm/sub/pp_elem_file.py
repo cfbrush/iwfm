@@ -53,7 +53,7 @@ def sub_pp_elem_file(elem_file, new_elem_file, elem_list, new_srs):
         elems.append(e[0])
 
     iwfm.file_test(elem_file)
-    with open(elem_file) as f:
+    with open(elem_file, encoding='utf-8') as f:
         elem_lines = f.read().splitlines()  # open and read input file
 
     # Skip comments and read NE line
@@ -92,7 +92,7 @@ def sub_pp_elem_file(elem_file, new_elem_file, elem_list, new_srs):
 
     new_elem_lines.append('')
 
-    with open(new_elem_file, 'w') as outfile:
+    with open(new_elem_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(new_elem_lines))
 
     return elem_nodes

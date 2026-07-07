@@ -54,7 +54,7 @@ def sub_rz_npc_file(old_filename, sim_files_new, elems, base_path=None, verbose=
     # Use iwfm utility for file validation
     iwfm.file_test(old_filename)
 
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         npc_lines = f.read().splitlines()
     npc_lines.append('')
 
@@ -112,7 +112,7 @@ def sub_rz_npc_file(old_filename, sim_files_new, elems, base_path=None, verbose=
 
     npc_lines.append('')
 
-    with open(sim_files_new.np_file, 'w') as outfile:
+    with open(sim_files_new.np_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(npc_lines))
     if verbose:
         print(f'      Wrote non-ponded crop file {sim_files_new.np_file}')

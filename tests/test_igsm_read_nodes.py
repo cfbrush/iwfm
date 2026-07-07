@@ -424,7 +424,7 @@ class TestIgsmReadNodesErrorHandling:
 
     def test_nonexistent_file_raises_error(self):
         """Test that nonexistent file raises an error."""
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             igsm_read_nodes('/nonexistent/file.dat')
 
 

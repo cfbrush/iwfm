@@ -63,7 +63,7 @@ def iwfm_lu4scenario(
     comments = 'Cc*#'
 
     # -- Non-Ponded Area file
-    with open(in_npag_file) as f:
+    with open(in_npag_file, encoding='utf-8') as f:
         npag_data = f.read().splitlines()
     if verbose:
         print(f'   Read {len(npag_data):,} lines from {in_npag_file}')
@@ -93,7 +93,7 @@ def iwfm_lu4scenario(
         npag_index += 1
 
     # -- Ponded Area file
-    with open(in_ponded_file) as f:
+    with open(in_ponded_file, encoding='utf-8') as f:
         pag_data = f.read().splitlines() 
     if verbose:
         print(f'   Read {len(pag_data):,} lines from {in_ponded_file}')
@@ -123,7 +123,7 @@ def iwfm_lu4scenario(
         pag_index += 1
 
     # -- Urban Area file
-    with open(in_urban_file) as f:
+    with open(in_urban_file, encoding='utf-8') as f:
         urb_data = f.read().splitlines() 
     if verbose:
         print(f'   Read {len(urb_data):,} lines from {in_urban_file}')
@@ -153,7 +153,7 @@ def iwfm_lu4scenario(
         urb_index += 1
 
     # -- Native and Riparian Area file
-    with open(in_nvrv_file) as f:
+    with open(in_nvrv_file, encoding='utf-8') as f:
         nvrv_data = f.read().splitlines()
     if verbose:
         print(f'   Read {len(nvrv_data):,} lines from {in_nvrv_file}')
@@ -202,7 +202,7 @@ def iwfm_lu4scenario(
 
     # -- write to file
     outFileName = out_base_name + '_Landuse.dat'
-    with open(outFileName, 'w', newline='') as outFile:
+    with open(outFileName, 'w', newline='', encoding='utf-8') as outFile:
         outFile.write(f'# Date: {date}\n')
         outFile.write(
             '# Elem\tNPA1\tNPA2\tNPA3\tNPA4\tNPA5\tNPA6\tNPA7\tNPA8\tNPA9\tNPA10\tNPA11\tNPA12\tNPA13\tNPA14\tNPA15\tNPA16\tNPA17\tNPA18\tNPA19\tNPA20\tPA1\tPA2\tPA3\tPA4\tPA5\tNV\tRV\tUrb\n'

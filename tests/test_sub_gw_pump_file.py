@@ -160,7 +160,7 @@ class TestSubGwPumpFile:
 
         bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_gw_pump_file('nonexistent_file.dat', {}, [1, 2, 3], bounding_poly)
 
     def test_all_files_blank(self):

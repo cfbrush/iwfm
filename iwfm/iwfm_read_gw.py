@@ -104,7 +104,7 @@ def iwfm_read_gw(gw_file, verbose=False):
 
     comments = 'Cc*#'
 
-    with open(gw_file) as f:
+    with open(gw_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines()
 
     # get sub-process file names (or 'none' if not present)

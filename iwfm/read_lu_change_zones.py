@@ -36,7 +36,7 @@ def read_lu_change_zones(in_zone_file):
 
     import re
     comments = 'Cc*#'
-    with open(in_zone_file) as f:
+    with open(in_zone_file, encoding='utf-8') as f:
         temp = f.read().splitlines()
     zones = []
     for i in range(0, len(temp)):

@@ -445,7 +445,7 @@ class TestFac2IwfmFileHandling:
         # Create param file only
         (tmp_path / 'param.dat').write_text('PP_1  0.0  0.0  1  100.0')
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             fac2iwfm(pp_file, param_file, output_file, verbose=False)
 
     def test_missing_param_file(self, tmp_path):
@@ -459,7 +459,7 @@ class TestFac2IwfmFileHandling:
         param_file = str(tmp_path / 'nonexistent_param.dat')
         output_file = str(tmp_path / 'output.dat')
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             fac2iwfm(str(pp_file), param_file, output_file, verbose=False)
 
 

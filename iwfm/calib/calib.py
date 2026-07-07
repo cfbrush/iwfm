@@ -52,10 +52,10 @@ def divshort(
     divshort_lines, ins_lines = divshort2obs(budget_file, reach_file)
     outins_file = output_file.replace('.smp', '.ins')
 
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         for item in divshort_lines:
             f.write(f'{item}\n')
-    with open(outins_file, 'w') as f:
+    with open(outins_file, 'w', encoding='utf-8') as f:
         f.write('pif #\n')
         for item in ins_lines:
             f.write(f'{item}\n')
@@ -79,10 +79,10 @@ def stacdep(
     stacdep_lines, ins_lines = stacdep2obs(budget_file, reach_file)
     outins_file = output_file.replace('.smp', '.ins')
 
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         for item in stacdep_lines:
             f.write(f'{item}\n')
-    with open(outins_file, 'w') as f:
+    with open(outins_file, 'w', encoding='utf-8') as f:
         f.write('pif #\n')
         for item in ins_lines:
             f.write(f'{item}\n')
@@ -223,7 +223,7 @@ def smp_avg_cmd(
     """Average values per series in an SMP file."""
     from iwfm.calib.smp_avg import smp_avg
     averages = smp_avg(smp_file, verbose=verbose)
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         for item in averages:
             f.write(f'{item}\n')
     typer.echo(f'  Wrote {len(averages):,} values to {output_file}')
@@ -239,7 +239,7 @@ def smp_format_cmd(
     """Reformat an SMP file (e.g., normalize name-column width)."""
     from iwfm.calib.smp_format import smp_format
     smp_out = smp_format(smp_file, nwidth=nwidth, verbose=verbose)
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         for item in smp_out:
             f.write(f'{item}\n')
     typer.echo(f'  Wrote {len(smp_out):,} values to {output_file}')

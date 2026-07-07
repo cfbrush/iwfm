@@ -65,7 +65,7 @@ def zbudget2csv(outfile, zone_names, column_headers, zone_values, titles, zone_l
         for _ in range(21,len(header)-2):
             header.pop(21)
 
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding='utf-8') as f:
         f.write(f'ZoneNo,ZoneName,{",".join([i for i in header])}\n')   # write header to file
 
         for zone in range(len(zone_names)):

@@ -56,7 +56,7 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
     # Check if pumping file exists using iwfm utility
     iwfm.file_test(old_filename)
 
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         pump_lines = f.read().splitlines()
     pump_lines.append('')
 
@@ -114,7 +114,7 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
         pump_lines[epump_index] = '                                         / ELEMPUMPFL'
 
     # -- write out the modified pumping file
-    with open(sim_files_new.pump_file, 'w') as outfile:
+    with open(sim_files_new.pump_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(pump_lines))
 
     if verbose:

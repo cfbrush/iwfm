@@ -89,7 +89,7 @@ def real2iwfm(verbose=False):
 
                 else:
                     file_test(param_file)
-                    with open(param_file) as f:
+                    with open(param_file, encoding='utf-8') as f:
                         file_lines = f.read().splitlines()
                     for line in file_lines:
                         text = line.split()

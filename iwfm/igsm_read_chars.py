@@ -39,7 +39,7 @@ def igsm_read_chars(char_file, elem_nodes):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(char_file)
-    with open(char_file) as f:
+    with open(char_file, encoding='utf-8') as f:
         char_lines = f.read().splitlines()  # open and read input file
 
     # skip comments to find first data line

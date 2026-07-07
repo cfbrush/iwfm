@@ -295,7 +295,7 @@ class TestHydDiffErrorHandling:
         with tempfile.TemporaryDirectory() as temp_dir:
             outname = os.path.join(temp_dir, 'diff_output.out')
 
-            with pytest.raises(SystemExit):
+            with pytest.raises(FileNotFoundError):
                 hyd_diff('/nonexistent/file1.out', EXAMPLE_HYD_FILE_2 if EXAMPLE_FILES_EXIST else '/nonexistent/file2.out', outname)
 
     def test_nonexistent_file2_raises_error(self):
@@ -306,7 +306,7 @@ class TestHydDiffErrorHandling:
         with tempfile.TemporaryDirectory() as temp_dir:
             outname = os.path.join(temp_dir, 'diff_output.out')
 
-            with pytest.raises(SystemExit):
+            with pytest.raises(FileNotFoundError):
                 hyd_diff(EXAMPLE_HYD_FILE_1, '/nonexistent/file2.out', outname)
 
 

@@ -106,7 +106,7 @@ class TestMeasBounds:
     def test_missing_file_exits(self, tmp_path):
         """A nonexistent path triggers iwfm.file_test, which calls sys.exit()."""
         bogus = str(tmp_path / 'does_not_exist.smp')
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             meas_bounds(bogus)
 
 

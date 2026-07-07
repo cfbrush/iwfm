@@ -218,7 +218,7 @@ def read_zone_definition(zone_file):
     element_zones = {}
     zextent = None
 
-    with open(zone_file, 'r') as f:
+    with open(zone_file, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
     # Find ZEXTENT - first non-comment line

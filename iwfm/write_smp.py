@@ -40,7 +40,7 @@ def write_smp(output_filename, lines):
     if not output_filename.endswith('.smp'):  # ensure .smp extension
         output_filename = output_filename.rstrip('.') + '.smp'
     try:
-        with open(output_filename, 'w') as output_file:
+        with open(output_filename, 'w', encoding='utf-8') as output_file:
             for i in range(0, len(lines)):
                 output_file.write(f'{lines[i][0]}\t{lines[i][1]}\t{lines[i][2]}\t{lines[i][3]}\n')
     except PermissionError:

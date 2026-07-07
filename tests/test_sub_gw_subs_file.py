@@ -112,7 +112,7 @@ class TestSubGwSubsFile:
 
         bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_gw_subs_file('nonexistent_file.dat', 'output.dat', [1, 2, 3], bounding_poly)
 
     def test_no_hydrographs(self):

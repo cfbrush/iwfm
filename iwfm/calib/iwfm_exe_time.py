@@ -40,7 +40,7 @@ def iwfm_exe_time(infile='SimulationMessages.out',outfile='exe_time.smp'):
     iwfm.file_test(infile)
 
     # read infile
-    with open(infile, 'r') as f:
+    with open(infile, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
     # find the line containing 'TOTAL RUN TIME'
@@ -73,7 +73,7 @@ def iwfm_exe_time(infile='SimulationMessages.out',outfile='exe_time.smp'):
         outline = f' EXETIME          10/31/1985   00:00:00            {time}           \n'
 
     # write the time to the output smp-format file
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding='utf-8') as f:
         f.write(f'{outline}')
 
     return time

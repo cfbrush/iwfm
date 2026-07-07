@@ -47,7 +47,7 @@ def wdl_ts_4_wells(station_file, waterlevel_file, verbose=False):
 
     # -- read stations into a dictionary
     try:
-        with open(station_file) as f:
+        with open(station_file, encoding='utf-8') as f:
             file_lines = f.read().splitlines()
     except FileNotFoundError:
         logger.error(f'File not found: {station_file}')
@@ -69,7 +69,7 @@ def wdl_ts_4_wells(station_file, waterlevel_file, verbose=False):
 
     lines_in, lines_out = 0, 0
     try:
-        with open(waterlevel_file, 'r') as infile, open(output_file, 'w') as outfile:
+        with open(waterlevel_file, 'r', encoding='utf-8') as infile, open(output_file, 'w', encoding='utf-8') as outfile:
             outfile.write(
                 'STN_ID,SITE_CODE,WLM_ID,MSMT_DATE,WLM_RPE,WLM_GSE,RDNG_WS,RDNG_RP,WSE,RPE_GSE,GSE_WSE,WLM_QA_DESC,WLM_DESC,WLM_ACC_DESC,WLM_ORG_ID,WLM_ORG_NAME,MSMT_CMT,COOP_AGENCY_ORG_ID,COOP_ORG_NAME\n'
             )

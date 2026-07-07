@@ -100,7 +100,7 @@ def iwfm_read_uz(file, verbose=False):
     if verbose: print(f"Entered iwfm_read_uz() with {file}")
 
     iwfm.file_test(file)
-    with open(file) as f:
+    with open(file, encoding='utf-8') as f:
         uz_lines = f.read().splitlines()                        # open and read input file
     uz_version = uz_lines[0].split()[0]                         # version number
 

@@ -42,7 +42,7 @@ def refined_lu_factors(orig_areas_file,refined_areas_file,elem2elem_file):
 
     # -- read the original model element areas file
     iwfm.file_test(orig_areas_file)
-    with open(orig_areas_file, 'r') as file:
+    with open(orig_areas_file, 'r', encoding='utf-8') as file:
         orig_areas = list(csv.reader(file))[1:]
     for line in orig_areas:
         line[0], line[1] = int(line[0]), float(line[1])
@@ -50,14 +50,14 @@ def refined_lu_factors(orig_areas_file,refined_areas_file,elem2elem_file):
 
     # -- read the refined model element areas file
     iwfm.file_test(refined_areas_file)
-    with open(refined_areas_file, 'r') as file:
+    with open(refined_areas_file, 'r', encoding='utf-8') as file:
         refined_areas = list(csv.reader(file))[1:]
     for line in refined_areas:
         line[0], line[1] = int(line[0]), float(line[1])
 
     # -- read the element to element file
     iwfm.file_test(elem2elem_file)
-    with open(elem2elem_file, 'r') as file:
+    with open(elem2elem_file, 'r', encoding='utf-8') as file:
         elem2elem = list(csv.reader(file))[1:]
     for line in elem2elem:
         line[0], line[1] = int(line[0]), int(line[1])

@@ -156,7 +156,7 @@ def format_file(info):
 
         #  Read file contents with error handling
         try:
-            with open(file, 'r') as raw:
+            with open(file, 'r', encoding='utf-8') as raw:
                 lines = raw.read().splitlines()
         except FileNotFoundError:
             raise FileNotFoundError(
@@ -201,7 +201,7 @@ def format_file(info):
 
         #  Write to new file with error handling
         try:
-            with open(name, 'w') as new_file:
+            with open(name, 'w', encoding='utf-8') as new_file:
 
                 #  Header
                 new_file.write("Date, Data, Units, Data Source\n")

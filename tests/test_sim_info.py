@@ -255,7 +255,7 @@ class TestSimInfo:
         """Test that nonexistent file causes system exit."""
         nonexistent = tmp_path / "nonexistent.in"
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.sim_info(str(nonexistent))
 
     def test_verbose_output(self, tmp_path, capsys):

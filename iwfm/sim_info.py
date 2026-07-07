@@ -42,7 +42,7 @@ def sim_info(in_file, verbose=False):
 
     Raises
     ------
-    SystemExit
+    FileNotFoundError
         If ``in_file`` does not exist (via :func:`iwfm.file_test`).
     ValueError
         If the parsed start_date or end_date does not match the expected
@@ -56,7 +56,7 @@ def sim_info(in_file, verbose=False):
     if verbose: print(f"Entered sim_info() with {in_file}")
 
     iwfm.file_test(in_file)
-    with open(in_file) as f:
+    with open(in_file, encoding='utf-8') as f:
         sim_lines = f.read().splitlines()
 
     # Scan for start_date (BDT) by matching MM/DD/YYYY_HH:MM date format

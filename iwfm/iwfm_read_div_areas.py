@@ -45,7 +45,7 @@ def iwfm_read_div_areas(divspec_file_name):
 
     # read diversion specification file
     iwfm.file_test(divspec_file_name)
-    with open(divspec_file_name, 'r') as f:
+    with open(divspec_file_name, 'r', encoding='utf-8') as f:
         div_file_lines = f.readlines()
 
     ndivs, line_index = read_next_line_value(div_file_lines, -1, column=0)

@@ -42,7 +42,7 @@ def meas_bounds(gwhyd_obs):
 
     Raises
     ------
-    SystemExit
+    FileNotFoundError
         If ``gwhyd_obs`` does not exist (raised via :func:`iwfm.file_test`
         → :func:`iwfm.file_missing`).
 
@@ -54,7 +54,7 @@ def meas_bounds(gwhyd_obs):
 
     earliest = None
     latest = None
-    with open(gwhyd_obs) as f:
+    with open(gwhyd_obs, encoding='utf-8') as f:
         for line in f:
             tokens = line.split()
             if len(tokens) < 2:

@@ -48,7 +48,7 @@ def elem_zbud2shp(budget_file, field_file, elem_shp_name, out_shp_name, verbose=
     import numpy as np
 
     # -- read the Budget file into array file_lines
-    with open(budget_file) as f:
+    with open(budget_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines() 
     file_lines = [word.replace('_24:00', ' ') for word in file_lines]
 
@@ -76,7 +76,7 @@ def elem_zbud2shp(budget_file, field_file, elem_shp_name, out_shp_name, verbose=
         print(f'  Read {tables} tables from {budget_file}')
 
     # read the field names
-    with open(field_file) as f:
+    with open(field_file, encoding='utf-8') as f:
         field_lines = f.read().splitlines() 
     field_names = []
     for line in field_lines:

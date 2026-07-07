@@ -79,7 +79,7 @@ def reach2shp(reach_list, stnodes_dict, node_coords, shape_name, epsg=26910,
             w.record(reach_id=reach, flows_to=reach_list[i][3])
     
     # Create .prj file for spatial reference
-    with open(f"{shapename[:-4]}.prj", "w") as prj:
+    with open(f"{shapename[:-4]}.prj", "w", encoding='utf-8') as prj:
         epsg = pyproj.CRS.from_epsg(epsg)
         prj.write(epsg.to_wkt())
     

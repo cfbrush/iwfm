@@ -46,7 +46,7 @@ def write_lu2file(out_table,out_file,in_years,date_head_tail=['09/30/', '_24:00'
     nothing
 
     '''
-    with open(out_file, 'w') as f:
+    with open(out_file, 'w', encoding='utf-8') as f:
         for i in range(0,len(in_years)):
             date = date_head_tail[0] + str(in_years[i]) + date_head_tail[1]  # date in DSS format
             for j in range(0, len(out_table[i])):

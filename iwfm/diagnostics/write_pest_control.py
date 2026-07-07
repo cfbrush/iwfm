@@ -298,7 +298,7 @@ def modify_pst(template_pst, output_pst, modifications, verbose=False):
 def _read_tied_lines(pst_path):
     """Read existing tied parameter mapping lines from .pst file."""
     tied_map = {}
-    with open(pst_path) as f:
+    with open(pst_path, encoding='utf-8') as f:
         lines = f.readlines()
 
     in_param_data = False
@@ -337,7 +337,7 @@ def _parse_pst(pst_path):
         'obs_section': [],        # Everything from * observation groups onward
     }
 
-    with open(pst_path) as f:
+    with open(pst_path, encoding='utf-8') as f:
         lines = f.readlines()
 
     # Find section boundaries
@@ -429,7 +429,7 @@ def _write_pst(sections, new_params, tied_map, output_path):
             except ValueError:
                 continue
 
-    with open(output_path, 'w') as f:
+    with open(output_path, 'w', encoding='utf-8') as f:
         # Header (control data)
         for line in header:
             f.write(line)

@@ -50,7 +50,7 @@ def iwfm_read_rz_nr(file, verbose=False):
     if verbose: print(f"Entered iwfm_read_rz_nr() with {file}")
 
     iwfm.file_test(file)
-    with open(file) as f:
+    with open(file, encoding='utf-8') as f:
         nr_lines = f.read().splitlines()                        # open and read input file
 
     nr_area_file, line_index = read_next_line_value(nr_lines, -1)

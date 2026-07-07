@@ -20,7 +20,7 @@ def parse_node_coords(node_file):
         {node_id: (x, y)} for all nodes.
     """
     coords = {}
-    with open(node_file) as f:
+    with open(node_file, encoding='utf-8') as f:
         for line in f:
             s = line.strip()
             if not s or s[0] in ('C', 'c', '*', '#'):
@@ -67,7 +67,7 @@ def parse_pst_param_nodes(pst_file, prefix='PKH', layer=None):
             pattern = re.compile(rf'^{prefix}(\d+)_L\d+')
 
     in_params = False
-    with open(pst_file) as f:
+    with open(pst_file, encoding='utf-8') as f:
         for line in f:
             s = line.strip()
             if s == '* parameter data':
@@ -107,7 +107,7 @@ def parse_stream_nodes(stream_file):
     stream_ids = []
     strm_to_gw = {}
 
-    with open(stream_file) as f:
+    with open(stream_file, encoding='utf-8') as f:
         for line in f:
             s = line.strip()
             if not s or s[0] in ('C', 'c', '*', '#'):

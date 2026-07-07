@@ -452,7 +452,7 @@ def test_iwfm_read_elempump_missing_file_exits(tmp_path):
     from iwfm.iwfm_read_elempump import iwfm_read_elempump
 
     bogus = str(tmp_path / "does_not_exist.dat")
-    with pytest.raises(SystemExit):
+    with pytest.raises(FileNotFoundError):
         iwfm_read_elempump(bogus, [1, 2, 3])
 
 

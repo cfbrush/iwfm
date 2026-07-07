@@ -32,7 +32,7 @@ def simhyd_obs(gwhyd_file):
     
     ''' 
 
-    with open(gwhyd_file) as f:
+    with open(gwhyd_file, encoding='utf-8') as f:
         gwhyd_lines = f.read().splitlines() 
     gwhyd_lines = [word.replace('_24:00', ' ') for word in gwhyd_lines]
 

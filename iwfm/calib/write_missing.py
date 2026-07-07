@@ -41,7 +41,7 @@ def write_missing(missing,obs_file,fname='missing.tmp',verbose=False):
 
     if len(missing) > 0:
         missing.sort()
-        with open(fname, 'a') as fmiss:
+        with open(fname, 'a', encoding='utf-8') as fmiss:
             fmiss.write(f'Simulation sites not in {obs_file}:\n')
             for item in missing:
                 fmiss.write(f'{item}\n')

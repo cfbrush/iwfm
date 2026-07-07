@@ -307,7 +307,7 @@ def hdfbud2csv(bud_file, outfile, write_header=True, verbose=False):
 
     budget_data = get_budget_data(bud_file, verbose=verbose)  # (loc_names, column_headers, loc_values)
     
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding='utf-8') as f:
         process_budget_data(f, budget_data[0], budget_data[1], budget_data[2], budget_data[3],
                         write_header=write_header, verbose=verbose)
 

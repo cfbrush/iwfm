@@ -18,8 +18,8 @@
 
 
 def file_type_error(filename, filetype):
-    ''' file_type_error() - Exits with a message that the program doesn't
-        work with this input file
+    ''' file_type_error() - Raise ValueError for an input file of the
+        wrong type
 
     Parameters
     ----------
@@ -35,11 +35,8 @@ def file_type_error(filename, filetype):
 
     Raises
     ------
-    SystemExit
-        Always — calls ``sys.exit()`` after printing the message.
+    ValueError
+        Always, naming the file and the required file type.
 
     '''
-    import sys
-
-    print(f'  {filename} must be a {filetype} file.\n  Exiting...')
-    sys.exit()
+    raise ValueError(f'{filename} must be a {filetype} file')

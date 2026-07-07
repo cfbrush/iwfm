@@ -45,7 +45,7 @@ def iwfm_read_preproc(pre_file):
 
     # Use iwfm utility for file validation
     iwfm.file_test(pre_file)
-    with open(pre_file) as f:
+    with open(pre_file, encoding='utf-8') as f:
         pre_lines = f.read().splitlines()  # open and read input file
 
     # Get base path for resolving relative file paths

@@ -422,7 +422,7 @@ def extract_data_to_csv(excel_file):
 
         #  Open the corresponding file with error handling
         try:
-            with open(file_names[i], 'w') as f:
+            with open(file_names[i], 'w', encoding='utf-8') as f:
                 #  Write header
                 f.write("Date, Data, Units, Data Source Location\n")
 

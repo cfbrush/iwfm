@@ -70,7 +70,7 @@ class TestSubPpLakeFile:
         """Test error handling for non-existent file"""
         from iwfm.sub.pp_lake_file import sub_pp_lake_file
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_pp_lake_file('nonexistent_file.dat', 'output.dat', [])
 
     def test_single_lake(self):

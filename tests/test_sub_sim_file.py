@@ -270,10 +270,10 @@ class TestSubSimFileNotFound:
     """Tests for file not found handling."""
 
     def test_missing_input_file_raises_error(self, tmp_path):
-        """Test that missing input file raises SystemExit."""
+        """Test that missing input file raises FileNotFoundError."""
         sim_files_new = create_sim_files_new(tmp_path)
 
-        with pytest.raises(SystemExit):  # file_test calls sys.exit() for missing files
+        with pytest.raises(FileNotFoundError):  # file_test calls sys.exit() for missing files
             iwfm.sub_sim_file(str(tmp_path / 'nonexistent.in'), sim_files_new)
 
 

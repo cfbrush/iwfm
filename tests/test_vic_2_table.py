@@ -258,7 +258,7 @@ class TestVic2TableFileNotFound:
         nonexistent = tmp_path / "nonexistent.csv"
         output_file = tmp_path / "output.csv"
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.vic_2_table(str(nonexistent), str(output_file), col=2)
 
 

@@ -55,7 +55,7 @@ def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=Fa
         elems.append(int(e[0]))
 
     iwfm.file_test(old_filename)
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         bp_lines = f.read().splitlines()
     bp_lines.append('\n\n\n\n\n')
 
@@ -108,7 +108,7 @@ def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=Fa
         
     bp_lines.append('')
 
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(bp_lines))
     if verbose:
         print(f'      Wrote stream bypass specification file {new_filename}')

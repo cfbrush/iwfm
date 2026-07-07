@@ -43,7 +43,7 @@ def igsm_read_streams(stream_file):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(stream_file)
-    with open(stream_file) as f:
+    with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
 
     # skip comments and read number of reaches

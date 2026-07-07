@@ -42,7 +42,7 @@ def igsm_read_strat(strat_file, node_coords):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(strat_file)
-    with open(strat_file) as f:
+    with open(strat_file, encoding='utf-8') as f:
         strat_lines = f.read().splitlines()
 
     # skip comments and read number of layers

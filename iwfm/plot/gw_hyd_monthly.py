@@ -39,7 +39,7 @@ def gw_hyd_monthly(gwhyd_file):
     
     # Read groundwater hydrograph file
     iwfm.file_test(gwhyd_file)
-    with open(gwhyd_file) as f:
+    with open(gwhyd_file, encoding='utf-8') as f:
         gwhyd_lines = f.read().splitlines()
 
     # Skip header lines to reach first data line
@@ -64,7 +64,7 @@ def gw_hyd_monthly(gwhyd_file):
     out_lines.append(gwhyd_lines[len(gwhyd_lines)-1])     # add last line
     out_lines.append('')                                 # add blank line at end
 
-    with open(out_name, 'w') as outfile:                  # write monthly file
+    with open(out_name, 'w', encoding='utf-8') as outfile:                  # write monthly file
         outfile.write('\n'.join(out_lines))
 
     return out_name, start_len, len(out_lines) - start_index

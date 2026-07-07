@@ -96,7 +96,7 @@ def setup_pest_run(reference_dir, output_dir, pst_file=None,
 
     # Write a simple run script for the new PEST run
     run_script = os.path.join(output_dir, f'run_pest_{run_name}.sh')
-    with open(run_script, 'w') as f:
+    with open(run_script, 'w', encoding='utf-8') as f:
         f.write('#!/bin/zsh\n')
         f.write(f'echo "START: $(date)" >> pest_timing.txt\n\n')
         f.write(f'pypest {run_name}.pst --n-workers 10 \\\n')

@@ -54,7 +54,7 @@ def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt',
     params_d = {}
     comments = 'Cc*#'
 
-    with open(gw_file, 'r') as f:
+    with open(gw_file, 'r', encoding='utf-8') as f:
         gw_lines = f.read().splitlines()
 
     line_index = 10
@@ -107,7 +107,7 @@ def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt',
     while line_index < len(gw_lines) and gw_lines[line_index] and gw_lines[line_index][0] in comments:  # skip comment lines
         line_index += 1
 
-    with open(keys_file, 'w') as f:                              # write parameter values to file
+    with open(keys_file, 'w', encoding='utf-8') as f:                              # write parameter values to file
         parvals_d = {}                                              # initialize dictionary
         while line_index < len(gw_lines) and gw_lines[line_index] and gw_lines[line_index][0] not in comments:  # process parameter lines
             for l in range(0, nlay):                                # cycle through layers
@@ -122,7 +122,7 @@ def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt',
 
                 line_index += 1
 
-    with open(dict_file, 'w') as f:                              # write parameter values to file
+    with open(dict_file, 'w', encoding='utf-8') as f:                              # write parameter values to file
         for key in parvals_d.keys():
             f.write(f'{key} {parvals_d[key]}\n')
 

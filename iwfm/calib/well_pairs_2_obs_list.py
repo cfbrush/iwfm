@@ -59,13 +59,13 @@ def well_pairs_2_obs_list(well_pair_file, obs_file, days=15, verbose=False):
       '''
     import datetime
 
-    with open(well_pair_file) as f:
+    with open(well_pair_file, encoding='utf-8') as f:
         well_lines = f.read().splitlines()         # open and read input file
     well_lines.pop(0)                                             # remove first line of well_lines (header)
 
     import iwfm
 
-    with open(obs_file) as f:
+    with open(obs_file, encoding='utf-8') as f:
         obs_lines =  f.read().splitlines()               # open and read input file
     obs_lines.pop(0)                                              # remove first line of obs_lines (header)
 
@@ -108,7 +108,7 @@ def well_pairs_2_obs_list(well_pair_file, obs_file, days=15, verbose=False):
     # Create output file name from input file name
     output_file = well_pair_file.replace('.csv', '_headfiff.csv')
     # Write output file
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         f.write('WELL_PAIR_ID,WELL_1_NAME,WELL_1_DATE,WELL_1_HEAD,WELL_2_NAME,WELL_2_DATE,WELL_2_HEAD,MID_DATE,HEAD_DIFF\n')
         for line in obs_match:
             f.write(f'{line[0]},{line[1]},{line[2]},{line[3]},{line[4]},{line[5]},{line[6]},{line[7]}\n')

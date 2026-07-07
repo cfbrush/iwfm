@@ -48,7 +48,7 @@ def sub_gw_pump_epump_file(old_filename, new_filename, elems, verbose=False):
     if verbose: print(f"Entered sub_gw_pump_epump_file() with {old_filename}")
 
     iwfm.file_test(old_filename)
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         epump_lines = f.read().splitlines()
     epump_lines.append('')
 
@@ -144,7 +144,7 @@ def sub_gw_pump_epump_file(old_filename, new_filename, elems, verbose=False):
 
     epump_lines.append('')
 
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(epump_lines))
 
     if verbose:

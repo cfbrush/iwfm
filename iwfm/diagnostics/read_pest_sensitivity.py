@@ -28,7 +28,7 @@ def read_pest_sensitivity(sen_file, iteration=None, verbose=False):
     iterations = {}  # {iter_num: {param_name: {group, value, sensitivity}}}
     current_iter = None
 
-    with open(sen_file) as f:
+    with open(sen_file, encoding='utf-8') as f:
         for line in f:
             stripped = line.strip()
 

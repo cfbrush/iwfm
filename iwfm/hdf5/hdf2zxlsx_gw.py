@@ -22,22 +22,12 @@ import os
 import numpy as np
 from collections import defaultdict
 
-try:
-    import h5py
-except ImportError:
-    print("Error: h5py module not found")
-    print("Install with: pip install h5py")
-    sys.exit(1)
+import h5py
 
 from iwfm.debug.logger_setup import logger, setup_debug_logger
 
-try:
-    import openpyxl
-    from openpyxl.styles import Font, Alignment
-except ImportError:
-    print("Error: openpyxl module not found")
-    print("Install with: pip install openpyxl")
-    sys.exit(1)
+import openpyxl
+from openpyxl.styles import Font, Alignment
 
 
 def read_zone_definition(zone_file):
@@ -59,7 +49,7 @@ def read_zone_definition(zone_file):
     element_zones = {}
     zextent = None
 
-    with open(zone_file, 'r') as f:
+    with open(zone_file, 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
     # Find ZEXTENT
@@ -69,7 +59,7 @@ def read_zone_definition(zone_file):
             try:
                 zextent = int(line.split()[0])
                 break
-            except:
+            except ValueError:
                 continue
 
     if zextent is None:
@@ -103,7 +93,7 @@ def read_zone_definition(zone_file):
                     zone_id = int(parts[0])
                     zone_name = parts[1]
                     zone_info[zone_id] = zone_name
-                except:
+                except ValueError:
                     pass
 
         # Read element-zone assignments
@@ -122,7 +112,7 @@ def read_zone_definition(zone_file):
                             layer = int(parts[1])
                             zone = int(parts[2])
                             element_zones[(element, layer)] = zone
-                except:
+                except ValueError:
                     pass
 
     return zextent, zone_info, element_zones
@@ -163,12 +153,10 @@ def hdf2zxlsx_gw(hdf_file, zone_file, output_file,
         setup_debug_logger()  # Auto-detects script name
 
     if not os.path.exists(hdf_file):
-        logger.error(f"HDF5 file '{hdf_file}' not found")
-        sys.exit(1)
+        raise FileNotFoundError(f"HDF5 file '{hdf_file}' not found")
 
     if not os.path.exists(zone_file):
-        logger.error(f"Zone definition file '{zone_file}' not found")
-        sys.exit(1)
+        raise FileNotFoundError(f"Zone definition file '{zone_file}' not found")
 
     if debug:
         logger.debug(f"Reading zone definition: {zone_file}")

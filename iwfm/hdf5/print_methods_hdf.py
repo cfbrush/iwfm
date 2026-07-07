@@ -91,7 +91,7 @@ if __name__ == '__main__':
 
     # write methods to text file 
     outfile = filename.split('.')[0] + '_metnods.txt'
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding='utf-8') as f:
         for method in methods:
             f.write(f'{method}\n')
 

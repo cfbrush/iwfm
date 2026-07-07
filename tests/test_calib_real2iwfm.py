@@ -325,7 +325,7 @@ class TestReadOverwriteFile:
 
     def test_file_not_found(self):
         """Test error handling for non-existent file"""
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             read_overwrite_file(
                 '/nonexistent/path/to/file.dat',
                 nnodes=1, nlay=1, param_types=['PKH']

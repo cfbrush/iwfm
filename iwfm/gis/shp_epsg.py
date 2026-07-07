@@ -40,7 +40,7 @@ def shp_epsg(filename):
         filename = f'{filename}.prj'
 
     try:
-        with open(filename, 'r') as f:
+        with open(filename, 'r', encoding='utf-8') as f:
             prj_text = f.read()
     except (FileNotFoundError, PermissionError, OSError) as e:
         logger.error(f'Failed to read projection file {filename}: {e}')

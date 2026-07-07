@@ -44,7 +44,7 @@ def write_results(name, date, meas, sim, start_date):
         Number of lines written
 
     '''
-    with open(name + '_obs.out', 'w') as o:
+    with open(name + '_obs.out', 'w', encoding='utf-8') as o:
         o.write(f'# Observations for well {name}\n')
         o.write('# Date\tObserved\tModeled\n')
         for i in range(0, len(date)):

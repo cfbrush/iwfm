@@ -43,7 +43,7 @@ def smp_avg( smp_file, verbose=False):
 
     iwfm.file_test(smp_file)
 
-    with open(smp_file) as f:
+    with open(smp_file, encoding='utf-8') as f:
         smp_lines = f.read().splitlines()
     if verbose: print(f'\n  Read {len(smp_lines):,} lines from {smp_file}')
 
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     idb.exe_time()  # initialize timer
     averages = smp_avg(smp_file, verbose=verbose)
 
-    with open(save_name, 'w') as f:
+    with open(save_name, 'w', encoding='utf-8') as f:
         for item in averages:
             f.write(f'{item}\n')
     print(f'  Wrote {len(averages):,} values to  {save_name}')

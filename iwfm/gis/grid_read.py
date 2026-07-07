@@ -39,7 +39,7 @@ def grid_read(infile):
     skiprows = 6
     header = ''
     try:
-        with open(infile, 'r') as f:
+        with open(infile, 'r', encoding='utf-8') as f:
             for _ in range(skiprows):
                 header += f.readline()
     except (FileNotFoundError, PermissionError, OSError) as e:

@@ -29,18 +29,16 @@ def test_file_test_existing(tmp_path):
     iwfm.file_test(str(p))
 
 
-def test_file_test_missing_raises_system_exit(tmp_path):
+def test_file_test_missing_raises_file_not_found(tmp_path):
     missing = tmp_path / "missing.txt"
-    with pytest.raises(SystemExit):
+    with pytest.raises(FileNotFoundError):
         iwfm.file_test(str(missing))
 
 
-def test_file_missing_exits_and_prints(capsys, tmp_path):
+def test_file_missing_raises_with_message(tmp_path):
     target = tmp_path / "nope.txt"
-    with pytest.raises(SystemExit):
+    with pytest.raises(FileNotFoundError, match="does not exist"):
         iwfm.file_missing(str(target))
-    out = capsys.readouterr().out
-    assert "does not exist" in out
 
 
 def test_file_delete_removes_file(tmp_path):
@@ -72,10 +70,8 @@ def test_file_rename_dest_exists_without_force_exits(tmp_path, capsys):
     dst = tmp_path / "b.txt"
     src.write_text("s")
     dst.write_text("d")
-    with pytest.raises(SystemExit):
+    with pytest.raises(FileExistsError, match="destination already exists"):
         iwfm.file_rename(str(src), str(dst), force=0)
-    out = capsys.readouterr().out
-    assert "Destination file already exists" in out
     # Ensure nothing changed
     assert src.read_text() == "s"
     assert dst.read_text() == "d"
@@ -101,11 +97,9 @@ def test_file_2_bak_creates_backup(tmp_path):
     assert bak.read_text() == "payload"
 
 
-def test_file_type_error_exits_and_prints(capsys):
-    with pytest.raises(SystemExit):
+def test_file_type_error_raises_with_message():
+    with pytest.raises(ValueError, match="must be a ABC file"):
         iwfm.file_type_error("file.xyz", "ABC")
-    out = capsys.readouterr().out
-    assert "must be a ABC file" in out
 
 
 def test_file_validate_path_creates_parent_dirs(tmp_path):
@@ -119,8 +113,8 @@ def test_file_validate_path_exits_when_target_is_directory(tmp_path, monkeypatch
     # Create a directory where a file is expected
     target_dir = tmp_path / "target"
     target_dir.mkdir()
-    # The function should exit when output path exists but is not a file
-    with pytest.raises(SystemExit):
+    # The function should raise when output path exists but is not a file
+    with pytest.raises(ValueError):
         iwfm.file_validate_path(str(target_dir))
 
 

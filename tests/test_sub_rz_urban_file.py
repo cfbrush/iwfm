@@ -573,7 +573,7 @@ class TestSubRzUrbanFileNotFound:
     """Tests for file not found error handling."""
 
     def test_file_not_found(self, tmp_path):
-        """Test that SystemExit is raised for missing file."""
+        """Test that FileNotFoundError is raised for missing file."""
         nonexistent_file = str(tmp_path / "nonexistent_urban.dat")
 
         sim_files_new = SimulationFiles(
@@ -584,7 +584,7 @@ class TestSubRzUrbanFileNotFound:
         elems = [1, 2, 3]
 
         # The iwfm.file_test() function calls sys.exit() when file is not found
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.sub_rz_urban_file(nonexistent_file, sim_files_new, elems, verbose=False)
 
 

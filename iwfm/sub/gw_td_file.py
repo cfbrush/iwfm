@@ -50,7 +50,7 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
     nodes = list(node_list)
 
     iwfm.file_test(old_filename)
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         td_lines = f.read().splitlines()
     td_lines.append('')
 
@@ -122,7 +122,7 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
 
     td_lines.append('')
 
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(td_lines))
 
     if verbose:

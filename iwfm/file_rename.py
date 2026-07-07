@@ -41,7 +41,7 @@ def file_rename(filename, newname, force=0):
     nothing
 
     '''
-    import os, sys
+    import os
 
     if os.path.isfile(newname):  # if file newname already exists
         if force:  # if force>0 then remove
@@ -52,11 +52,8 @@ def file_rename(filename, newname, force=0):
                 raise
             logger.debug(f'file_rename: removed existing {newname} (force mode)')
         else:
-            logger.error(f'file_rename: cannot rename {filename} to {newname}, destination already exists')
-            print(f'  *   Error: Can\'t rename {filename} to {newname}.\n')
-            print(f'  *   Destination file already exists.\n')
-            print('  *   Quitting.')
-            sys.exit()
+            raise FileExistsError(
+                f'Cannot rename {filename} to {newname}: destination already exists')
     try:
         os.rename(filename, newname)
     except (FileNotFoundError, PermissionError, OSError) as e:

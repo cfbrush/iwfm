@@ -50,13 +50,13 @@ def read_settings(in_file='settings.fig'):
         from iwfm.debug.logger_setup import logger
         logger.warning(f"Settings file '{in_file}' not found in current directory; creating defaults.")
         datespec, headerspec, idate, iheader = 2, 'no', 0, 0
-        with open(in_file, 'w') as output_file:
+        with open(in_file, 'w', encoding='utf-8') as output_file:
             output_file.write("{}\n{}\n".format('colrow=no','date=mm/dd/yyyy'))
         logger.info(f"Created a default '{in_file}' file.")
         return datespec, headerspec, idate, iheader
 
     # == read the file into array file_lines
-    with open(in_file) as f:
+    with open(in_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines()          # open and read input file
 
     for cline in file_lines:

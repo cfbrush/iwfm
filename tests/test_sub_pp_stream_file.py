@@ -97,7 +97,7 @@ class TestSubPpStreamFile:
         rating_header = ['C Rating Table Header']
         stream_aq = ['C Stream-Aquifer Section']
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_pp_stream_file('nonexistent_file.dat', 'output.dat',
                               snode_dict, reach_info, rattab_dict,
                               rating_header, stream_aq)
@@ -419,7 +419,7 @@ class TestSubPpStreamFile:
             assert '38' in new_content
 
     def test_unsupported_version_40(self):
-        """Test that version 4.0 causes system exit"""
+        """Test that version 4.0 raises NotImplementedError"""
         # Create a 4.0 version file
         lines = [
             "#4.0",
@@ -444,12 +444,12 @@ class TestSubPpStreamFile:
             rating_header = ['C Rating Table Header']
             stream_aq = ['C Stream-Aquifer Section']
 
-            with pytest.raises(SystemExit):
+            with pytest.raises(NotImplementedError):
                 sub_pp_stream_file(old_file, new_file, snode_dict, reach_info,
                                   rattab_dict, rating_header, stream_aq)
 
     def test_unsupported_version_41(self):
-        """Test that version 4.1 causes system exit"""
+        """Test that version 4.1 raises NotImplementedError"""
         # Create a 4.1 version file
         lines = [
             "#4.1",
@@ -474,7 +474,7 @@ class TestSubPpStreamFile:
             rating_header = ['C Rating Table Header']
             stream_aq = ['C Stream-Aquifer Section']
 
-            with pytest.raises(SystemExit):
+            with pytest.raises(NotImplementedError):
                 sub_pp_stream_file(old_file, new_file, snode_dict, reach_info,
                                   rattab_dict, rating_header, stream_aq)
 

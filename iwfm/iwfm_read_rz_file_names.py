@@ -51,7 +51,7 @@ def iwfm_read_rz_file_names(rz_file_name, verbose=False):
     if verbose: print(f"  Reading rootzone file names from {rz_file_name}")
 
     iwfm.file_test(rz_file_name)
-    with open(rz_file_name) as f:
+    with open(rz_file_name, encoding='utf-8') as f:
         rz_lines = f.read().splitlines()
 
     # Skip to the file names section (after RZCONV, RZITERMX, FACTCN, GWUPTK)

@@ -24,7 +24,7 @@ class simhyds:
     def __init__(self, filename):
         self.sim_vals, self.sim_dates = [], []
         self.filename = filename
-        with open(filename, 'r') as inputfile:
+        with open(filename, 'r', encoding='utf-8') as inputfile:
             lines = inputfile.read().splitlines()
         lines = [word.replace('_24:00', ' ') for word in lines]
 

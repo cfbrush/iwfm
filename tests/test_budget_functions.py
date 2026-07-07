@@ -198,19 +198,19 @@ C Location print list
             except Exception as e:
                 pytest.fail(f"iwfm_read_bud failed to parse mock budget file: {e}")
             
-            # Now test the full buds2xl function, which may fail due to dependencies.
-            # When the HDF5 file doesn't exist, file_missing() calls sys.exit()
-            # which raises SystemExit (a BaseException, not an Exception).
+            # Now test the full buds2xl function, which may fail due to
+            # dependencies (the HDF5 file referenced in the budget file
+            # doesn't exist).
             try:
                 from iwfm.xls.buds2xl import buds2xl
                 result = buds2xl(temp_file, verbose=False)
                 # If it somehow succeeds, that's acceptable
                 assert result is None
 
-            except SystemExit:
-                # Expected - file_missing() calls sys.exit() when the HDF5 file
-                # referenced in the budget file doesn't exist. This means the
-                # budget .in file was parsed successfully by iwfm_read_bud.
+            except FileNotFoundError:
+                # Expected when the HDF5 file referenced in the budget file
+                # doesn't exist. This means the budget .in file was parsed
+                # successfully by iwfm_read_bud.
                 pass
 
             except (ImportError, ModuleNotFoundError) as e:

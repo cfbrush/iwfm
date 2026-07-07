@@ -44,7 +44,7 @@ def ltsmp(input_file, output_file, zero_offset=36.0, neg_val=0.001):
 
     '''
 
-    with open(input_file) as f:
+    with open(input_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines()          # open and read input file
 
     out_lines = []
@@ -63,7 +63,7 @@ def ltsmp(input_file, output_file, zero_offset=36.0, neg_val=0.001):
         out = f'{head}               {iwfm.logtrans(q, zero_offset, neg_val):.4f}'
         out_lines.append(out.ljust(length))  # left-justify to length chars
     
-    with open(output_file, 'w') as out_file:
+    with open(output_file, 'w', encoding='utf-8') as out_file:
         for i in range(0,len(out_lines)):
             out_file.write(f'{out_lines[i]}\n')
 

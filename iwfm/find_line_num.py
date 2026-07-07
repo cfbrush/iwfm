@@ -37,7 +37,7 @@ def find_line_num(file_path, desired):
     """
     line_number = None
 
-    with open(file_path, 'r') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         for num, line in enumerate(file,1):
             #  If the string is in the line, break
             if desired in line:

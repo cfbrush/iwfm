@@ -119,7 +119,7 @@ if __name__ == '__main__':
     sim_obs = sim_obs_list(obs, well_dict, gwhyd_sim, dates)  # compare simulated and observed values
 
     # save the results to a text file
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         f.write("Well ID, Date, Observed, Simulated, Difference\n") # header
         for item in sim_obs:
             f.write(f"{item[0]}, {item[1]}, {item[2]:.2f}, {item[3]:.2f}, {item[4]:.2f}\n")

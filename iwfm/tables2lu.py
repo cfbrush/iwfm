@@ -59,7 +59,7 @@ def tables2lu(header, template_lines, initial_acreage, factor_tables, output_fil
     # open output_file_name for writing inside with loop
     line_count = 0
     try:
-        with open(output_file_name, 'w') as fp:
+        with open(output_file_name, 'w', encoding='utf-8') as fp:
 
             # write the header to the output file
             for line in header:
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     idb.exe_time()  # initialize timer
 
     # open and read template file
-    with open(template_file_name) as f:
+    with open(template_file_name, encoding='utf-8') as f:
         template_lines = f.read().splitlines()
 
     # copy header to variable with the same name
@@ -154,12 +154,12 @@ if __name__ == '__main__':
         initial_acreage.append(ac)
 
     # open and read factor files listed in input file
-    with open(input_file) as f:
+    with open(input_file, encoding='utf-8') as f:
         input_files = f.read().splitlines()
     input_tables = []
     for file in input_files:
         iwfm.file_test(file)
-        with open(file) as f:
+        with open(file, encoding='utf-8') as f:
             in_lines = f.read().splitlines()
         table = []
         for line in in_lines:

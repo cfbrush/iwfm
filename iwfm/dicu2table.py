@@ -43,7 +43,7 @@ def dicu2table(data_file, verbose=False):
     if verbose:
         print(f'  Creating data table from {data_file}')
 
-    with open(data_file) as f:
+    with open(data_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines() 
 
     # how many lines per data set?
@@ -105,11 +105,7 @@ def dicu2table(data_file, verbose=False):
             seep_table.append(temp_values)
             site_info_seep.append(site_info)
         else:
-            import sys
-            from iwfm.debug.logger_setup import logger
-            logger.error(f'Flow data type {kind!r} not recognized; quitting.')
-            sys.exit()
-            return 0
+            raise ValueError(f'Flow data type {kind!r} not recognized')
 
         line += 1  # skip 'END DATA' line
 

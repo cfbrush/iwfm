@@ -55,7 +55,7 @@ def write_2_dat(file_base_name, data, crop_list, elem_list, no_time_steps, date_
 
     # write the arrays to the output files
     for i in range(0, len(crop_list)):
-        with open(files[i], 'w') as fp:
+        with open(files[i], 'w', encoding='utf-8') as fp:
             fp.write('   WYr  ')
             for j in range(no_time_steps):
                 fp.write(f'               {date_list[j].year}  ')

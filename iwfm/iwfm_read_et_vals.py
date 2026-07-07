@@ -111,7 +111,7 @@ def iwfm_read_et_vals(et_file, verbose=False):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(et_file)
-    with open(et_file) as f:
+    with open(et_file, encoding='utf-8') as f:
         et_lines = f.read().splitlines()                   # open and read input file
 
     nevap, line_index = read_next_line_value(et_lines, -1, column=0)  # skip to next value line

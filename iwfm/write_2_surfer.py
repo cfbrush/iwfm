@@ -50,7 +50,7 @@ def write_2_surfer(outfile_name, x_y_locs, data, date):
         header += f",'Layer {str(i)}'"
 
     # write the output file
-    with open(outfile_name, 'w') as f:
+    with open(outfile_name, 'w', encoding='utf-8') as f:
         f.write(f'{header}\n')                             # header
 
         for i in range(0, len(x_y_locs)):

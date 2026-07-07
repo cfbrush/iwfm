@@ -97,10 +97,10 @@ class TestGetZbudgetDataWithPywfm:
     """Tests for get_zbudget_data with pywfm available."""
 
     def test_file_not_found(self):
-        """Test that function exits for missing file."""
+        """Test that function raises for missing file."""
         from iwfm.hdf5.get_zbudget_data_pywfm import get_zbudget_data
 
-        with pytest.raises(SystemExit):
+        with pytest.raises((SystemExit, FileNotFoundError)):
             get_zbudget_data('nonexistent_zbud.hdf', 'nonexistent_zone.dat')
 
 

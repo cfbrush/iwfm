@@ -53,7 +53,7 @@ def headall_read(input_file, skip=5, verbose=False):
     '''
 
     try:
-        with open(input_file) as f:
+        with open(input_file, encoding='utf-8') as f:
             file_lines = f.read().splitlines()
     except FileNotFoundError:
         logger.error(f'File not found: {input_file}')

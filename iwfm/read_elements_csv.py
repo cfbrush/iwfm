@@ -38,7 +38,7 @@ def read_elements_csv(elem_file_name):
     elem_ids = []
     elem_nodes = []
 
-    with open(elem_file_name) as csv_file:
+    with open(elem_file_name, encoding='utf-8') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for line in csv_reader:

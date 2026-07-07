@@ -38,7 +38,7 @@ def ppk2fac_trans(factors_file, trans_file, out_file, verbose=False):
     -------
     None
     """
-    with open(factors_file, 'r') as f:
+    with open(factors_file, 'r', encoding='utf-8') as f:
         factor_lines = []
         for line in f:
             if line.startswith('#') or line.startswith('C'):
@@ -49,7 +49,7 @@ def ppk2fac_trans(factors_file, trans_file, out_file, verbose=False):
     if verbose:
         print(f'  Read {len(factor_lines):,} pilot points from {factors_file}')
 
-    with open(trans_file, 'r') as f:
+    with open(trans_file, 'r', encoding='utf-8') as f:
         trans_d = {}
         for line in f:
             if line.startswith('#') or line.startswith('C'):
@@ -72,7 +72,7 @@ def ppk2fac_trans(factors_file, trans_file, out_file, verbose=False):
         # skip three lines
         i += 3
 
-    with open(out_file, 'w') as f:
+    with open(out_file, 'w', encoding='utf-8') as f:
         for line in factor_lines:
             f.write(line + '\n')
     if verbose:

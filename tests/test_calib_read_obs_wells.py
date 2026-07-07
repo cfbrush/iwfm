@@ -236,7 +236,7 @@ class TestReadObsWells:
 
     def test_file_not_found(self):
         """Test error handling for non-existent file"""
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             read_obs_wells('/nonexistent/path/to/file.dat')
 
     @pytest.mark.skip(reason="C2VSimCG file has formatting issues that cause IndexError in read_obs_wells function")

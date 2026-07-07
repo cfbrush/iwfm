@@ -43,9 +43,7 @@ def bnds2mask(bnds_d, coords):
         try:
             xy.append((coords_d[node][0],coords_d[node][1])) 
         except KeyError:
-            from iwfm.debug.logger_setup import logger
-            logger.error(f'Invalid node number {bnds_d[i]} in boundary list')
-            sys.exit(1)
+            raise ValueError(f'Invalid node number {bnds_d[i]} in boundary list') from None
     node = bnds_d[0]                # close the polygon
     xy.append((coords_d[node][0],coords_d[node][1])) 
     return xy                             # create numpy array of coordinates

@@ -328,11 +328,11 @@ class TestSubStInflowFileNotFound:
     """Tests for file not found handling."""
 
     def test_missing_input_file_raises_error(self, tmp_path):
-        """Test that missing input file raises SystemExit."""
+        """Test that missing input file raises FileNotFoundError."""
         output_file = tmp_path / 'new_inflow.dat'
         snode_list = [101]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.sub_st_inflow_file(str(tmp_path / 'nonexistent.dat'), str(output_file), snode_list)
 
 

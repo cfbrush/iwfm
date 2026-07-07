@@ -47,7 +47,7 @@ def read_hyd_dict(gw_dat_file, verbose=False):
 
     well_dict = {}
     iwfm.file_test(gw_dat_file)
-    with open(gw_dat_file) as f:
+    with open(gw_dat_file, encoding='utf-8') as f:
         gwhyd_info = f.read().splitlines()  # open and read input file
 
     # skip to NOUTH, number of hydrographs (skip 20 non-comment lines after start)

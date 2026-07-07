@@ -47,7 +47,7 @@ def iwfm_read_rz_urban(file, verbose=False):
     if verbose: print(f"Entered iwfm_read_rz_urban() with {file}")
 
     iwfm.file_test(file)
-    with open(file) as f:
+    with open(file, encoding='utf-8') as f:
         ur_lines = f.read().splitlines()                   # open and read input file
 
     ur_area_file, line_index = read_next_line_value(ur_lines, -1)

@@ -47,7 +47,7 @@ def write_flows(data_file_base, file_type, table, site_info, verbose=False):
 
     outFileName = os.path.splitext(data_file_base)[0] + file_type + '.csv'
 
-    with open(outFileName, 'w', newline='') as outFile:
+    with open(outFileName, 'w', newline='', encoding='utf-8') as outFile:
         outWriter = csv.writer(outFile)
 
         # write header info

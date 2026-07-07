@@ -43,7 +43,7 @@ def sub_sim_file(in_sim_file, sim_files_new, has_lake=False):
 
     # -- read the simprocessor file into array sim_lines
     iwfm.file_test(in_sim_file)
-    with open(in_sim_file) as f:
+    with open(in_sim_file, encoding='utf-8') as f:
         sim_lines = f.read().splitlines()  # open and read input file
 
     _, line_index = read_next_line_value(sim_lines, -1, column=0, skip_lines=3)  # skip comments and three header lines
@@ -83,7 +83,7 @@ def sub_sim_file(in_sim_file, sim_files_new, has_lake=False):
     sim_lines.append('')
 
     # -- write new simulation input file
-    with open(sim_files_new.sim_name, 'w') as outfile:
+    with open(sim_files_new.sim_name, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(sim_lines))
 
     return

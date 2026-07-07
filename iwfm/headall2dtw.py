@@ -47,7 +47,7 @@ def headall2dtw(heads_file, pre_file, output_root, verbose=False):
         If ``heads_file`` does not exist (checked first, before
         preprocessor parsing). This is the canonical recoverable signal
         for missing heads input.
-    SystemExit
+    FileNotFoundError
         If ``pre_file`` does not exist or its referenced node/strat files
         are missing (raised inside :func:`iwfm.iwfm_read_preproc` →
         :func:`iwfm.file_test`).

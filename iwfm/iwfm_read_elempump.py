@@ -68,7 +68,7 @@ def iwfm_read_elempump(elempump_file_name, elem_ids, ag=1, ur=2, comment=0, verb
 
     iwfm.file_test(elempump_file_name)
     try:
-        with open(elempump_file_name) as f:
+        with open(elempump_file_name, encoding='utf-8') as f:
             elempump_lines = f.read().splitlines()
     except FileNotFoundError:
         logger.error(f'File not found: {elempump_file_name}')
@@ -171,21 +171,21 @@ if __name__ == "__main__":
 
     # write results to text file
     elempump_ag_file = elempump_file_name.split('.')[0] + '_ag.txt'
-    with open(elempump_ag_file, 'w') as f:
+    with open(elempump_ag_file, 'w', encoding='utf-8') as f:
         f.write(f'{header}\n')
         for i in range(0, len(elempump_ag)):
             f.write(f'{elempump_ag[i]}\n')
     print(f'  Created {elempump_ag_file} with agricultural elemental pumping')
 
     elempump_ur_file = elempump_file_name.split('.')[0] + '_urban.txt'
-    with open(elempump_ur_file, 'w') as f:
+    with open(elempump_ur_file, 'w', encoding='utf-8') as f:
         f.write(f'{header}\n')
         for i in range(0, len(elempump_ur)):
             f.write(f'{elempump_ur[i]}\n')
     print(f'  Created {elempump_ur_file} with urban elemental pumping')
 
     elempump_other_file = elempump_file_name.split('.')[0] + '_other.txt'
-    with open(elempump_other_file, 'w') as f:
+    with open(elempump_other_file, 'w', encoding='utf-8') as f:
         f.write(f'{header}\n')
         for i in range(0, len(elempump_other)):
             f.write(f'{elempump_other[i]}\n')

@@ -57,7 +57,7 @@ def sub_pp_streams(stream_file, node_list):
         nodes.append(int(n))
 
     iwfm.file_test(stream_file)
-    with open(stream_file) as f:
+    with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
 
     stream_type = stream_lines[0][1:]
@@ -118,10 +118,7 @@ def sub_pp_streams(stream_file, node_list):
 
 
 def exit_now(stream_type):
-    import sys
-    from iwfm.debug.logger_setup import logger
-    logger.error(
+    raise NotImplementedError(
         f'sub_pp_streams(): no method to read stream specification type '
-        f'{stream_type!r}; exiting.'
+        f'{stream_type!r}'
     )
-    sys.exit()

@@ -91,7 +91,7 @@ class TestSubPpNodeList:
         """Test error handling for non-existent file"""
         from iwfm.sub.pp_node_list import sub_pp_node_list
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_pp_node_list('nonexistent_file.dat', [[1], [2], [3]])
 
     def test_basic_node_extraction(self):

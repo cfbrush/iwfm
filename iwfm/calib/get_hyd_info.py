@@ -54,7 +54,7 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
     logger.debug(f'get_hyd_info({ftype}): main_file={main_file}, colid={colid}, skips={skips}')
 
     iwfm.file_test(main_file)
-    with open(main_file) as f:
+    with open(main_file, encoding='utf-8') as f:
         in_lines = f.read().splitlines()                      # open and read input file
     line_index = 5  # skip first few lines
     logger.debug(f'  Read {len(in_lines):,} lines from {main_file}')

@@ -195,7 +195,7 @@ class TestSubGwFile:
         sim_files_new = SimulationFiles(gw_file='new_gw.dat')
         bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(ValueError):
             sub_gw_file(sim_files, sim_files_new, [1, 2], [[1], [2]], bounding_poly)
 
     def test_file_not_found(self):
@@ -207,7 +207,7 @@ class TestSubGwFile:
         sim_files_new = SimulationFiles(gw_file='new_gw.dat')
         bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_gw_file(sim_files, sim_files_new, [1, 2], [[1], [2]], bounding_poly)
 
     def test_all_files_blank(self):

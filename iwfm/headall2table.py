@@ -44,7 +44,7 @@ def headall2table(heads_file, output_file, out_date):
     date_parts = out_date.split('/')  # parse date components
     out_mon, out_day, out_year = int(date_parts[0]), int(date_parts[1]), int(date_parts[2])
 
-    with open(heads_file) as f:
+    with open(heads_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines()  # open and read input file
 
     start = 5  # skip the first 5 lines

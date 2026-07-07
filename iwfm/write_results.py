@@ -46,7 +46,7 @@ def write_results(name, date, meas, sim, start_date):
     import iwfm
 
     output_filename = name + '_obs.out'
-    with open(output_filename, 'w') as output_file:
+    with open(output_filename, 'w', encoding='utf-8') as output_file:
         output_file.write(f'# Observations for well {name}\n')
         output_file.write('# Date\tObserved\tModeled\n')
         for i in range(0, len(date)):

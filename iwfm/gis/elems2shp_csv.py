@@ -78,7 +78,7 @@ def elems2shp_csv(elem_nodes, node_coord_dict, shapename='elems.shp', epsg=26910
             *([elem_nodes[i][0]] + elem_nodes[i][1:] + [0] * (max_nodes - len(elem_nodes[i]) + 1))
         )
     # Write projection file
-    with open(f"{shapename}.prj", "w") as prj:
+    with open(f"{shapename}.prj", "w", encoding='utf-8') as prj:
         epsg_code = f'EPSG:{epsg}'
         crs = CRS.from_epsg(int(epsg))
         # Use WKT2_2019 if available, otherwise default WKT

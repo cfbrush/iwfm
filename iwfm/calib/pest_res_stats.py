@@ -37,7 +37,7 @@ def pest_res_stats(pest_res_file, verbose=False):
     import numpy as np
 
     # read pest results file
-    with open(pest_res_file) as f:
+    with open(pest_res_file, encoding='utf-8') as f:
         pest_res = f.read().splitlines()
     
     header = pest_res.pop(0)                 # remove the first line
@@ -97,7 +97,7 @@ def pest_res_stats(pest_res_file, verbose=False):
     out_file = pest_res_file.replace('.res','_stats.out')
     from iwfm.debug.logger_setup import logger
     logger.info(f'Writing {out_file}')
-    with open(out_file,"w") as of:
+    with open(out_file,"w", encoding='utf-8') as of:
         of.write(f'Name\tN\tMean\tBias\tRMSE\tStdev\tGroup\n')
         for i in range(0, len(obs)):
             of.write(f'{obs[i][0]}\t{obs[i][1]}\t{obs[i][2]:.2f}\t{obs[i][3]:.2f}\t{obs[i][4]:.2f}\t{obs[i][5]:.2f}\t{obs[i][6]}\n')

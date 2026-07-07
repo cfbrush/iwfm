@@ -54,7 +54,7 @@ def sub_rz_nv_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
     # Use iwfm utility for file validation
     iwfm.file_test(old_filename)
 
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         nv_lines = f.read().splitlines()
     nv_lines.append('')
 
@@ -90,7 +90,7 @@ def sub_rz_nv_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
 
     nv_lines.append('')
 
-    with open(sim_files_new.nv_file, 'w') as outfile:
+    with open(sim_files_new.nv_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(nv_lines))
     if verbose:
         print(f'      Wrote native and riparian file {sim_files_new.nv_file}')

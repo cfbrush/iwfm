@@ -47,7 +47,7 @@ def write_rmse_bias(output_filename, well_dict, well_names, rmse, bias, count):
     nothing
         
     '''
-    with open(output_filename, 'w') as o:
+    with open(output_filename, 'w', encoding='utf-8') as o:
         o.write('ID\tWell Name\tX\tY\tLayer\tRMSE\tBias\tCount\n')
         for i in range(0, len(well_names)):
             if well_dict.get(well_names[i]) is not None:

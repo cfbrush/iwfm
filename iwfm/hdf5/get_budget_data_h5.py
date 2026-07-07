@@ -19,10 +19,7 @@
 import sys
 import pandas as pd
 
-try:
-    import h5py
-except ImportError:
-    h5py = None
+import h5py
 
 from iwfm.hdf5.hdf5_utils import (
     apply_unit_conversion,
@@ -86,11 +83,6 @@ def get_budget_data(bud_file,
         Title lines (3 items) for each location
     """
     import iwfm
-
-    if h5py is None:
-        print("Error: h5py module not found")
-        print("Install with: pip install h5py")
-        sys.exit(1)
 
     iwfm.file_test(bud_file)
 

@@ -99,7 +99,7 @@ class TestSubPpFile:
             stream_file='stream.dat', lake_file='',
         )
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_pp_file('nonexistent_file.in', pre_files, pre_files_new)
 
     def test_basic_file_replacement(self):

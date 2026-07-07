@@ -48,7 +48,7 @@ def iwfm_read_rz_npc(file, verbose=False):
     if verbose: print(f"Entered iwfm_read_rz_npc() with {file}")
 
     iwfm.file_test(file)
-    with open(file) as f:
+    with open(file, encoding='utf-8') as f:
         npc_lines = f.read().splitlines()                           # open and read input file
 
     ncrop, line_index = read_next_line_value(npc_lines, -1)         # number of crop types

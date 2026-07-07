@@ -53,7 +53,7 @@ def iwfm_read_streams(stream_file, verbose=False):
     comments = 'Cc*#'
 
     iwfm.file_test(stream_file)
-    with open(stream_file) as f:
+    with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
     stream_type = stream_lines[0][1:]
 

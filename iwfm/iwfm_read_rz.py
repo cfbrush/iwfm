@@ -42,7 +42,7 @@ def iwfm_read_rz(rz_file, verbose=False):
     if verbose: print(f"Entered iwfm_read_rz() with {rz_file}")
 
     iwfm.file_test(rz_file)
-    with open(rz_file) as f:
+    with open(rz_file, encoding='utf-8') as f:
         rz_lines = f.read().splitlines()                # open and read input file
 
     np_file, line_index = read_next_line_value(rz_lines, -1, skip_lines=4)  # non-ponded ag file

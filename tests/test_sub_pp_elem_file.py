@@ -75,7 +75,7 @@ class TestSubPpElemFile:
         """Test error handling for non-existent file"""
         from iwfm.sub.pp_elem_file import sub_pp_elem_file
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_pp_elem_file('nonexistent_file.dat', 'output.dat', [[1]], [1])
 
     def test_basic_element_filtering(self):

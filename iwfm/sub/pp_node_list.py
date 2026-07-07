@@ -44,7 +44,7 @@ def sub_pp_node_list(elem_file, elem_list):
         elems.append(int(e[0]))
 
     iwfm.file_test(elem_file)
-    with open(elem_file) as f:
+    with open(elem_file, encoding='utf-8') as f:
         elem_lines = f.read().splitlines()  # open and read input file
 
     # Skip comments to NE line

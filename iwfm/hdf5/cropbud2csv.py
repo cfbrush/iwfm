@@ -160,7 +160,7 @@ def cropbud2csv(bud_file_ag, bud_file_pond, outfile, write_header=True, verbose=
     pond_budget_data = get_budget_data(bud_file_pond, verbose=verbose)  # (loc_names, column_headers, loc_values)
     
     # write data to CSV file
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding='utf-8') as f:
         process_budget_data(f, ag_budget_data[0], ag_budget_data[1], ag_budget_data[2],
                         write_header=write_header, verbose=verbose)
         process_budget_data(f, pond_budget_data[0], pond_budget_data[1], pond_budget_data[2],

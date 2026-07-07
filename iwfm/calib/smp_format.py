@@ -42,7 +42,7 @@ def smp_format( infile, nwidth=20, verbose=False):
 
     iwfm.file_test(infile)
 
-    with open(infile) as f:
+    with open(infile, encoding='utf-8') as f:
         smp_lines = f.read().splitlines()
     if verbose: print(f'\n  Read {len(smp_lines):,} lines from {infile}')
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     idb.exe_time()  # initialize timer
     smp_out = smp_format(smp_file, verbose=verbose)
 
-    with open(save_name, 'w') as f:
+    with open(save_name, 'w', encoding='utf-8') as f:
         for item in smp_out:
             f.write(f'{item}\n')
     print(f'  Wrote {len(smp_out):,} values to  {save_name}')

@@ -71,12 +71,10 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
 
     # Check if groundwater file exists
     if not sim_files.gw_file:
-        from iwfm.debug.logger_setup import logger
-        logger.error(
+        raise ValueError(
             'Groundwater file path not specified in simulation files.\n'
             '    Check that the simulation input file specifies a groundwater file.'
         )
-        sys.exit(1)
 
     gw_file_path = sim_files.gw_file
     iwfm.file_test(gw_file_path)
@@ -89,7 +87,7 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
         # Fall back to groundwater file's directory for backwards compatibility
         base_path = Path(gw_file_path).resolve().parent
 
-    with open(gw_file_path) as f:
+    with open(gw_file_path, encoding='utf-8') as f:
         gw_lines = f.read().splitlines()
     gw_lines.append('')
 
@@ -263,7 +261,7 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
 
     gw_lines.append('')
 
-    with open(sim_files_new.gw_file, 'w') as outfile:
+    with open(sim_files_new.gw_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(gw_lines))
 
     if verbose:

@@ -42,7 +42,7 @@ def sub_pp_lake_file(lake_file, new_lake_file, lake_info):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(lake_file)
-    with open(lake_file) as f:
+    with open(lake_file, encoding='utf-8') as f:
         lake_lines = f.read().splitlines()  # open and read input file
 
     # Skip comments and read NLAKE line
@@ -71,7 +71,7 @@ def sub_pp_lake_file(lake_file, new_lake_file, lake_info):
 
     new_lake_lines.append('')
 
-    with open(new_lake_file, 'w') as outfile:
+    with open(new_lake_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(new_lake_lines))
 
     return

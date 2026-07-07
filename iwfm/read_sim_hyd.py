@@ -36,7 +36,7 @@ def read_sim_hyd(gwhyd_file):
     import numpy as np
     import iwfm
 
-    with open(gwhyd_file) as f:
+    with open(gwhyd_file, encoding='utf-8') as f:
         gwhyd_lines = (f.read().splitlines())
     gwhyd_lines = [word.replace('_24:00', ' ') for word in gwhyd_lines]
 

@@ -55,7 +55,7 @@ def bud2xl(budget_file, excel_file, verbose=False, row=6):
 
     # Read the Budget file into array file_lines
     try:
-        with open(budget_file) as f:
+        with open(budget_file, encoding='utf-8') as f:
             file_lines = f.read().splitlines()
     except (FileNotFoundError, PermissionError, OSError) as e:
         logger.error(f'Failed to read budget file {budget_file}: {e}')

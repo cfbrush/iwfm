@@ -96,7 +96,7 @@ class TestSubGwTdFile:
         """Test error handling for non-existent file"""
         from iwfm.sub.gw_td_file import sub_gw_td_file
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_gw_td_file('nonexistent_file.dat', 'output.dat', [1, 2, 3])
 
     def test_no_tile_drains(self):

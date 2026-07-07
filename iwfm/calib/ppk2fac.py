@@ -40,7 +40,7 @@ def read_pp_file(pp_file, verbose=False):
 
     pp_list, pp_coord = [], []
     # open pp_file and read lines
-    with open(pp_file, 'r') as f:
+    with open(pp_file, 'r', encoding='utf-8') as f:
         for line in f:
             if line.startswith('#'):
                 continue
@@ -89,13 +89,9 @@ def par2fac_idw2(pp_coord, node_coord, n_ppoints=3, min_ppoints=3, max_ppoints=1
     '''
 
     import numpy as np
-    import sys
-
     # check that n_ppoints is within range
     if n_ppoints < min_ppoints or n_ppoints > max_ppoints:
-        from iwfm.debug.logger_setup import logger
-        logger.error(f'n_ppoints = {n_ppoints} is outside of range {min_ppoints} to {max_ppoints}; exiting.')
-        sys.exit()
+        raise ValueError(f'n_ppoints = {n_ppoints} is outside of range {min_ppoints} to {max_ppoints}')
 
     ppoints, weights = [], []
     for node in node_coord:
@@ -155,7 +151,7 @@ def write_factors(factors_outfile, pp_file, pp_list, node_list, ppoints, weights
 
     count = 0
 
-    with open(factors_outfile, 'w') as f:
+    with open(factors_outfile, 'w', encoding='utf-8') as f:
         f.write(f'{pp_file}\n')
         f.write(f'{str(len(node_list)).rjust(12)}\n')  # right-justify to 12 chars
         f.write(f'{str(len(pp_list)).rjust(12)}\n')  # right-justify to 12 chars

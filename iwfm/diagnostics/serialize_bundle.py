@@ -36,7 +36,7 @@ def serialize_bundle(bundle, output_path=None, indent=2, max_list_items=15,
     json_str = json.dumps(d, indent=indent, default=_json_default)
 
     if output_path:
-        with open(output_path, 'w') as f:
+        with open(output_path, 'w', encoding='utf-8') as f:
             f.write(json_str)
 
     return json_str

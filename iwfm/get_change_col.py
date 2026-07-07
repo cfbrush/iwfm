@@ -40,16 +40,11 @@ def get_change_col(changes_table, in_year, in_chg_file):
         number of column corresponding to in_year
 
     '''
-    import sys
-
     year = int(in_year)
     chg_col = 0
     for i in range(1, len(changes_table[0])):
         if changes_table[0][i] == year:
             chg_col = i
     if chg_col == 0:  # change year not in change file
-        print(f' ** {in_year} not in {in_chg_file}')
-        print(f' ** Exiting... **')
-        sys.exit()
-        return 0
+        raise ValueError(f'{in_year} not in {in_chg_file}')
     return chg_col

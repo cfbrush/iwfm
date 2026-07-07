@@ -38,7 +38,7 @@ def iwfm_read_bud(bud_file, verbose=False):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(bud_file)
-    with open(bud_file) as f:
+    with open(bud_file, encoding='utf-8') as f:
         bud_lines = f.read().splitlines()
 
     # read factors and labels

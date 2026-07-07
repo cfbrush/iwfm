@@ -109,7 +109,7 @@ class TestPrintMethodsHdfFunctionality:
         """Test that function exits for missing file."""
         from iwfm.hdf5.print_methods_hdf import print_methods_hdf
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             print_methods_hdf('nonexistent_file.hdf5')
 
     def test_verbose_output(self, tmp_path, capsys):

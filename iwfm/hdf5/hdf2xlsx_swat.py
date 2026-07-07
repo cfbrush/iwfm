@@ -21,22 +21,12 @@ import sys
 import os
 import numpy as np
 
-try:
-    import h5py
-except ImportError:
-    print("Error: h5py module not found")
-    print("Install with: pip install h5py")
-    sys.exit(1)
+import h5py
 
 from iwfm.debug.logger_setup import logger, setup_debug_logger
 
-try:
-    import openpyxl
-    from openpyxl.styles import Font, Alignment
-except ImportError:
-    print("Error: openpyxl module not found")
-    print("Install with: pip install openpyxl")
-    sys.exit(1)
+import openpyxl
+from openpyxl.styles import Font, Alignment
 
 
 def hdf2xlsx_swat(hdf_file, output_file,
@@ -88,8 +78,7 @@ def hdf2xlsx_swat(hdf_file, output_file,
         setup_debug_logger()  # Auto-detects script name
 
     if not os.path.exists(hdf_file):
-        logger.error(f"File '{hdf_file}' not found")
-        sys.exit(1)
+        raise FileNotFoundError(f"File '{hdf_file}' not found")
 
     if debug:
         logger.debug(f"Opening HDF5 file: {hdf_file}")

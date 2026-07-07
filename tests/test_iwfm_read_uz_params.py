@@ -463,5 +463,5 @@ class TestIwfmReadUzParamsErrorHandling:
 
     def test_nonexistent_file_raises_error(self):
         """Test that nonexistent file raises an error."""
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm_read_uz_params('/nonexistent/unsat.dat')

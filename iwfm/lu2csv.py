@@ -45,8 +45,8 @@ def lu2csv(inFileName, skip=4, verbose=False):
 
     # -- read land use file ------------------------------------
     try:
-        with open(inFileName, 'r') as inFile:
-            with open(outFileName, 'w', newline='') as outFile:
+        with open(inFileName, 'r', encoding='utf-8') as inFile:
+            with open(outFileName, 'w', newline='', encoding='utf-8') as outFile:
                 outWriter = csv.writer(outFile)
                 count = 0
                 line = inFile.readline()  # read input file

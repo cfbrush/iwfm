@@ -43,7 +43,7 @@ def sub_pp_strat_file(strat_file, new_strat_file, node_list):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(strat_file)
-    with open(strat_file) as f:
+    with open(strat_file, encoding='utf-8') as f:
         strat_lines = f.read().splitlines() 
 
     while len(strat_lines[-1]) < 2:
@@ -62,7 +62,7 @@ def sub_pp_strat_file(strat_file, new_strat_file, node_list):
 
     new_strat_lines.append('')
 
-    with open(new_strat_file, 'w') as outfile:
+    with open(new_strat_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(new_strat_lines))
 
     return

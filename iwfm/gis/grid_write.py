@@ -55,7 +55,7 @@ def grid_write(outfile, array, xllcorner=277750.0, yllcorner=6122250.0,
     header += f'cellsize {round(cellsize, 1)}\n'
     header += f'NODATA_value {nodata}\n'
     try:
-        with open(outfile, 'w') as f:
+        with open(outfile, 'w', encoding='utf-8') as f:
             f.write(header)
             np.savetxt(f, array, fmt='%1.2f')
     except (PermissionError, OSError) as e:

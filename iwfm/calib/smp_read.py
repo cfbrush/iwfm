@@ -32,7 +32,7 @@ def smp_read(smp_file_name):
     '''
     import iwfm
 
-    with open(smp_file_name) as f:
+    with open(smp_file_name, encoding='utf-8') as f:
         file_lines = f.read().splitlines()       # open and read input file
 
     # convert smp formatted observations to list of lists

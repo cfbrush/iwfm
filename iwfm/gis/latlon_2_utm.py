@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     # read lat-lon file using csv.reader
     filelines = []
-    with open(infile) as csv_file:
+    with open(infile, encoding='utf-8') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             filelines.append(row)
@@ -124,7 +124,7 @@ if __name__ == '__main__':
     x, y, zone, letter = latlon_2_utm(lat, lon)
 
     # write UTM file using csv.writer
-    with open(outfile, mode='w') as csv_file:
+    with open(outfile, mode='w', encoding='utf-8') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(['ID', 'X', 'Y', 'Zone', 'Letter'])
         for i in range(len(x)):

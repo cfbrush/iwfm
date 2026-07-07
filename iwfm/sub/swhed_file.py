@@ -48,7 +48,7 @@ def sub_swhed_file(old_filename, new_filename, node_list, snode_list, verbose=Fa
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(old_filename)
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         swshwd_lines = f.read().splitlines()
 
     _, line_index = read_next_line_value(swshwd_lines, -1, column=0, skip_lines=2)  # skip output file names and comments
@@ -120,7 +120,7 @@ def sub_swhed_file(old_filename, new_filename, node_list, snode_list, verbose=Fa
 
     swshwd_lines.append('')
     # -- write submodel small watersheds file
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(swshwd_lines))
 
     if verbose:

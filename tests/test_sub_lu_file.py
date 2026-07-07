@@ -75,7 +75,7 @@ class TestSubLuFile:
         """Test error handling for non-existent file"""
         from iwfm.sub.lu_file import sub_lu_file
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_lu_file('nonexistent_file.dat', 'output.dat', [1, 2, 3])
 
     def test_all_elements_in_submodel(self):

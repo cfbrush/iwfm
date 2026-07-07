@@ -137,7 +137,7 @@ class iwfm_model:
             return a list of the files called and some settings.'''
         # -- read the preprocessor file into array file_lines
         iwfm.file_test(pre_file)
-        with open(pre_file) as f:
+        with open(pre_file, encoding='utf-8') as f:
             pre_lines = f.read().splitlines()
 
         _, line_index = read_next_line_value(pre_lines, -1, column=0, skip_lines=3)  # skip comments
@@ -178,7 +178,7 @@ class iwfm_model:
             a SimulationFiles dataclass with the files called and some settings.'''
 
         iwfm.file_test(sim_file)
-        with open(sim_file) as f:
+        with open(sim_file, encoding='utf-8') as f:
             sim_lines = f.read().splitlines()
 
         _, line_index = read_next_line_value(sim_lines, -1, column=0, skip_lines=3)  # skip comments
@@ -257,7 +257,7 @@ class iwfm_model:
 
         # -- read the Node file into array file_lines
         iwfm.file_test(node_file)
-        with open(node_file) as f:
+        with open(node_file, encoding='utf-8') as f:
             node_lines = f.read().splitlines()
 
         _, line_index = read_next_line_value(node_lines, -1, column=0)  # skip comments
@@ -289,7 +289,7 @@ class iwfm_model:
             the nodes making up each element.'''
         # -- read the Element file into array file_lines
         iwfm.file_test(elem_file)
-        with open(elem_file) as f:
+        with open(elem_file, encoding='utf-8') as f:
             elem_lines = f.read().splitlines()
 
         _, line_index = read_next_line_value(elem_lines, -1, column=0)
@@ -324,7 +324,7 @@ class iwfm_model:
             a list of characteristics for each element.'''
 
         iwfm.file_test(char_file)
-        with open(char_file) as f:
+        with open(char_file, encoding='utf-8') as f:
             char_lines = f.read().splitlines()
 
         _, char_index = read_next_line_value(char_lines, -1, column=0)  # skip comments
@@ -347,7 +347,7 @@ class iwfm_model:
         ''' read_lake() - Read an IWFM Lake file and return (a) a list of
             elements and (b) a list of properties for each lake.'''
         iwfm.file_test(lake_file)
-        with open(lake_file) as f:
+        with open(lake_file, encoding='utf-8') as f:
             lake_lines = f.read().splitlines()
         _, lake_index = read_next_line_value(lake_lines, -1, column=0)  # skip comments
         parts = lake_lines[lake_index].split()
@@ -380,7 +380,7 @@ class iwfm_model:
             a list of stream reaches and (b) a dictionary of stream nodes,
             and return the number of stream nodes.'''
         iwfm.file_test(stream_file)
-        with open(stream_file) as f:
+        with open(stream_file, encoding='utf-8') as f:
             stream_lines = f.read().splitlines()
 
         _, stream_index = read_next_line_value(stream_lines, -1, column=0)
@@ -452,7 +452,7 @@ class iwfm_model:
     def read_strat(self, strat_file):
 
         iwfm.file_test(strat_file)
-        with open(strat_file) as f:
+        with open(strat_file, encoding='utf-8') as f:
             strat_lines = f.read().splitlines()
 
         _, line_index = read_next_line_value(strat_lines, -1, column=0)  # skip comments

@@ -85,7 +85,7 @@ class TestSubGwPumpEpumpFile:
         """Test error handling for non-existent file"""
         from iwfm.sub.gw_pump_epump_file import sub_gw_pump_epump_file
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_gw_pump_epump_file('nonexistent_file.dat', 'new_file.dat', [1, 2, 3])
 
     def test_basic_filtering(self):

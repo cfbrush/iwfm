@@ -301,11 +301,11 @@ class TestGetGwParamsErrorHandling:
     """Test error handling in get_gw_params."""
 
     def test_nonexistent_file_raises_error(self):
-        """Test that nonexistent file raises SystemExit.
+        """Test that nonexistent file raises FileNotFoundError.
 
         The iwfm package calls sys.exit() when a file is missing.
         """
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             get_gw_params('nonexistent_groundwater_file.dat')
 
 

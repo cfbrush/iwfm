@@ -249,7 +249,7 @@ class TestIwfmBoundaryCoordsErrorHandling:
 
     def test_nonexistent_node_file_raises_error(self):
         """Test that nonexistent node file raises an error."""
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm_boundary_coords('/nonexistent/nodes.dat',
                                 EXAMPLE_ELEM_FILE if EXAMPLE_FILES_EXIST else '/nonexistent/elem.dat')
 
@@ -257,5 +257,5 @@ class TestIwfmBoundaryCoordsErrorHandling:
                         reason="Example files not available")
     def test_nonexistent_elem_file_raises_error(self):
         """Test that nonexistent element file raises an error."""
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm_boundary_coords(EXAMPLE_NODE_FILE, '/nonexistent/elements.dat')

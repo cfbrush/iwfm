@@ -51,7 +51,7 @@ def sub_gw_bc_cghd_file(old_filename, new_filename, nodes, verbose=False):
     # Check if constrained head BC file exists using iwfm utility
     iwfm.file_test(old_filename)
 
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         cg_lines = f.read().splitlines()
     cg_lines.append('')
 
@@ -73,7 +73,7 @@ def sub_gw_bc_cghd_file(old_filename, new_filename, nodes, verbose=False):
 
     cg_lines[ngb_line] = '     ' + str(new_ngb) + '                         / NGB'
 
-    with open(new_filename, 'w') as outfile:
+    with open(new_filename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(cg_lines))
 
     if verbose:

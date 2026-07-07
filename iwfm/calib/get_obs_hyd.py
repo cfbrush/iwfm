@@ -46,7 +46,7 @@ def get_obs_hyd(obs_file,start_date):
     from datetime import datetime
 
     logger.debug(f'get_obs_hyd(): reading {obs_file}')
-    with open(obs_file) as f:
+    with open(obs_file, encoding='utf-8') as f:
         obs_lines = f.read().splitlines()                         # obs_lines has observations to match
     logger.debug(f'  Read {len(obs_lines):,} lines from {obs_file}')
 
@@ -55,9 +55,7 @@ def get_obs_hyd(obs_file,start_date):
         item = line.split()
 
         if len(item) < 2:
-            logger.error(f'Error at line {count:,} of {obs_file}: "{line}"')
-            import sys
-            sys.exit()
+            raise ValueError(f'Error at line {count:,} of {obs_file}: "{line}"')
 
         if item[0] not in obs_sites:
             obs_sites.append(item[0])

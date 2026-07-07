@@ -46,7 +46,7 @@ def sub_pp_file(in_pp_file, pre_files, pre_files_new, has_lake=False):
 
     # -- read the preprocessor file into array pre_lines
     iwfm.file_test(in_pp_file)
-    with open(in_pp_file) as f:
+    with open(in_pp_file, encoding='utf-8') as f:
         pre_lines = f.read().splitlines()  # open and read input file
 
     # -- preproc output file (skip comments + 3 title lines)
@@ -84,7 +84,7 @@ def sub_pp_file(in_pp_file, pre_files, pre_files_new, has_lake=False):
 
     pre_lines.append('')
     # -- write new preprocessor input file
-    with open(pre_files_new.prename, 'w') as outfile:
+    with open(pre_files_new.prename, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(pre_lines))
 
     return

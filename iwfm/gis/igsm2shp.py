@@ -41,7 +41,7 @@ def igsm2shp(main_file, shape_name, verbose=False):
 
     # Read main_file for file names
     iwfm.file_test(main_file)
-    with open(main_file) as f:
+    with open(main_file, encoding='utf-8') as f:
         main_lines = f.read().splitlines()
 
     # Read file specifications: skip 6 lines to reach file specification section,

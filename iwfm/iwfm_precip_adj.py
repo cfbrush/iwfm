@@ -62,7 +62,7 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
     # -- read precip column-VIC grid linkage ------------------------
     # data: precip col -> region, VIC ID
     iwfm.file_test(elem_VIC_filemane)
-    with open(elem_VIC_filemane) as f:
+    with open(elem_VIC_filemane, encoding='utf-8') as f:
         elem_vic = f.read().splitlines()
     elem_vic.pop(0)  # remove header lines
     vic_rows = len(elem_vic)
@@ -76,7 +76,7 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
 
     # -- get the climate factors ------------------------------------
     iwfm.file_test(factors_filename)
-    with open(factors_filename) as f:
+    with open(factors_filename, encoding='utf-8') as f:
         factors = f.read().splitlines()  # open and read input file
     factors.pop(0)  # remove header row
     
@@ -93,7 +93,7 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
 
    # -- replacement years for years without VIC factors ------------
     iwfm.file_test(years_filename)
-    with open(years_filename) as f:
+    with open(years_filename, encoding='utf-8') as f:
         rep_years = f.read().splitlines()  # open and read input file
 
     d_repyr_col = {}  # region name -> column of replacement years file
@@ -111,10 +111,10 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
 
     # -- read IWFM precipitation file ------------------------------------
     iwfm.file_test(precip_filename)
-    with open(precip_filename) as f:
+    with open(precip_filename, encoding='utf-8') as f:
         precip = f.read().splitlines()  # open and read input file
 
-    with open(out_filename, 'w') as of: # open output file for copy of header info
+    with open(out_filename, 'w', encoding='utf-8') as of: # open output file for copy of header info
 
         # find line with first data set, get month and year
         pline, status = 0, 1  # pline = line being processed, continue until status < 1
@@ -143,7 +143,7 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
 
         print_count = 0
         # write out the factors to a separate file just in case...
-        with open('factors.dat', 'w') as factfile:  
+        with open('factors.dat', 'w', encoding='utf-8') as factfile:  
             factfile.write('Date            \t' + '\t'.join(map(str, [i for i in range(1,cols+1)])) + '\n')
 
             # process each row of the precipitation file, replacing adjusted values

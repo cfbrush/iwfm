@@ -47,7 +47,7 @@ def iwfm_read_strat(strat_file, node_coords, verbose=False):
     if verbose: print(f"Entered iwfm_read_strat() with {strat_file}")
 
     iwfm.file_test(strat_file)
-    with open(strat_file) as f:
+    with open(strat_file, encoding='utf-8') as f:
         strat_lines = f.read().splitlines()
 
     layers, line_index = read_next_line_value(strat_lines, -1)

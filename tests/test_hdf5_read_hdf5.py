@@ -109,7 +109,7 @@ class TestReadHdf5Functionality:
         """Test that function exits for missing file."""
         from iwfm.hdf5.read_hdf5 import read_hdf5
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             read_hdf5('nonexistent_file.hdf5')
 
     def test_returns_h5py_file_object(self, tmp_path):

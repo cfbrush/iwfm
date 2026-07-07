@@ -110,13 +110,13 @@ if __name__ == "__main__":
         outfile = input('Output file name: ')
 
     iwfm.file_test(inpfile_1)
-    with open(inpfile_1) as f:
+    with open(inpfile_1, encoding='utf-8') as f:
         file_lines = f.read().splitlines()
     header = file_lines[0][1:]
     A = file_lines[1:]  # split off header
 
     iwfm.file_test(inpfile_2)
-    with open(inpfile_2) as f:
+    with open(inpfile_2, encoding='utf-8') as f:
         file_lines = f.read().splitlines()
     header = ','.join([header, file_lines[0][1:]])
     B = file_lines[1:]  # split off header
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     C = closest_list(A, B, verbose=verbose)
 
 
-    with open(outfile, 'w') as f:
+    with open(outfile, 'w', encoding='utf-8') as f:
         f.write(header+'\n')
         for c in C:
             c = ','.join(c) + '\n'

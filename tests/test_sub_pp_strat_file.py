@@ -79,7 +79,7 @@ class TestSubPpStratFile:
         """Test error handling for non-existent file"""
         from iwfm.sub.pp_strat_file import sub_pp_strat_file
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             sub_pp_strat_file('nonexistent_file.dat', 'output.dat', [1, 2, 3])
 
     def test_basic_node_filtering(self):

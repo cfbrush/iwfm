@@ -38,7 +38,7 @@ def read_nodes_csv(node_file_name):
     node_ids = []
     node_coord_dict = {}
 
-    with open(node_file_name) as csv_file:
+    with open(node_file_name, encoding='utf-8') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         line_count = 0
         for line in csv_reader:

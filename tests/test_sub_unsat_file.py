@@ -336,11 +336,11 @@ class TestSubUnsatFileNotFound:
     """Tests for file not found handling."""
 
     def test_missing_input_file_raises_error(self, tmp_path):
-        """Test that missing input file raises SystemExit."""
+        """Test that missing input file raises FileNotFoundError."""
         output_file = tmp_path / 'new_unsat.dat'
         elem_list = [[1]]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.sub_unsat_file(str(tmp_path / 'nonexistent.dat'), str(output_file), elem_list)
 
 

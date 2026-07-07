@@ -42,7 +42,7 @@ def iwfm_read_elements(elem_file, verbose=False):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(elem_file)
-    with open(elem_file) as f:
+    with open(elem_file, encoding='utf-8') as f:
         elem_lines = f.read().splitlines()
 
     elements, line_index = read_next_line_value(elem_lines, -1, column=0)

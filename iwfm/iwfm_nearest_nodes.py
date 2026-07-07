@@ -38,8 +38,8 @@ def iwfm_nearest_nodes(filename, node_set):
     import iwfm
 
     output_filename = filename[0 : filename.find('.')] + '_nearest_nodes.out'
-    with open(output_filename, 'w') as output_file:
-        with open(filename, 'r') as input_file:
+    with open(output_filename, 'w', encoding='utf-8') as output_file:
+        with open(filename, 'r', encoding='utf-8') as input_file:
             lines = input_file.read().splitlines()  # open and read input file
             header = lines[0].split(',')
             output_file.write(f'{header[0]},NdNear,NdDist\n')

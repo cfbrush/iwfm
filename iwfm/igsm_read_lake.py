@@ -39,7 +39,7 @@ def igsm_read_lake(lake_file):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(lake_file)
-    with open(lake_file) as f:
+    with open(lake_file, encoding='utf-8') as f:
         lake_lines = f.read().splitlines()  # open and read input file
 
     # skip comments and read number of lakes

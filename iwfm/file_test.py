@@ -31,11 +31,9 @@ def file_test(filename):
 
     Raises
     ------
-    SystemExit
+    FileNotFoundError
         Raised (via :func:`iwfm.file_missing`) if ``filename`` does not
-        resolve to an existing file. Callers that want a recoverable
-        signal should pre-check with ``os.path.isfile`` or
-        ``Path(...).is_file()`` instead.
+        resolve to an existing file.
 
     '''
     import os

@@ -49,7 +49,7 @@ def get_heads_4_date(heads_file, out_date, start=5):
     out_mon, out_day, out_year = int(date_parts[0]), int(date_parts[1]), int(date_parts[2])
 
     iwfm.file_test(heads_file)
-    with open(heads_file) as f:
+    with open(heads_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines()  # open and read input file
 
     line_index = start

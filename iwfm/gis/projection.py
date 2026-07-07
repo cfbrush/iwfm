@@ -46,7 +46,7 @@ def projection(shapename, epsg=26910, verbose=False):
 
     # -- write projection file ------------------------------------------------
     prjname = f'{shapename}.prj'
-    with open(prjname, 'w') as prjfile:
+    with open(prjname, 'w', encoding='utf-8') as prjfile:
         prjfile.write(prj)
 
     if verbose:

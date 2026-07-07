@@ -49,7 +49,7 @@ def read_nodes(node_file, factor=0.0, verbose=False):
 
     file_test(node_file)
 
-    with open(node_file) as f:
+    with open(node_file, encoding='utf-8') as f:
         node_lines = f.read().splitlines()
 
     inodes_str, line_index = read_next_line_value(node_lines, -1)

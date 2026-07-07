@@ -386,7 +386,7 @@ class LLMSupervisor:
         # Save bundle
         bundle_path = os.path.join(self.log_dir,
                                     f'bundle_epoch_{epoch:03d}.json')
-        with open(bundle_path, 'w') as f:
+        with open(bundle_path, 'w', encoding='utf-8') as f:
             f.write(bundle_json)
 
         return EpochResult(
@@ -576,13 +576,13 @@ calibration epoch. Return your decision as a JSON object."""
         }
 
         log_path = os.path.join(self.log_dir, 'supervisor_log.jsonl')
-        with open(log_path, 'a') as f:
+        with open(log_path, 'a', encoding='utf-8') as f:
             f.write(json.dumps(log_entry) + '\n')
 
         # Save full decision
         decision_path = os.path.join(
             self.log_dir, f'decision_epoch_{epoch:03d}.json')
-        with open(decision_path, 'w') as f:
+        with open(decision_path, 'w', encoding='utf-8') as f:
             json.dump(asdict(decision), f, indent=2)
 
     def _find_latest(self, extension):
@@ -601,7 +601,7 @@ calibration epoch. Return your decision as a JSON object."""
     def _read_par_file(par_path):
         """Read PEST .par file, return {name: value}."""
         values = {}
-        with open(par_path) as f:
+        with open(par_path, encoding='utf-8') as f:
             for line in f:
                 parts = line.split()
                 if len(parts) >= 2:

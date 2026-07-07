@@ -278,7 +278,7 @@ class TestReadLuFile:
         """Test that nonexistent file causes system exit."""
         nonexistent = tmp_path / "nonexistent.dat"
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.read_lu_file(str(nonexistent))
 
     def test_elems_list_per_timestep(self, tmp_path):

@@ -48,7 +48,7 @@ def res_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
     '''
     
     # == read pest observation file into array obs
-    with open(pest_smp_file) as f:
+    with open(pest_smp_file, encoding='utf-8') as f:
         head_obs = f.read().splitlines()
     for i in range(0,len(head_obs)):
         head_obs[i] = head_obs[i].split()
@@ -141,7 +141,7 @@ def res_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
         print(f'  Wrote {out_file}')
 
     out_file = gwhyd_file.replace('.out','_rmse_all.txt')
-    with open(out_file,'w') as of:
+    with open(out_file,'w', encoding='utf-8') as of:
         of.write('{}\t{}\t{}\n'.format(out_file,icalib.rmse_calc(sim_all,meas_all),icalib.bias_calc(sim_all,meas_all)))
     if verbose:
         print(f'  Wrote {out_file}')

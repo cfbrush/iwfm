@@ -78,7 +78,7 @@ def shp_reproject(srcName, tgtName, epsg=26910):
     # Create the prj file
     tgt_spatRef.MorphToESRI()  # Convert geometry to ESRI WKT format
     try:
-        with open(f'{lyrName}.prj', 'w') as prj:
+        with open(f'{lyrName}.prj', 'w', encoding='utf-8') as prj:
             prj.write(tgt_spatRef.ExportToWkt())
     except (PermissionError, OSError) as e:
         logger.error(f'Failed to write projection file {lyrName}.prj: {e}')

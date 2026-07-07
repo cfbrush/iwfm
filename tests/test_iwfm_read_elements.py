@@ -418,7 +418,7 @@ def test_iwfm_read_elements_missing_file_exits(tmp_path):
     from iwfm.iwfm_read_elements import iwfm_read_elements
 
     bogus = str(tmp_path / "does_not_exist.dat")
-    with pytest.raises(SystemExit):
+    with pytest.raises(FileNotFoundError):
         iwfm_read_elements(bogus)
 
 

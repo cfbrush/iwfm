@@ -57,7 +57,7 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
     if verbose: print(f"Entered sub_gw_bc_file() with {old_filename}")
 
     iwfm.file_test(old_filename)
-    with open(old_filename) as f:
+    with open(old_filename, encoding='utf-8') as f:
         bc_lines = f.read().splitlines()
     bc_lines.append('')
 
@@ -129,7 +129,7 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
     if have_cghd:                  # process constrained general head bc file
         iwfm.sub_gw_bc_cghd_file(cghd_file, sim_files_new.cghd_file, nodes, verbose)
 
-    with open(sim_files_new.bc_file, 'w') as outfile:
+    with open(sim_files_new.bc_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(bc_lines))
 
     if verbose:

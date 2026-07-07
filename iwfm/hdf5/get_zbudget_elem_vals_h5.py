@@ -20,10 +20,7 @@ import sys
 import numpy as np
 from collections import defaultdict
 
-try:
-    import h5py
-except ImportError:
-    h5py = None
+import h5py
 
 from iwfm.hdf5.hdf5_utils import (
     decode_hdf5_string,
@@ -83,11 +80,6 @@ def get_zbudget_elem_vals(zbud_file, zones_file, col_ids,
         First element is zone ID (1-indexed), rest are column sums
     """
     import iwfm
-
-    if h5py is None:
-        print("Error: h5py module not found")
-        print("Install with: pip install h5py")
-        sys.exit(1)
 
     iwfm.file_test(zbud_file)
     iwfm.file_test(zones_file)
@@ -267,7 +259,7 @@ if __name__ == '__main__':
     with open(pickle_base + '.pkl', 'wb') as f_pkl:
         pickle.dump(zone_data, f_pkl)
 
-    with open(out_file, 'w') as f_out:
+    with open(out_file, 'w', encoding='utf-8') as f_out:
         f_out.write('ElemID\tElem Pumping\tWell Pumping\n')
         for row in zone_data:
             f_out.write(f'{row[0]}\t{row[1]:.2f}\t{row[2]:.2f}\n')

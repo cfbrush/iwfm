@@ -541,12 +541,12 @@ class TestSubPPStreamsFileNotFound:
     """Tests for file not found error handling."""
 
     def test_file_not_found(self, tmp_path):
-        """Test that SystemExit is raised for missing file."""
+        """Test that FileNotFoundError is raised for missing file."""
         nonexistent_file = str(tmp_path / "nonexistent_streams.dat")
         node_list = [100, 101]
 
         # The iwfm.file_test() function calls sys.exit() when file is not found
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.sub_pp_streams(nonexistent_file, node_list)
 
 
@@ -554,7 +554,7 @@ class TestSubPPStreamsUnsupportedVersion:
     """Tests for unsupported stream file versions."""
 
     def test_version_40_exits(self, tmp_path):
-        """Test that version 4.0 causes system exit."""
+        """Test that version 4.0 raises NotImplementedError."""
         # Create a v4.0 format file
         content = "#4.0\r\nC Stream file v4.0\r\n     1    / NRH\r\n     3    / NRTB\r\n"
 
@@ -563,11 +563,11 @@ class TestSubPPStreamsUnsupportedVersion:
 
         node_list = [100]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(NotImplementedError):
             iwfm.sub_pp_streams(str(stream_file), node_list)
 
     def test_version_41_exits(self, tmp_path):
-        """Test that version 4.1 causes system exit."""
+        """Test that version 4.1 raises NotImplementedError."""
         content = "#4.1\r\nC Stream file v4.1\r\n     1    / NRH\r\n     3    / NRTB\r\n"
 
         stream_file = tmp_path / "test_streams_41.dat"
@@ -575,7 +575,7 @@ class TestSubPPStreamsUnsupportedVersion:
 
         node_list = [100]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(NotImplementedError):
             iwfm.sub_pp_streams(str(stream_file), node_list)
 
 

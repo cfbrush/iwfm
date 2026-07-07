@@ -93,10 +93,10 @@ class TestGetBudgetDataWithPywfm:
     """Tests for get_budget_data with pywfm available."""
 
     def test_file_not_found(self):
-        """Test that function exits for missing file."""
+        """Test that function raises for missing file."""
         from iwfm.hdf5.get_budget_data_pywfm import get_budget_data
 
-        with pytest.raises(SystemExit):
+        with pytest.raises((SystemExit, FileNotFoundError)):
             get_budget_data('nonexistent_file.hdf')
 
 

@@ -461,7 +461,7 @@ class TestSubStreamsFileNotFound:
     """Tests for file not found handling."""
 
     def test_missing_stream_file_raises_error(self, tmp_path):
-        """Test that missing stream file raises SystemExit."""
+        """Test that missing stream file raises FileNotFoundError."""
         sim_files = SimulationFiles(stream_file=str(tmp_path / 'nonexistent.dat'))
         sim_files_new = SimulationFiles(
             stream_file=str(tmp_path / 'new_streams.dat'),
@@ -474,11 +474,11 @@ class TestSubStreamsFileNotFound:
         elem_list = [[100]]
         sub_snodes = [101]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes)
 
     def test_missing_stream_file_key_raises_error(self, tmp_path):
-        """Test that missing stream_file key raises SystemExit."""
+        """Test that missing stream_file key raises FileNotFoundError."""
         sim_files = SimulationFiles()  # stream_file defaults to empty string
         sim_files_new = SimulationFiles(
             stream_file=str(tmp_path / 'new_streams.dat'),
@@ -491,7 +491,7 @@ class TestSubStreamsFileNotFound:
         elem_list = [[100]]
         sub_snodes = [101]
 
-        with pytest.raises(SystemExit):
+        with pytest.raises(FileNotFoundError):
             iwfm.sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes)
 
 

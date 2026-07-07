@@ -42,7 +42,7 @@ def sub_pp_node_file(node_file, new_node_file, node_list):
     from iwfm.file_utils import read_next_line_value
 
     iwfm.file_test(node_file)
-    with open(node_file) as f:
+    with open(node_file, encoding='utf-8') as f:
         node_lines = f.read().splitlines()  # open and read input file
 
     # Skip comments and read ND line
@@ -60,7 +60,7 @@ def sub_pp_node_file(node_file, new_node_file, node_list):
             new_node_lines.append(node_lines[i])
     new_node_lines.append('')
 
-    with open(new_node_file, 'w') as outfile:
+    with open(new_node_file, 'w', encoding='utf-8') as outfile:
         outfile.write('\n'.join(new_node_lines))
 
     return

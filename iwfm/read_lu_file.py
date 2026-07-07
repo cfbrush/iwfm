@@ -44,7 +44,7 @@ def read_lu_file(filename, skip=4):
     comments = 'Cc*#'
 
     iwfm.file_test(filename)
-    with open(filename) as f:
+    with open(filename, encoding='utf-8') as f:
         data = f.read().splitlines()
 
     # -- find the file line with the first element's data

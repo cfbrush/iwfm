@@ -41,14 +41,14 @@ def detaw_2_table(dir_name, outfile_name, verbose=False):
 
     input_files = os.listdir(dir_name)
 
-    with open(outfile_name, 'w', newline='') as out_file:
+    with open(outfile_name, 'w', newline='', encoding='utf-8') as out_file:
         out_writer = csv.writer(out_file)
 
         header, data = 0, []
         for file_name in input_files:
             if file_name[0] != '.':
                 file_name = os.path.join(dir_name, file_name)
-                with open(file_name) as f:
+                with open(file_name, encoding='utf-8') as f:
                     file_lines = f.read().splitlines()  # open and read input file
                 if header == 0:  # first file so get header
                     header = 1
