@@ -135,9 +135,7 @@ from iwfm.headall2ts import headall2ts
 from iwfm.headall2surfer import headall2surfer
 from iwfm.headall2excel import headall2excel
 from iwfm.get_heads_4_date import get_heads_4_date
-from iwfm.read_from_index import read_from_index
 from iwfm.read_nodes import read_nodes
-from iwfm.find_line_num import find_line_num
 
 # -- finite-element methods -------------------------------
 from iwfm.elem_poly_coords import elem_poly_coords

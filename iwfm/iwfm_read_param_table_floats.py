@@ -39,22 +39,6 @@ def iwfm_read_param_table_floats(file_lines, line_index, lines):
     params : list
         A list of parameters
     """
+    from iwfm.file_utils import read_param_table
 
-    import numpy as np
-    from iwfm.file_utils import read_next_line_value
-
-    params = []
-    parts = file_lines[line_index].split()
-    if int(parts[0]) == 0:                                              # one set of parameter values for all elements
-        params = [float(e) for e in parts[1:]]                          # skip the first value which is the element number
-        _, line_index = read_next_line_value(file_lines, line_index)    # skip to next value line
-    else:
-        for i in range(lines):
-            parts = file_lines[line_index].split()
-            params.append([float(e) for e in parts[1:]])                # skip the first value which is the element number
-            line_index += 1                                             # skip to next line
-    line_index -= 1
-
-    params = np.array(params)
-
-    return params, line_index
+    return read_param_table(file_lines, line_index, lines, cast=float)

@@ -253,6 +253,56 @@ def read_line_values_to_dict(lines, start_index, keys, column=0, skip_lines=0):
     return result_dict, line_index
 
 
+def read_param_table(file_lines, line_index, lines, cast=float):
+    """read_param_table() - Read a table of numeric parameters and return
+    a numpy array.
+
+    Shared engine for iwfm_read_param_table_floats and
+    iwfm_read_param_table_ints.
+
+    If the first value on the starting line is 0, one set of parameter
+    values applies to all elements and only that line is read; otherwise
+    one line is read per element.
+
+    Parameters
+    ----------
+    file_lines : list
+        File contents as list of lines
+
+    line_index : int
+        The index of the line to start reading from.
+
+    lines : int
+        The number of lines to read.
+
+    cast : callable, default=float
+        Type conversion applied to each value (float or int).
+
+    Returns
+    -------
+    params : numpy array
+        Table of parameter values
+
+    line_index : int
+        Index of the last line read
+    """
+    import numpy as np
+
+    params = []
+    parts = file_lines[line_index].split()
+    if int(parts[0]) == 0:                                              # one set of parameter values for all elements
+        params = [cast(e) for e in parts[1:]]                           # skip the first value which is the element number
+        _, line_index = read_next_line_value(file_lines, line_index)    # skip to next value line
+    else:
+        for i in range(lines):
+            parts = file_lines[line_index].split()
+            params.append([cast(e) for e in parts[1:]])                 # skip the first value which is the element number
+            line_index += 1                                             # skip to next line
+    line_index -= 1
+
+    return np.array(params), line_index
+
+
 if __name__ == '__main__':
     # Simple tests
     from iwfm.debug import parse_cli_flags
