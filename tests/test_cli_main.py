@@ -153,9 +153,10 @@ class TestCLIInvocation:
         from iwfm.cli.main import app
         
         result = runner.invoke(app, [])
-        
-        # Should show help, not error
-        assert result.exit_code == 0
+
+        # click < 8.2 exits 0 for no_args_is_help; click >= 8.2 exits 2
+        assert result.exit_code in (0, 2)
+        assert "Usage" in result.output or "--help" in result.output
 
     def test_cli_level_option_user(self, runner):
         """Test --level user option."""

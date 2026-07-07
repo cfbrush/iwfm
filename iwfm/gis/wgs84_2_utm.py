@@ -1,6 +1,6 @@
 # wgs84_2_utm.py
 # Reproject from geographic coordinates to UTM
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -34,10 +34,7 @@ def wgs84_2_utm(lon, lat):
         UTM easting, northing, and altitude (0)
 
     '''
-    import utm
+    from iwfm.gis.latlon_2_utm import latlon_2_utm
 
-    # Convert lat/lon to UTM (returns easting, northing, zone_number, zone_letter)
-    easting, northing, zone_number, zone_letter = utm.from_latlon(lat, lon)
-
-    # Return in original format: (easting, northing, altitude)
-    return (easting, northing, 0)  
+    easting, northing, zone_number, zone_letter = latlon_2_utm(lat, lon)
+    return (easting, northing, 0)

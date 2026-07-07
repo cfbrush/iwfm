@@ -1,6 +1,6 @@
 # img_stretch.py
 # Stretches the color bands of an image
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -34,11 +34,11 @@ def img_stretch(infile, outfile):
     
     '''
     from osgeo import gdal_array as gdal_array
-    from stretch import stretch
+    from iwfm.gis.stretch import stretch
 
     arr = gdal_array.LoadFile(infile)
     stretched = stretch(arr)
-    output = gdal_array.SaveArray(arr, outfile, format='GTiff', prototype=infile)
+    output = gdal_array.SaveArray(stretched, outfile, format='GTiff', prototype=infile)
     output = None
 
     return

@@ -1,5 +1,5 @@
 # shp_driver_type.py
-# Return shapefile driver with fiona
+# Return shapefile driver name
 # Copyright (C) 2020-2024 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it

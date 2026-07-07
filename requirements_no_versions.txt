@@ -1,36 +1,35 @@
-area
+# Core runtime dependencies (unpinned) — mirrors [project.dependencies] in
+# pyproject.toml. Every package here is imported somewhere in iwfm/.
 beautifulsoup4
-dbfread
-fiona
-folium
 fpdf
-GDAL
-geocoder
-geojson
 geopandas
 geopy
 h5py
-laspy
 loguru
 matplotlib
 numpy
 openpyxl
-osmnx
 pandas
-Pillow
-pngcanvas
+pillow
 polars
-pynmea
-PyPDF2
+pypdf
 pyproj
 pyshp
-python_dateutil
-rasterio
-Requests
+requests
 scipy
 shapely
-tabula-py
 typer
-utm
-xlrd
-XlsxWriter
+
+# --- Optional (see [project.optional-dependencies] in pyproject.toml) ---
+# gdal       # osgeo bindings; needs system libgdal matching the pip version
+# pymysql    # iwfm.gis mysql helpers
+# anthropic  # iwfm.diagnostics.llm_supervisor
+# pywin32    # iwfm.xls win32com backend (Windows only)
+# tabula-py  # PDF table extraction (needs a Java runtime)
+# osmnx      # OpenStreetMap street networks
+# laspy      # LIDAR LAS files
+# folium     # interactive HTML maps
+# xlrd       # read pre-2007 .xls workbooks (still used by some agency data)
+# pytest / pytest-cov  # test suite
+
+# Not on PyPI, imported lazily where used: pywfm, qgis, geopdf, pypest

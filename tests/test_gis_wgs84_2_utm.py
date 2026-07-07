@@ -80,8 +80,8 @@ class TestWgs842Utm:
         easting, northing, _ = wgs84_2_utm(original_lon, original_lat)
 
         # Get zone for reverse conversion
-        import utm
-        _, _, zone_number, _ = utm.from_latlon(original_lat, original_lon)
+        from iwfm.gis.get_utm_zone import get_utm_zone
+        zone_number = get_utm_zone(original_lon)
 
         # Convert back
         lon, lat, _ = utm_2_wgs84(zone_number, easting, northing)

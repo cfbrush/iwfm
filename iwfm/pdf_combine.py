@@ -39,7 +39,8 @@ def pdf_combine(start_dir, save_dir, save_name):
         Number of PDFs combined
 
     '''
-    import os, PyPDF2
+    import os
+    import pypdf
     from iwfm.debug.logger_setup import logger
 
     count = 0
@@ -48,14 +49,14 @@ def pdf_combine(start_dir, save_dir, save_name):
         if filename.endswith('.pdf'):
             mergelist.append(os.path.join(save_dir, filename))
 
-    pdfWriter = PyPDF2.PdfWriter()
+    pdfWriter = pypdf.PdfWriter()
 
     # loop through all PDFs
     for filepath in mergelist:
         count += 1
         try:
             with open(filepath, 'rb') as pdfFileObj:
-                pdfReader = PyPDF2.PdfReader(pdfFileObj)
+                pdfReader = pypdf.PdfReader(pdfFileObj)
                 for pageNum in range(len(pdfReader.pages)):
                     pageObj = pdfReader.pages[pageNum]
                     pdfWriter.add_page(pageObj)

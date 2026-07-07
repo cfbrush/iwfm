@@ -1,6 +1,6 @@
 # qgis_init.py
 # Initialize QGIS application
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -31,12 +31,12 @@ def qgis_init(verbose=False):
 
     '''
     import qgis.core as qcore
-    import init_qgis_paths as init_qgis_paths
+    from iwfm.gis.qgis_init_paths import qgis_init_paths
 
     if verbose:
         print('  Initializing QGIS') 
 
-    app_path = init_qgis_paths()
+    app_path = qgis_init_paths()
     qcore.QgsApplication.setPrefixPath(app_path, True)  # Path to QGIS binary
 
     # Create a reference to the QgsApplication, True = enables GUI (for applications)

@@ -1,6 +1,6 @@
-# shp_bounds_fiona.py
-# Return shapefile bounds with fiona
-# Copyright (C) 2020-2021 University of California
+# shp_crs.py
+# Return shapefile coordinate reference system
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -17,27 +17,25 @@
 # -----------------------------------------------------------------------------
 
 
-def shp_bounds_fiona(filename, verbose=False):
-    ''' shp_bounds_fiona() - Return the bounds for shapefile opened with Fiona
-    
+def shp_crs(filename):
+    ''' shp_crs() - Return the shapefile coordinate reference system
+        from the sidecar .prj file
+
     Parameters
     ----------
     filename : str
-        input shapefile name
-
-    verbose : bool, default=False
-        turn command-line output on or off
+        shapefile name
 
     Returns
     -------
-    b : str
-        shapefile bounding box
+    c : pyproj.CRS or None
+        shapefile coordinate reference system (None if no .prj file)
 
     '''
-    import fiona
+    from pathlib import Path
+    from pyproj import CRS
 
-    with fiona.open(filename) as f:
-        b = f.bounds
-    if verbose:
-        print(f' Shapefile {filename} bounds: {b}')
-    return b
+    prj = Path(filename).with_suffix('.prj')
+    if not prj.is_file():
+        return None
+    return CRS.from_wkt(prj.read_text())

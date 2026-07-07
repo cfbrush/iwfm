@@ -32,14 +32,17 @@ def utm_2_latlon(easting, northing, zone, band='U'):
         UTM zone
     
     band : str, default='U'
-        Band
+        MGRS latitude band letter; bands N-X are the northern
+        hemisphere, C-M the southern
 
     Returns
     -------
-    (lat, lon) : str
+    (lat, lon) : tuple of float
         Latitude and Longitude
 
     '''
-    import utm
+    from pyproj import Transformer
 
-    return utm.to_latlon(easting, northing, zone, band)
+    epsg = (32600 if band.upper() >= 'N' else 32700) + int(zone)
+    lon, lat = Transformer.from_crs(epsg, 4326, always_xy=True).transform(easting, northing)
+    return (lat, lon)

@@ -119,7 +119,6 @@ def pdf_to_excel(pdf_url, excel_filename, timeout=60):
         If Excel file cannot be written
     '''
     import tabula
-    import polars as pl
     import requests
 
     # Download PDF with timeout first to provide better error messages
@@ -161,12 +160,12 @@ def pdf_to_excel(pdf_url, excel_filename, timeout=60):
 
     print(f"Found {len(tables)} table(s) in PDF")
 
-    # Convert pandas DataFrames to polars and write to Excel
+    # Write the pandas DataFrames from tabula to Excel
     try:
-        import xlsxwriter
+        import openpyxl
 
-        # Create workbook with xlsxwriter
-        workbook = xlsxwriter.Workbook(excel_filename)
+        workbook = openpyxl.Workbook()
+        workbook.remove(workbook.active)  # drop the default empty sheet
 
         for i, table in enumerate(tables):
             sheet_name = f'Table_{i+1}'
@@ -176,22 +175,15 @@ def pdf_to_excel(pdf_url, excel_filename, timeout=60):
                 print(f"Warning: Table {i+1} is empty, skipping")
                 continue
 
-            # Convert pandas DataFrame to polars DataFrame
-            table_pl = pl.from_pandas(table)
+            worksheet = workbook.create_sheet(title=sheet_name)
+            worksheet.append([str(col) for col in table.columns])
+            for row in table.itertuples(index=False, name=None):
+                worksheet.append(list(row))
 
-            # Create worksheet and write data
-            worksheet = workbook.add_worksheet(sheet_name)
+        if not workbook.sheetnames:  # openpyxl cannot save a sheetless workbook
+            workbook.create_sheet(title='Table_1')
 
-            # Write headers
-            for col_idx, col_name in enumerate(table_pl.columns):
-                worksheet.write(0, col_idx, col_name)
-
-            # Write data rows
-            for row_idx, row in enumerate(table_pl.iter_rows()):
-                for col_idx, value in enumerate(row):
-                    worksheet.write(row_idx + 1, col_idx, value)
-
-        workbook.close()
+        workbook.save(excel_filename)
         print(f"Tables from {pdf_url} have been extracted and saved to {excel_filename}.")
 
     except Exception as e:

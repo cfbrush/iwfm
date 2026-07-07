@@ -37,8 +37,8 @@ def shp_to_utm_pts(shape, outfile, verbose=False):
 
     '''
     import shapefile  # PyShp
-    import utm
-    from urllib.request import urlopen
+    from pyproj import CRS
+    from iwfm.gis.latlon_2_utm import latlon_2_utm
 
     zone = 0
 
@@ -48,15 +48,15 @@ def shp_to_utm_pts(shape, outfile, verbose=False):
             w.record(*s.record)
         for s in shape.iterShapes():  # this reprojects
             lon, lat = s.points[0]
-            x, y, zone, band = utm.from_latlon(lat, lon)
+            x, y, zone, band = latlon_2_utm(lat, lon)
             w.point(x, y)
 
-    # for UTM 1N-29N
     # the zone variable will tell which UTM zone this shapefile is in
-    prj = urlopen(f'http://spatialreference.org/ref/epsg/269{zone:02d}/esriwkt/')  
+    # (WGS84 UTM north = EPSG 326xx, matching the transform above)
+    wkt = CRS.from_epsg(32600 + zone).to_wkt(version='WKT1_ESRI')
 
-    with open(f'{outfile}.prj', 'w') as f:
-        f.write(str(prj.read()))
+    with open(f'{outfile}.prj', 'w', encoding='utf-8') as f:
+        f.write(wkt)
 
     if verbose:
         print(f'  Wrote {outfile}, UTM Zone: {zone}')

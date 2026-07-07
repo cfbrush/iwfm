@@ -1,6 +1,6 @@
 # geocode_json.py
 # Return the lat-lon of a street address
-# Copyright (C) 2020-2025 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -16,11 +16,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-import geocoder
 
 def geocode_json(address, verbose=False):
     ''' geocode_json() - Return the lat-lon of a street address
-    
+        as a GeoJSON FeatureCollection
+
     Parameters
     ----------
     address : str
@@ -28,14 +28,28 @@ def geocode_json(address, verbose=False):
 
     verbose : bool, default=False
         True = command line output on
-    
+
     Returns
     -------
-    geocode of address : geojson format
-    
-    '''
+    geocode of address : GeoJSON FeatureCollection dict, or None if not found
 
-    g = geocoder.osm(address)
+    '''
+    from geopy.geocoders import Nominatim
+
+    location = Nominatim(user_agent='iwfm').geocode(address)
+    if location is None:
+        return None
+    feature_collection = {
+        'type': 'FeatureCollection',
+        'features': [{
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [location.longitude, location.latitude],
+            },
+            'properties': {'address': location.address},
+        }],
+    }
     if verbose:
-        print(f'  Geocode of {address} in geojson: {g.geojson}')
-    return g.geojson
+        print(f'  Geocode of {address} in geojson: {feature_collection}')
+    return feature_collection

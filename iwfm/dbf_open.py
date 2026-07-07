@@ -1,6 +1,6 @@
 # dbf_open.py
 # open a DBF file
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -17,29 +17,40 @@
 # -----------------------------------------------------------------------------
 
 
+class _DBFTable(list):
+    ''' List of DBF records with .fields and .records attributes. '''
+
+    def __init__(self, records, fields):
+        super().__init__(records)
+        self.fields = fields
+        self.records = records
+
+
 def dbf_open(infile, load=False, verbose=False):
-    ''' dbf_open() - Open a DBF file
+    ''' dbf_open() - Open a DBF file (read with PyShp)
 
     Parameters
     ----------
     infile : str
         Name of existing DBF file
-    
+
     load : bool, default=False
-        Read into memory?
-    
+        Retained for backward compatibility; records are always read
+        into memory
+
     verbose : bool, default=False
         Turn command-line output on or off
 
     Returns
     -------
-    db: obj
-        Database
+    db: _DBFTable
+        list of records with .fields and .records attributes
 
     '''
-    from dbfread import DBF
+    import shapefile  # PyShp
 
-    db = DBF(infile, load=load)
+    with shapefile.Reader(dbf=infile) as r:
+        db = _DBFTable(r.records(), r.fields)
     if verbose:
         print(f'   Opened file {infile}, contains {len(db):,} records')
     return db

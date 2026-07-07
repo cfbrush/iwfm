@@ -93,13 +93,9 @@ def create_test_dbf_file(filepath, records):
         f.write(b'\x1A')
 
 
-# Check if dbfread is available
-try:
-    from dbfread import DBF  # noqa: F401
-    del DBF
-    DBFREAD_AVAILABLE = True
-except ImportError:
-    DBFREAD_AVAILABLE = False
+# the gate variable keeps its original name so the skipif marks
+# below stay unchanged
+DBFREAD_AVAILABLE = True
 
 
 @pytest.mark.skipif(not DBFREAD_AVAILABLE, reason="dbfread library not installed")

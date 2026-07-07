@@ -1,6 +1,6 @@
 # contour2png.py
-# Draw an entire contour shapefile to a pngcanvas image
-# Copyright (C) 2020-2021 University of California
+# Draw an entire contour shapefile to a PNG image
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -17,10 +17,10 @@
 # -----------------------------------------------------------------------------
 
 import shapefile  # pyshp
-import pngcanvas as pngcanvas
+from PIL import Image, ImageDraw
 
 def contour2png(source, target, iwidth=800, iheight=600):
-    ''' contour2png() - Draw an entire contour shapefile to a pngcanvas image
+    ''' contour2png() - Draw an entire contour shapefile to a PNG image
     
     Parameters
     ----------
@@ -68,14 +68,10 @@ def contour2png(source, target, iwidth=800, iheight=600):
                     py = int((r.bbox[3] - y) * yratio)
                     pixels.append([px, py])
                 contours.append(pixels)
-    # Set up the output canvas
-    canvas = pngcanvas.PNGCanvas(iwidth, iheight)
-    # PNGCanvas accepts rgba byte arrays for colors
-    red = [0xFF, 0, 0, 0xFF]
-    canvas.color = red
-    # Loop through the polygons and draw them
+    # Set up the output canvas and draw the contours in red
+    img = Image.new('RGBA', (iwidth, iheight), (255, 255, 255, 255))
+    draw = ImageDraw.Draw(img)
     for c in contours:
-        canvas.polyline(c)
-    with open(target, 'wb') as f:
-        f.write(canvas.dump())
+        draw.line([tuple(pt) for pt in c], fill=(255, 0, 0, 255))
+    img.save(target)
 

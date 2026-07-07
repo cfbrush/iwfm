@@ -23,6 +23,19 @@ from unittest.mock import patch, MagicMock
 import pandas as pd
 
 
+def _write_xlsx(path, df):
+    """Write a polars DataFrame to xlsx with openpyxl (no xlsxwriter dep)."""
+    import openpyxl
+
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.append(list(df.columns))
+    for row in df.iter_rows():
+        ws.append(list(row))
+    wb.save(str(path))
+
+
+
 def _load_module():
     """Load the get_usbr module dynamically."""
     from importlib.util import spec_from_file_location, module_from_spec
@@ -361,7 +374,7 @@ class TestExtractDataToCsv:
             "Name": ["Reservoir"],
             "2022": [100],
         })
-        df.write_excel(str(excel_file))
+        _write_xlsx(excel_file, df)
 
         # Function should extract "2022" from filename
         # Will fail at data extraction but validates year parsing
@@ -376,10 +389,7 @@ class TestExtractDataToCsv:
 
         # Create minimal Excel file
         df = pl.DataFrame({"A": [1]})
-        try:
-            df.write_excel(str(excel_file))
-        except ModuleNotFoundError:
-            pytest.skip("fastexcel not installed")
+        _write_xlsx(excel_file, df)
 
         with pytest.raises(ValueError) as exc_info:
             extract_data_to_csv(str(excel_file))
@@ -434,7 +444,7 @@ class TestGetUsbr:
 
         def mock_pdf_to_excel(*args, **kwargs):
             df = pl.DataFrame({"A": [1]})
-            df.write_excel(str(excel_file))
+            _write_xlsx(excel_file, df)
 
         def mock_extract(*args, **kwargs):
             pass
@@ -452,7 +462,7 @@ class TestGetUsbr:
 
         def create_and_fail(*args, **kwargs):
             df = pl.DataFrame({"A": [1]})
-            df.write_excel(str(excel_file))
+            _write_xlsx(excel_file, df)
             raise RuntimeError("Simulated failure")
 
         with patch.object(_module, 'pdf_to_excel', create_and_fail):

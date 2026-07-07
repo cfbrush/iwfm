@@ -17,13 +17,44 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+class _Worksheet:
+    ''' Worksheet with a write(row, col, value) method
+        (0-based row/column indices). '''
+
+    def __init__(self, ws):
+        self._ws = ws
+
+    def write(self, row, col, value):
+        self._ws.cell(row=row + 1, column=col + 1, value=value)
+
+
+class _Workbook:
+    ''' Workbook where add_worksheet() creates a named sheet and
+        close() saves to the file name given at construction. '''
+
+    def __init__(self, filename):
+        import openpyxl
+
+        self._wb = openpyxl.Workbook()
+        self._wb.remove(self._wb.active)  # drop the default empty sheet
+        self._filename = filename
+
+    def add_worksheet(self, name):
+        return _Worksheet(self._wb.create_sheet(title=name))
+
+    def close(self):
+        if not self._wb.sheetnames:  # openpyxl cannot save a sheetless workbook
+            self._wb.create_sheet(title='Sheet1')
+        self._wb.save(self._filename)
+
+
 def new_excel(outfile_name, verbose=False):
     ''' new_excel() - Create a new Excel workbook
 
     Parameters
     ----------
     outfile_name : str
-        Output Excel file name
+        Output Excel file name (written when the workbook is closed)
 
     verbose : bool, default=False
         True = command-line output on
@@ -31,19 +62,10 @@ def new_excel(outfile_name, verbose=False):
     Returns
     -------
     workbook : object
-        Excel workbook object
+        Excel workbook object with add_worksheet() and close() methods
 
     '''
-    try:
-        import xlsxwriter
-    except ImportError:
-        print("Requires XlsxWriter module. Exiting...")
-        print("Run 'python -m pip install xlsxwriter'")
-        print("Exiting...")
-        sys.exit()
-
-    # Create an Excel writer using XlsxWriter as the engine.
-    workbook = xlsxwriter.Workbook(outfile_name)
+    workbook = _Workbook(outfile_name)
 
     if verbose: print(f'  Created Excel workbook {outfile_name}')
 

@@ -1,6 +1,6 @@
 # shp_fieldnames.py
 # Returns field names for a PyShp shapefile
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ def shp_fieldnames(f):
         field names
         
     '''
-    from shp_fields import shp_fields
+    from iwfm.gis.shp_fields import shp_fields
 
     fields = shp_fields(f)
     return [item[0] for item in fields[1:]]

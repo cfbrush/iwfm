@@ -20,20 +20,15 @@ import pytest
 import os
 import tempfile
 
-# Check if xlsxwriter is available
-try:
-    import xlsxwriter  # noqa: F401
-    del xlsxwriter
-    XLSXWRITER_AVAILABLE = True
-except ImportError:
-    XLSXWRITER_AVAILABLE = False
-
-# Check if openpyxl is available for reading Excel files in tests
+# headall2excel writes with openpyxl; the gate variable keeps its
+# original name so the skipif marks below stay unchanged
 try:
     import openpyxl
     OPENPYXL_AVAILABLE = True
 except ImportError:
     OPENPYXL_AVAILABLE = False
+
+XLSXWRITER_AVAILABLE = OPENPYXL_AVAILABLE
 
 # Import directly from module since it may not be exported in __init__.py
 from iwfm.headall2excel import headall2excel, new_excel

@@ -1,6 +1,6 @@
 # point2geojson.py
 # Point to geojson format
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -29,13 +29,13 @@ def point2geojson(point, verbose=False):
 
     Returns
     -------
-    geojs : Point as GeoJSON object
+    geojs : Point as GeoJSON dict
 
     '''
-    import geojson
+    import json
 
-    geojs = geojson.Point(point)
+    geojs = {'type': 'Point', 'coordinates': list(point)}
     if verbose:
         print('  GeoJSON Data: ')
-        print(geojson.dumps(geojs, indent=5))
+        print(json.dumps(geojs, indent=5))
     return geojs

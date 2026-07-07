@@ -37,16 +37,10 @@ def utm_2_wgs84(zone, easting, northing):
         Longitude, Latitude, and altitude (0)
 
     '''
-    import utm
+    from iwfm.gis.utm_2_latlon import utm_2_latlon
 
-    # Ensure zone is an integer
-    zone = int(zone)
-
-    # Determine hemisphere from northing value
+    # Northern hemisphere for non-negative northing (band N),
+    # southern otherwise (band M)
     band = 'N' if northing >= 0 else 'M'
-
-    # Convert UTM to lat/lon (returns lat, lon)
-    lat, lon = utm.to_latlon(easting, northing, zone, band)
-
-    # Return in original format: (lon, lat, altitude)
+    lat, lon = utm_2_latlon(easting, northing, int(zone), band)
     return (lon, lat, 0)

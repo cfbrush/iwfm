@@ -1,6 +1,6 @@
 # __init__.py for iwfm.gis package
 # Classes, methods and functions to read, write and modify gis files for IWFM and IGSM files
-# Copyright (C) 2018-2025 University of California
+# Copyright (C) 2018-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -98,11 +98,8 @@ from iwfm.gis.shp_geomtype import shp_geomtype
 
 from iwfm.gis.shp_get_OGR import shp_get_OGR
 
-from iwfm.gis.shp_schema_print_fiona import shp_schema_print_fiona
 from iwfm.gis.shp_driver_type import shp_driver_type
-from iwfm.gis.shp_bounds_fiona import shp_bounds_fiona
-from iwfm.gis.shp_coords_fiona import shp_coords_fiona
-from iwfm.gis.shp_len_fiona import shp_len_fiona
+from iwfm.gis.shp_crs import shp_crs
 
 # -- editing shapefiles -----------------------------------
 from iwfm.gis.shp_add_field import shp_add_field
@@ -179,7 +176,7 @@ from iwfm.gis.point_in_poly import point_in_poly
 from iwfm.gis.world2screen import world2screen
 from iwfm.gis.world2pixel import world2pixel
 from iwfm.gis.image2Array import image2Array
-#from iwfm.gis.density_plot import density_plot
+from iwfm.gis.density_plot import density_plot
 from iwfm.gis.choropleth import choropleth
 from iwfm.gis.heatmap import heatmap
 

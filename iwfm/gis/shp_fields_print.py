@@ -1,6 +1,6 @@
 # shp_fields_print.py
 # Print field property strings for a PyShp shapefile
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ def shp_fields_print(f):
     nothing
 
     '''
-    from shp_fields import shp_fields
+    from iwfm.gis.shp_fields import shp_fields
 
     fields = shp_fields(f)
     print("  ['NAME', 'TYPE', LENGTH, PRECISION]")

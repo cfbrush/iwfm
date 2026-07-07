@@ -1,6 +1,6 @@
 # shp_area.py
 # Returns area of a polygon for PyShp shapefile
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -18,17 +18,22 @@
 
 
 def shp_area(polygon):
-    ''' shp_area() - Return the area of a PyShp polygon
+    ''' shp_area() - Return the geodesic area of a polygon in
+        geographic (lon-lat) coordinates
 
     Parameters
     ----------
-    polygon : PyShp shapefile polygon
+    polygon : PyShp polygon shape or GeoJSON-like geometry dict
+        polygon in WGS84 lon-lat coordinates
 
     Returns
     -------
-    Polygon area : float
+    Polygon area in square meters : float
 
     '''
-    from area import area
+    from pyproj import Geod
+    from shapely.geometry import shape
 
-    return area(polygon)
+    geom = shape(getattr(polygon, '__geo_interface__', polygon))
+    area_m2, _ = Geod(ellps='WGS84').geometry_area_perimeter(geom)
+    return abs(area_m2)

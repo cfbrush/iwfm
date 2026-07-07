@@ -17,7 +17,6 @@
 # -----------------------------------------------------------------------------
 
 import numpy as np
-import laspy
 
 
 def las2dem(source, target, cell=1.0, NODATA=0):
@@ -43,6 +42,7 @@ def las2dem(source, target, cell=1.0, NODATA=0):
     nothing
 
     '''
+    import laspy
 
     if source[-4:] != '.las':
         source += '.las'

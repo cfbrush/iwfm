@@ -1,6 +1,6 @@
 # shp2png_empty.py
 # Save a shapefile as a raster with no fill
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ def shp2png_empty(shape, outname, iwidth=400, iheight=600):
     nothing
     
     '''
-    import pngcanvas as pngcanvas
+    from PIL import Image, ImageDraw
 
     xdist = shape.bbox[2] - shape.bbox[0]
     ydist = shape.bbox[3] - shape.bbox[1]
@@ -50,8 +50,7 @@ def shp2png_empty(shape, outname, iwidth=400, iheight=600):
         px = int(iwidth - ((shape.bbox[2] - x) * xratio))
         py = int((shape.bbox[3] - y) * yratio)
         pixels.append([px, py])
-    c = pngcanvas.PNGCanvas(iwidth, iheight)
-    c.polyline(pixels)
-    with open(outname, 'wb') as f:
-        f.write(c.dump())
+    img = Image.new('RGBA', (iwidth, iheight), (255, 255, 255, 255))
+    ImageDraw.Draw(img).line([tuple(pt) for pt in pixels], fill=(0, 0, 0, 255))
+    img.save(outname)
     return

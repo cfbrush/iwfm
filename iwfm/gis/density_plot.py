@@ -1,6 +1,6 @@
 # density_plot.py
 # Reads a shapefile and writes it as an image
-# Copyright (C) 2020-2025 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -17,10 +17,12 @@
 # -----------------------------------------------------------------------------
 
 import shapefile  # pyshp
-from shapefile import point_in_poly
-import pngcanvas as pngcanvas
-import world2screen
 import random
+
+from PIL import Image, ImageDraw
+from shapely.geometry import Point, Polygon
+
+from iwfm.gis.world2screen import world2screen
 
 def density_plot(infile,fieldname,iwidth=600,iheight=400,
     denrat=100,savename=None):
@@ -63,30 +65,29 @@ def density_plot(infile,fieldname,iwidth=600,iheight=400,
             value = shaperec.record[val_index]  # get value from field <fieldname>
             density = value / denrat
             found = 0
+            poly = Polygon(shaperec.shape.points)
             while found < density:
                 minx, miny, maxx, maxy = shaperec.shape.bbox
                 x = random.uniform(minx, maxx)
                 y = random.uniform(miny, maxy)
-                if point_in_poly(x, y, shaperec.shape.points):
+                if poly.contains(Point(x, y)):
                     dots.append((x, y))
                     found += 1
 
-        canvas = pngcanvas.PNGCanvas(iwidth, iheight)
+        img = Image.new('RGBA', (iwidth, iheight), (255, 255, 255, 255))
+        draw = ImageDraw.Draw(img)
 
-        canvas.color = (255, 0, 0, 0xFF)  # red dots
-        for dot in dots:
+        for dot in dots:  # red dots
             x, y = world2screen(inShp.bbox, iwidth, iheight, *dot)
-            canvas.filled_rectangle(x - 1, y - 1, x + 1, y + 1)
+            draw.rectangle([x - 1, y - 1, x + 1, y + 1], fill=(255, 0, 0, 255))
 
-        canvas.color = (0, 0, 0, 0xFF)  # black lines for shape boundaries
-        for shp in inShp.iterShapes():
+        for shp in inShp.iterShapes():  # black lines for shape boundaries
             pixels = []
             for p in shp.points:
                 pixel = world2screen(inShp.bbox, iwidth, iheight, *p)
-                pixels.append(pixel)
-            canvas.polyline(pixels)
+                pixels.append(tuple(pixel))
+            draw.line(pixels, fill=(0, 0, 0, 255))
 
     if savename:
-        with open(savename, 'wb') as img:
-            img.write(canvas.dump())
+        img.save(savename)
 

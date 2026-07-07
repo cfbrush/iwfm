@@ -452,14 +452,14 @@ class TestPdfCombine:
     """Tests for the pdf_combine function."""
 
     @pytest.fixture
-    def pypdf2_available(self):
-        """Check if PyPDF2 is available."""
+    def pypdf_available(self):
+        """Check if pypdf is available."""
         try:
-            import PyPDF2  # noqa: F401
-            assert PyPDF2 is not None
+            import pypdf  # noqa: F401
+            assert pypdf is not None
             return True
         except ImportError:
-            pytest.skip("PyPDF2 library not installed")
+            pytest.skip("pypdf library not installed")
 
     def create_test_pdf(self, filepath, content="Test"):
         """Helper to create a simple test PDF."""
@@ -469,7 +469,7 @@ class TestPdfCombine:
         pdf.cell(0, 10, content)
         pdf.output(str(filepath))
 
-    def test_combine_single_pdf(self, tmp_path, pypdf2_available):
+    def test_combine_single_pdf(self, tmp_path, pypdf_available):
         """Test combining a single PDF."""
         # Create source directory with one PDF
         source_dir = tmp_path / "source"
@@ -484,7 +484,7 @@ class TestPdfCombine:
         assert count == 1
         assert (output_dir / "combined.pdf").exists()
 
-    def test_combine_multiple_pdfs(self, tmp_path, pypdf2_available):
+    def test_combine_multiple_pdfs(self, tmp_path, pypdf_available):
         """Test combining multiple PDFs."""
         # Create source directory with multiple PDFs
         source_dir = tmp_path / "source"
@@ -500,7 +500,7 @@ class TestPdfCombine:
         assert count == 3
         assert (output_dir / "combined.pdf").exists()
 
-    def test_combine_returns_correct_count(self, tmp_path, pypdf2_available):
+    def test_combine_returns_correct_count(self, tmp_path, pypdf_available):
         """Test that combine returns correct file count."""
         source_dir = tmp_path / "source"
         source_dir.mkdir()
@@ -513,7 +513,7 @@ class TestPdfCombine:
 
         assert count == 5
 
-    def test_combine_empty_directory(self, tmp_path, pypdf2_available):
+    def test_combine_empty_directory(self, tmp_path, pypdf_available):
         """Test combining from empty directory."""
         source_dir = tmp_path / "source"
         source_dir.mkdir()
@@ -524,7 +524,7 @@ class TestPdfCombine:
 
         assert count == 0
 
-    def test_combine_ignores_non_pdf_files(self, tmp_path, pypdf2_available):
+    def test_combine_ignores_non_pdf_files(self, tmp_path, pypdf_available):
         """Test that combine ignores non-PDF files."""
         source_dir = tmp_path / "source"
         source_dir.mkdir()
@@ -540,9 +540,9 @@ class TestPdfCombine:
 
         assert count == 1
 
-    def test_combine_creates_valid_pdf(self, tmp_path, pypdf2_available):
+    def test_combine_creates_valid_pdf(self, tmp_path, pypdf_available):
         """Test that combined PDF is valid and readable."""
-        import PyPDF2
+        import pypdf
 
         source_dir = tmp_path / "source"
         source_dir.mkdir()
@@ -556,7 +556,7 @@ class TestPdfCombine:
         # Verify combined PDF is readable
         combined_path = output_dir / "combined.pdf"
         with open(combined_path, 'rb') as f:
-            reader = PyPDF2.PdfReader(f)
+            reader = pypdf.PdfReader(f)
             # Combined PDF should have pages and be readable
             assert len(reader.pages) > 0
             # Should have at least as many pages as files combined

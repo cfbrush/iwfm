@@ -1,6 +1,6 @@
 # gjson2shp.py
 # Point shape from geojson object
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -26,9 +26,9 @@ def geojson2shp(geojs):
 
     Returns
     -------
-    point : Point shape object
-    
-    '''
-    import geojson as geo
+    point : shapely geometry object
 
-    return geo.asShape(geojs)
+    '''
+    from shapely.geometry import shape
+
+    return shape(geojs)

@@ -1,6 +1,6 @@
 # latlon_2_utm.py
 # Reproject from geographic coordinates to UTM
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -34,12 +34,26 @@ def latlon_2_utm(lat, lon):
     UTM coordinates: X, Y, Zone Number, Zone Letter
 
     '''
-    import utm
     import numpy as np
+    from pyproj import Transformer
+    from iwfm.gis.get_utm_zone import get_utm_zone
 
-    #return utm.from_latlon(lat, lon)
+    scalar = np.asarray(lat).ndim == 0
+    lat_a = np.atleast_1d(np.asarray(lat, dtype=float))
+    lon_a = np.atleast_1d(np.asarray(lon, dtype=float))
 
-    return utm.from_latlon(np.array(lat), np.array(lon))
+    # zone and hemisphere from the first point; all points share one zone
+    zone = get_utm_zone(lon_a[0])
+    epsg = (32700 if lat_a[0] < 0 else 32600) + zone
+    x, y = Transformer.from_crs(4326, epsg, always_xy=True).transform(lon_a, lat_a)
+
+    # MGRS latitude band letter: 8-degree bands C..X from 80S to 84N
+    bands = 'CDEFGHJKLMNPQRSTUVWX'
+    letter = bands[min(max(int((lat_a[0] + 80) // 8), 0), len(bands) - 1)]
+
+    if scalar:
+        return float(x[0]), float(y[0]), zone, letter
+    return x, y, zone, letter
 
 
 if __name__ == '__main__':

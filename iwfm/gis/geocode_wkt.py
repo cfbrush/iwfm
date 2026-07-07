@@ -1,6 +1,6 @@
 # geocode_wkt.py
 # Return the lat-lon of a street address
-# Copyright (C) 2020-2025 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-import geocoder
 
 def geocode_wkt(address, verbose=False):
     '''geocode_wkt() - Return the lat-lon of a street address in WKT format
@@ -29,14 +28,17 @@ def geocode_wkt(address, verbose=False):
     verbose : bool, default=False
       Turn command-line output on or off
 
-
     Returns
     -------
-    nothing
-    
-    '''
+    geocode of address as WKT point : str, or None if not found
 
-    g = geocoder.osm(address)
+    '''
+    from geopy.geocoders import Nominatim
+
+    location = Nominatim(user_agent='iwfm').geocode(address)
+    if location is None:
+        return None
+    wkt = f'POINT ({location.longitude} {location.latitude})'
     if verbose:
-        print(f'  Geocode of {address} in WKT: {g.wkt}')
-    return g.wkt
+        print(f'  Geocode of {address} in WKT: {wkt}')
+    return wkt

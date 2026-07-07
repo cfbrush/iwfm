@@ -1,26 +1,69 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "iwfm"
 version = "0.0.1"
-license={text="GNU"}
-description='IWFM Python package'
-readme = {text='Classes, methods and functions to read, write and modify IWFM files', content-type='text/plain'}
-requires-python='>=3.8'
-classifiers= [
-            "Development Status :: 3 - Alpha",
-            "Intended Audience :: Science/Research",
-            "Programming Language :: Python :: 3.8",
-            "Operating System :: Microsoft :: Windows",
-            "Operating System :: POSIX :: Linux",
-            "Operating System :: MacOS :: MacOS X",
-        ]
+license = {text = "GPL-2.0-or-later"}
+description = "IWFM Python package"
+readme = {text = "Classes, methods and functions to read, write and modify IWFM files", content-type = "text/plain"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "Programming Language :: Python :: 3",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+]
+# Every package below is imported somewhere in iwfm/ (verified by AST scan 2026-07).
+dependencies = [
+    "beautifulsoup4",
+    "fpdf",
+    "geopandas",
+    "geopy",
+    "h5py",
+    "loguru",
+    "matplotlib",
+    "numpy",
+    "openpyxl",
+    "pandas",
+    "pillow",
+    "polars",
+    "pypdf",
+    "pyproj",
+    "pyshp",
+    "requests",
+    "scipy",
+    "shapely",
+    "typer",
+]
 
 [[project.authors]]
 name = "Charles Brush"
 email = "charles.brush@hydrolytics-llc.com"
 
+[project.optional-dependencies]
+# osgeo bindings need a system libgdal matching the pip version; on macOS:
+#   PATH="/opt/homebrew/opt/gdal/bin:$PATH" pip install "gdal==$(gdal-config --version)"
+gdal = ["gdal"]
+mysql = ["pymysql"]
+llm = ["anthropic"]
+win-excel = ['pywin32; sys_platform == "win32"']
+pdf-tables = ["tabula-py"]  # PDF table extraction (pdf2csv, get_usbr); needs a Java runtime
+osm = ["osmnx"]             # OpenStreetMap street networks (gis/osmnx_*)
+lidar = ["laspy"]           # LIDAR LAS files (gis/las2dem, las2shp)
+webmap = ["folium"]         # interactive HTML maps (gis/heatmap)
+xls-legacy = ["xlrd"]       # read pre-2007 .xls workbooks (gis/wks2shp_pt) —
+                            # some agency data is still distributed in this format
+test = ["pytest", "pytest-cov"]
+# Not pip-installable, imported lazily where used: pywfm (DWR, legacy HDF5
+# backend), qgis (QGIS app python), geopdf, pypest (sibling repo).
+
 [project.scripts]
 iwfm = "iwfm.cli.main:run"
+
+[tool.setuptools.packages.find]
+include = ["iwfm*"]

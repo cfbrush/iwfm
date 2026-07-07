@@ -10,11 +10,11 @@ This repository contains a Python package for working with IWFM model input and 
 
 ## Version
 
-Initial release: Alpha January 2021. Most recent update: May 2026.
+Initial release: Alpha January 2021. Most recent update: July 2026.
 
 ## Installation
 
-Install a version of Python from 3.8 to 3.13 (some dependencies may not have been updated to the latest Python version; the test matrix runs on 3.9).
+Install a version of Python from 3.8 to 3.13 (development and tests currently run on 3.11).
 
 Download this repository, navigate to the iwfm directory, and install with:
 
@@ -22,23 +22,32 @@ Download this repository, navigate to the iwfm directory, and install with:
 python -m pip install -e iwfm
 ```
 
-The `-e` flag installs in editable mode, useful for development. After install, the `iwfm` console command is on PATH.
+The `-e` flag installs in editable mode, useful for development. After install, the `iwfm` console command is on PATH. Dependencies are declared in `pyproject.toml`; pinned versions known to work are in `requirements.txt`.
+
+### Optional dependencies
+
+Some features need extras (see `[project.optional-dependencies]` in `pyproject.toml`):
+
+```
+pip install -e "iwfm[gdal]"        # osgeo/GDAL-based GIS functions
+pip install -e "iwfm[mysql]"       # MySQL helpers
+pip install -e "iwfm[llm]"         # diagnostics LLM supervisor
+pip install -e "iwfm[win-excel]"   # win32com Excel backend (Windows)
+pip install -e "iwfm[pdf-tables]"  # PDF table extraction (needs Java)
+pip install -e "iwfm[osm]"         # OpenStreetMap street networks
+pip install -e "iwfm[lidar]"       # LIDAR LAS file conversion
+pip install -e "iwfm[webmap]"      # interactive HTML maps
+pip install -e "iwfm[xls-legacy]"  # read pre-2007 .xls workbooks
+pip install -e "iwfm[test]"        # pytest + pytest-cov
+```
 
 ### Known installation issues
 
-1. **demjson** — pip may fail building demjson. Roll setuptools back, then forward:
+1. **GDAL** — the `gdal` pip package builds against your system libgdal, and the versions must match:
    ```
-   pip install setuptools==57.5.0
-   pip install demjson
-   pip install --upgrade setuptools
-   python -m pip install -e iwfm
+   pip install "gdal==$(gdal-config --version)"
    ```
-
-2. **leven on Windows ARM** — PyPI lacks a wheel for ARM64. Install Microsoft C++ Build Tools from <https://visualstudio.microsoft.com/visual-cpp-build-tools/> with the "Desktop Development with C++" workload, then:
-   ```
-   pip install leven
-   python -m pip install -e iwfm
-   ```
+   On macOS with Homebrew, `gdal-config` is keg-only: prefix the command with `PATH="/opt/homebrew/opt/gdal/bin:$PATH"`.
 
 ## Usage
 
@@ -123,8 +132,8 @@ cd iwfm
 ./run_tests_simple.sh    # quick run, single log
 ```
 
-Current baseline: 355 test files, ~4200 tests, all passing.
+Current baseline: 365 test files, ~4760 tests, all passing (fixture-dependent tests skip when the C2VSimCG-2021 model files are not present in `tests/C2VSimCG-2021/`).
 
 ## Contact
 
-* Repo owner/admin: cfbrush_AT_gmail_DOT_com or charles_DOT_brush_AT_hydrolytics-llc_DOT_com
+* Repo owner/admin: charles_DOT_brush_AT_hydrolytics-llc_DOT_com
