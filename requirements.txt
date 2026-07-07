@@ -24,7 +24,7 @@ typer==0.26.8
 # Optional extras (see [project.optional-dependencies] in pyproject.toml)
 # GDAL python bindings must match the system libgdal version:
 #   PATH="/opt/homebrew/opt/gdal/bin:$PATH" pip install "gdal==$(gdal-config --version)"
-gdal==3.13.0
+gdal==3.13.1  # >=3.13.1 required: CVE-2026-49014 (netCDF stack overflow) fixed there
 tabula-py==2.10.0
 osmnx==2.1.0
 laspy==2.7.0
