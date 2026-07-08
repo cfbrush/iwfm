@@ -67,7 +67,7 @@ def sub_rz_pc_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
     # Resolve relative path from simulation base directory if provided
     if base_path is not None:
         parea_file = str(base_path / parea_file)
-    pc_lines[line_index] = '   ' + sim_files_new.pca_file + '.dat		        / LUFLP'
+    pc_lines[line_index] = '   ' + sim_files_new.pca_file + '		        / LUFLP'
 
     # budget section
     _, line_index = read_next_line_value(pc_lines, line_index, column=0, skip_lines=0)  # skip comments

@@ -66,7 +66,7 @@ def sub_rz_nv_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
     # Resolve relative path from simulation base directory if provided
     if base_path is not None:
         nvarea_file = str(base_path / nvarea_file)
-    nv_lines[line_index] = '   ' + sim_files_new.nva_file + '.dat		        / LUFLNVRV'
+    nv_lines[line_index] = '   ' + sim_files_new.nva_file + '		        / LUFLNVRV'
 
     _, line_index = read_next_line_value(nv_lines, line_index, column=0, skip_lines=3)  # skip comments and three factors
 

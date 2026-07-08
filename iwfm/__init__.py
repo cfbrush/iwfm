@@ -231,6 +231,7 @@ from iwfm.sub.unsat_file import sub_unsat_file
 from iwfm.sub.gw_file import sub_gw_file
 from iwfm.sub.gw_bc_file import sub_gw_bc_file
 from iwfm.sub.gw_bc_cghd_file import sub_gw_bc_cghd_file
+from iwfm.sub.gw_bc_node_file import sub_gw_bc_node_file
 from iwfm.sub.gw_pump_file import sub_gw_pump_file
 from iwfm.sub.gw_pump_epump_file import sub_gw_pump_epump_file
 from iwfm.sub.gw_pump_well_file import sub_gw_pump_well_file

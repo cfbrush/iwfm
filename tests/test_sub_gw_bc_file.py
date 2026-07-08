@@ -24,7 +24,7 @@ from pathlib import Path
 from iwfm.iwfm_dataclasses import SimulationFiles
 
 
-def create_bc_file(spfl_file, sphd_file, ghd_file, cghd_file, tsbc_file, noutb=0, bhydoutfl=''):
+def create_bc_file(spfl_file, sphd_file, ghd_file, cghd_file, tsbc_file, noutb=0, bhydoutfl='', outb_nodes=None):
     """Create properly structured IWFM Boundary Conditions file for testing.
 
     IWFM File Format Convention:
@@ -89,6 +89,10 @@ def create_bc_file(spfl_file, sphd_file, ghd_file, cghd_file, tsbc_file, noutb=0
         content += f"  {bhydoutfl}                / BHYDOUTFL\n"
     else:
         content += "                                / BHYDOUTFL\n"
+    if outb_nodes:
+        content += "C   boundary nodes\n"
+        for n in outb_nodes:
+            content += f"\t{n}\n"
 
     return content
 
@@ -231,19 +235,29 @@ class TestSubGwBcFile:
             'Groundwater\\old_tsbc.dat'
         )
 
+        sub_bc = ("     1                        / NBC\n"
+                  "     1.0                      / FACT\n"
+                  "\t1\t1\t1\n")
+
         with tempfile.TemporaryDirectory() as tmpdir:
             old_file = os.path.join(tmpdir, 'old_bc.dat')
             with open(old_file, 'w') as f:
                 f.write(content)
 
+            # create the referenced BC sub-files so they can be processed
+            os.makedirs(os.path.join(tmpdir, 'Groundwater'))
+            for name in ('old_spfl.dat', 'old_sphd.dat', 'old_ghd.dat'):
+                with open(os.path.join(tmpdir, 'Groundwater', name), 'w') as f:
+                    f.write(sub_bc)
+
             new_bc_file = os.path.join(tmpdir, 'new_bc.dat')
             sim_files_new = SimulationFiles(
                 bc_file=new_bc_file,
-                spfl_file='NewModel_SpFlow',
-                sphd_file='NewModel_SpHead',
-                ghd_file='NewModel_GHD',
-                cghd_file='NewModel_CGHD',
-                tsbc_file='NewModel_TSBC'
+                spfl_file=os.path.join(tmpdir, 'NewModel_SpFlow.dat'),
+                sphd_file=os.path.join(tmpdir, 'NewModel_SpHead.dat'),
+                ghd_file=os.path.join(tmpdir, 'NewModel_GHD.dat'),
+                cghd_file=os.path.join(tmpdir, 'NewModel_CGHD.dat'),
+                tsbc_file='NewModel_TSBC.dat'
             )
 
             from iwfm.sub.gw_bc_file import sub_gw_bc_file
@@ -251,7 +265,7 @@ class TestSubGwBcFile:
 
             bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
 
-            sub_gw_bc_file(old_file, sim_files_new, [1, 2, 3], [1, 2], bounding_poly)
+            sub_gw_bc_file(old_file, sim_files_new, [1, 2, 3], [1, 2], bounding_poly, base_path=tmpdir)
 
             # Verify output file content
             with open(new_bc_file) as f:
@@ -265,7 +279,8 @@ class TestSubGwBcFile:
 
     def test_preserves_noutb(self):
         """Test that NOUTB value is preserved"""
-        content = create_bc_file('', '', '', '', '', noutb=5, bhydoutfl='output.dat')
+        content = create_bc_file('', '', '', '', '', noutb=5, bhydoutfl='output.dat',
+                                 outb_nodes=[1, 2, 3, 1, 2])
 
         with tempfile.TemporaryDirectory() as tmpdir:
             old_file = os.path.join(tmpdir, 'old_bc.dat')

@@ -174,9 +174,9 @@ class TestSubGwPumpFile:
 
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -222,12 +222,12 @@ class TestSubGwPumpFile:
             with open(old_file, 'w') as f:
                 f.write(content)
 
-            new_well_file = os.path.join(tmpdir, 'new_well')
+            new_well_file = os.path.join(tmpdir, 'new_well.dat')
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
                 well_file=new_well_file,
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -275,12 +275,12 @@ class TestSubGwPumpFile:
             with open(old_file, 'w') as f:
                 f.write(content)
 
-            new_epump_file = os.path.join(tmpdir, 'new_epump')
+            new_epump_file = os.path.join(tmpdir, 'new_epump.dat')
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
                 epump_file=new_epump_file,
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -312,9 +312,9 @@ class TestSubGwPumpFile:
 
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -338,9 +338,9 @@ class TestSubGwPumpFile:
 
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -363,9 +363,9 @@ class TestSubGwPumpFile:
 
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -392,9 +392,9 @@ class TestSubGwPumpFile:
 
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -422,9 +422,9 @@ class TestSubGwPumpFile:
 
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file
@@ -462,9 +462,9 @@ class TestSubGwPumpFile:
 
             sim_files_new = SimulationFiles(
                 pump_file=os.path.join(tmpdir, 'new_pump.dat'),
-                well_file=os.path.join(tmpdir, 'new_well'),
-                epump_file=os.path.join(tmpdir, 'new_epump'),
-                prate_file=os.path.join(tmpdir, 'new_prate')
+                well_file=os.path.join(tmpdir, 'new_well.dat'),
+                epump_file=os.path.join(tmpdir, 'new_epump.dat'),
+                prate_file=os.path.join(tmpdir, 'new_prate.dat')
             )
 
             from iwfm.sub.gw_pump_file import sub_gw_pump_file

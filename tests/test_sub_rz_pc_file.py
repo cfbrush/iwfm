@@ -347,7 +347,7 @@ class TestSubRzPcFileAreaFile:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "NewSubmodel_PCArea"
+        new_area_base = tmp_path / "NewSubmodel_PCArea.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -383,7 +383,7 @@ class TestSubRzPcFileAreaFile:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -427,7 +427,7 @@ class TestSubRzPcFileVerbose:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -461,7 +461,7 @@ class TestSubRzPcFileVerbose:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -500,7 +500,7 @@ class TestSubRzPcFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -533,7 +533,7 @@ class TestSubRzPcFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -569,7 +569,7 @@ class TestSubRzPcFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -606,7 +606,7 @@ class TestSubRzPcFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -640,7 +640,7 @@ class TestSubRzPcFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -698,7 +698,7 @@ class TestSubRzPcFilePathHandling:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),
@@ -837,7 +837,7 @@ class TestSubRzPcFileRealFormat:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_pc.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             pc_file=str(new_file),

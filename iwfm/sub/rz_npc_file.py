@@ -68,7 +68,7 @@ def sub_rz_npc_file(old_filename, sim_files_new, elems, base_path=None, verbose=
     # Resolve relative path from simulation base directory if provided
     if base_path is not None:
         nparea_file = str(base_path / nparea_file)
-    npc_lines[line_index] = '   ' + sim_files_new.npa_file + '.dat		        / LUFLNP'
+    npc_lines[line_index] = '   ' + sim_files_new.npa_file + '		        / LUFLNP'
 
     # budget section
     _, line_index = read_next_line_value(npc_lines, line_index, column=0, skip_lines=0)  # skip comments

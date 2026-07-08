@@ -65,7 +65,7 @@ def sub_rz_urban_file(old_filename, sim_files_new, elems, base_path=None, verbos
     # Resolve relative path from simulation base directory if provided
     if base_path is not None:
         urarea_file = str(base_path / urarea_file)
-    ur_lines[line_index] =  '   ' + sim_files_new.ura_file + '.dat		        / LUFLU'
+    ur_lines[line_index] =  '   ' + sim_files_new.ura_file + '		        / LUFLU'
 
     _, line_index = read_next_line_value(ur_lines, line_index, column=0, skip_lines=2)  # skip comments and two factors
 

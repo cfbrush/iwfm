@@ -53,8 +53,12 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
+    from pathlib import Path
 
     if verbose: print(f"Entered sub_gw_bc_file() with {old_filename}")
+
+    if base_path is not None and not isinstance(base_path, Path):
+        base_path = Path(base_path)
 
     iwfm.file_test(old_filename)
     with open(old_filename, encoding='utf-8') as f:
@@ -68,8 +72,10 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
     if spfl_file[0] == '/':
         have_spfl = False
     else:
-        spfl_file = spfl_file.replace('\\', ' ').split()[1]
-        bc_lines[line_index] = '   ' + sim_files_new.spfl_file + '.dat		        / SPFLOWBCFL'
+        spfl_file = spfl_file.replace('\\', '/')
+        if base_path is not None:
+            spfl_file = str(base_path / spfl_file)
+        bc_lines[line_index] = '   ' + sim_files_new.spfl_file + '		        / SPFLOWBCFL'
 
     # specified head conditions file
     sphd_file, line_index = read_next_line_value(bc_lines, line_index)
@@ -77,8 +83,10 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
     if sphd_file[0] == '/':
         have_sphd = False
     else:
-        sphd_file = sphd_file.replace('\\', ' ').split()[1]
-        bc_lines[line_index] = '   ' + sim_files_new.sphd_file + '.dat		        / SPHEADBCFL'
+        sphd_file = sphd_file.replace('\\', '/')
+        if base_path is not None:
+            sphd_file = str(base_path / sphd_file)
+        bc_lines[line_index] = '   ' + sim_files_new.sphd_file + '		        / SPHEADBCFL'
 
     # general head boundary conditions file
     ghd_file, line_index = read_next_line_value(bc_lines, line_index)
@@ -86,8 +94,10 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
     if ghd_file[0] == '/':
         have_ghd = False
     else:
-        ghd_file = ghd_file.replace('\\', ' ').split()[1]
-        bc_lines[line_index] = '   ' + sim_files_new.ghd_file + '.dat		        / GHBCFL'
+        ghd_file = ghd_file.replace('\\', '/')
+        if base_path is not None:
+            ghd_file = str(base_path / ghd_file)
+        bc_lines[line_index] = '   ' + sim_files_new.ghd_file + '		        / GHBCFL'
 
     # constrained general head boundary conditions file
     cghd_file, line_index = read_next_line_value(bc_lines, line_index)
@@ -99,7 +109,7 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             cghd_file = str(base_path / cghd_file)
-        bc_lines[line_index] = '   ' + sim_files_new.cghd_file + '.dat		        / CONGHBCFL'
+        bc_lines[line_index] = '   ' + sim_files_new.cghd_file + '		        / CONGHBCFL'
 
     # time-series boundary conditions file
     tsbc_file, line_index = read_next_line_value(bc_lines, line_index)
@@ -108,22 +118,38 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
         have_tsbc = False
     else:
         tsbc_file = tsbc_file.replace('\\', ' ').split()[1]
-        bc_lines[line_index] = '   ' + sim_files_new.tsbc_file + '.dat		        / TSBCFL'
+        bc_lines[line_index] = '   ' + sim_files_new.tsbc_file + '		        / TSBCFL'
 
     # -- boundary flow node hydrographs --
     b_outnodes_str, line_index = read_next_line_value(bc_lines, line_index)
     b_outnodes = int(b_outnodes_str)
+    b_outnodes_line = line_index
     b_outfile, line_index = read_next_line_value(bc_lines, line_index)
-    # -- TODO: if b_outnodes > 0: reduce hydrograph nodes to those in submodel
+
+    if b_outnodes > 0:             # keep hydrograph nodes in the submodel
+        _, line_index = read_next_line_value(bc_lines, line_index)
+        new_outnodes = 0
+        for _ in range(b_outnodes):
+            if int(bc_lines[line_index].split()[0]) in nodes:
+                new_outnodes += 1
+                line_index += 1
+            else:
+                del bc_lines[line_index]
+        parts = bc_lines[b_outnodes_line].split('/', 1)
+        tail = '/ ' + parts[1].strip() if len(parts) > 1 else '/ NOUTB'
+        bc_lines[b_outnodes_line] = ('     ' + str(new_outnodes)).ljust(30) + tail
 
     # --  specified flow bc file  --
-    #if have_spfl:   TODO          # process specified flow bc file
+    if have_spfl:                  # process specified flow bc file
+        iwfm.sub_gw_bc_node_file(spfl_file, sim_files_new.spfl_file, nodes, verbose)
 
     # --  specified head bc file  --
-    #if have_sphd:   TODO          # process specified head bc file
+    if have_sphd:                  # process specified head bc file
+        iwfm.sub_gw_bc_node_file(sphd_file, sim_files_new.sphd_file, nodes, verbose)
 
     # --  general head bc file  --
-    #if have_ghd:    TODO          # process general head bc file
+    if have_ghd:                   # process general head bc file
+        iwfm.sub_gw_bc_node_file(ghd_file, sim_files_new.ghd_file, nodes, verbose)
 
     # --  constrained general head bc file  --
     if have_cghd:                  # process constrained general head bc file

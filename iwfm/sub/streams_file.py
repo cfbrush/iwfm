@@ -79,7 +79,7 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             inflow_file = str(base_path / inflow_file)
-        stream_lines[line_index] = '   ' + sim_files_new.stin_file + '.dat		        / INFLOWFL'
+        stream_lines[line_index] = '   ' + sim_files_new.stin_file + '		        / INFLOWFL'
     st_dict['stin_file'] = inflow_file
 
     # diversion specification file name
@@ -95,7 +95,7 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             divspec_file = str(base_path / divspec_file)
-        stream_lines[line_index] = '   ' + sim_files_new.divspec_file + '.dat		        / DIVSPECFL'
+        stream_lines[line_index] = '   ' + sim_files_new.divspec_file + '		        / DIVSPECFL'
     st_dict['divspec_file'] = divspec_file
 
     # bypass specification file name
@@ -112,7 +112,7 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             bp_file = str(base_path / bp_file)
-        stream_lines[line_index] = '   ' + sim_files_new.bp_file + '.dat		        / BYPSPECFL'
+        stream_lines[line_index] = '   ' + sim_files_new.bp_file + '		        / BYPSPECFL'
     st_dict['bp_file'] = bp_file
 
     # diversion time series file
@@ -128,7 +128,7 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
         if len(parts) < 2:
             raise ValueError(f"{stream_file} line {line_index}: Expected path with backslash for diversion file, got '{div_file}'")
         div_file = parts[1]
-        stream_lines[line_index] = '   ' + sim_files_new.div_file + '.dat		        / DIVFL'
+        stream_lines[line_index] = '   ' + sim_files_new.div_file + '		        / DIVFL'
     st_dict['div_file'] = div_file
 
     # skip comments to hydrograph section

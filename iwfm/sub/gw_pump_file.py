@@ -72,7 +72,7 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             well_file = str(base_path / well_file)
-        pump_lines[line_index] = '   ' + sim_files_new.well_file + '.dat\t\t        / WELLFL'
+        pump_lines[line_index] = '   ' + sim_files_new.well_file + '\t\t        / WELLFL'
     well_index = line_index  # in case no wells in submodel, return and set blank file name
 
     # element pumping file
@@ -85,7 +85,7 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             epump_file = str(base_path / epump_file)
-        pump_lines[line_index] = '   ' + sim_files_new.epump_file + '.dat\t\t        / ELEMPUMPFL'
+        pump_lines[line_index] = '   ' + sim_files_new.epump_file + '\t\t        / ELEMPUMPFL'
     epump_index = line_index  # in case no element pumping in submodel, return and set blank file name
 
     # pumping rates file
@@ -98,7 +98,7 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             prate_file = str(base_path / prate_file)
-        pump_lines[line_index] = '   ' + sim_files_new.prate_file + '.dat\t\t        / PUMPFL'
+        pump_lines[line_index] = '   ' + sim_files_new.prate_file + '\t\t        / PUMPFL'
 
 
     # -- modify other pumping files for submodel

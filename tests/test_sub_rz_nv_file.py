@@ -288,7 +288,7 @@ class TestSubRzNvFileAreaFile:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "NewSubmodel_NVArea"
+        new_area_base = tmp_path / "NewSubmodel_NVArea.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -324,7 +324,7 @@ class TestSubRzNvFileAreaFile:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -368,7 +368,7 @@ class TestSubRzNvFileVerbose:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -402,7 +402,7 @@ class TestSubRzNvFileVerbose:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -441,7 +441,7 @@ class TestSubRzNvFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -474,7 +474,7 @@ class TestSubRzNvFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -510,7 +510,7 @@ class TestSubRzNvFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -547,7 +547,7 @@ class TestSubRzNvFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -605,7 +605,7 @@ class TestSubRzNvFilePathHandling:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),
@@ -682,7 +682,7 @@ class TestSubRzNvFileRealFormat:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_nv.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             nv_file=str(new_file),

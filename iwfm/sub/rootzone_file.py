@@ -80,7 +80,7 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             npc_file = str(base_path / npc_file)
-        rz_lines[line_index] = '   ' + sim_files_new.np_file + '.dat		        / AGNPFL'
+        rz_lines[line_index] = '   ' + sim_files_new.np_file + '		        / AGNPFL'
     rz_dict['np_file'] = npc_file
 
     # ponded crop file name
@@ -96,7 +96,7 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             pc_file = str(base_path / pc_file)
-        rz_lines[line_index] = '   ' + sim_files_new.pc_file + '.dat		        / PFL'
+        rz_lines[line_index] = '   ' + sim_files_new.pc_file + '		        / PFL'
     rz_dict['pc_file'] = pc_file
 
     # urban file name
@@ -113,7 +113,7 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             urban_file = str(base_path / urban_file)
-        rz_lines[line_index] = '   ' + sim_files_new.ur_file + '.dat		        / URBFL'
+        rz_lines[line_index] = '   ' + sim_files_new.ur_file + '		        / URBFL'
     rz_dict['ur_file'] = urban_file
 
     # native veg file
@@ -129,7 +129,7 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
             nv_file = str(base_path / nv_file)
-        rz_lines[line_index] = '   ' + sim_files_new.nv_file + '.dat		        / NVRVFL'
+        rz_lines[line_index] = '   ' + sim_files_new.nv_file + '		        / NVRVFL'
     rz_dict['nv_file'] = nv_file
 
     # skip input lines and comments to soil parameters section

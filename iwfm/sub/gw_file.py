@@ -106,7 +106,7 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
         bc_file = bc_file.replace('\\', '/')
         # Resolve relative path from simulation file directory
         bc_file = str(base_path / bc_file)
-        gw_lines[line_index] = '   ' + sim_files_new.bc_file + '.dat		        / BCFL'
+        gw_lines[line_index] = '   ' + sim_files_new.bc_file + '		        / BCFL'
     gw_dict['bc_file'] = bc_file
 
     # tile drain file
@@ -121,7 +121,7 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
         td_file = td_file.replace('\\', '/')
         # Resolve relative path from simulation file directory
         td_file = str(base_path / td_file)
-        gw_lines[line_index] = '   ' + sim_files_new.drain_file + '.dat		        / TDFL'
+        gw_lines[line_index] = '   ' + sim_files_new.drain_file + '		        / TDFL'
     gw_dict['drain_file'] = td_file
 
     # pumping file
@@ -136,7 +136,7 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
         pump_file = pump_file.replace('\\', '/')
         # Resolve relative path from simulation file directory
         pump_file = str(base_path / pump_file)
-        gw_lines[line_index] = '   ' + sim_files_new.pump_file + '.dat		        / PUMPFL'
+        gw_lines[line_index] = '   ' + sim_files_new.pump_file + '		        / PUMPFL'
     gw_dict['pump_file'] = pump_file
 
     # subsidence file
@@ -151,7 +151,7 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
         subs_file = subs_file.replace('\\', '/')
         # Resolve relative path from simulation file directory
         subs_file = str(base_path / subs_file)
-        gw_lines[line_index] = '   ' + sim_files_new.sub_file + '.dat		        / SUBSFL'
+        gw_lines[line_index] = '   ' + sim_files_new.sub_file + '		        / SUBSFL'
     gw_dict['subs_file'] = subs_file
 
     # -- hydrograph section --

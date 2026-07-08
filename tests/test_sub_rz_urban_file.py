@@ -296,7 +296,7 @@ class TestSubRzUrbanFileAreaFile:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "NewSubmodel_UrbanArea"
+        new_area_base = tmp_path / "NewSubmodel_UrbanArea.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -332,7 +332,7 @@ class TestSubRzUrbanFileAreaFile:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -376,7 +376,7 @@ class TestSubRzUrbanFileVerbose:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -410,7 +410,7 @@ class TestSubRzUrbanFileVerbose:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -449,7 +449,7 @@ class TestSubRzUrbanFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -482,7 +482,7 @@ class TestSubRzUrbanFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -518,7 +518,7 @@ class TestSubRzUrbanFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -555,7 +555,7 @@ class TestSubRzUrbanFileEdgeCases:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -613,7 +613,7 @@ class TestSubRzUrbanFilePathHandling:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
@@ -695,7 +695,7 @@ class TestSubRzUrbanFileRealFormat:
         area_file.write_text(area_content)
 
         new_file = tmp_path / "new_urban.dat"
-        new_area_base = tmp_path / "new_area"
+        new_area_base = tmp_path / "new_area.dat"
 
         sim_files_new = SimulationFiles(
             ur_file=str(new_file),
