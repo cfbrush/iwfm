@@ -113,3 +113,30 @@ def test_nearest_node_import_iwfm():
     source = inspect.getsource(nearest_node)
     # Should contain 'import math' not 'import iwfm'
     assert 'import math' in source
+
+
+class TestReadWellPoints:
+    """Tests for the read_well_points helper."""
+
+    def _write(self, tmp_path, content):
+        f = tmp_path / 'wells.csv'
+        f.write_text(content)
+        return str(f)
+
+    def test_comma_separated_with_header_and_comments(self, tmp_path):
+        from iwfm.nearest_node import read_well_points
+        path = self._write(tmp_path,
+            "C comment line\nWellID, X, Y\nW1, 100.0, 200.0\nW2, 300.0, 400.0\n")
+        wells = read_well_points(path)
+        assert wells == [['W1', 100.0, 200.0], ['W2', 300.0, 400.0]]
+
+    def test_whitespace_separated(self, tmp_path):
+        from iwfm.nearest_node import read_well_points
+        path = self._write(tmp_path, "W1 10.0 20.0 extra\nW2\t30.0\t40.0\n")
+        wells = read_well_points(path)
+        assert wells == [['W1', 10.0, 20.0], ['W2', 30.0, 40.0]]
+
+    def test_empty_file(self, tmp_path):
+        from iwfm.nearest_node import read_well_points
+        path = self._write(tmp_path, "C only comments\n\n")
+        assert read_well_points(path) == []
