@@ -299,11 +299,30 @@ def format_file(info):
 
 
 if __name__ == "__main__":
-    # TODO: Add command line arguments
+    import argparse
+    import csv as _csv
 
     from iwfm.debug import parse_cli_flags
 
     verbose, debug = parse_cli_flags()
+
+    parser = argparse.ArgumentParser(
+        description='Fetch NWIS gage data and write one CSV per site')
+    parser.add_argument('sites_file', nargs='?',
+                        help='CSV file with one site per line: name,source,url '
+                             '(default: built-in example sites)')
+    args, _ = parser.parse_known_args()
+
+    if args.sites_file:
+        with open(args.sites_file, newline='', encoding='utf-8') as f:
+            files = [row for row in _csv.reader(f)
+                     if row and not row[0].lstrip().startswith('#')]
+        print(f'  Read {len(files)} sites from {args.sites_file}')
+        print("WARNING: if 'Name' property is the same for any file(s), their output csv file will have the same name and be overwritten")
+        info = get_nwis(files)
+        format_file(info)
+        raise SystemExit(0)
+
     file_info1 = ["Sacramento River", "USGS Gage 11370500 SACRAMENTO RIVER AT KESWICK, CA", "https://waterdata.usgs.gov/nwis/monthly?referred_module=sw&amp;site_no=11370500&amp;por_11370500_10158=2209233,00060,10158,1938-10,2022-11&amp;format=html_table&amp;date_format=YYYY-MM-DD&amp;rdb_compression=file&amp;submitted_form=parameter_selection_list"]
     file_info2 = ["Clear Creek", "USGS Gage 11372000 CLEAR C NR IGO CA", "https://waterdata.usgs.gov/nwis/monthly?referred_module=sw&amp;site_no=11372000&amp;por_11372000_10170=2209239,00060,10170,1940-10,2023-02&amp;format=html_table&amp;date_format=YYYY-MM-DD&amp;rdb_compression=file&amp;submitted_form=parameter_selection_list"]
     files = [file_info1, file_info2]

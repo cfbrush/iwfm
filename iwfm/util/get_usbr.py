@@ -463,16 +463,24 @@ def extract_data_to_csv(excel_file):
 
 
 if __name__ == "__main__":
-    # TODO: Add command line arguments
+    import argparse
 
     from iwfm.debug import parse_cli_flags
 
     verbose, debug = parse_cli_flags()
-    year = input("Which year's CVP END OF WATER YEAR REPORT would you like? ")
 
-    pdf_url = f'https://www.usbr.gov/mp/cvo/vungvari/dayrpt09_{year}.pdf'
-    
-    excel_filename = f'CVP_{year}.xlsx'
+    parser = argparse.ArgumentParser(
+        description='Fetch a USBR CVP end-of-water-year report and extract its tables')
+    parser.add_argument('year', nargs='?', help='4-digit report year')
+    parser.add_argument('--pdf-url', help='report PDF URL '
+                        '(default: usbr.gov dayrpt09_<year>.pdf)')
+    parser.add_argument('--excel', help='Excel output file name (default: CVP_<year>.xlsx)')
+    args, _ = parser.parse_known_args()
+
+    year = args.year or input("Which year's CVP END OF WATER YEAR REPORT would you like? ")
+
+    pdf_url = args.pdf_url or f'https://www.usbr.gov/mp/cvo/vungvari/dayrpt09_{year}.pdf'
+    excel_filename = args.excel or f'CVP_{year}.xlsx'
 
     get_usbr(year, pdf_url, excel_filename)
 

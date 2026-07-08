@@ -374,13 +374,30 @@ def text_to_csv(files, timeout=30):
 
 if __name__ == "__main__":
 
-    # TODO: Add command line arguments
-    
     """Run the main script to extract text from websites and save it to CSV files."""
-    
+
+    import argparse
+    import csv as _csv
+
     from iwfm.debug import parse_cli_flags
 
     verbose, debug = parse_cli_flags()
+
+    parser = argparse.ArgumentParser(
+        description='Fetch USACOE reservoir report data and write one CSV per site')
+    parser.add_argument('sites_file', nargs='?',
+                        help='CSV file with one site per line: name,source,url '
+                             '(default: built-in example site)')
+    args, _ = parser.parse_known_args()
+
+    if args.sites_file:
+        with open(args.sites_file, newline='', encoding='utf-8') as f:
+            files = [row for row in _csv.reader(f)
+                     if row and not row[0].lstrip().startswith('#')]
+        print(f'  Read {len(files)} sites from {args.sites_file}')
+        print("WARNING: if 'Name' property is the same for any file(s), their output csv file will have the same name and be overwritten")
+        get_usacoe(files)
+        raise SystemExit(0)
 
     """NOTE: The 'files' list expects information about each website in the form of a list. Each sublist should contain 
     [name, data source, url]. This format could be changed. However, then each function/input probably would need to be changed as well. 
