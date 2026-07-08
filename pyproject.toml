@@ -58,7 +58,7 @@ lidar = ["laspy"]           # LIDAR LAS files (gis/las2dem, las2shp)
 webmap = ["folium"]         # interactive HTML maps (gis/heatmap)
 xls-legacy = ["xlrd"]       # read pre-2007 .xls workbooks (gis/wks2shp_pt) —
                             # some agency data is still distributed in this format
-test = ["pytest", "pytest-cov"]
+test = ["pytest", "pytest-cov", "ruff"]
 # Not pip-installable, imported lazily where used: pywfm (DWR, legacy HDF5
 # backend), qgis (QGIS app python), geopdf, pypest (sibling repo).
 
@@ -67,3 +67,18 @@ iwfm = "iwfm.cli.main:run"
 
 [tool.setuptools.packages.find]
 include = ["iwfm*"]
+
+[tool.ruff]
+target-version = "py38"
+line-length = 120
+
+[tool.ruff.lint]
+# defaults (E4, E7, E9, F) minus house-style conflicts:
+#   E701 one-line `if verbose: print(...)` is the package idiom
+#   E741 `l` is used as a loop variable throughout
+#   E402 imports inside `if __name__` blocks and after module docs
+ignore = ["E701", "E741", "E402"]
+
+[tool.ruff.lint.per-file-ignores]
+# package __init__ files exist to re-export names
+"**/__init__.py" = ["F401"]
