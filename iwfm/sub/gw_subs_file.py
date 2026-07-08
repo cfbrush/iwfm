@@ -88,30 +88,70 @@ def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbo
     # skip factors (1 data line after pgroups line)
     _, line_index = read_next_line_value(subs_lines, line_index, column=0, skip_lines=1)
 
-    # --  TODO:  if pgroups > 0,  skip parametric grid(s)
+    if pgroups > 0:
+        # carry the parametric grid(s) through unchanged, except the node
+        # range spec, which must be rewritten to the submodel's nodes
+        range_lines = []
+        for group in range(pgroups):
+            if group > 0:
+                # advance to this group's node range line
+                _, line_index = read_next_line_value(subs_lines, line_index - 1)
+            range_lines.append(line_index)                       # node range spec line
+            ndp_str, line_index = read_next_line_value(subs_lines, line_index)
+            ndp = int(ndp_str)
+            nep_str, line_index = read_next_line_value(subs_lines, line_index)
+            nep = int(nep_str)
 
-    # -- parameters for each model node -- 
-    # first, determine the number of layers - 1st line has 6 items, others have 5 items
-    layers, line = 1, line_index + 1
-    while len(subs_lines[line].split()) < 6:
-        layers += 1
-        line += 1
+            # skip NEP connectivity lines
+            _, line_index = read_next_line_value(subs_lines, line_index, skip_lines=nep - 1)
 
-    # count the number of nodes in the original model file
-    line, node_count = line_index, 0 # starting point
-    while len(subs_lines[line]) > 0:
-        line += 1
-        node_count += 1
-    node_count = int(node_count / layers)
+            # first parametric node block: detect lines per block
+            _, line_index = read_next_line_value(subs_lines, line_index)
+            block = 1
+            len1 = len(subs_lines[line_index].split('/')[0].split())
+            while (line_index + block < len(subs_lines) and
+                   len(subs_lines[line_index + block].split('/')[0].split()) < len1):
+                block += 1
 
-    # remove parameters for nodes that are not in the submodel
-    for l in range(1,node_count + 1):
-        t = subs_lines[line_index].split()
-        if (int(t[0]) not in nodes):
-            for i in range(0,layers):  # remove <layers> lines
-                del subs_lines[line_index]
-        else:
-            line_index += layers
+            # skip remaining parametric node data (blocks are contiguous)
+            line_index += ndp * block
+
+        # rewrite each group's node range spec to the submodel node list
+        sorted_nodes = sorted(set(int(n) for n in nodes))
+        range_parts = []
+        start = prev = sorted_nodes[0]
+        for n in sorted_nodes[1:]:
+            if n == prev + 1:
+                prev = n
+                continue
+            range_parts.append(f'{start}-{prev}' if start != prev else f'{start}')
+            start = prev = n
+        range_parts.append(f'{start}-{prev}' if start != prev else f'{start}')
+        for rl in range_lines:
+            subs_lines[rl] = '    ' + ', '.join(range_parts)
+    else:
+        # -- parameters for each model node --
+        # first, determine the number of layers - 1st line has 6 items, others have 5 items
+        layers, line = 1, line_index + 1
+        while len(subs_lines[line].split()) < 6:
+            layers += 1
+            line += 1
+
+        # count the number of nodes in the original model file
+        line, node_count = line_index, 0 # starting point
+        while len(subs_lines[line]) > 0:
+            line += 1
+            node_count += 1
+        node_count = int(node_count / layers)
+
+        # remove parameters for nodes that are not in the submodel
+        for l in range(1,node_count + 1):
+            t = subs_lines[line_index].split()
+            if (int(t[0]) not in nodes):
+                for i in range(0,layers):  # remove <layers> lines
+                    del subs_lines[line_index]
+            else:
+                line_index += layers
 
     subs_lines.append('')
 

@@ -572,3 +572,112 @@ class TestSubGwFile:
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
+
+
+class TestSubGwFileFaceFlow:
+    """Tests for the element face flow section."""
+
+    def _run(self, faces, node_list):
+        node_params = [
+            [1, 70.0, 6.2e-06, 0.13, 0.0, 4.9] + [10.0, 1.0e-06, 0.1, 0.0, 1.0] * 3,
+            [2, 54.0, 1.1e-05, 0.10, 0.0, 2.9] + [10.0, 1.0e-06, 0.1, 0.0, 1.0] * 3,
+            [3, 44.0, 2.2e-05, 0.09, 0.0, 1.5] + [10.0, 1.0e-06, 0.1, 0.0, 1.0] * 3,
+        ]
+        initial_heads = [(1, 100.0, 95.0, 90.0, 90.0), (2, 95.0, 90.0, 85.0, 85.0),
+                         (3, 90.0, 85.0, 80.0, 80.0)]
+        hydrographs = [(1, 0, 1, 50.0, 50.0, '', 'Well_1')]
+        content = create_gw_file('', '', '', '', 1, hydrographs, 0, node_params, 0, [], initial_heads)
+
+        old = "      0                         / NOUTF\n                                / FCHYDOUTFL"
+        face_lines = '\n'.join(
+            f"{i + 1}\t{l}\t{a}\t{b}\tFace_{i + 1}" for i, (l, a, b) in enumerate(faces))
+        new = (f"      {len(faces)}                         / NOUTF\n"
+               "   Results/FaceFlow.out          / FCHYDOUTFL\n"
+               "C   ID IOUTFL IOUTFA IOUTFB NAME\n" + face_lines)
+        assert old in content
+        content = content.replace(old, new)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_file = os.path.join(tmpdir, 'old_gw.dat')
+            with open(old_file, 'w') as f:
+                f.write(content)
+            new_gw_file = os.path.join(tmpdir, 'new_gw.dat')
+            sim_files = SimulationFiles(gw_file=old_file)
+            sim_files_new = SimulationFiles(gw_file=new_gw_file)
+
+            from iwfm.sub.gw_file import sub_gw_file
+            from shapely.geometry import Polygon
+            bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
+
+            sub_gw_file(sim_files, sim_files_new, node_list, [[1], [2]], bounding_poly)
+            return open(new_gw_file).read()
+
+    def test_keeps_faces_inside_submodel(self):
+        """Faces with both nodes in the submodel are kept."""
+        out = self._run(faces=[(1, 1, 2), (1, 3, 7)], node_list=[1, 2, 3])
+
+        assert '1                         / NOUTF' in out
+        assert 'Face_1' in out
+        assert 'Face_2' not in out          # node 7 not in submodel
+
+    def test_all_faces_removed_blanks_output_file(self):
+        """When no faces survive, NOUTF=0 and the output file name is blanked."""
+        out = self._run(faces=[(1, 4, 7), (2, 8, 9)], node_list=[1, 2, 3])
+
+        assert '0                         / NOUTF' in out
+        assert 'FaceFlow.out' not in out
+
+
+class TestSubGwFileParametric:
+    """Tests for parametric grid (NGROUP > 0) groundwater files."""
+
+    def test_parametric_grid_carried_through(self):
+        initial_heads = [(1, 100.0, 95.0, 90.0, 90.0), (2, 95.0, 90.0, 85.0, 85.0),
+                         (3, 90.0, 85.0, 80.0, 80.0)]
+        hydrographs = [(1, 0, 1, 50.0, 50.0, '', 'Well_1')]
+        content = create_gw_file('', '', '', '', 1, hydrographs, 1, [], 0, [], initial_heads)
+
+        parametric = (
+            "C Parametric grid group 1\n"
+            "    1-3\n"
+            "    4                            / NDP\n"
+            "    2                            / NEP\n"
+            "\t1\t1\t2\t3\t0\n"
+            "\t2\t2\t4\t3\t0\n"
+            "C parametric node data (1 layer)\n"
+            "\t1\t0.0\t0.0\t10.0\t1e-4\t0.1\t0.0\t1.0\n"
+            "\t2\t100.0\t0.0\t20.0\t1e-4\t0.1\t0.0\t1.0\n"
+            "\t3\t0.0\t100.0\t30.0\t1e-4\t0.1\t0.0\t1.0\n"
+            "\t4\t100.0\t100.0\t40.0\t1e-4\t0.1\t0.0\t1.0"
+        )
+        assert "C Node Parameters" in content
+        content = content.replace("C Node Parameters", parametric)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_file = os.path.join(tmpdir, 'old_gw.dat')
+            with open(old_file, 'w') as f:
+                f.write(content)
+            new_gw_file = os.path.join(tmpdir, 'new_gw.dat')
+            sim_files = SimulationFiles(gw_file=old_file)
+            sim_files_new = SimulationFiles(gw_file=new_gw_file)
+
+            from iwfm.sub.gw_file import sub_gw_file
+            from shapely.geometry import Polygon
+            bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
+
+            # submodel keeps nodes 1 and 3 (node 2 removed)
+            sub_gw_file(sim_files, sim_files_new, [1, 3], [[1]], bounding_poly)
+
+            out = open(new_gw_file).read()
+
+        # parametric grid carried through unchanged
+        assert '/ NDP' in out and '/ NEP' in out
+        assert '\t4\t100.0\t100.0\t40.0' in out
+        # node range spec rewritten to the submodel nodes
+        assert '    1, 3' in out
+        assert '    1-3' not in out
+        # initial conditions filtered to submodel nodes
+        assert '95.0, 90.0' not in out.replace('\t', ' ')  # node 2 init line gone
+        lines = [l for l in out.splitlines() if l.strip() and l[0] not in 'Cc*#']
+        init_ids = [l.split()[0] for l in lines[-2:]]
+        assert init_ids == ['1', '3']

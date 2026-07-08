@@ -43,7 +43,7 @@ def get_name(s):
     return name
 
 
-def iwfm_read_gw(gw_file, verbose=False):
+def iwfm_read_gw(gw_file, verbose=False, node_coords=None):
     ''' iwfm_read_gw() - Read an IWFM Simulation Groundwater file and return
         a dictionary of sub-process file names, and arrays of parameters
 
@@ -51,6 +51,17 @@ def iwfm_read_gw(gw_file, verbose=False):
     ----------
     gw_file : str
         IWFM Simulation Groundwater file name
+
+    verbose : bool, default=False, optional
+        True = command-line output on
+
+    node_coords : dict or list, optional
+        model node coordinates in simulation units (node-file values scaled
+        by the node-file conversion factor), as {id: (x, y)} or as a list of
+        [id, x, y] rows (the shape returned by iwfm_read_nodes). Only used
+        for parametric-grid files (NGROUP > 0): when provided, aquifer
+        parameters are interpolated from the parametric grid to these model
+        nodes; when omitted, parametric files return empty parameter arrays.
 
     Returns
     -------
@@ -201,7 +212,19 @@ def iwfm_read_gw(gw_file, verbose=False):
 
     logger.debug(f'{gw_file} has {ngroup} parameter group(s)')
 
-    _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=2)
+    # parameter conversion factors: FACTXY FKH FS FN FV FL
+    _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
+    fact_parts = file_lines[line_index].split('/')[0].split()
+    try:
+        pfactxy = float(fact_parts[0])
+        pfactors = [float(v) for v in fact_parts[1:6]]
+    except (ValueError, IndexError):
+        pfactxy, pfactors = 1.0, []
+    if len(pfactors) < 5:
+        pfactors = (pfactors + [1.0] * 5)[:5]
+    logger.debug(f'{pfactxy=} {pfactors=}')
+
+    _, line_index = read_next_line_value(file_lines, line_index, column=0)
     logger.debug(f'file_lines[{line_index}] = {file_lines[line_index]}')
 
     # units
@@ -219,42 +242,104 @@ def iwfm_read_gw(gw_file, verbose=False):
     logger.debug(f'file_lines[{line_index}] = {file_lines[line_index]}')
 
     if ngroup > 0:                                                      # parametric grid
-        # skip range spec ("1-1393" or similar), read NDP and NEP
-        ndp_str, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
-        ndp = int(ndp_str)                                              # NDP: parametric grid nodes
-        nep_str, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
-        nep = int(nep_str)                                              # NEP: parametric grid elements
-        logger.debug(f'{ndp=}')
-        logger.debug(f'{nep=}')
+        # normalize optional model node coordinates to {id: (x, y)}
+        coords = None
+        if node_coords is not None:
+            if isinstance(node_coords, dict):
+                coords = {int(k): (float(v[0]), float(v[1])) for k, v in node_coords.items()}
+            else:
+                coords = {int(r[0]): (float(r[1]), float(r[2])) for r in node_coords}
 
-        # skip NEP connectivity lines + separator (separator is a comment, auto-skipped)
-        _, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=nep + 1)
-        logger.debug(f'file_lines[{line_index}] = {file_lines[line_index]}')
-
-        # determine layers from first parametric node data line
+        interp_vals = {}                       # model node ID -> (layers, 5) values
+        ordered_ids = []                       # model node IDs in range-spec order
         layers = 1
-        len1 = len(file_lines[line_index].split())
-        len2 = len(file_lines[line_index + 1].split())
-        if len2 < len1:
-            while (line_index + layers < len(file_lines) and
-                   len(file_lines[line_index + layers].split()) < len1):
-                layers += 1
-        logger.debug(f'{layers=} (parametric)')
+        for group in range(ngroup):
+            if group > 0:
+                # advance to this group's node range line
+                _, line_index = read_next_line_value(file_lines, line_index - 1, column=0)
 
-        # skip all NDP * layers parametric data lines
-        line_index += ndp * layers
+            # node range spec, e.g. "1-1393" or "1, 5, 20-30"
+            range_spec = file_lines[line_index].split('/')[0].strip()
+            group_ids = []
+            for tok in range_spec.replace(',', ' ').split():
+                if '-' in tok:
+                    a, b = tok.split('-')
+                    group_ids.extend(range(int(a), int(b) + 1))
+                else:
+                    group_ids.append(int(tok))
+            logger.debug(f'group {group + 1}: {len(group_ids)} model nodes ({range_spec})')
 
-        # parameter arrays unavailable — interpolation not yet implemented
-        # TODO: implement parametric grid → model node interpolation:
-        #   - read preprocessor node file for model node (x, y) coordinates
-        #   - interpolate Kh, Ss, Sy, Kq, Kv from parametric nodes to model nodes
-        logger.warning(
-            f'{gw_file}: parametric grid (NGROUP={ngroup}) — '
-            'aquifer parameters not interpolated to model nodes; '
-            'Kh/Ss/Sy/Kq/Kv returned as empty lists.'
-        )
+            ndp_str, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
+            ndp = int(ndp_str)                                          # NDP: parametric grid nodes
+            nep_str, line_index = read_next_line_value(file_lines, line_index - 1, column=0, skip_lines=1)
+            nep = int(nep_str)                                          # NEP: parametric grid elements
+            logger.debug(f'{ndp=}')
+            logger.debug(f'{nep=}')
+
+            # read NEP connectivity lines (IE N1 N2 N3 N4; N4 = 0 for triangles)
+            pelems = []
+            for _ in range(nep):
+                _, line_index = read_next_line_value(file_lines, line_index, column=0)
+                parts = file_lines[line_index].split('/')[0].split()
+                pelems.append([int(v) for v in parts[1:5]])
+
+            # first parametric node data line
+            _, line_index = read_next_line_value(file_lines, line_index, column=0)
+            logger.debug(f'file_lines[{line_index}] = {file_lines[line_index]}')
+
+            # determine layers from first parametric node block
+            if group == 0:
+                layers = 1
+                len1 = len(file_lines[line_index].split())
+                len2 = len(file_lines[line_index + 1].split())
+                if len2 < len1:
+                    while (line_index + layers < len(file_lines) and
+                           len(file_lines[line_index + layers].split()) < len1):
+                        layers += 1
+                logger.debug(f'{layers=} (parametric)')
+
+            # read NDP parametric node blocks: ID X Y v1..v5 (+ layers-1 rows of 5)
+            pnode_xy, pnode_vals = {}, {}
+            for _ in range(ndp):
+                parts = file_lines[line_index].split('/')[0].split()
+                pid = int(parts[0])
+                pnode_xy[pid] = (float(parts[1]) * pfactxy, float(parts[2]) * pfactxy)
+                vals = [[float(v) * f for v, f in zip(parts[3:8], pfactors)]]
+                line_index += 1
+                for _ in range(layers - 1):
+                    parts = file_lines[line_index].split('/')[0].split()
+                    vals.append([float(v) * f for v, f in zip(parts[0:5], pfactors)])
+                    line_index += 1
+                pnode_vals[pid] = np.array(vals)
+
+            if coords is not None:
+                missing = [i for i in group_ids if i not in coords]
+                if missing:
+                    raise ValueError(
+                        f'{gw_file}: parametric group {group + 1} lists model '
+                        f'nodes without coordinates (first missing: {missing[0]})'
+                    )
+                targets = [coords[i] for i in group_ids]
+                values = iwfm.iwfm_parametric_interp(pnode_xy, pnode_vals, pelems, targets)
+                for i, nid in enumerate(group_ids):
+                    interp_vals[nid] = values[i]
+                    ordered_ids.append(nid)
+
         nodes = None
-        Kh, Ss, Sy, Kq, Kv = [], [], [], [], []
+        if coords is None:
+            logger.warning(
+                f'{gw_file}: parametric grid (NGROUP={ngroup}) — no model node '
+                'coordinates supplied; Kh/Ss/Sy/Kq/Kv returned as empty lists. '
+                'Pass node_coords (from iwfm_read_nodes, scaled by its factor) '
+                'to interpolate.'
+            )
+            Kh, Ss, Sy, Kq, Kv = [], [], [], [], []
+        else:
+            Kh = [[interp_vals[n][l][0] for l in range(layers)] for n in ordered_ids]
+            Ss = [[interp_vals[n][l][1] for l in range(layers)] for n in ordered_ids]
+            Sy = [[interp_vals[n][l][2] for l in range(layers)] for n in ordered_ids]
+            Kq = [[interp_vals[n][l][3] for l in range(layers)] for n in ordered_ids]
+            Kv = [[interp_vals[n][l][4] for l in range(layers)] for n in ordered_ids]
 
     else:                                                               # read parameter values
         # how many layers?

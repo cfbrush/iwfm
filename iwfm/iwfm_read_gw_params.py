@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-def iwfm_read_gw_params(gw_file):
+def iwfm_read_gw_params(gw_file, node_coords=None):
     ''' iwfm_read_gw_params() - Read an IWFM Simulation Groundwater file and return
         a list of parameters
 
@@ -36,9 +36,9 @@ def iwfm_read_gw_params(gw_file):
 
     iwfm.file_test(gw_file)
 
-    gw_files, node_id, layers, Kh, Ss, Sy, Kq, Kv, init_cond, units, hydrographs, factxy = iwfm.iwfm_read_gw(gw_file)
+    gw_files, node_id, layers, Kh, Ss, Sy, Kq, Kv, init_cond, units, hydrographs, factxy = iwfm.iwfm_read_gw(gw_file, node_coords=node_coords)
     if not Kh:
-        return []   # parametric grid file — parameters not available at model nodes
+        return []   # parametric grid file and no node_coords given — parameters not available
     data = [Kh, Ss, Sy, Kq, Kv, init_cond]
 
     return data

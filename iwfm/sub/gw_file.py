@@ -179,39 +179,102 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
     gw_lines[hyds_line] = '     ' + str(new_hyds) + '        / NOUTH'
 
     # -- element face flow section --
-    # --  TODO:  element face flow section
-    # skip element face flow section (2 lines: NOUTF, FCHYDOUTFL)
-    _, line_index = read_next_line_value(gw_lines, line_index, skip_lines=2)
+    # face flow hydrographs: ID IOUTFL IOUTFA IOUTFB NAME, where IOUTFA and
+    # IOUTFB are the two groundwater nodes defining the element face
+    nface_str, line_index = read_next_line_value(gw_lines, line_index)
+    nface = int(nface_str)
+    nface_line = line_index
+
+    _, line_index = read_next_line_value(gw_lines, line_index)          # FCHYDOUTFL
+    fchyd_line = line_index
+
+    if nface > 0:
+        _, line_index = read_next_line_value(gw_lines, line_index)      # first face line
+        new_nface = 0
+        for _ in range(nface):
+            t = gw_lines[line_index].split()
+            if int(t[2]) in nodes and int(t[3]) in nodes:
+                new_nface += 1
+                line_index += 1
+            else:
+                del gw_lines[line_index]
+        gw_lines[nface_line] = '     ' + str(new_nface) + '                         / NOUTF'
+        if new_nface == 0:
+            gw_lines[fchyd_line] = '                                         / FCHYDOUTFL'
+        _, line_index = read_next_line_value(gw_lines, line_index - 1)  # next data line
+    else:
+        _, line_index = read_next_line_value(gw_lines, line_index)      # next data line
 
     # -- parametric grid for groundwater parameters --
     pgroups = int(gw_lines[line_index].split()[0])              # parametric grid?
+    pgroups_range_lines = []
 
     # skip factors (4 lines after NGROUP)
     _, line_index = read_next_line_value(gw_lines, line_index, skip_lines=4)
 
-    # --  TODO:  if pgroups > 0,  skip parametric grid(s)
+    if pgroups > 0:
+        # carry the parametric grid(s) through unchanged, except the node
+        # range spec, which must be rewritten to the submodel's nodes
+        node_count = None
+        layers = None
+        for group in range(pgroups):
+            if group > 0:
+                # advance to this group's node range line
+                _, line_index = read_next_line_value(gw_lines, line_index - 1)
+            pgroups_range_lines.append(line_index)               # node range spec line
+            ndp_str, line_index = read_next_line_value(gw_lines, line_index)
+            ndp = int(ndp_str)
+            nep_str, line_index = read_next_line_value(gw_lines, line_index)
+            nep = int(nep_str)
 
-    # -- parameters for each model node --
-    # first, determine the number of layers - 1st line has 6 items, others have 5 items
-    layers, line = 1, line_index + 1
-    while len(gw_lines[line].split()) < 6:
-        layers += 1
-        line += 1
+            # skip NEP connectivity lines
+            _, line_index = read_next_line_value(gw_lines, line_index, skip_lines=nep - 1)
 
-    # count the number of nodes in the original model file
-    line, node_count = line_index, 0  # starting point
-    while gw_lines[line][0] not in comments:
-        line += 1
-        node_count += 1
-    node_count = int(node_count / layers)
+            # first parametric node block: detect lines per block
+            _, line_index = read_next_line_value(gw_lines, line_index)
+            block = 1
+            len1 = len(gw_lines[line_index].split('/')[0].split())
+            while len(gw_lines[line_index + block].split('/')[0].split()) < len1:
+                block += 1
 
-    # remove parameters for nodes that are not in the submodel
-    for l in range(1, node_count + 1):
-        if l not in nodes:
-            for i in range(0, layers):  # remove <layers> lines
-                del gw_lines[line_index]
-        else:
-            line_index += layers
+            # skip remaining parametric node data (blocks are contiguous)
+            line_index += ndp * block
+
+        # rewrite each group's node range spec to the submodel node list
+        sorted_nodes = sorted(nodes)
+        range_parts = []
+        start = prev = sorted_nodes[0]
+        for n in sorted_nodes[1:]:
+            if n == prev + 1:
+                prev = n
+                continue
+            range_parts.append(f'{start}-{prev}' if start != prev else f'{start}')
+            start = prev = n
+        range_parts.append(f'{start}-{prev}' if start != prev else f'{start}')
+        for rl in pgroups_range_lines:
+            gw_lines[rl] = '    ' + ', '.join(range_parts)
+    else:
+        # -- parameters for each model node --
+        # first, determine the number of layers - 1st line has 6 items, others have 5 items
+        layers, line = 1, line_index + 1
+        while len(gw_lines[line].split()) < 6:
+            layers += 1
+            line += 1
+
+        # count the number of nodes in the original model file
+        line, node_count = line_index, 0  # starting point
+        while gw_lines[line][0] not in comments:
+            line += 1
+            node_count += 1
+        node_count = int(node_count / layers)
+
+        # remove parameters for nodes that are not in the submodel
+        for l in range(1, node_count + 1):
+            if l not in nodes:
+                for i in range(0, layers):  # remove <layers> lines
+                    del gw_lines[line_index]
+            else:
+                line_index += layers
 
     # -- hydraulic conductivity anomalies --
     # skip to nebk
@@ -232,8 +295,21 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
     gw_lines[nebk_line] = '     ' + str(nebk_new) + '                         / NEBK'
 
     # -- initial conditions --
-    # skip 1 line (FACTHP) to get to initial head data
-    _, line_index = read_next_line_value(gw_lines, line_index, skip_lines=1)
+    # skip FACTHP to get to initial head data. When NEBK == 0 the anomaly
+    # skip above already left the cursor ON the FACTHP line; when NEBK > 0
+    # the cursor is one past the last anomaly line and FACTHP is the next
+    # data line.
+    if nebk > 0:
+        _, line_index = read_next_line_value(gw_lines, line_index, skip_lines=1)
+    else:
+        _, line_index = read_next_line_value(gw_lines, line_index - 1, skip_lines=1)
+    if node_count is None:
+        # parametric-grid file: count the initial condition lines directly
+        line, node_count = line_index, 0
+        while (line < len(gw_lines) and gw_lines[line].strip()
+               and gw_lines[line][0] not in comments):
+            line += 1
+            node_count += 1
     # remove lines that are not in submodel
     for l in range(1, node_count + 1):
         if l not in nodes:

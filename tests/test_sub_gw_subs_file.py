@@ -527,3 +527,49 @@ class TestSubGwSubsFile:
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
+
+
+class TestSubGwSubsFileParametric:
+    """Tests for parametric grid (NGROUP > 0) subsidence files."""
+
+    def test_parametric_grid_carried_through(self):
+        from iwfm.sub.gw_subs_file import sub_gw_subs_file
+        from shapely.geometry import Polygon
+
+        hydrographs = [(1, 0, 1, 50.0, 50.0, 0, 'Subs_1')]
+        content = create_subs_file(1, hydrographs, 1, [])
+
+        parametric = (
+            "C Node Subsidence Parameters\n"
+            "    1-3\n"
+            "    4                            / NDP\n"
+            "    2                            / NEP\n"
+            "\t1\t1\t2\t3\t0\n"
+            "\t2\t2\t4\t3\t0\n"
+            "C parametric node data (1 layer)\n"
+            "\t1\t0.0\t0.0\t0.01\t0.001\t100.0\t0.5\t50.0\n"
+            "\t2\t100.0\t0.0\t0.02\t0.002\t110.0\t0.5\t51.0\n"
+            "\t3\t0.0\t100.0\t0.03\t0.003\t120.0\t0.5\t52.0\n"
+            "\t4\t100.0\t100.0\t0.04\t0.004\t130.0\t0.5\t53.0"
+        )
+        assert "C Node Subsidence Parameters" in content
+        content = content.replace("C Node Subsidence Parameters", parametric)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_file = os.path.join(tmpdir, 'old_subs.dat')
+            with open(old_file, 'w') as f:
+                f.write(content)
+            new_file = os.path.join(tmpdir, 'new_subs.dat')
+            bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
+
+            # submodel keeps nodes 1 and 3
+            sub_gw_subs_file(old_file, new_file, [1, 3], bounding_poly)
+
+            out = open(new_file).read()
+
+        # parametric grid carried through unchanged
+        assert '/ NDP' in out and '/ NEP' in out
+        assert '\t4\t100.0\t100.0\t0.04' in out
+        # node range spec rewritten to the submodel nodes
+        assert '    1, 3' in out
+        assert '    1-3' not in out

@@ -1,5 +1,5 @@
-# test_gw_well_lay_elev.py 
-# Test gw_well_lay_elev function for finding layer elevations
+# test_gw_well_lay_elev.py
+# Unit tests for gw_well_lay_elev in the iwfm package
 # Copyright (C) 2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
@@ -16,49 +16,46 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+import inspect
 
-
-
-def test_gw_well_lay_elev_has_todo():
-    '''Test that function has TODO comment about IDW function (verifies fix).'''
-    # This verifies the fix: added TODO note about undefined IDW function
-    from iwfm import gw_well_lay_elev
-    import inspect
-
-    source = inspect.getsource(gw_well_lay_elev)
-    # Should have TODO comment about IDW
-    assert 'TODO' in source or 'IDW' in source
+import pytest
 
 
 def test_gw_well_lay_elev_function_exists():
-    '''Test that gw_well_lay_elev function is defined.'''
-    from iwfm import gw_well_lay_elev
-
+    """Test that the function exists and is callable."""
+    from iwfm.gw_well_lay_elev import gw_well_lay_elev
     assert callable(gw_well_lay_elev)
 
 
 def test_gw_well_lay_elev_function_signature():
-    '''Test that gw_well_lay_elev has correct function signature.'''
-    from iwfm import gw_well_lay_elev
-    import inspect
+    """Test the function signature."""
+    from iwfm.gw_well_lay_elev import gw_well_lay_elev
 
-    sig = inspect.signature(gw_well_lay_elev)
-    params = list(sig.parameters.keys())
-
-    assert 'self' in params
-    assert 'd_wellinfo' in params
-    assert 'debug' in params
+    params = list(inspect.signature(gw_well_lay_elev).parameters)
+    assert params == ['d_wellinfo', 'elem_nodes_d', 'node_xy_d', 'strat', 'verbose']
 
 
-def test_gw_well_lay_elev_is_incomplete():
-    '''Test that function is marked as incomplete due to IDW dependency.'''
-    from iwfm import gw_well_lay_elev
-    import inspect
-
-    source = inspect.getsource(gw_well_lay_elev)
-    # Function uses IDW which is not defined
-    assert 'IDW' in source
+def test_gw_well_lay_elev_has_docstring():
+    """Test that the function is documented."""
+    from iwfm.gw_well_lay_elev import gw_well_lay_elev
+    assert gw_well_lay_elev.__doc__ is not None
 
 
-# Note: Cannot test actual functionality since IDW function is not implemented
-# This is documented in the TODO comment added during the fix
+def test_gw_well_lay_elev_smoke():
+    """Interpolate layer elevations for a well at an element node."""
+    import iwfm
+
+    strat = [
+        [1, 100.0, 0.0, 50.0],
+        [2, 110.0, 0.0, 50.0],
+        [3, 120.0, 0.0, 50.0],
+        [4, 130.0, 0.0, 50.0],
+    ]
+    elem_nodes_d = {1: [1, 2, 3, 4]}
+    node_xy_d = {1: (0.0, 0.0), 2: (1.0, 0.0), 3: (1.0, 1.0), 4: (0.0, 1.0)}
+    d_wellinfo = {'W1': [0.0, 0.0, 'x', 'y', 1]}
+
+    out = iwfm.gw_well_lay_elev(d_wellinfo, elem_nodes_d, node_xy_d, strat)
+
+    aquifer_top = out['W1'][-1][0]
+    assert aquifer_top[0] == pytest.approx(100.0)  # exact at node 1

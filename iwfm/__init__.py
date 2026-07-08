@@ -60,6 +60,7 @@ from iwfm.iwfm_read_rz_urban import iwfm_read_rz_urban
 from iwfm.iwfm_read_rz_nr import iwfm_read_rz_nr
 from iwfm.iwfm_read_uz import iwfm_read_uz
 from iwfm.iwfm_read_gw import iwfm_read_gw
+from iwfm.iwfm_parametric_interp import iwfm_parametric_interp
 from iwfm.iwfm_read_div_areas import iwfm_read_div_areas
 from iwfm.iwfm_read_elempump import iwfm_read_elempump
 
