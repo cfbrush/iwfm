@@ -60,8 +60,13 @@ def iwfm_read_streams(stream_file, verbose=False):
     nreach, stream_index = read_next_line_value(stream_lines, 0)
     nreach = int(nreach)
 
-    rating, stream_index = read_next_line_value(stream_lines, stream_index)
-    rating = int(rating)
+    if stream_type == '5.0':
+        # v5.0 preprocessor stream files have no NRTB line or rating tables
+        # (rating tables moved to the simulation stream file)
+        rating = 0
+    else:
+        rating_str, stream_index = read_next_line_value(stream_lines, stream_index)
+        rating = int(rating_str)
 
     # read in stream reaches
     reach_list, snodes_list, nsnodes = [], [], 0
@@ -71,22 +76,13 @@ def iwfm_read_streams(stream_file, verbose=False):
 
         reach = int(l.pop(0))
 
-        # ***** TODO ************************************
-        # Handle multiple types of stream packages (stream_type)
-        # ***** TODO ************************************
-
-        # streams package versions 4.0, 4.1, 4.2
-        if stream_type == '4.0'or stream_type == '4.1' or stream_type == '4.2':
+        # streams package versions 4.0, 4.1, 4.2, 5.0: ID NRD IDWN NAME
+        if stream_type in ('4.0', '4.1', '4.2', '5.0'):
             snodes = int(l.pop(0))
 
-        # streams package version 5
-        elif stream_type == '5':
-            up_node = int(l.pop(0))
-            dn_node = int(l.pop(0))
-            snodes = dn_node - up_node + 1
-
-        # old streams package versions...?
-        else: 
+        # older streams packages: ID IBUR IBDR IDWN NAME
+        # (reach defined by upstream and downstream stream node numbers)
+        else:
             up_node = int(l.pop(0))
             dn_node = int(l.pop(0))
             snodes = dn_node - up_node + 1
@@ -113,25 +109,29 @@ def iwfm_read_streams(stream_file, verbose=False):
 
         reach_list.append([reach, upper, lower, oflow])
 
-    _, stream_index = read_next_line_value(stream_lines, stream_index, skip_lines=3)
     rating_dict = {}
-    selev = []
-    for i in range(0, len(snodes_list)):
-        l = stream_lines[stream_index].split()
-        snode = l[0]
-        selev.append(float(l[1]))
-        # read the rating table values for this stream node
-        temp = [[l[2], l[3]]]
-        stream_index += 1
-        for t in range(0, rating - 1):
-            if any((c in comments) for c in stream_lines[stream_index][0]):
-                stream_index += 1
-            temp.append(stream_lines[stream_index].split())
+    if rating > 0:
+        _, stream_index = read_next_line_value(stream_lines, stream_index, skip_lines=3)
+        selev = []
+        for i in range(0, len(snodes_list)):
+            l = stream_lines[stream_index].split()
+            snode = l[0]
+            selev.append(float(l[1]))
+            # read the rating table values for this stream node
+            temp = [[l[2], l[3]]]
             stream_index += 1
-        rating_dict[snode] = temp   # key = stream node ID, values = rating table
+            for t in range(0, rating - 1):
+                if any((c in comments) for c in stream_lines[stream_index][0]):
+                    stream_index += 1
+                temp.append(stream_lines[stream_index].split())
+                stream_index += 1
+            rating_dict[snode] = temp   # key = stream node ID, values = rating table
 
-        if i < len(snodes_list) - 1:  # stop at end
-            _, stream_index = read_next_line_value(stream_lines, stream_index - 1)
+            if i < len(snodes_list) - 1:  # stop at end
+                _, stream_index = read_next_line_value(stream_lines, stream_index - 1)
+    else:
+        # no rating tables (v5.0): stream bottom elevations are not in this file
+        selev = [0.0] * len(snodes_list)
 
     # put stream node info into a dictionary
     stnodes_dict, j = {}, 0

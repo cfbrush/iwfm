@@ -510,3 +510,58 @@ class TestIwfmReadStreams:
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
+
+
+class TestIwfmReadStreamsVersions:
+    """Version handling for the preprocessor stream spec reader."""
+
+    def _spec_4x(self, version):
+        return (
+            f"#{version}\n"
+            "C stream spec\n"
+            "     1                          / NRH\n"
+            "     2                          / NRTB\n"
+            "\t1\t2\t0\tOnly Creek\n"
+            "\t1\t101\n"
+            "\t2\t102\n"
+            "C rating tables\n"
+            "     1.0                         / FACTLT\n"
+            "     60.0                        / FACTQ\n"
+            "     1min                        / TUNIT\n"
+            "\t1\t100.0\t0.0\t0.0\n"
+            "\t\t2.0\t50.0\n"
+            "\t2\t95.0\t0.0\t0.0\n"
+            "\t\t2.0\t60.0\n"
+        )
+
+    def test_version_42(self, tmp_path):
+        import iwfm
+        f = tmp_path / 's.dat'
+        f.write_text(self._spec_4x('4.2'))
+        reach_list, snodes_list, stnodes_dict, n, rating_dict = iwfm.iwfm_read_streams(str(f))
+        assert n == 2
+        assert reach_list == [[1, 1, 2, 0]]
+        assert stnodes_dict[1] == [101, 1, 100.0]
+        assert len(rating_dict) == 2
+
+    def test_version_50_no_rating_tables(self, tmp_path):
+        import iwfm
+        content = (
+            "#5.0\n"
+            "C v5.0 stream spec\n"
+            "     2                          / NRH\n"
+            "\t1\t2\t3\tUpper Creek\n"
+            "\t1\t101\n"
+            "\t2\t102\n"
+            "\t2\t2\t0\tLower Creek\n"
+            "\t3\t103\n"
+            "\t4\t104\n"
+            "     0                           / NSTRPINT\n"
+        )
+        f = tmp_path / 's50.dat'
+        f.write_text(content)
+        reach_list, snodes_list, stnodes_dict, n, rating_dict = iwfm.iwfm_read_streams(str(f))
+        assert n == 4
+        assert reach_list == [[1, 1, 2, 3], [2, 3, 4, 0]]
+        assert rating_dict == {}
+        assert stnodes_dict[3] == [103, 2, 0.0]

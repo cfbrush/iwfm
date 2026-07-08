@@ -46,16 +46,19 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     debug : bool, default=False
         turn debugging output on or off
 
-    Returns:
-      # -- to be determined --
+    Returns
+    -------
+    nothing
 
-    TODO:
-      - test for nodes pickle file, read info from source if not present, error if no source
-      - test for node_coords pickle file, read info from source if not present, error if no source
-      - test for elem_list pickle file, read info from source if not present, error if no source
-      - test for lake_info pickle file, read info from source if not present, error if no source
-      - test for geopandas dataframe pickle file, create from node_coords if not present, error if no source
-      - process Lake files
+    Notes
+    -----
+    Run :func:`iwfm.iwfm_sub_preproc` first — it writes the
+    ``<out_base_name>_*.bin`` pickle files this function reads (elements,
+    nodes, element nodes, node coordinates, stream nodes, submodel stream
+    nodes). A FileNotFoundError naming the missing pickles is raised
+    otherwise.
+
+    TODO: process Lake files.
 
     '''
     import iwfm
@@ -103,8 +106,7 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     # -- create list of new file names
     sim_files_new = iwfm.new_sim_files(out_base_name)
 
-    # ** TODO: test for pickle files, read info from source if not present, error if no source
-    # Check that required pickle files exist
+    # Check that the required pickle files (written by iwfm_sub_preproc) exist
     pickle_files = [
         (out_base_name + '_elems.bin', 'elements'),
         (out_base_name + '_nodes.bin', 'nodes'),
