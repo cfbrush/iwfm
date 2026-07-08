@@ -177,15 +177,15 @@ if __name__ == "__main__":
 
     args = sys.argv
 
-# TODO: Change to get Simulation file name, and get Groundwater.dat file name from Simulation file
+    from pathlib import Path
 
     if len(args) > 1:  # arguments are listed on the command line
-        gw_file   = args[1]         # groundwate.dat file
+        sim_file  = args[1]         # Simulation main file (Groundwater.dat name is read from it)
         pre_file  = args[2]         # preprocessor.in file
         basename  = args[3]         # output file base name
         format    = args[4].lower() # output file format: eps, jpeg, jpg, pdf, pgf, png, ps, raw, rgba, svg, svgz, tif, tiff, webp
 
-        if(len(args) > 4): 
+        if(len(args) > 5):
             point_width = int(args[5])  # point width
         else:
             point_width = 25
@@ -193,25 +193,34 @@ if __name__ == "__main__":
             point_width = point_width_default  # default point width
 
     else:  # get everything form the command line
-        gw_file   = input('IWFM Groundwater.dat file name: ')
+        sim_file  = input('IWFM Simulation main file name: ')
         pre_file  = input('IWFM Preprocessor file name: ')
         basename  = input('Output file base name: ')
         format    = input('Output file format (pdf, png, tiff): ').lower()
 
-    iwfm.file_test(gw_file)
+    iwfm.file_test(sim_file)
     iwfm.file_test(pre_file)
 
     idb.exe_time()  # initialize timer
 
-# TODO: Put path into pre_files, sim_files and add to Preprocessor and Simulation file names when calling read functions
+    # groundwater file name comes from the Simulation main file; paths in
+    # both main files are relative to their own directories
+    sim_base = Path(sim_file).resolve().parent
+    sim_files = iwfm.iwfm_read_sim(sim_file)
+    gw_file = str(sim_base / sim_files.gw_file.replace('\\', '/'))
+    iwfm.file_test(gw_file)
 
+    pre_base = Path(pre_file).resolve().parent
     pre_files, have_lake = iwfm.iwfm_read_preproc(pre_file)
 
-    node_coords, node_list, factor = iwfm.iwfm_read_nodes(pre_files['node_file'])
+    node_file = str(pre_base / pre_files.node_file.replace('\\', '/'))
+    node_coords, node_list, factor = iwfm.iwfm_read_nodes(node_file)
 
-    elem_ids, elem_nodes, elem_sub = iwfm.iwfm_read_elements(pre_files['elem_file'])
+    elem_file = str(pre_base / pre_files.elem_file.replace('\\', '/'))
+    elem_ids, elem_nodes, elem_sub = iwfm.iwfm_read_elements(elem_file)
 
-    strat, nlayers = iwfm.iwfm_read_strat(pre_files['strat_file'], node_coords)
+    strat_file = str(pre_base / pre_files.strat_file.replace('\\', '/'))
+    strat, nlayers = iwfm.iwfm_read_strat(strat_file, node_coords)
 
     bounding_poly = igis.get_boundary_coords(elem_nodes, node_coords)
 
