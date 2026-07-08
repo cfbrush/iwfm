@@ -96,6 +96,6 @@ def iwfm_read_rz_urban(file, verbose=False):
 
     params = [params, ic]
 
-    if verbose: print(f"Leaving iwfm_read_rz_urban()")
+    if verbose: print("Leaving iwfm_read_rz_urban()")
 
     return crops, params, files

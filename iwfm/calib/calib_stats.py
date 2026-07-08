@@ -201,7 +201,7 @@ def calib_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
     out_file = gwhyd_file.replace('.out','_rmse_all.txt')
     try:
         with open(out_file,'w', encoding='utf-8') as of:
-            of.write(f'Filename\tRMSE\tBIAS\n')
+            of.write('Filename\tRMSE\tBIAS\n')
             rmse_all = round(ical.rmse_calc(sim_all,meas_all),2)
             bias_all = round(ical.bias_calc(sim_all,meas_all),2)
             of.write(f'{gwhyd_file}\t{rmse_all}\t{bias_all}\n')

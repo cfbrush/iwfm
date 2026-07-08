@@ -17,7 +17,6 @@
 # -----------------------------------------------------------------------------
 
 from math import ceil
-from datetime import datetime
 
 
 def headdiff_hyds(hdiff_pairs, hdiff_data, rthresh, ts_func, start_date, verbose=False):

@@ -81,6 +81,6 @@ def read_sim_wells(gw_file, verbose=False):
         well_list.append(name)
         line_index += 1
 
-    if verbose: print(f"Leaving read_sim_wells()")
+    if verbose: print("Leaving read_sim_wells()")
 
     return well_dict, well_list

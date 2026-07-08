@@ -195,7 +195,7 @@ def get_params(data_filename, param_type, param_values, layer=0, verbose=False):
     data = data[param_index[param_type]]
 
     if verbose:
-        print(f"Read parameter values")
+        print("Read parameter values")
 
     # Handle multi-layer data: select requested layer
     if isinstance(data, np.ndarray) and len(data.shape) == 2:
@@ -261,7 +261,6 @@ def iwfm_map_params(dataset, bounding_poly, image_basename, cmap='rainbow',
     str
         Path to the saved image file.
     """
-    import os
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt

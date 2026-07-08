@@ -34,7 +34,6 @@ def bnds2mask(bnds_d, coords):
     -------
     Bounding polygon as numpy array of x,y coordinates
     '''
-    import sys
     coords_d = dict( (c[0], c[1:]) for c in coords)
 
     xy = []

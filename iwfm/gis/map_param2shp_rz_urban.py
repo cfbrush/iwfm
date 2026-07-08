@@ -68,7 +68,7 @@ def map_param2shp_rz_urban(param_types, param_vals, elem_shp_name, out_shp_name=
 
         try:
             data = param_vals[:,j]                                          # compile data for the field
-        except IndexError as e:
+        except IndexError:
             from iwfm.debug.logger_setup import logger
             logger.error(
                 f'Cannot access parameter index {j} (param: {param_types_main[j]})\n'

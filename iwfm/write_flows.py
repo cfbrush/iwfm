@@ -42,7 +42,8 @@ def write_flows(data_file_base, file_type, table, site_info, verbose=False):
     nothing
 
     '''
-    import os, csv
+    import os
+    import csv
     import numpy as np
 
     outFileName = os.path.splitext(data_file_base)[0] + file_type + '.csv'

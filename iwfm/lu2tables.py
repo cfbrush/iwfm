@@ -48,7 +48,6 @@ def lu2tables(land_use_file, output_file_type, verbose=False, debug=1):
 
     '''
     import datetime
-    import sys
     import iwfm
 
     # find the base name and extension

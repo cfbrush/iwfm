@@ -56,7 +56,6 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
     from iwfm.file_utils import read_next_line_value
     from shapely.geometry import Point
     from pathlib import Path
-    import sys
 
     if verbose: print(f"Entered sub_gw_file() with {sim_files.gw_file}")
 
@@ -342,6 +341,6 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
 
     if verbose:
         print(f'  Wrote groundwater main file {sim_files_new.gw_file}')
-        print(f"Leaving sub_gw_file()")
+        print("Leaving sub_gw_file()")
 
     return

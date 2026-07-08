@@ -37,7 +37,8 @@ def lu2csv(inFileName, skip=4, verbose=False):
     -------
     nothing
     '''
-    import csv, os
+    import csv
+    import os
     comments = 'Cc*#'
 
     outFileName = os.path.splitext(inFileName)[0] + '.csv'

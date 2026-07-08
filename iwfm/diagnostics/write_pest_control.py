@@ -4,7 +4,6 @@
 # License: GNU GPL v2.0+
 
 import logging
-import os
 
 logger = logging.getLogger('iwfm.diagnostics.write_pest_control')
 

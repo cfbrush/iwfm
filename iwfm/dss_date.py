@@ -33,7 +33,6 @@ def dss_date(date):
         date as string in DSS format
     
     '''
-    import iwfm
 
     mo = str(date.month).rjust(2, '0')  # right-justify to 2 chars
     dy = str(date.day).rjust(2, '0')  # right-justify to 2 chars

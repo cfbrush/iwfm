@@ -149,6 +149,6 @@ def sub_gw_pump_epump_file(old_filename, new_filename, elems, verbose=False):
 
     if verbose:
         print(f'      Wrote element pumping file {new_filename}')
-        print(f"Leaving sub_gw_pump_epump_file()")
+        print("Leaving sub_gw_pump_epump_file()")
 
     return new_nsink > 0

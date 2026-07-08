@@ -53,7 +53,8 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
     nothing
 
     '''
-    import re, sys
+    import re
+    import sys
     import numpy as np
     import iwfm
 
@@ -193,7 +194,7 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
     if verbose:  # write progress to console
         outport.write('\n')
         if len(ex) > 0:
-            print(f'\n  These precipitation columns had no VIC ID and were not changed:')
+            print('\n  These precipitation columns had no VIC ID and were not changed:')
             print('   '+','.join([str(i) for i in ex]))
 
         print(f'\n  Wrote adjusted precipitation rates to {out_filename}\n')

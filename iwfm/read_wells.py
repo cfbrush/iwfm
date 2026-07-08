@@ -66,6 +66,6 @@ def read_wells(infile, verbose=False):
         )
         line_index += 1
 
-    if verbose: print(f"Leaving read_wells()")
+    if verbose: print("Leaving read_wells()")
 
     return well_dict

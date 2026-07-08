@@ -96,6 +96,6 @@ def iwfm_read_rz_nr(file, verbose=False):
 
     params = [params, ic]
 
-    if verbose: print(f"Leaving iwfm_read_rz_nr()")
+    if verbose: print("Leaving iwfm_read_rz_nr()")
 
     return crops, params, files

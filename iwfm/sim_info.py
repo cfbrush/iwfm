@@ -90,6 +90,6 @@ def sim_info(in_file, verbose=False):
     except ValueError as e:
         raise ValueError(f"Error reading end date from {in_file} line {in_index+1}: {str(e)}") from e
 
-    if verbose: print(f"Leaving sim_info()")
+    if verbose: print("Leaving sim_info()")
 
     return start_date, end_date, time_step

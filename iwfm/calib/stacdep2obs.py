@@ -253,7 +253,7 @@ if __name__ == "__main__":
 
     # write results to output ins file
     with open(outins_file, 'w', encoding='utf-8') as out_file:
-        out_file.write(f'pif #\n')
+        out_file.write('pif #\n')
         for item in ins:
             out_file.write(f'{item}\n')
 

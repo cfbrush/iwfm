@@ -59,7 +59,7 @@ def iwfm_read_rz(rz_file, verbose=False):
 
     ir_file, line_index = read_next_line_value(rz_lines, line_index)  # irrigation period file
 
-    if verbose: print(f"Leaving iwfm_read_rz()")
+    if verbose: print("Leaving iwfm_read_rz()")
 
     return RootzoneFiles(
         np_file=np_file,

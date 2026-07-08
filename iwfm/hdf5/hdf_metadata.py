@@ -140,10 +140,10 @@ class HdfReader(HdfBackend):
                     f"Try using a zone budget file (*_ZBudget.hdf) which typically has more complete metadata."
                 )
         except KeyError as e:
-            logger.error(f"Attributes group not found in HDF5 file")
+            logger.error("Attributes group not found in HDF5 file")
             raise DataSourceError(
-                f"HDF5 file does not have an 'Attributes' group. "
-                f"This may not be a valid IWFM HDF5 file."
+                "HDF5 file does not have an 'Attributes' group. "
+                "This may not be a valid IWFM HDF5 file."
             ) from e
 
     def get_n_nodes(self, verbose: bool = False) -> int:

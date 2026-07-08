@@ -80,7 +80,6 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
 
     # -- verify that required input files exist
     import os
-    import sys
     missing_files = []
     required_files = ['gw_file', 'swshed_file', 'unsat_file']
 

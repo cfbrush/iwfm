@@ -297,7 +297,7 @@ def write_budget_data(workbook, budget_data):
 
         logger.debug(f"Wrote {df.shape[0]} rows to '{loc_names[loc]}'")
 
-    logger.info(f"Completed writing budget data")
+    logger.info("Completed writing budget data")
 
 
 # -----------------------------------------------------------------------------

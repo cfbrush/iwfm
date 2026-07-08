@@ -68,6 +68,6 @@ def iwfm_read_strat(strat_file, node_coords, verbose=False):
         strat.append(s)
     nlayers = int((len(strat[0]) - 1) / 2)
 
-    if verbose: print(f"Leaving iwfm_read_strat()")
+    if verbose: print("Leaving iwfm_read_strat()")
 
     return strat, nlayers

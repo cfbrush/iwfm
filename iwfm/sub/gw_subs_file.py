@@ -160,6 +160,6 @@ def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbo
 
     if verbose:
         print(f'      Wrote subsidence file {new_filename}')
-        print(f"Leaving sub_gw_subs_file()")
+        print("Leaving sub_gw_subs_file()")
 
     return

@@ -104,7 +104,6 @@ def iteration_callback(pest_dir, iteration=None, model_config=None,
     # Attach stability Jacobian if provided
     if stability_result is not None:
         from iwfm.diagnostics.diag_dataclasses import StabilityJacobianSummary
-        from dataclasses import asdict
         # Convert StabilityJacobian → StabilityJacobianSummary for bundle
         if hasattr(stability_result, 'n_params'):
             bundle.stability_jacobian = StabilityJacobianSummary(

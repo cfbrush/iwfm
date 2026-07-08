@@ -48,7 +48,6 @@ def iwfm2obs(verbose=False, head_divisor=None):
     nothing
 
     '''
-    import sys
     import os
     import iwfm
     import iwfm.calib as calib
@@ -313,7 +312,7 @@ if __name__ == "__main__":
     import sys
     import iwfm.debug as idb
     from iwfm.debug import parse_cli_flags
-    from iwfm.debug.logger_setup import logger, setup_debug_logger
+    from iwfm.debug.logger_setup import logger
 
     verbose, debug = parse_cli_flags()
 

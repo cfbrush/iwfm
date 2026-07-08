@@ -76,7 +76,7 @@ def sim_obs_list(obs, well_dict, gwhyd_sim, dates):
 
 if __name__ == '__main__':
     ' Run sim_obs_list() from command line '
-    import sys, os
+    import sys
     import iwfm
     import iwfm.calib as ical
     from iwfm.debug import parse_cli_flags

@@ -103,7 +103,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     label='CN values'
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,1][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_CN_Urban.{format}'
-    title = f'Urban Curve Number'             
+    title = 'Urban Curve Number'             
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -113,7 +113,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     label='ET Column'
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,5][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_ETcol_Urban.{format}'
-    title = f'Urban Evapotranspiration Column'
+    title = 'Urban Evapotranspiration Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -123,7 +123,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     # urban pervious area
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,0][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_PervArea_Urban.{format}'
-    title = f'Urban Pervious Area'
+    title = 'Urban Pervious Area'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -132,7 +132,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     # urban population
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,2][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_PopCol_Urban.{format}'
-    title = f'Urban Population Column'
+    title = 'Urban Population Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -141,7 +141,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     # urban per capita demand
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,3][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_PerCapCol_Urban.{format}'
-    title = f'Urban Per Capita Demand Column'
+    title = 'Urban Per Capita Demand Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -150,7 +150,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     # urban demand fraction
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,4][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_DMFrac_Urban.{format}'
-    title = f'Urban Demand Fraction Column'
+    title = 'Urban Demand Fraction Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -159,7 +159,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     # urban return flow fraction
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,6][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_RTFrac_Urban.{format}'
-    title = f'Urban Return Flow Fraction Column'
+    title = 'Urban Return Flow Fraction Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -168,7 +168,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     # urban reuse fraction
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,7][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_RUFrac_Urban.{format}'
-    title = f'Urban Reuse Fraction Column'
+    title = 'Urban Reuse Fraction Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -177,7 +177,7 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     # urban indoor water use
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_ur[0][:,8][j] ] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_Indoor_Urban.{format}'
-    title = f'Urban Indoor Use Column'
+    title = 'Urban Indoor Use Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    

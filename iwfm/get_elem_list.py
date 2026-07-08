@@ -42,7 +42,6 @@ def get_elem_list(elem_pairs_file):
         dictionary key = submodel element, value = existing model element
 
     '''
-    import iwfm
     import re
 
     with open(elem_pairs_file, encoding='utf-8') as f:

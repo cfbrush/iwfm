@@ -127,6 +127,6 @@ def iwfm_read_rz_pc(file, verbose=False):
     params = [cn, et, wsp, ip, pd, ad, rf, ru, ic]
     files = [pc_area_file, pc_bd_file, pc_zb_file, pc_pd_file, pc_po_file]
 
-    if verbose: print(f"Leaving iwfm_read_rz_pc()")
+    if verbose: print("Leaving iwfm_read_rz_pc()")
 
     return crops, params, files

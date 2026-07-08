@@ -321,12 +321,12 @@ def text_to_csv(files, timeout=30):
             failed_urls.append((name, url, "timeout"))
             continue
 
-        except requests.exceptions.ConnectionError as e:
+        except requests.exceptions.ConnectionError:
             print(f"Failed to fetch {url}: Connection error")
             failed_urls.append((name, url, "connection_error"))
             continue
 
-        except requests.exceptions.HTTPError as e:
+        except requests.exceptions.HTTPError:
             print(f"Failed to fetch {url}: HTTP {response.status_code} error")
             failed_urls.append((name, url, f"http_{response.status_code}"))
             continue

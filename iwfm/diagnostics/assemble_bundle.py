@@ -6,7 +6,7 @@
 import os
 from datetime import datetime
 from iwfm.diagnostics.diag_dataclasses import (
-    DiagnosticBundle, StructuralSignals, PestStateSummary,
+    DiagnosticBundle, StructuralSignals,
 )
 from iwfm.diagnostics.read_convergence_hdf import read_convergence_hdf
 from iwfm.diagnostics.read_elemmb_hdf import read_elemmb_hdf

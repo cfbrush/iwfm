@@ -226,6 +226,6 @@ def iwfm_read_uz(file, verbose=False):
     params = [pd, pn, pi, pk, prhc, ic]
 
         
-    if verbose: print(f"Leaving iwfm_read_uz()")
+    if verbose: print("Leaving iwfm_read_uz()")
 
     return uz_dict, params

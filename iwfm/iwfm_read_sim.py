@@ -80,7 +80,7 @@ def iwfm_read_sim(sim_file, verbose=False):
 
     end, line_index = read_next_line_value(sim_lines, line_index)
 
-    if verbose: print(f"Leaving iwfm_read_sim()")
+    if verbose: print("Leaving iwfm_read_sim()")
 
     return SimulationFiles(
         preout=preout,

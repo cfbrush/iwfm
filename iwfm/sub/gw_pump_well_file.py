@@ -165,7 +165,7 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
 
     if verbose:
         print(f'      Wrote well specification file {new_filename}')
-        print(f"Leaving sub_gw_pump_well_file()")
+        print("Leaving sub_gw_pump_well_file()")
 
     return new_nwells > 0
 

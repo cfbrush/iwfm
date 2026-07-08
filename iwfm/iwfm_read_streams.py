@@ -139,6 +139,6 @@ def iwfm_read_streams(stream_file, verbose=False):
         key, values = snode[0], [snode[1], snode[2], selev[i]]    # key = stream node ID, values = [groundwater node, reach, elevation]
         stnodes_dict[key] = values
 
-    if verbose: print(f"Leaving iwfm_read_streams()")
+    if verbose: print("Leaving iwfm_read_streams()")
 
     return reach_list, snodes_list, stnodes_dict, len(snodes_list), rating_dict

@@ -93,6 +93,6 @@ def sub_gw_bc_node_file(old_filename, new_filename, nodes, verbose=False):
 
     if verbose:
         print(f'      Wrote boundary condition file {new_filename}')
-        print(f"Leaving sub_gw_bc_node_file()")
+        print("Leaving sub_gw_bc_node_file()")
 
     return new_nbc

@@ -160,6 +160,6 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
 
     if verbose:
         print(f'      Wrote boundary conditions file {sim_files_new.bc_file}')
-        print(f"Leaving sub_gw_bc_file()")
+        print("Leaving sub_gw_bc_file()")
 
     return

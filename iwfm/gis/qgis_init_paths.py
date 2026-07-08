@@ -49,7 +49,8 @@ def qgis_init_paths(debug=0):  # must run this
         paths
 
     '''
-    import sys, platform
+    import sys
+    import platform
 
     if debug:
         print('  => Before adding to paths:')  # debugging

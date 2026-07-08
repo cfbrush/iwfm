@@ -93,7 +93,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         if verbose: print(f'  Read root zone parameters from the Native and Riparian rootzone file {rz_file_name[4]}')
 
 
-    if verbose: print(f'')
+    if verbose: print('')
     count = 0
     # --------------------------------------
     # create maps for basic rootzone parameters
@@ -105,7 +105,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)
         count += 1
-    if verbose: print(f'  Wrote Rootzone Parameters')
+    if verbose: print('  Wrote Rootzone Parameters')
 
     if rz_npc_file_name:
         # --------------------------------------
@@ -135,7 +135,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,1][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_CN_Urban.{format}'
-        title = f'Urban Curve Number'             
+        title = 'Urban Curve Number'             
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -144,7 +144,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # native vegetation
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,0][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_CN_Native.{format}'
-        title = f'Native Vegetation Curve Number'             
+        title = 'Native Vegetation Curve Number'             
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -153,13 +153,13 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # riparian vegetation
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,1][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_CN_Riparian.{format}'
-        title = f'Riparian Vegetation Curve Number'             
+        title = 'Riparian Vegetation Curve Number'             
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
         count += 1
 
-        if verbose: print(f'  Wrote Curve Numbers')
+        if verbose: print('  Wrote Curve Numbers')
 
 
         # --------------------------------------
@@ -188,7 +188,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,5][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_ETcol_Urban.{format}'
-        title = f'Urban Evapotranspiration Column'
+        title = 'Urban Evapotranspiration Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -197,7 +197,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # native vegetation
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,2][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_ETcol_Native.{format}'
-        title = f'Native Vegetation Evapotranspiration Column'
+        title = 'Native Vegetation Evapotranspiration Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -206,13 +206,13 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # riparian vegetation
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,3][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_ETcol_Riparian.{format}'
-        title = f'Riparian Vegetation Evapotranspiration Column'
+        title = 'Riparian Vegetation Evapotranspiration Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
         count += 1
 
-        if verbose: print(f'  Wrote ET columns')
+        if verbose: print('  Wrote ET columns')
 
         # --------------------------------------
         # non-ponded crops
@@ -261,7 +261,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban pervious area
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,0][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_PervArea_Urban.{format}'
-        title = f'Urban Pervious Area'
+        title = 'Urban Pervious Area'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -270,7 +270,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban population
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,2][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_PopCol_Urban.{format}'
-        title = f'Urban Population Column'
+        title = 'Urban Population Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -279,7 +279,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban per capita demand
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,3][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_PerCapCol_Urban.{format}'
-        title = f'Urban Per Capita Demand Column'
+        title = 'Urban Per Capita Demand Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -288,7 +288,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban demand fraction
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,4][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_DMFrac_Urban.{format}'
-        title = f'Urban Demand Fraction Column'
+        title = 'Urban Demand Fraction Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -297,7 +297,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban return flow fraction
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,6][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_RTFrac_Urban.{format}'
-        title = f'Urban Return Flow Fraction Column'
+        title = 'Urban Return Flow Fraction Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -306,7 +306,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban reuse fraction
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,7][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_RUFrac_Urban.{format}'
-        title = f'Urban Reuse Fraction Column'
+        title = 'Urban Reuse Fraction Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -315,7 +315,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban indoor water use
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[0][:,8][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_Indoor_Urban.{format}'
-        title = f'Urban Indoor Use Column'
+        title = 'Urban Indoor Use Column'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -325,13 +325,13 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # riparian stream node
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,4][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_Riparian_Stream_Node.{format}'
-        title = f'Riparian Vegetation Source Stream Node'
+        title = 'Riparian Vegetation Source Stream Node'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
         count += 1
 
-        if verbose: print(f'  Wrote remaiing rootzone parameters')
+        if verbose: print('  Wrote remaiing rootzone parameters')
 
         # --------------------------------------
         label='Initial Condition'
@@ -358,7 +358,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # urban
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_u[1][:,1][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_IC_Urban.{format}'
-        title = f'Urban Initial Conditions'             
+        title = 'Urban Initial Conditions'             
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -367,7 +367,7 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # native vegetation
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[1][:,0][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_IC_Native.{format}'
-        title = f'Native Vegetation Initial Conditions'             
+        title = 'Native Vegetation Initial Conditions'             
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
@@ -376,13 +376,13 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
         # riparian vegetation
         dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[1][:,1][j] ] for j in range(len(elem_centroids))]
         image_name = f'{out_name}_IC_Riparian.{format}'
-        title = f'Riparian Vegetation Initial Conditions'
+        title = 'Riparian Vegetation Initial Conditions'
 
         iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                     label=label, units='', format=format)    
         count += 1
 
-        if verbose: print(f'  Wrote Initial Conditions')
+        if verbose: print('  Wrote Initial Conditions')
 
 
     return count

@@ -147,7 +147,6 @@ def write_factors(factors_outfile, pp_file, pp_list, node_list, ppoints, weights
     count : int
         Number of factors written to output file.
         """
-    import iwfm
 
     count = 0
 

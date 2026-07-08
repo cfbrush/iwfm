@@ -46,7 +46,6 @@ def snodes2shp(nsnodes, snodes_list, node_coords, shape_name, epsg=26910, verbos
     nothing
 
     '''
-    import iwfm
     import shapefile
     import pyproj
 

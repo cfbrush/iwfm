@@ -70,6 +70,6 @@ def read_nodes(node_file, factor=0.0, verbose=False):
         node_list.append(l[0])
         node_coord.append(l[1:])
 
-    if verbose: print(f"Leaving read_nodes()")
+    if verbose: print("Leaving read_nodes()")
 
     return node_coord, node_list

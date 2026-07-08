@@ -47,7 +47,6 @@ def to_smp_ins(obs_site,obs_dt,obs_val,ts):   # put into smp and ins strings
 
     '''
 
-    import iwfm
 
     smp = str(f'{obs_site.ljust(20)} {obs_dt.strftime("%m/%d/%Y")}  0:00:00 {str(round(obs_val,6)).rjust(22)}')  # left-justify to 20 chars, right-justify to 22 chars
     ins = str(f'L1  [{obs_site}_{str(ts).rjust(3, "0")}]42:70')  # right-justify to 3 chars

@@ -25,7 +25,7 @@ Usage with pypest
 import os
 import numpy as np
 from dataclasses import dataclass, field
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 
 # Column indices — must match read_convergence_hdf.py

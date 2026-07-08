@@ -112,7 +112,8 @@ def get_zbudget_elem_vals(zbud, zones_file, col_ids, area_conversion_factor=0.00
 if __name__ == '__main__':
     ''' Run get_zbudget_elem_vals() from command line for IWFM Land and Water Use ZBudget file
         and elemental pumping'''
-    import sys, os
+    import sys
+    import os
     import pickle
     from pywfm import IWFMZBudget
     import iwfm

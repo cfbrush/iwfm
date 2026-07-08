@@ -103,7 +103,7 @@ def map_params_rz_nr(node_file_name, elem_file_name, out_name, rz_nr_file_name,
     label='Curve Number'
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,0][j]] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_CN_NAT.{format}'
-    title = f'Native Vegetation Curve Number'
+    title = 'Native Vegetation Curve Number'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -111,7 +111,7 @@ def map_params_rz_nr(node_file_name, elem_file_name, out_name, rz_nr_file_name,
 
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,1][j]] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_CN_RIP.{format}'
-    title = f'Riparian Vegetation Curve Number'
+    title = 'Riparian Vegetation Curve Number'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -121,7 +121,7 @@ def map_params_rz_nr(node_file_name, elem_file_name, out_name, rz_nr_file_name,
     label='ET Column'
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,2][j]] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_ET_NAT.{format}'
-    title = f'Native Vegetation Evapotranspiration Column'
+    title = 'Native Vegetation Evapotranspiration Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -129,7 +129,7 @@ def map_params_rz_nr(node_file_name, elem_file_name, out_name, rz_nr_file_name,
 
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,3][j]] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_ET_RIP.{format}'
-    title = f'Riparian Vegetation Evapotranspiration Column'
+    title = 'Riparian Vegetation Evapotranspiration Column'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    
@@ -139,7 +139,7 @@ def map_params_rz_nr(node_file_name, elem_file_name, out_name, rz_nr_file_name,
     label='Stream Node'
     dataset=[[elem_centroids[j][1], elem_centroids[j][2], param_vals_nr[0][:,4][j]] for j in range(len(elem_centroids))]
     image_name = f'{out_name}_IP_SNODE.{format}'
-    title = f'Riparian Vegataion Source Stream Node'
+    title = 'Riparian Vegataion Source Stream Node'
 
     iplot.map_to_nodes(dataset, boundary_coords, image_name, cmap='rainbow', marker_size = 10, title=title, 
                 label=label, units='', format=format)    

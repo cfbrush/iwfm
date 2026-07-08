@@ -37,7 +37,8 @@ def detaw_2_table(dir_name, outfile_name, verbose=False):
     nothing    
     
     '''
-    import os, csv
+    import os
+    import csv
 
     input_files = os.listdir(dir_name)
 

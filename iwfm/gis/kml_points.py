@@ -40,7 +40,7 @@ def kml_points(filename, verbose=False):
     Placemarks = kml.getElementsByTagName('Placemark')
     if verbose:
         print(f'  Retrieved {len(Placemarks):,} placemarks from \'{filename}\' ')
-        print(f'Point\tCoordinates')
+        print('Point\tCoordinates')
 
     points = []
     for i in range(len(Placemarks)):

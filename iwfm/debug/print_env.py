@@ -29,7 +29,8 @@ def print_env():  # print some paths
     nothing
 
     '''
-    import os, platform
+    import os
+    import platform
 
     print('Environment:')
     print(f'  System:            {platform.system()} version {platform.release()}')

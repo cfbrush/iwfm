@@ -86,7 +86,8 @@ def pdf_combine(start_dir, save_dir, save_name):
 
 if __name__ == "__main__":
   " Run from command line "
-  import sys, os
+  import sys
+  import os
   import iwfm.debug as idb
   from iwfm.debug import parse_cli_flags
 

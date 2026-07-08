@@ -127,6 +127,6 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
 
     if verbose:
         print(f'      Wrote tile drain file {new_filename}')
-        print(f"Leaving sub_gw_td_file()")
+        print("Leaving sub_gw_td_file()")
 
     return ntd > 0

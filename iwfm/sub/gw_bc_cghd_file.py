@@ -78,6 +78,6 @@ def sub_gw_bc_cghd_file(old_filename, new_filename, nodes, verbose=False):
 
     if verbose:
         print(f'      Wrote constrained general head BC file {new_filename}')
-        print(f"Leaving sub_gw_bc_cghd_file()")
+        print("Leaving sub_gw_bc_cghd_file()")
 
     return new_ngb

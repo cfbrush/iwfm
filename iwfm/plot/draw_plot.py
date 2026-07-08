@@ -103,7 +103,6 @@ def draw_plot( well_name, date, meas, no_hyds, gwhyd_obs, gwhyd_name, well_info,
     # each hydrograph in gwhyd_obs has dates in the first column
     # convert the observed values and each set of simulated values to a pair of
     # lists, with 'date, meas' format.
-    import iwfm
 
     ymin, ymax = 1e6, -1e6
     sim_heads, sim_dates = [], []

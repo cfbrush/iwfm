@@ -98,8 +98,8 @@ if __name__ == '__main__':
     status = dll_open(iwfm_dll, pre_file, sim_file)
 
     if status == 0:
-        print(f'  dll_open() worked!')
+        print('  dll_open() worked!')
     else:
-        print(f'  dll_open() didn\'t work!')
+        print('  dll_open() didn\'t work!')
 
     idb.exe_time()  # print elapsed time

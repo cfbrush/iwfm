@@ -71,7 +71,7 @@ def iwfm_read_rz_params(rz_file, verbose=False):
                 value = float(value) * factcp
             params[idx].append(float(value))
     
-    if verbose: print(f"  Leaving iwfm_read_rz_params()")
+    if verbose: print("  Leaving iwfm_read_rz_params()")
 
     return params
 

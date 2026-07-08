@@ -145,7 +145,7 @@ def pdf_to_excel(pdf_url, excel_filename, timeout=60):
 
     # Read tables from the online PDF (tabula returns pandas DataFrames)
     try:
-        print(f"Parsing PDF tables...")
+        print("Parsing PDF tables...")
         tables = tabula.read_pdf(pdf_url, pages='all', multiple_tables=True)
     except Exception as e:
         raise RuntimeError(

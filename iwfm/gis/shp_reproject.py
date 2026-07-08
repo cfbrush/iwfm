@@ -38,7 +38,6 @@ def shp_reproject(srcName, tgtName, epsg=26910):
     
     '''
 
-    import os
     import shutil
     from osgeo import osr
     from osgeo import ogr

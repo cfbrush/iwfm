@@ -74,12 +74,12 @@ def get_nwis(files, timeout=30):
             failed_urls.append((name, url, "timeout"))
             continue
 
-        except requests.exceptions.ConnectionError as e:
+        except requests.exceptions.ConnectionError:
             print(f"Failed to download '{name}': Connection error for {url}")
             failed_urls.append((name, url, "connection_error"))
             continue
 
-        except requests.exceptions.HTTPError as e:
+        except requests.exceptions.HTTPError:
             print(f"Failed to download '{name}': HTTP {response.status_code} error for {url}")
             failed_urls.append((name, url, f"http_{response.status_code}"))
             continue
@@ -262,7 +262,7 @@ def format_file(info):
                                 if len(line) < 2:
                                     raise ValueError(f"Line 2 has insufficient columns: {len(line)}")
                                 if "Monthly mean in " not in line[1]:
-                                    raise ValueError(f"Line 2 does not contain expected 'Monthly mean in' text")
+                                    raise ValueError("Line 2 does not contain expected 'Monthly mean in' text")
                                 index = line[1].index("Monthly mean in ") + 16
                                 units = line[1][index:].split()[0]
 

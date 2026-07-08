@@ -119,6 +119,6 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
 
     if verbose:
         print(f'      Wrote pumping main file {sim_files_new.pump_file}')
-        print(f"Leaving sub_gw_pump_file()")
+        print("Leaving sub_gw_pump_file()")
 
     return
