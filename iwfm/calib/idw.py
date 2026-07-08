@@ -1,5 +1,5 @@
 # idw.py
-# Inverse distance weighting... for what?
+# Inverse-distance-weighted interpolation of per-layer nodal values to a point
 # Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
@@ -16,82 +16,69 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-# ** INFOMPLETE ** #
-
 from iwfm.debug.logger_setup import logger
 
 
 def idw(x, y, elem, nnodes, nlayers, nodexy, elevations, debug=0):
-    ''' idw() - Inverse distance weighting
-
-    ** INCOMPLETE **
-    TODO: only partially developed
+    ''' idw() - Interpolate per-layer nodal values to the point (x, y)
+        using inverse distance weighting over the nodes of the element
+        containing the point.
 
     Parameters
     ----------
-    x : list of floats
-        X values of points
-    
-    y : list of floats
-        y values of points
-    
-    elem : list
-        list of model elements and nodes
-    
-    nnodes : list
-        list of model nodes
-    
+    x : float
+        point X coordinate
+
+    y : float
+        point Y coordinate
+
+    elem : int
+        element containing the point (informational, used in log messages)
+
+    nnodes : list of ints
+        node IDs of the element's nodes; a 0 entry (triangle placeholder)
+        is skipped along with its nodexy/elevations row
+
     nlayers : int
         number of model layers
-    
+
     nodexy : list
-        spatial locations of nodes
-    
+        (x, y) coordinates of the element's nodes, same order as nnodes
+
     elevations : list
-        Top row of table data in excel spreadsheets
-    
-    debug : int, default=0
-        1 == Turn on debug printing to cli
+        per-node list of nlayers values (e.g. layer elevations), same
+        order as nnodes
+
+    debug : int, default=0, optional
+        >0 = log debug information
 
     Returns
     -------
-    nothing
+    interp_values : list
+        nlayers values interpolated to (x, y)
 
     '''
-    import numpy as np
+    import math
 
-    # inverse distance weighting
-    logger.debug(f'iwfm.idw() {elem=} {nnodes=} {nlayers=} {nodexy=} {elevations=}')
+    if debug:
+        logger.debug(f'idw() point=({x}, {y}) {elem=} {nnodes=}')
 
-    interp_values = [[0.0 for _ in range(len(nnodes))] for _ in range(nlayers)]
+    weights, values = [], []
+    for j, node in enumerate(nnodes):
+        if node == 0:  # triangle placeholder in a quad connectivity list
+            continue
+        d = math.hypot(x - nodexy[j][0], y - nodexy[j][1])
+        if d < 1e-12:  # point coincides with a node: return its values
+            return [float(elevations[j][k]) for k in range(nlayers)]
+        weights.append(1.0 / d)
+        values.append(elevations[j])
 
-    logger.debug(f'{interp_values=}')
+    wsum = sum(weights)
+    interp_values = [
+        sum(w * float(v[k]) for w, v in zip(weights, values)) / wsum
+        for k in range(nlayers)
+    ]
 
-    for i in range(nlayers):
-        logger.debug(f'{i=}')
-        wgt = 0
-        for j in range(len(nnodes)):  # for each node of element
-            logger.debug(f'{j=}')
-            # if elem > 0:   # all ObsElem > 0
-            nodeID = nnodes[i]
-            logger.debug(f'{nodeID=}')
-            if nodeID > 0:
-                logger.debug(f'{x=}, {y=}, {nodexy[j]=}')
-                distance = float(
-                    np.sqrt((x - nodexy[j][0]) ** 2 + (y - nodexy[j][1]) ** 2)
-                )
-                logger.debug(f'{distance=}')
-                wgt_tmp = 1.0 / distance
-                logger.debug(f'{wgt_tmp=}')
-                wgt += wgt_tmp
-                for k in range(nlayers):
-                    logger.debug(f'{i=} {k=} {interp_values[i][k]=} {elevations[i][k]=}')
-                    interp_values[i][k] += wgt_tmp * elevations[i][k]
-                    logger.debug(f'{interp_values[i][k]=}')
-        logger.debug(f'{wgt=}')
-        for k in range(nlayers):
-            interp_values[i][k] = interp_values[i][k] / wgt
-        logger.debug(f'{interp_values=}')
-
-    logger.debug('** incomplete: IDW.py **')
+    if debug:
+        logger.debug(f'idw() {interp_values=}')
     return interp_values
