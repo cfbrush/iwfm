@@ -550,33 +550,100 @@ class TestSubPPStreamsFileNotFound:
             iwfm.sub_pp_streams(nonexistent_file, node_list)
 
 
-class TestSubPPStreamsUnsupportedVersion:
-    """Tests for unsupported stream file versions."""
+def _stream_spec_4x(version, wptb=False):
+    """Minimal 2-reach stream spec file for v4.0/4.1/4.2 tests."""
+    wp = "\t1.0" if wptb else ""
+    return (
+        f"#{version}\n"
+        "C Stream file test\n"
+        "     2                          / NRH\n"
+        "     2                          / NRTB\n"
+        "C-------------------------------------------------------------------------------\n"
+        "\t1\t2\t3\tUpper Creek\n"
+        "\t1\t100\n"
+        "\t2\t101\n"
+        "\t2\t2\t0\tLower Creek\n"
+        "\t3\t102\n"
+        "\t4\t103\n"
+        "C rating tables\n"
+        "     1.0                         / FACTLT\n"
+        "     60.0                        / FACTQ\n"
+        "     1min                        / TUNIT\n"
+        "C-------------------------------------------------------------------------------\n"
+        f"\t1\t100.0\t0.0\t0.0{wp}\n"
+        f"\t\t2.0\t50.0{wp}\n"
+        f"\t2\t95.0\t0.0\t0.0{wp}\n"
+        f"\t\t2.0\t60.0{wp}\n"
+        f"\t3\t90.0\t0.0\t0.0{wp}\n"
+        f"\t\t2.0\t70.0{wp}\n"
+        f"\t4\t85.0\t0.0\t0.0{wp}\n"
+        f"\t\t2.0\t80.0{wp}\n"
+        "     0                           / NSTRPINT\n"
+    )
 
-    def test_version_40_exits(self, tmp_path):
-        """Test that version 4.0 raises NotImplementedError."""
-        # Create a v4.0 format file
-        content = "#4.0\r\nC Stream file v4.0\r\n     1    / NRH\r\n     3    / NRTB\r\n"
 
+class TestSubPPStreamsVersions:
+    """Tests for the supported stream file versions."""
+
+    def test_version_40(self, tmp_path):
+        """Test that version 4.0 files are read."""
         stream_file = tmp_path / "test_streams_40.dat"
-        stream_file.write_text(content)
+        stream_file.write_text(_stream_spec_4x('4.0'))
 
-        node_list = [100]
+        result = iwfm.sub_pp_streams(str(stream_file), [100, 101, 102, 103])
+        sub_reach_info, snode_dict, sub_rattab_dict, *_ = result
 
-        with pytest.raises(NotImplementedError):
-            iwfm.sub_pp_streams(str(stream_file), node_list)
+        assert len(sub_reach_info) == 2
+        assert snode_dict == {1: 100, 2: 101, 3: 102, 4: 103}
+        assert len(sub_rattab_dict) == 4
 
-    def test_version_41_exits(self, tmp_path):
-        """Test that version 4.1 raises NotImplementedError."""
-        content = "#4.1\r\nC Stream file v4.1\r\n     1    / NRH\r\n     3    / NRTB\r\n"
-
+    def test_version_41(self, tmp_path):
+        """Test that version 4.1 files (with WPTB column) are read."""
         stream_file = tmp_path / "test_streams_41.dat"
+        stream_file.write_text(_stream_spec_4x('4.1', wptb=True))
+
+        result = iwfm.sub_pp_streams(str(stream_file), [100, 101])
+        sub_reach_info, snode_dict, sub_rattab_dict, *_ = result
+
+        assert len(sub_reach_info) == 1               # only reach 1 in submodel
+        assert len(sub_rattab_dict) == 2              # rating tables for nodes 1, 2
+        # WPTB column carried through verbatim
+        assert sub_rattab_dict[1][0].split()[-1] == '1.0'
+
+    def test_version_50(self, tmp_path):
+        """Test that version 5.0 files (no rating tables) are read."""
+        content = (
+            "#5.0\n"
+            "C Stream file v5.0\n"
+            "     2                          / NRH\n"
+            "C-------------------------------------------------------------------------------\n"
+            "\t1\t2\t3\tUpper Creek\n"
+            "\t1\t100\n"
+            "\t2\t101\n"
+            "\t2\t2\t0\tLower Creek\n"
+            "\t3\t102\n"
+            "\t4\t103\n"
+            "     0                           / NSTRPINT\n"
+        )
+        stream_file = tmp_path / "test_streams_50.dat"
         stream_file.write_text(content)
 
-        node_list = [100]
+        result = iwfm.sub_pp_streams(str(stream_file), [100, 101, 102, 103])
+        sub_reach_info, snode_dict, sub_rattab_dict, rating_header, stream_aq, sub_snodes = result
+
+        assert len(sub_reach_info) == 2
+        assert sub_rattab_dict == {}
+        assert rating_header == []
+        assert len(sub_snodes) == 4
+
+    def test_unknown_version_raises(self, tmp_path):
+        """Test that an unknown version raises NotImplementedError."""
+        content = "#3.0\nC Stream file v3.0\n     1    / NRH\n     3    / NRTB\n"
+        stream_file = tmp_path / "test_streams_30.dat"
+        stream_file.write_text(content)
 
         with pytest.raises(NotImplementedError):
-            iwfm.sub_pp_streams(str(stream_file), node_list)
+            iwfm.sub_pp_streams(str(stream_file), [100])
 
 
 # ============================================================================

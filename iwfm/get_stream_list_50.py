@@ -1,6 +1,6 @@
-# get_stream_list_42.py
-# Reads part of the stream specification file for file type 4.2
-# and returns stream reach and rating table info
+# get_stream_list_50.py
+# Reads part of the stream specification file for file type 5.0
+# and returns stream reach info
 # Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
@@ -18,9 +18,14 @@
 # -----------------------------------------------------------------------------
 
 
-def get_stream_list_42(stream_lines, line_index, nreach, nrate):
-    ''' get_stream_list_42() - Reads part of the stream specification file
-        for file type 4.2 and returns stream reach and rating table info
+def get_stream_list_50(stream_lines, line_index, nreach):
+    ''' get_stream_list_50() - Reads part of the stream specification file
+        for file type 5.0 and returns stream reach info
+
+    Version 5.0 stream specification files contain only NRH, the reach
+    descriptions, and the partial stream-aquifer interaction section —
+    rating tables (and NRTB) moved to the simulation stream file. The
+    returned rattab_dict and rating_header are therefore empty.
 
     Parameters
     ----------
@@ -28,13 +33,10 @@ def get_stream_list_42(stream_lines, line_index, nreach, nrate):
         contents of stream specification file
 
     line_index : int
-        current item in stream_lines
+        current item in stream_lines (the NRH line)
 
     nreach : int
         number of stream reaches
-
-    nrate : int
-        number of points in each stream node rating table
 
     Returns
     -------
@@ -48,34 +50,29 @@ def get_stream_list_42(stream_lines, line_index, nreach, nrate):
         reach info lines for reaches in model
 
     rattab_dict : dictionary
-        keys = stream node IDs, values = rating tables
+        empty (no rating tables in v5.0 preprocessor files)
 
-    rating_header : str
-        header info for rating tables including factors
+    rating_header : list
+        empty (no rating tables in v5.0 preprocessor files)
 
-    stream_aq : str
+    stream_aq : list of strings
         stream-aquifer section of stream preprocessor file
 
     '''
     from iwfm.file_utils import read_next_line_value
 
-    def is_comment(line):
-        return len(line) == 0 or line[0] in 'Cc*#'
-
-    reach_info, snode_ids, rating_header, stream_aq = [], [], [], []
+    reach_info, snode_ids, stream_aq = [], [], []
 
     # -- first section, reaches
     snode_dict = {}
     for _ in range(nreach):
-        # Read reach info line using file_utils
         _, line_index = read_next_line_value(stream_lines, line_index, column=0)
-        info = stream_lines[line_index].split()  # -- get reach information
+        info = stream_lines[line_index].split()
 
         snodes_temp, gwnodes_temp = [], []
         nnodes = int(info[1])
 
         for _ in range(nnodes):
-            # Read stream node line using file_utils
             _, line_index = read_next_line_value(stream_lines, line_index, column=0)
             temp = stream_lines[line_index].split()
             snode_id = int(temp[0])
@@ -96,36 +93,10 @@ def get_stream_list_42(stream_lines, line_index, nreach, nrate):
             ]
         )
 
-    # -- second section, rating table factors: comments, then the three
-    #    factor lines (FACTLT, FACTQ, TUNIT), then comments
-    line_index += 1
-    while is_comment(stream_lines[line_index]):
-        rating_header.append(stream_lines[line_index])
-        line_index += 1
-
-    for _ in range(3):
-        rating_header.append(stream_lines[line_index])
-        line_index += 1
-
-    while is_comment(stream_lines[line_index]):
-        rating_header.append(stream_lines[line_index])
-        line_index += 1
-
-    # -- read in the rating tables for each stream node
-    rattab_dict = {}
-    line_index -= 1  # back up one before starting
-    for sn in snode_ids:
-        rt_temp = []
-        for _ in range(nrate):
-            # Read rating table line using file_utils
-            _, line_index = read_next_line_value(stream_lines, line_index, column=0)
-            rt_temp.append(stream_lines[line_index])
-        rattab_dict[sn] = rt_temp
-
     # -- copy the last section, partial stream-aquifer interaction, to a list
     line_index += 1
     while line_index < len(stream_lines):
         stream_aq.append(stream_lines[line_index])
         line_index += 1
 
-    return snode_ids, snode_dict, reach_info, rattab_dict, rating_header, stream_aq
+    return snode_ids, snode_dict, reach_info, {}, [], stream_aq

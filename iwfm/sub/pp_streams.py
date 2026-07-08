@@ -66,19 +66,8 @@ def sub_pp_streams(stream_file, node_list):
     _, line_index = read_next_line_value(stream_lines, -1, column=0, skip_lines=0)
     nreach = int(stream_lines[line_index].split()[0])
 
-    # Skip to NRTB line
-    _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=0)
-    nrate = int(stream_lines[line_index].split()[0])
-
-    if stream_type == '4.0':
-        # placeholder for iwfm.get_stream_list_40()
-        # snode_ids, snode_dict, reach_info, rattab_dict, rating_header, stream_aq = iwfm.get_stream_list_40(stream_lines,line_index,nreach,nrate)
-        exit_now(stream_type)
-    elif stream_type == '4.1':
-        # placeholder for iwfm.get_stream_list_41()
-        # snode_ids, snode_dict, reach_info, rattab_dict, rating_header, stream_aq = iwfm.get_stream_list_41(stream_lines,line_index,nreach,nrate)
-        exit_now(stream_type)
-    elif stream_type == '4.2':
+    if stream_type == '5.0':
+        # v5.0 files have no NRTB line or rating tables
         (
             snode_ids,
             snode_dict,
@@ -86,7 +75,25 @@ def sub_pp_streams(stream_file, node_list):
             rattab_dict,
             rating_header,
             stream_aq,
-        ) = iwfm.get_stream_list_42(stream_lines, line_index, nreach, nrate)
+        ) = iwfm.get_stream_list_50(stream_lines, line_index, nreach)
+    elif stream_type in ('4.0', '4.1', '4.2'):
+        # Skip to NRTB line
+        _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=0)
+        nrate = int(stream_lines[line_index].split()[0])
+
+        readers = {
+            '4.0': iwfm.get_stream_list_40,
+            '4.1': iwfm.get_stream_list_41,
+            '4.2': iwfm.get_stream_list_42,
+        }
+        (
+            snode_ids,
+            snode_dict,
+            reach_info,
+            rattab_dict,
+            rating_header,
+            stream_aq,
+        ) = readers[stream_type](stream_lines, line_index, nreach, nrate)
     else:
         exit_now(stream_type)
 

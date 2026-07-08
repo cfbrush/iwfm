@@ -418,65 +418,83 @@ class TestSubPpStreamFile:
             # Check outflow node 38 is written
             assert '38' in new_content
 
-    def test_unsupported_version_40(self):
-        """Test that version 4.0 raises NotImplementedError"""
-        # Create a 4.0 version file
+    def _write_version_file(self, tmpdir, version, with_nrtb=True):
         lines = [
-            "#4.0",
+            f"#{version}",
             "C IWFM Stream Specification File",
             "     1                         / NRH",
-            "     10                         / NRTB",
         ]
-        content = '\n'.join(lines)
+        if with_nrtb:
+            lines.append("     2                         / NRTB")
+        old_file = os.path.join(tmpdir, 'old_stream.dat')
+        with open(old_file, 'w') as f:
+            f.write('\n'.join(lines))
+        return old_file
+
+    def test_version_40_writes(self):
+        """Test that version 4.0 files are written."""
+        from iwfm.sub.pp_stream_file import sub_pp_stream_file
 
         with tempfile.TemporaryDirectory() as tmpdir:
-            old_file = os.path.join(tmpdir, 'old_stream.dat')
-            with open(old_file, 'w') as f:
-                f.write(content)
-
+            old_file = self._write_version_file(tmpdir, '4.0')
             new_file = os.path.join(tmpdir, 'new_stream.dat')
 
-            from iwfm.sub.pp_stream_file import sub_pp_stream_file
+            sub_pp_stream_file(old_file, new_file, {1: 100},
+                               [[1, 1, 0, 'Test Creek', [1]]],
+                               {1: ['\t1\t100.0\t0.0\t0.0', '\t\t2.0\t50.0']},
+                               ['C Rating Table Header'], ['C Stream-Aquifer Section'])
 
-            snode_dict = {1: 100}
-            reach_info = [(1, 1, 0, 'Test Creek', [1])]
-            rattab_dict = {1: ['C Rating table 1']}
-            rating_header = ['C Rating Table Header']
-            stream_aq = ['C Stream-Aquifer Section']
+            content = open(new_file).read()
+            assert 'Test Creek' in content
+            assert '100.0' in content
 
-            with pytest.raises(NotImplementedError):
-                sub_pp_stream_file(old_file, new_file, snode_dict, reach_info,
-                                  rattab_dict, rating_header, stream_aq)
-
-    def test_unsupported_version_41(self):
-        """Test that version 4.1 raises NotImplementedError"""
-        # Create a 4.1 version file
-        lines = [
-            "#4.1",
-            "C IWFM Stream Specification File",
-            "     1                         / NRH",
-            "     10                         / NRTB",
-        ]
-        content = '\n'.join(lines)
+    def test_version_41_writes(self):
+        """Test that version 4.1 files (WPTB column) are written."""
+        from iwfm.sub.pp_stream_file import sub_pp_stream_file
 
         with tempfile.TemporaryDirectory() as tmpdir:
-            old_file = os.path.join(tmpdir, 'old_stream.dat')
-            with open(old_file, 'w') as f:
-                f.write(content)
-
+            old_file = self._write_version_file(tmpdir, '4.1')
             new_file = os.path.join(tmpdir, 'new_stream.dat')
 
-            from iwfm.sub.pp_stream_file import sub_pp_stream_file
+            sub_pp_stream_file(old_file, new_file, {1: 100},
+                               [[1, 1, 0, 'Test Creek', [1]]],
+                               {1: ['\t1\t100.0\t0.0\t0.0\t1.5', '\t\t2.0\t50.0\t2.5']},
+                               ['C Rating Table Header'], ['C Stream-Aquifer Section'])
 
-            snode_dict = {1: 100}
-            reach_info = [(1, 1, 0, 'Test Creek', [1])]
-            rattab_dict = {1: ['C Rating table 1']}
-            rating_header = ['C Rating Table Header']
-            stream_aq = ['C Stream-Aquifer Section']
+            content = open(new_file).read()
+            assert 'Test Creek' in content
+            assert '1.5' in content  # WPTB column preserved
+
+    def test_version_50_writes(self):
+        """Test that version 5.0 files (no rating tables) are written."""
+        from iwfm.sub.pp_stream_file import sub_pp_stream_file
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_file = self._write_version_file(tmpdir, '5.0', with_nrtb=False)
+            new_file = os.path.join(tmpdir, 'new_stream.dat')
+
+            sub_pp_stream_file(old_file, new_file, {1: 100},
+                               [[1, 1, 0, 'Test Creek', [1]]],
+                               {}, [], ['     0    / NSTRPINT'])
+
+            content = open(new_file).read()
+            assert 'Test Creek' in content
+            assert 'NRTB' not in content  # v5.0 has no rating-table count
+            assert 'NSTRPINT' in content
+
+    def test_unknown_version_raises(self):
+        """Test that an unknown version raises NotImplementedError."""
+        from iwfm.sub.pp_stream_file import sub_pp_stream_file
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_file = self._write_version_file(tmpdir, '3.0')
+            new_file = os.path.join(tmpdir, 'new_stream.dat')
 
             with pytest.raises(NotImplementedError):
-                sub_pp_stream_file(old_file, new_file, snode_dict, reach_info,
-                                  rattab_dict, rating_header, stream_aq)
+                sub_pp_stream_file(old_file, new_file, {1: 100},
+                                   [[1, 1, 0, 'Test Creek', [1]]],
+                                   {1: ['C Rating table 1']},
+                                   ['C Rating Table Header'], ['C Stream-Aquifer Section'])
 
     def test_empty_stream_aq(self):
         """Test with empty stream-aquifer section"""

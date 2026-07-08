@@ -71,27 +71,28 @@ def sub_pp_stream_file(stream_file, new_stream_file, snode_dict, reach_info,
         + ' '.join(stream_lines[line_index].split()[1:])
     )
 
-    # -- number of points in each rating table
-    rattab_sns = [*rattab_dict]
-    sub_stream_lines.append(
-        (' ' * 4 + str(len(rattab_dict[rattab_sns[0]]))).ljust(35)  # indent 4 chars, pad to 35
-        + ' '.join(stream_lines[line_index].split()[1:])
-    )
+    # -- number of points in each rating table (not present in v5.0 files)
+    if stream_type != '5.0':
+        # use the original NRTB line for its description text
+        _, nrtb_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=0)
+        rattab_sns = [*rattab_dict]
+        sub_stream_lines.append(
+            (' ' * 4 + str(len(rattab_dict[rattab_sns[0]]))).ljust(35)  # indent 4 chars, pad to 35
+            + ' '.join(stream_lines[nrtb_index].split()[1:])
+        )
 
     # -- write stream reach and rating table information
     if stream_type == '4.0':
-        # TODO - add add_streams_40()
-         # placeholder for add_streams_40()
-        # sub_stream_lines = add_streams_40(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating_header, stream_aq)
-        exit_now(stream_type)
+        sub_stream_lines = add_streams_40(sub_stream_lines, reach_info, snode_dict, rattab_dict,
+            rating_header, stream_aq)
     elif stream_type == '4.1':
-        # TODO - add add_streams_41()
-        # placeholder for add_streams_41()
-        # sub_stream_lines = add_streams_41(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating_header, stream_aq)
-        exit_now(stream_type)
+        sub_stream_lines = add_streams_41(sub_stream_lines, reach_info, snode_dict, rattab_dict,
+            rating_header, stream_aq)
     elif stream_type == '4.2':
         sub_stream_lines = add_streams_42( sub_stream_lines, reach_info, snode_dict, rattab_dict,
             rating_header, stream_aq)
+    elif stream_type == '5.0':
+        sub_stream_lines = add_streams_50(sub_stream_lines, reach_info, snode_dict, stream_aq)
     else:
         exit_now(stream_type)
 
@@ -139,20 +140,69 @@ def add_streams_42(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating
         format. Ready to be written out as the submodel stream file.
 
     '''
+    return _add_streams(sub_stream_lines, reach_info, snode_dict, rattab_dict,
+                        rating_header, stream_aq,
+                        reaches_header_42, reach_header_42, snodes_header_42)
+
+
+def add_streams_40(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating_header, stream_aq):
+    ''' add_streams_40()  - adds the reach and rating table info in the format
+        of stream file type 4.0. Same layout as 4.2 (one groundwater node per
+        stream node; BOTR/HRTB/QRTB rating rows carried verbatim).
+
+    Parameters and return value are the same as :func:`add_streams_42`.
+    '''
+    return _add_streams(sub_stream_lines, reach_info, snode_dict, rattab_dict,
+                        rating_header, stream_aq,
+                        reaches_header_40, reach_header_42, snodes_header_42)
+
+
+def add_streams_41(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating_header, stream_aq):
+    ''' add_streams_41()  - adds the reach and rating table info in the format
+        of stream file type 4.1. Same layout as 4.2 except rating table rows
+        carry an extra wetted-perimeter column (WPTB), which passes through
+        verbatim.
+
+    Parameters and return value are the same as :func:`add_streams_42`.
+    '''
+    return _add_streams(sub_stream_lines, reach_info, snode_dict, rattab_dict,
+                        rating_header, stream_aq,
+                        reaches_header_41, reach_header_42, snodes_header_42)
+
+
+def add_streams_50(sub_stream_lines, reach_info, snode_dict, stream_aq):
+    ''' add_streams_50()  - adds the reach info in the format of stream file
+        type 5.0. Version 5.0 preprocessor files carry no rating tables
+        (those moved to the simulation stream file).
+
+    Parameters and return value are the same as :func:`add_streams_42`,
+    without the rating-table arguments.
+    '''
+    return _add_streams(sub_stream_lines, reach_info, snode_dict, {}, [],
+                        stream_aq,
+                        reaches_header_40, reach_header_42, snodes_header_42)
+
+
+def _add_streams(sub_stream_lines, reach_info, snode_dict, rattab_dict,
+                 rating_header, stream_aq, reaches_header, reach_header,
+                 snodes_header):
+    ''' _add_streams()  - shared engine: append reach descriptions, rating
+        tables (if any), and the stream-aquifer section to the submodel
+        stream file lines. '''
 
     # -- write stream reaches
-    for s in reaches_header_42:
+    for s in reaches_header:
         sub_stream_lines.append(s)
 
     for r in reach_info:
         sub_stream_lines.append('C     REACH   ' + str(r[0]))
-        for s in reach_header_42:
+        for s in reach_header:
             sub_stream_lines.append(s)
         # write reach information
         sub_stream_lines.append(
             '\t' + str(r[0]) + '\t' + str(r[1]) + '\t' + str(r[2]) + '\t' + r[3]
         )
-        for s in snodes_header_42:
+        for s in snodes_header:
             sub_stream_lines.append(s)
         # write reach stream nodes
         for sn in r[4]:
@@ -200,6 +250,52 @@ reaches_header_42 = [
     'C           * Note: For wide streams with more than one corresponding groundwater nodes,',
     'C                    the groundwater node that is closest to the middle of the channel',
     'C                    cross-section must be listed first.',
+    'C',
+    'C-------------------------------------------------------------------------------',
+]
+
+reaches_header_40 = [
+    'C*******************************************************************************',
+    'C                      Description of Stream Reaches',
+    'C',
+    'C   The following lists the stream nodes and corresponding groundwater',
+    'C   nodes for each stream reach modeled in IWFM.',
+    'C',
+    'C   ID;    Reach number',
+    'C   NRD;   Number of stream nodes in reach',
+    'C   IDWN;  Stream node into which the reach flows into',
+    'C              0: If stream flow leaves the modeled area',
+    'C           -nlk: If stream flows into lake number nlk',
+    'C   NAME;  Name of the reach (maximum 20 characters)',
+    'C',
+    'C   In addition, for each stream node within the reach the corresponding',
+    'C   groundwater node is listed.',
+    'C',
+    'C   IRV;   Stream node',
+    'C   IGW;   Corresponding groundwater node',
+    'C',
+    'C-------------------------------------------------------------------------------',
+]
+
+reaches_header_41 = [
+    'C*******************************************************************************',
+    'C                      Description of Stream Reaches',
+    'C',
+    'C   The following lists the stream nodes and corresponding groundwater',
+    'C   nodes for each stream reach modeled in IWFM.',
+    'C',
+    'C   ID;    Reach number',
+    'C   NRD;   Number of stream nodes in reach',
+    'C   IDWN;  Stream node into which the reach flows into',
+    'C              0: If stream flow leaves the modeled area',
+    'C           -nlk: If stream flows into lake number nlk',
+    'C   NAME;  Name of the reach (maximum 20 characters)',
+    'C',
+    'C   In addition, for each stream node within the reach the corresponding',
+    'C   groundwater node is listed.',
+    'C',
+    'C   IRV;   Stream node',
+    'C   IGW;   Corresponding groundwater node',
     'C',
     'C-------------------------------------------------------------------------------',
 ]

@@ -215,7 +215,10 @@ from iwfm.get_elem_list import get_elem_list
 from iwfm.sub.pp_node_list import sub_pp_node_list
 from iwfm.sub.pp_lakes import sub_pp_lakes
 from iwfm.sub.pp_streams import sub_pp_streams
+from iwfm.get_stream_list_40 import get_stream_list_40
+from iwfm.get_stream_list_41 import get_stream_list_41
 from iwfm.get_stream_list_42 import get_stream_list_42
+from iwfm.get_stream_list_50 import get_stream_list_50
 from iwfm.new_pp_files import new_pp_files
 new_pp_dict = new_pp_files  # backward compatibility
 
