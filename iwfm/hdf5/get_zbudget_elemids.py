@@ -22,27 +22,29 @@ from iwfm.debug.logger_setup import logger
 
 def get_zbudget_elemids(zbud, zones_file, area_conversion_factor=0.0000229568411, area_units='ACRES',
                         volume_conversion_factor=0.0000229568411, volume_units='ACRE-FEET', verbose=False):
-    ''' get_zbudget_elemids() - open an IWFM Budget HDF file and retreive element ids
+    ''' get_zbudget_elemids() - return the element IDs referenced in an
+        IWFM Z-Budget zone definition file
 
     Parameters
     ----------
-    zbud : object
-        IWFM ZBudget object (opened from HDF file)
+    zbud : object or None
+        retained for backward compatibility; not used (element IDs come
+        from the zone definition file)
 
     zones_file : str
         Name of IWFM Z-Budget Zones file
 
-    area_conversion_factor : float, default = =0.0000229568411
-        Area conversion factor
+    area_conversion_factor : float, default = 0.0000229568411
+        Area conversion factor (retained for backward compatibility)
 
     area_units : str, default = 'ACRES'
-        Area units
+        Area units (retained for backward compatibility)
 
-    volume_conversion_factor : float, default = =0.0000229568411
-        Volume conversion factor
+    volume_conversion_factor : float, default = 0.0000229568411
+        Volume conversion factor (retained for backward compatibility)
 
     volume_units : str, default = 'ACRE-FEET'
-        Volume units
+        Volume units (retained for backward compatibility)
 
     verbose : bool, default=False
         Turn command-line output on or off
@@ -50,110 +52,44 @@ def get_zbudget_elemids(zbud, zones_file, area_conversion_factor=0.0000229568411
     Returns
     -------
     elemids : list
-        List of element IDs
+        sorted list of unique element IDs assigned to zones
+
     '''
-    
-    zbud.generate_zone_list_from_file(zone_definition_file=zones_file)
+    from iwfm.hdf5.hdf5_utils import read_zone_definition
 
-    n_zones = zbud.get_n_zones()
-    logger.debug(f'{n_zones=:,}')
+    zextent, zone_info, element_zones = read_zone_definition(zones_file)
 
-    zone_list = zbud.get_zone_list()
-    logger.debug(f'{zone_list=}')
-    logger.debug(f'{zone_list[0]=}')
+    if zextent == 1:
+        elemids = sorted({int(e) for e in element_zones})
+    else:
+        elemids = sorted({int(e) for e, _layer in element_zones})
 
-    zone_id = int(zone_list[0])
-    column_ids = [15]     # 15 = 'Pumping by Element_Outflow (-)'
+    logger.debug(f'{zones_file}: {len(zone_info)} zones, {len(elemids)} elements')
+    if verbose:
+        print(f'  {len(elemids)} elements in {len(zone_info)} zones from {zones_file}')
 
-    zone_names = zbud.get_zone_names()
-    logger.debug(f'{zone_names=}')
-
-    n_title_lines = zbud.get_n_title_lines()
-    logger.debug(f'{n_title_lines=}')
-
-    for zn in range(0,3):
-        logger.debug('==============================')
-        zone_id = int(zone_list[zn])
-        zone_name = zone_names[zn]
-        logger.debug(f'{zone_id=}\t{zone_name=}')
-
-        title_lines = zbud.get_title_lines(zone_id)
-        logger.debug(f'{title_lines=}')
-
-        column_names, column_ids = zbud.get_column_headers_for_a_zone(zone_id)
-        logger.debug(f'{column_names=}\n{column_ids=}')
-
-        zone_vals = zbud.get_values_for_a_zone(zone_id=zone_id, column_ids=15,
-                        begin_date=None, end_date=None, output_interval=None,
-                        area_conversion_factor=area_conversion_factor, area_units=area_units,
-                        volume_conversion_factor=volume_conversion_factor, volume_units=volume_units)
-        logger.debug(f'{zone_vals.size=:,}')
-        logger.debug(f'{zone_vals.shape=}')
-        logger.debug(f'{zone_vals=}')
-
-        # column 1 = dates
-        # write to excel file, column = dates, row = element
-        # one tab for each of the following columns: 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 15, 17, 18, 20:n-2 (to/from adjacent elements)
-
-
-#    if verbose: print(f'  ==>{n_title_lines=}')
-
-
-#    if verbose: print(f'  ==>{n_title_lines=}')
-
-
-#    elemids = zbud.get_elemids()           # get list of element IDs
-
-    #elemids = zbud.iw_model_getelementids       # get elemet ids from zbudget file
-
-    # get the file contents
-    #zone_names      = zbud.get_zone_names()            # get list of zone names
-    #zone_list       = zbud.get_zone_list()             # get list of zone IDs
-    #zone_extent_ids = zbud.get_zone_extent_ids()       # get zone extent IDs
-
-    # TODO: This function is incomplete - elemids is not properly extracted from zbud
-    # Temporary fix to avoid undefined variable error
-    elemids = []  # placeholder - needs proper implementation
     return elemids
 
 if __name__ == '__main__':
     ''' Run get_zbudget_elemids() from command line '''
     import sys
-    from pathlib import Path
     import iwfm
-    from pywfm import IWFMZBudget
     import iwfm.debug as idb
     from iwfm.debug import parse_cli_flags
 
     verbose, debug = parse_cli_flags()
 
-
     if len(sys.argv) > 1:  # arguments are listed on the command line
-        hdf_file   = sys.argv[1]
-        zones_file = sys.argv[2]
-    else:  # ask for file names from terminal
-        hdf_file       = input('IWFM Z-Budget file name: ')
-        zones_file     = input('IWFM Z-Budget Zones file name: ')
+        zones_file = sys.argv[1]
+    else:  # ask for file name from terminal
+        zones_file = input('IWFM Z-Budget Zones file name: ')
 
-    iwfm.file_test(hdf_file)
     iwfm.file_test(zones_file)
 
-    # if outfile_name extension != '.txt' add '.txt'
-    hdf_path = Path(hdf_file)
-    if hdf_path.suffix != '.txt':
-        outfile_name = hdf_path.with_suffix('.txt')
-        logger.debug(f'{outfile_name=}')
-
     idb.exe_time()  # initialize timer
-    
-    # open hdf file
-    zbud = IWFMZBudget(hdf_file)
 
-    elemids = get_zbudget_elemids(zbud, zones_file, verbose=verbose)
+    elemids = get_zbudget_elemids(None, zones_file, verbose=True)
 
-    print(f'  {elemids=}')
-
-
-#    print(f'  Created {outfile_name} with {count} worksheets.')
+    print(f'  {len(elemids)} element IDs; first 10: {elemids[:10]}')
 
     idb.exe_time()  # print elapsed time

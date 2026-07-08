@@ -58,12 +58,21 @@ def zbudget2csv(outfile, zone_names, column_headers, zone_values, titles, zone_l
     zbudget_type = titles[0][1].split()[0]    # get zbudget type from titles
     # 'GROUNDWATER', 'LAND', 'ROOT', or 'UNSATURATED''
 
+    def first_interzone_col(names):
+        # interzone flow columns are named for the neighboring zone
+        # (e.g. 'Inflow from zone 2'); the column count varies by model
+        for i, name in enumerate(names):
+            if 'zone' in str(name).lower():
+                return i
+        return None
+
     header = column_headers[0][0]
-    if zbudget_type == 'GROUNDWATER':        # remove columns 21 to (n-2) from header
-        # TODO - the number of columns in the header is flexible so find the first
-        #        column that is an interzone flow and delete that column to n-2
-        for _ in range(21,len(header)-2):
-            header.pop(21)
+    interzone_start = None
+    if zbudget_type == 'GROUNDWATER':        # remove interzone columns, keep last 2
+        interzone_start = first_interzone_col(header)
+        if interzone_start is not None:
+            for _ in range(interzone_start, len(header) - 2):
+                header.pop(interzone_start)
 
     with open(outfile, 'w', encoding='utf-8') as f:
         f.write(f'ZoneNo,ZoneName,{",".join([i for i in header])}\n')   # write header to file
@@ -71,10 +80,10 @@ def zbudget2csv(outfile, zone_names, column_headers, zone_values, titles, zone_l
         for zone in range(len(zone_names)):
             vals = zone_values[zone].to_numpy()    # as numpy arrray, easier to convert time to string
 
-            # omly print some columns for GROUNDWATER
-            if zbudget_type == 'GROUNDWATER':        # remove columns 21 to (n-2) from val
-                for i in range(21,vals.shape[1]-2):
-                    vals = np.delete(vals, [21], axis=1)
+            # only print some columns for GROUNDWATER
+            if interzone_start is not None:        # remove interzone columns, keep last 2
+                for i in range(interzone_start, vals.shape[1] - 2):
+                    vals = np.delete(vals, [interzone_start], axis=1)
 
             for row in range(vals.shape[0]):
                 pv_row = []

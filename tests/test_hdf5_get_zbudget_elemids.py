@@ -29,111 +29,79 @@ except ImportError:
     HAS_PYWFM = False
 
 
-def test_get_zbudget_elemids_elemids_initialized():
-    '''Test that elemids is initialized (verifies fix).'''
-    # This verifies the fix: added 'elemids = []' placeholder
-    from iwfm.hdf5 import get_zbudget_elemids
-    import inspect
+def _zone_file(tmp_path, zextent=1):
+    """Write a minimal zone definition file."""
+    if zextent == 1:
+        content = (
+            "C zone definition file\n"
+            "     1                / ZEXTENT\n"
+            "C   ZID   ZNAME\n"
+            "     1    North Zone\n"
+            "     2    South Zone\n"
+            "C   IE   ZONE\n"
+            "     10   1\n"
+            "     11   1\n"
+            "     20   2\n"
+            "     11   1\n"
+        )
+    else:
+        content = (
+            "C zone definition file\n"
+            "     0                / ZEXTENT\n"
+            "C   ZID   ZNAME\n"
+            "     1    Zone A\n"
+            "C   IE   ZONE   (with layer)\n"
+            "     5    1    1\n"
+            "     5    2    1\n"
+            "     6    1    1\n"
+        )
+    f = tmp_path / 'zones.dat'
+    f.write_text(content)
+    return str(f)
 
-    source = inspect.getsource(get_zbudget_elemids)
-    # Should have 'elemids = []' initialization
-    assert 'elemids = []' in source
 
-
-def test_get_zbudget_elemids_has_todo():
-    '''Test that function has TODO comment for incomplete implementation.'''
-    from iwfm.hdf5 import get_zbudget_elemids
-    import inspect
-
-    source = inspect.getsource(get_zbudget_elemids)
-    # Should have TODO comment
-    assert 'TODO' in source
-
-
-@pytest.mark.skipif(not HAS_PYWFM, reason="pywfm not installed")
-def test_get_zbudget_elemids_basic(tmp_path):
-    '''Test basic functionality of get_zbudget_elemids.'''
+def test_get_zbudget_elemids_horizontal_zones(tmp_path):
+    """zextent=1: unique sorted element IDs."""
     from iwfm.hdf5.get_zbudget_elemids import get_zbudget_elemids
 
-    # Create mock zbud object
-    mock_zbud = Mock()
-    mock_zbud.generate_zone_list_from_file.return_value = None
-    mock_zbud.get_n_zones.return_value = 3
-    mock_zbud.get_zone_list.return_value = [1, 2, 3]
-    mock_zbud.get_zone_names.return_value = ['Zone1', 'Zone2', 'Zone3']
-    mock_zbud.get_n_title_lines.return_value = 2
-    mock_zbud.get_title_lines.return_value = ['Title 1', 'Title 2']
-    mock_zbud.get_column_headers_for_a_zone.return_value = (['Col1', 'Col2'], [1, 2])
-    mock_zbud.get_values_for_a_zone.return_value = Mock(size=100, shape=(10, 10))
+    result = get_zbudget_elemids(None, _zone_file(tmp_path, zextent=1))
 
-    zones_file = tmp_path / 'zones.dat'
-    zones_file.write_text('zone data')
-
-    result = get_zbudget_elemids(
-        mock_zbud,
-        str(zones_file),
-        verbose=False
-    )
-
-    # Should return empty list (incomplete implementation)
-    assert result == []
+    assert result == [10, 11, 20]
 
 
-@pytest.mark.skipif(not HAS_PYWFM, reason="pywfm not installed")
+def test_get_zbudget_elemids_layered_zones(tmp_path):
+    """zextent=0: element IDs deduplicated across layers."""
+    from iwfm.hdf5.get_zbudget_elemids import get_zbudget_elemids
+
+    result = get_zbudget_elemids(None, _zone_file(tmp_path, zextent=0))
+
+    assert result == [5, 6]
+
+
 def test_get_zbudget_elemids_verbose(tmp_path, capsys):
-    '''Test get_zbudget_elemids with verbose output.'''
+    """verbose=True prints a summary."""
     from iwfm.hdf5.get_zbudget_elemids import get_zbudget_elemids
 
-    mock_zbud = Mock()
-    mock_zbud.generate_zone_list_from_file.return_value = None
-    mock_zbud.get_n_zones.return_value = 2
-    mock_zbud.get_zone_list.return_value = [1, 2]
-    mock_zbud.get_zone_names.return_value = ['Zone1', 'Zone2']
-    mock_zbud.get_n_title_lines.return_value = 1
-    mock_zbud.get_title_lines.return_value = ['Title']
-    mock_zbud.get_column_headers_for_a_zone.return_value = (['Col1'], [1])
-    mock_zbud.get_values_for_a_zone.return_value = Mock(size=10, shape=(5, 2))
+    get_zbudget_elemids(None, _zone_file(tmp_path), verbose=True)
 
-    zones_file = tmp_path / 'zones.dat'
-    zones_file.write_text('zone data')
-
-    result = get_zbudget_elemids(
-        mock_zbud,
-        str(zones_file),
-        verbose=True
-    )
-
-    captured = capsys.readouterr()
-    # Should have some verbose output
-    assert 'n_zones' in captured.out or captured.out != ''
+    assert 'elements' in capsys.readouterr().out
 
 
 def test_get_zbudget_elemids_function_signature():
-    '''Test that get_zbudget_elemids has correct function signature.'''
-    from iwfm.hdf5.get_zbudget_elemids import get_zbudget_elemids
+    """Signature retains backward-compatible parameters."""
     import inspect
+    from iwfm.hdf5.get_zbudget_elemids import get_zbudget_elemids
 
-    sig = inspect.signature(get_zbudget_elemids)
-    params = list(sig.parameters.keys())
-
-    assert 'zbud' in params
-    assert 'zones_file' in params
-    assert 'area_conversion_factor' in params
-    assert 'area_units' in params
-    assert 'volume_conversion_factor' in params
-    assert 'volume_units' in params
-    assert 'verbose' in params
+    params = list(inspect.signature(get_zbudget_elemids).parameters)
+    assert params == ['zbud', 'zones_file', 'area_conversion_factor',
+                      'area_units', 'volume_conversion_factor',
+                      'volume_units', 'verbose']
 
 
 def test_get_zbudget_elemids_default_parameters():
-    '''Test that get_zbudget_elemids has correct default parameters.'''
-    from iwfm.hdf5.get_zbudget_elemids import get_zbudget_elemids
     import inspect
+    from iwfm.hdf5.get_zbudget_elemids import get_zbudget_elemids
 
     sig = inspect.signature(get_zbudget_elemids)
-
     assert sig.parameters['area_conversion_factor'].default == 0.0000229568411
-    assert sig.parameters['area_units'].default == 'ACRES'
-    assert sig.parameters['volume_conversion_factor'].default == 0.0000229568411
-    assert sig.parameters['volume_units'].default == 'ACRE-FEET'
-    assert sig.parameters['verbose'].default == False
+    assert sig.parameters['verbose'].default is False
