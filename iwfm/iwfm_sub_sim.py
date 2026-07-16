@@ -27,8 +27,6 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     files to produce new preprocessor files for the submodel and a list of
     model node pairs
 
-    *** INCOMPLETE - UNDER DEVELOPMENT ***
-
     Parameters
     ----------
     in_sim_file : str
@@ -57,8 +55,6 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     nodes, element nodes, node coordinates, stream nodes, submodel stream
     nodes). A FileNotFoundError naming the missing pickles is raised
     otherwise.
-
-    TODO: process Lake files.
 
     '''
     import iwfm
@@ -219,15 +215,17 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     iwfm.sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, sim_base_path, verbose)
 
     # -- process submodel Lake file
-    if have_lake:
-        logger.debug('TO DO: Lake process files')
+    # the original model may have lakes but the submodel may contain none
+    sub_has_lake = have_lake and len(lake_info) > 0
+    if sub_has_lake:
+        iwfm.sub_lake_file(sim_files, sim_files_new, lake_info, verbose=verbose)
 
     if verbose:
         print(" ")
 
 
     # -- write new simulation main input file
-    iwfm.sub_sim_file(in_sim_file, sim_files_new, have_lake)
+    iwfm.sub_sim_file(in_sim_file, sim_files_new, sub_has_lake)
     if verbose:
         print(f'  Wrote submodel simulation file {sim_files_new.sim_name}')
 

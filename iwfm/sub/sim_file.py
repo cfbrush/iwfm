@@ -62,11 +62,16 @@ def sub_sim_file(in_sim_file, sim_files_new, has_lake=False):
     sim_lines[line_index] = (' ' * 4 + sim_files_new.stream_file).ljust(53) + ' '.join(sim_lines[line_index].split()[1:])  # indent 4 chars, pad to 53
 
     # -- lake file
+    _, line_index = read_next_line_value(sim_lines, line_index, column=0, skip_lines=0)
     if has_lake:
-        _, line_index = read_next_line_value(sim_lines, line_index, column=0, skip_lines=0)
         sim_lines[line_index] = (' ' * 4 + sim_files_new.lake_file).ljust(53) + ' '.join(sim_lines[line_index].split()[1:])  # indent 4 chars, pad to 53
     else:
-        line_index += 1
+        # blank the lake file name (the original model may have a lake file
+        # even when the submodel contains no lakes); keep the '/ ...' tail
+        parts = sim_lines[line_index].split()
+        tail = next((n for n, p in enumerate(parts) if p.startswith('/')), None)
+        if tail is not None and tail > 0:  # a lake file name precedes the '/'
+            sim_lines[line_index] = (' ' * 53) + ' '.join(parts[tail:])
 
     # -- rootzone file
     _, line_index = read_next_line_value(sim_lines, line_index, column=0, skip_lines=0)

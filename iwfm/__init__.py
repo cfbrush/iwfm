@@ -228,6 +228,7 @@ from iwfm.iwfm_read_sim_file import iwfm_read_sim_file
 from iwfm.sub.sim_file import sub_sim_file
 from iwfm.sub.swhed_file import sub_swhed_file
 from iwfm.sub.unsat_file import sub_unsat_file
+from iwfm.sub.lake_file import sub_lake_file
 from iwfm.sub.gw_file import sub_gw_file
 from iwfm.sub.gw_bc_file import sub_gw_bc_file
 from iwfm.sub.gw_bc_cghd_file import sub_gw_bc_cghd_file

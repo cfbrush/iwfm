@@ -265,6 +265,29 @@ class TestSubSimFileLake:
         assert sim_files_new.swshed_file in content
         assert sim_files_new.unsat_file in content
 
+    def test_original_lake_blanked_when_submodel_has_none(self, tmp_path):
+        """Original model has a lake file but the submodel keeps no lakes:
+        the lake file name must be blanked, not carried over."""
+        input_file = tmp_path / 'old_sim.in'
+        input_file.write_text(create_sim_file_content(has_lake=True))
+
+        sim_files_new = create_sim_files_new(tmp_path)
+
+        iwfm.sub_sim_file(str(input_file), sim_files_new, has_lake=False)
+
+        with open(sim_files_new.sim_name, 'r') as f:
+            lines = f.read().splitlines()
+
+        # neither the old nor a new lake file name remains
+        assert not any('Model_Lake.dat' in line for line in lines)
+        assert not any(sim_files_new.lake_file in line for line in lines)
+        # the lake line survives as a blank entry ('/'-leading data line)
+        lake_line = next(line for line in lines if 'LAKE COMPONENT' in line)
+        assert lake_line.split()[0] == '/'
+        # following lines still updated correctly (no misalignment)
+        assert any(sim_files_new.root_file in line for line in lines)
+        assert any(sim_files_new.swshed_file in line for line in lines)
+
 
 class TestSubSimFileNotFound:
     """Tests for file not found handling."""
