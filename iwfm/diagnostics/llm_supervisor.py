@@ -14,7 +14,8 @@ optimizer run with noptmax iterations), the supervisor:
   3. Receives structured decisions (fix/unfix params, adjust bounds, etc.)
   4. Writes a modified PST and launches the next epoch
 
-Usage:
+Usage::
+
     from iwfm.diagnostics.llm_supervisor import LLMSupervisor
 
     supervisor = LLMSupervisor(

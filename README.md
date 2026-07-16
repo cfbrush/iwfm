@@ -2,6 +2,8 @@
 
 Python functions to work with IWFM-based models
 
+**Documentation:** https://cfbrush.github.io/iwfm/
+
 ## Overview
 
 The California Department of Water Resources is actively developing the Integrated Water Flow Model for creating integrated hydrologic models.

@@ -15,7 +15,7 @@ def detect_convergence_trouble(convergence, iter_threshold=40,
     iter_threshold : int
         Flag timesteps with iterations >= this.
     diffmax_threshold : float
-        Flag timesteps with |DIFFMAX| >= this.
+        Flag timesteps with abs(DIFFMAX) >= this.
 
     Returns
     -------

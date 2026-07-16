@@ -48,13 +48,15 @@ def iteration_callback(pest_dir, iteration=None, model_config=None,
     Returns
     -------
     dict
-        {
-            'bundle_json': str,         # Serialized diagnostic bundle
-            'bundle': DiagnosticBundle,  # Full bundle object
-            'recommendations': dict,    # Parameter recommendations (if apply_changes)
-            'output_pst': str,          # Path to new .pst (if apply_changes)
-            'iteration': int,
-        }
+        Result dictionary::
+
+            {
+                'bundle_json': str,          # Serialized diagnostic bundle
+                'bundle': DiagnosticBundle,  # Full bundle object
+                'recommendations': dict,     # Parameter recommendations (if apply_changes)
+                'output_pst': str,           # Path to new .pst (if apply_changes)
+                'iteration': int,
+            }
     """
     # Default model config for C2VSimCG
     if model_config is None:

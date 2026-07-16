@@ -30,14 +30,15 @@ def read_obs_smp(smp_file):
     Returns
     -------
     polars.DataFrame or dict
-        If polars is available, returns a sorted DataFrame with columns:
-            site_name : str   - observation site identifier
+        If polars is available, returns a sorted DataFrame with columns::
+
+            site_name : str      - observation site identifier
             date      : datetime - observation date
-            time      : str   - observation time string (HH:MM:SS)
-            obs_value : float - observed value
+            time      : str      - observation time string (HH:MM:SS)
+            obs_value : float    - observed value
+
         If polars is not available, returns a dict with the same keys,
-        each containing a list of values.
-        Sorted by (site_name, date, time).
+        each containing a list of values. Sorted by (site_name, date, time).
 
     '''
     from datetime import datetime

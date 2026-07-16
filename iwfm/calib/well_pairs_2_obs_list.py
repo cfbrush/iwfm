@@ -28,18 +28,20 @@ def well_pairs_2_obs_list(well_pair_file, obs_file, days=15, verbose=False):
     Parameters
     ----------
     well_pair_file : str
-        name of csv file containing paired well names
-        File contents:  PairNo, WellName1, WellName2
-            PairNo : int, index number for well pair
+        name of csv file containing paired well names.
+        File contents ``PairNo, WellName1, WellName2``::
+
+            PairNo    : int, index number for well pair
             WellName1 : str, name of first well
             WellName2 : str, name of second well
 
     obs_file : str
-        name of csv file containing head observations
-        File contents:  WELL_NAME, MSMT_DATE, WSE
+        name of csv file containing head observations.
+        File contents ``WELL_NAME, MSMT_DATE, WSE``::
+
             WELL_NAME : str, name of well
             MSMT_DATE : str, date of measurement (mm/dd/yyyy)
-            WSE : float, water surface elevation
+            WSE       : float, water surface elevation
 
     days : int (default: 15)
         window for matching dates between two wells

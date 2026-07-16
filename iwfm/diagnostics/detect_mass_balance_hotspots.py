@@ -12,7 +12,7 @@ def detect_mass_balance_hotspots(mb_summary, threshold_multiplier=5.0):
     mb_summary : MassBalanceSummary
         From read_elemmb_hdf.
     threshold_multiplier : float
-        Flag elements where mean |residual| exceeds this multiple
+        Flag elements where mean abs(residual) exceeds this multiple
         of the layer mean.
 
     Returns

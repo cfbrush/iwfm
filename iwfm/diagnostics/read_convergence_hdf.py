@@ -31,7 +31,7 @@ def read_convergence_hdf(hdf_path, max_iter_threshold=40,
     max_iter_threshold : int
         Flag timesteps with ITERX >= this value.
     diffmax_threshold : float
-        Flag timesteps with |DIFFMAX| >= this value.
+        Flag timesteps with abs(DIFFMAX) >= this value.
     top_n_trouble : int
         Max number of trouble timesteps to report.
     verbose : bool

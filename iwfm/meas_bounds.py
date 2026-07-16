@@ -24,8 +24,8 @@ def meas_bounds(gwhyd_obs):
     Parameters
     ----------
     gwhyd_obs : str
-        SMP observation file name. Each data line has the form:
-            ``<well_name>  <MM/DD/YYYY>  <HH:MM:SS>  <head_obs>``
+        SMP observation file name. Each data line has the form
+        ``<well_name>  <MM/DD/YYYY>  <HH:MM:SS>  <head_obs>``,
         e.g. ``11N19W05Q001S  01/28/1987  00:00:00  108.530``.
         Blank lines and lines whose date column does not parse as
         ``MM/DD/YYYY`` are silently skipped.

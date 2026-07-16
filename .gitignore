@@ -40,3 +40,7 @@ test_logs/
 
 # aider files
 .aider*
+
+# Sphinx documentation build
+docs/_build/
+docs/_autosummary/

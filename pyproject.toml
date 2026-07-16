@@ -59,6 +59,7 @@ webmap = ["folium"]         # interactive HTML maps (gis/heatmap)
 xls-legacy = ["xlrd"]       # read pre-2007 .xls workbooks (gis/wks2shp_pt) —
                             # some agency data is still distributed in this format
 test = ["pytest", "pytest-cov", "ruff"]
+docs = ["sphinx", "furo"]   # build with: sphinx-build -b html docs docs/_build/html
 # Not pip-installable, imported lazily where used: pywfm (DWR, legacy HDF5
 # backend), qgis (QGIS app python), geopdf, pypest (sibling repo).
 

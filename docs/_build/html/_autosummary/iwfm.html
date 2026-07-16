@@ -1,0 +1,1324 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="iwfm.Unbuffered" href="iwfm.Unbuffered.html"><link rel="prev" title="API reference" href="../api.html">
+
+    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+        <title>iwfm - iwfm — IWFM file tools for Python</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">iwfm — IWFM file tools for Python</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <span class="sidebar-brand-text">iwfm — IWFM file tools for Python</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file-formats.html">IWFM file conventions</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../api.html">API reference</a><input aria-label="Toggle navigation of API reference" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul class="current">
+<li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">iwfm</a><input aria-label="Toggle navigation of iwfm" checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.Unbuffered.html">iwfm.Unbuffered</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.bnds2mask.html">iwfm.bnds2mask</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.bud2csv.html">iwfm.bud2csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.budget_info.html">iwfm.budget_info</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.calib.html">iwfm.calib</a><input aria-label="Toggle navigation of iwfm.calib" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.bias_calc.html">iwfm.calib.bias_calc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.calib.html">iwfm.calib.calib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.calib_stats.html">iwfm.calib.calib_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.compare.html">iwfm.calib.compare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.divshort2obs.html">iwfm.calib.divshort2obs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.do_avgonly.html">iwfm.calib.do_avgonly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.fac2iwfm.html">iwfm.calib.fac2iwfm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.find_nearest_index.html">iwfm.calib.find_nearest_index</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.get_hyd_fname.html">iwfm.calib.get_hyd_fname</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.get_hyd_info.html">iwfm.calib.get_hyd_info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.get_hyd_names.html">iwfm.calib.get_hyd_names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.get_obs_hyd.html">iwfm.calib.get_obs_hyd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.get_sim_hyd.html">iwfm.calib.get_sim_hyd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.headdiff_hyds.html">iwfm.calib.headdiff_hyds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.headdiff_read.html">iwfm.calib.headdiff_read</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.hyds_missed.html">iwfm.calib.hyds_missed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.idw.html">iwfm.calib.idw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.interp_val.html">iwfm.calib.interp_val</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.iwfm2obs.html">iwfm.calib.iwfm2obs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.iwfm_exe_time.html">iwfm.calib.iwfm_exe_time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.krige.html">iwfm.calib.krige</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.ltbud.html">iwfm.calib.ltbud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.ltsmp.html">iwfm.calib.ltsmp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.obs_smp.html">iwfm.calib.obs_smp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.par2iwfm.html">iwfm.calib.par2iwfm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.params2gw.html">iwfm.calib.params2gw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.pest_res_stats.html">iwfm.calib.pest_res_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.ppk2fac.html">iwfm.calib.ppk2fac</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.ppk2fac_trans.html">iwfm.calib.ppk2fac_trans</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.read_gw_file.html">iwfm.calib.read_gw_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.read_obs_wells.html">iwfm.calib.read_obs_wells</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.read_overwrite_file.html">iwfm.calib.read_overwrite_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.read_settings.html">iwfm.calib.read_settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.real2iwfm.html">iwfm.calib.real2iwfm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.res_stats.html">iwfm.calib.res_stats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.rmse_calc.html">iwfm.calib.rmse_calc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.setrot.html">iwfm.calib.setrot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.sim_4_sites.html">iwfm.calib.sim_4_sites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.sim_equiv.html">iwfm.calib.sim_equiv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.sim_obs_list.html">iwfm.calib.sim_obs_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.sim_smp.html">iwfm.calib.sim_smp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.simout2gw.html">iwfm.calib.simout2gw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.smp_avg.html">iwfm.calib.smp_avg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.smp_format.html">iwfm.calib.smp_format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.smp_read.html">iwfm.calib.smp_read</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.stacdep2obs.html">iwfm.calib.stacdep2obs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.to_smp_ins.html">iwfm.calib.to_smp_ins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.well_pairs_2_obs_list.html">iwfm.calib.well_pairs_2_obs_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.write_missing.html">iwfm.calib.write_missing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.write_overwrite_file.html">iwfm.calib.write_overwrite_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.write_results.html">iwfm.calib.write_results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.calib.write_rmse_bias.html">iwfm.calib.write_rmse_bias</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.cdec2monthly.html">iwfm.cdec2monthly</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.cfs2afd.html">iwfm.cfs2afd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.closest_list.html">iwfm.closest_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.date_index.html">iwfm.date_index</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.date_util.html">iwfm.date_util</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.dbf_open.html">iwfm.dbf_open</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.dbf_print_record.html">iwfm.dbf_print_record</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.debug.html">iwfm.debug</a><input aria-label="Toggle navigation of iwfm.debug" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.check_key.html">iwfm.debug.check_key</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.debug.html">iwfm.debug.debug</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.exe_time.html">iwfm.debug.exe_time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.logger_setup.html">iwfm.debug.logger_setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.print_dict.html">iwfm.debug.print_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.print_env.html">iwfm.debug.print_env</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.print_exe_time.html">iwfm.debug.print_exe_time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.test_dict.html">iwfm.debug.test_dict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.this_python.html">iwfm.debug.this_python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.this_sys.html">iwfm.debug.this_sys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.this_sys_version.html">iwfm.debug.this_sys_version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.debug.timer.html">iwfm.debug.timer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.detaw_2_table.html">iwfm.detaw_2_table</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.diagnostics.html">iwfm.diagnostics</a><input aria-label="Toggle navigation of iwfm.diagnostics" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.assemble_bundle.html">iwfm.diagnostics.assemble_bundle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.build_tied_groups.html">iwfm.diagnostics.build_tied_groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.detect_convergence_trouble.html">iwfm.diagnostics.detect_convergence_trouble</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.detect_mass_balance_hotspots.html">iwfm.diagnostics.detect_mass_balance_hotspots</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.detect_params_at_bounds.html">iwfm.diagnostics.detect_params_at_bounds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.detect_residual_clusters.html">iwfm.diagnostics.detect_residual_clusters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.detect_stream_gw_anomalies.html">iwfm.diagnostics.detect_stream_gw_anomalies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.diag_dataclasses.html">iwfm.diagnostics.diag_dataclasses</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.iteration_callback.html">iwfm.diagnostics.iteration_callback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.llm_supervisor.html">iwfm.diagnostics.llm_supervisor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.parse_model_geometry.html">iwfm.diagnostics.parse_model_geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.read_convergence_hdf.html">iwfm.diagnostics.read_convergence_hdf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.read_elemmb_hdf.html">iwfm.diagnostics.read_elemmb_hdf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.read_pest_sensitivity.html">iwfm.diagnostics.read_pest_sensitivity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.read_pest_state.html">iwfm.diagnostics.read_pest_state</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.read_residual_hdf.html">iwfm.diagnostics.read_residual_hdf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.read_stream_hdf.html">iwfm.diagnostics.read_stream_hdf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.select_parameters.html">iwfm.diagnostics.select_parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.serialize_bundle.html">iwfm.diagnostics.serialize_bundle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.setup_pest_run.html">iwfm.diagnostics.setup_pest_run</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.stability_jacobian.html">iwfm.diagnostics.stability_jacobian</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.suggest_parameter_changes.html">iwfm.diagnostics.suggest_parameter_changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.diagnostics.write_pest_control.html">iwfm.diagnostics.write_pest_control</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.dicu2table.html">iwfm.dicu2table</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.dll.html">iwfm.dll</a><input aria-label="Toggle navigation of iwfm.dll" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.date_time.html">iwfm.dll.date_time</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.dll_backend.html">iwfm.dll.dll_backend</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.dll_init.html">iwfm.dll.dll_init</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.dll_init_tyler.html">iwfm.dll.dll_init_tyler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.dll_open.html">iwfm.dll.dll_open</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_elem_ids.html">iwfm.dll.get_elem_ids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_elem_nodes.html">iwfm.dll.get_elem_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_nelem.html">iwfm.dll.get_nelem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_nnodes.html">iwfm.dll.get_nnodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_node_ids.html">iwfm.dll.get_node_ids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_node_xy.html">iwfm.dll.get_node_xy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_timespecs.html">iwfm.dll.get_timespecs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.get_timesteps.html">iwfm.dll.get_timesteps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.dll.seek_proc.html">iwfm.dll.seek_proc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.dss_date.html">iwfm.dss_date</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.elem_poly_coords.html">iwfm.elem_poly_coords</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.elem_poly_coords_wkt.html">iwfm.elem_poly_coords_wkt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file2dict.html">iwfm.file2dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_2_bak.html">iwfm.file_2_bak</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_delete.html">iwfm.file_delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_missing.html">iwfm.file_missing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_rename.html">iwfm.file_rename</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_test.html">iwfm.file_test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_type_error.html">iwfm.file_type_error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_utils.html">iwfm.file_utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.file_validate_path.html">iwfm.file_validate_path</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.generate_datetime_objects.html">iwfm.generate_datetime_objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.generate_timesteps.html">iwfm.generate_timesteps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_change_col.html">iwfm.get_change_col</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_elem_centroids.html">iwfm.get_elem_centroids</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_elem_list.html">iwfm.get_elem_list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_gw_params.html">iwfm.get_gw_params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_heads_4_date.html">iwfm.get_heads_4_date</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_stream_list_40.html">iwfm.get_stream_list_40</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_stream_list_41.html">iwfm.get_stream_list_41</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_stream_list_42.html">iwfm.get_stream_list_42</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.get_stream_list_50.html">iwfm.get_stream_list_50</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.gis.html">iwfm.gis</a><input aria-label="Toggle navigation of iwfm.gis" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.bearing.html">iwfm.gis.bearing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.choropleth.html">iwfm.gis.choropleth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.contour2png.html">iwfm.gis.contour2png</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.dd2dms.html">iwfm.gis.dd2dms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.density_plot.html">iwfm.gis.density_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.distance_ellipse.html">iwfm.gis.distance_ellipse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.distance_sphere.html">iwfm.gis.distance_sphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.dms2dd.html">iwfm.gis.dms2dd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.elem2boundingpoly.html">iwfm.gis.elem2boundingpoly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.elem2shp.html">iwfm.gis.elem2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.elem_zbud2shp.html">iwfm.gis.elem_zbud2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.elems2shp_csv.html">iwfm.gis.elems2shp_csv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geocode.html">iwfm.gis.geocode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geocode_ex.html">iwfm.gis.geocode_ex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geocode_json.html">iwfm.gis.geocode_json</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geocode_mp.html">iwfm.gis.geocode_mp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geocode_wkt.html">iwfm.gis.geocode_wkt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geojson2shp.html">iwfm.gis.geojson2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geop_open.html">iwfm.gis.geop_open</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geop_plot.html">iwfm.gis.geop_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geop_saveplot.html">iwfm.gis.geop_saveplot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geopdf_create.html">iwfm.gis.geopdf_create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.geopdf_draw_rect_ex.html">iwfm.gis.geopdf_draw_rect_ex</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.getWKT_prj.html">iwfm.gis.getWKT_prj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.get_boundary_coords.html">iwfm.gis.get_boundary_coords</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.get_utm_zone.html">iwfm.gis.get_utm_zone</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.gis.html">iwfm.gis.gis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.grid2img.html">iwfm.gis.grid2img</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.grid_colorize.html">iwfm.gis.grid_colorize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.grid_contour.html">iwfm.gis.grid_contour</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.grid_read.html">iwfm.gis.grid_read</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.grid_shadedrelief.html">iwfm.gis.grid_shadedrelief</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.grid_write.html">iwfm.gis.grid_write</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.heatmap.html">iwfm.gis.heatmap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.hillshade.html">iwfm.gis.hillshade</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.histogram.html">iwfm.gis.histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.histogram_array.html">iwfm.gis.histogram_array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.histogram_draw.html">iwfm.gis.histogram_draw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.igsm2shp.html">iwfm.gis.igsm2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.igsm_elem2shp.html">iwfm.gis.igsm_elem2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.image2Array.html">iwfm.gis.image2Array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_2_array.html">iwfm.gis.img_2_array</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_classify.html">iwfm.gis.img_classify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_clip.html">iwfm.gis.img_clip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_diff.html">iwfm.gis.img_diff</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_extract.html">iwfm.gis.img_extract</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_stretch.html">iwfm.gis.img_stretch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_swap_bands.html">iwfm.gis.img_swap_bands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.img_threshold.html">iwfm.gis.img_threshold</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.is_northern.html">iwfm.gis.is_northern</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.iwfm2shp.html">iwfm.gis.iwfm2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.json_read.html">iwfm.gis.json_read</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.kml_points.html">iwfm.gis.kml_points</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.las2dem.html">iwfm.gis.las2dem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.las2shp.html">iwfm.gis.las2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.latlon_2_utm.html">iwfm.gis.latlon_2_utm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.make_prj.html">iwfm.gis.make_prj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_divs2shp.html">iwfm.gis.map_divs2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_elempump.html">iwfm.gis.map_elempump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_elempump2shp.html">iwfm.gis.map_elempump2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_lu.html">iwfm.gis.map_lu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_param2shp_elems.html">iwfm.gis.map_param2shp_elems</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_param2shp_nodes.html">iwfm.gis.map_param2shp_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_param2shp_rz.html">iwfm.gis.map_param2shp_rz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_param2shp_rz_natrip.html">iwfm.gis.map_param2shp_rz_natrip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_param2shp_rz_npc.html">iwfm.gis.map_param2shp_rz_npc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_param2shp_rz_pc.html">iwfm.gis.map_param2shp_rz_pc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_param2shp_rz_urban.html">iwfm.gis.map_param2shp_rz_urban</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.map_rchg2shp.html">iwfm.gis.map_rchg2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.method_fns.html">iwfm.gis.method_fns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.mysql_commit.html">iwfm.gis.mysql_commit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.mysql_conn.html">iwfm.gis.mysql_conn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.mysql_create.html">iwfm.gis.mysql_create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.mysql_insert_record.html">iwfm.gis.mysql_insert_record</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.mysql_new_table.html">iwfm.gis.mysql_new_table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.mysql_read.html">iwfm.gis.mysql_read</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.nmea_parse.html">iwfm.gis.nmea_parse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.nodal_multivalues2shp.html">iwfm.gis.nodal_multivalues2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.nodal_values2shp.html">iwfm.gis.nodal_values2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.nodes2shp.html">iwfm.gis.nodes2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.nodes2shp_csv.html">iwfm.gis.nodes2shp_csv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.osmnx_getData.html">iwfm.gis.osmnx_getData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.osmnx_street_len.html">iwfm.gis.osmnx_street_len</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.point2geojson.html">iwfm.gis.point2geojson</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.point_in_poly.html">iwfm.gis.point_in_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.projection.html">iwfm.gis.projection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.qgis_init.html">iwfm.gis.qgis_init</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.qgis_init_paths.html">iwfm.gis.qgis_init_paths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.qgis_layer_names.html">iwfm.gis.qgis_layer_names</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.qgis_open_proj.html">iwfm.gis.qgis_open_proj</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.qgis_print_geometry.html">iwfm.gis.qgis_print_geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.qgis_save_project.html">iwfm.gis.qgis_save_project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.raster_band2jpeg.html">iwfm.gis.raster_band2jpeg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.raster_open.html">iwfm.gis.raster_open</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.reach2shp.html">iwfm.gis.reach2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp2png.html">iwfm.gis.shp2png</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp2png_empty.html">iwfm.gis.shp2png_empty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp2png_poly.html">iwfm.gis.shp2png_poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp2wkt.html">iwfm.gis.shp2wkt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_add_field.html">iwfm.gis.shp_add_field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_area.html">iwfm.gis.shp_area</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_bounds.html">iwfm.gis.shp_bounds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_crs.html">iwfm.gis.shp_crs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_driver_type.html">iwfm.gis.shp_driver_type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_epsg.html">iwfm.gis.shp_epsg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_fieldnames.html">iwfm.gis.shp_fieldnames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_fields.html">iwfm.gis.shp_fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_fields_print.html">iwfm.gis.shp_fields_print</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_geomtype.html">iwfm.gis.shp_geomtype</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_get.html">iwfm.gis.shp_get</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_get_OGR.html">iwfm.gis.shp_get_OGR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_get_PyShp.html">iwfm.gis.shp_get_PyShp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_get_writer.html">iwfm.gis.shp_get_writer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_getcol.html">iwfm.gis.shp_getcol</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_getcol_lg.html">iwfm.gis.shp_getcol_lg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_getrec.html">iwfm.gis.shp_getrec</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_getrec_fn.html">iwfm.gis.shp_getrec_fn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_getrec_lg.html">iwfm.gis.shp_getrec_lg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_getrow.html">iwfm.gis.shp_getrow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_getrow_lg.html">iwfm.gis.shp_getrow_lg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_norec.html">iwfm.gis.shp_norec</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_reproject.html">iwfm.gis.shp_reproject</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_to_utm_pts.html">iwfm.gis.shp_to_utm_pts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_type.html">iwfm.gis.shp_type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.shp_type_txt.html">iwfm.gis.shp_type_txt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.snodes2shp.html">iwfm.gis.snodes2shp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.stretch.html">iwfm.gis.stretch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.utm_2_latlon.html">iwfm.gis.utm_2_latlon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.utm_2_wgs84.html">iwfm.gis.utm_2_wgs84</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.wgs84_2_utm.html">iwfm.gis.wgs84_2_utm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.wk2_getBoundingBox.html">iwfm.gis.wk2_getBoundingBox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.wks2shp_pt.html">iwfm.gis.wks2shp_pt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.wkt2poly.html">iwfm.gis.wkt2poly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.world2pixel.html">iwfm.gis.world2pixel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.world2screen.html">iwfm.gis.world2screen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.xml_fix.html">iwfm.gis.xml_fix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.gis.xml_tracks.html">iwfm.gis.xml_tracks</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.gw_well_lay_elev.html">iwfm.gw_well_lay_elev</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.hdf5.html">iwfm.hdf5</a><input aria-label="Toggle navigation of iwfm.hdf5" class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.cropbud2csv.html">iwfm.hdf5.cropbud2csv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.get_budget_data_h5.html">iwfm.hdf5.get_budget_data_h5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.get_budget_data_pywfm.html">iwfm.hdf5.get_budget_data_pywfm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.get_zbudget_data_h5.html">iwfm.hdf5.get_zbudget_data_h5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.get_zbudget_data_pywfm.html">iwfm.hdf5.get_zbudget_data_pywfm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.get_zbudget_elem_vals_h5.html">iwfm.hdf5.get_zbudget_elem_vals_h5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.get_zbudget_elem_vals_pywfm.html">iwfm.hdf5.get_zbudget_elem_vals_pywfm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.get_zbudget_elemids.html">iwfm.hdf5.get_zbudget_elemids</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_core.html">iwfm.hdf5.hdf2bud_core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_diversions.html">iwfm.hdf5.hdf2bud_diversions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_gw.html">iwfm.hdf5.hdf2bud_gw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_lw.html">iwfm.hdf5.hdf2bud_lw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_rz.html">iwfm.hdf5.hdf2bud_rz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_snodes.html">iwfm.hdf5.hdf2bud_snodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_stream.html">iwfm.hdf5.hdf2bud_stream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_swat.html">iwfm.hdf5.hdf2bud_swat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2bud_unsat.html">iwfm.hdf5.hdf2bud_unsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_core.html">iwfm.hdf5.hdf2xlsx_core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_diversions.html">iwfm.hdf5.hdf2xlsx_diversions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_gw.html">iwfm.hdf5.hdf2xlsx_gw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_lw.html">iwfm.hdf5.hdf2xlsx_lw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_rz.html">iwfm.hdf5.hdf2xlsx_rz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_snodes.html">iwfm.hdf5.hdf2xlsx_snodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_stream.html">iwfm.hdf5.hdf2xlsx_stream</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_swat.html">iwfm.hdf5.hdf2xlsx_swat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2xlsx_unsat.html">iwfm.hdf5.hdf2xlsx_unsat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2zbud_gw.html">iwfm.hdf5.hdf2zbud_gw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf2zxlsx_gw.html">iwfm.hdf5.hdf2zxlsx_gw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf5.html">iwfm.hdf5.hdf5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf5_utils.html">iwfm.hdf5.hdf5_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf_exceptions.html">iwfm.hdf5.hdf_exceptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf_metadata.html">iwfm.hdf5.hdf_metadata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdf_metadata_base.html">iwfm.hdf5.hdf_metadata_base</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.hdfbud2csv.html">iwfm.hdf5.hdfbud2csv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.print_methods_hdf.html">iwfm.hdf5.print_methods_hdf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.read_hdf5.html">iwfm.hdf5.read_hdf5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.hdf5.zbud_gw_core.html">iwfm.hdf5.zbud_gw_core</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2csv.html">iwfm.headall2csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2dtw.html">iwfm.headall2dtw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2excel.html">iwfm.headall2excel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2map.html">iwfm.headall2map</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2shp.html">iwfm.headall2shp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2surfer.html">iwfm.headall2surfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2table.html">iwfm.headall2table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall2ts.html">iwfm.headall2ts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.headall_read.html">iwfm.headall_read</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.hyd_dict.html">iwfm.hyd_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.hyd_diff.html">iwfm.hyd_diff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.igsm_read_chars.html">iwfm.igsm_read_chars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.igsm_read_elements.html">iwfm.igsm_read_elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.igsm_read_lake.html">iwfm.igsm_read_lake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.igsm_read_nodes.html">iwfm.igsm_read_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.igsm_read_strat.html">iwfm.igsm_read_strat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.igsm_read_streams.html">iwfm.igsm_read_streams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.in_element.html">iwfm.in_element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.index_date.html">iwfm.index_date</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_adj_crops.html">iwfm.iwfm_adj_crops</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_aquifer_bottom.html">iwfm.iwfm_aquifer_bottom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_aquifer_thickness.html">iwfm.iwfm_aquifer_thickness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_aquifer_top.html">iwfm.iwfm_aquifer_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_aquitard_bottom.html">iwfm.iwfm_aquitard_bottom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_aquitard_thickness.html">iwfm.iwfm_aquitard_thickness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_aquitard_top.html">iwfm.iwfm_aquitard_top</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_boundary_coords.html">iwfm.iwfm_boundary_coords</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_dataclasses.html">iwfm.iwfm_dataclasses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_lse.html">iwfm.iwfm_lse</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_lu2refined.html">iwfm.iwfm_lu2refined</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_lu2sub.html">iwfm.iwfm_lu2sub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_lu4scenario.html">iwfm.iwfm_lu4scenario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_model.html">iwfm.iwfm_model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_nearest_node.html">iwfm.iwfm_nearest_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_nearest_nodes.html">iwfm.iwfm_nearest_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_parametric_interp.html">iwfm.iwfm_parametric_interp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_precip_adj.html">iwfm.iwfm_precip_adj</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_bud.html">iwfm.iwfm_read_bud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_div_areas.html">iwfm.iwfm_read_div_areas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_elements.html">iwfm.iwfm_read_elements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_elempump.html">iwfm.iwfm_read_elempump</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_et_vals.html">iwfm.iwfm_read_et_vals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_gw.html">iwfm.iwfm_read_gw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_gw_params.html">iwfm.iwfm_read_gw_params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_lake.html">iwfm.iwfm_read_lake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_nodes.html">iwfm.iwfm_read_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_param_table_floats.html">iwfm.iwfm_read_param_table_floats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_param_table_ints.html">iwfm.iwfm_read_param_table_ints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_precip_vals.html">iwfm.iwfm_read_precip_vals</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_preproc.html">iwfm.iwfm_read_preproc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_rz.html">iwfm.iwfm_read_rz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_rz_file_names.html">iwfm.iwfm_read_rz_file_names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_rz_npc.html">iwfm.iwfm_read_rz_npc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_rz_nr.html">iwfm.iwfm_read_rz_nr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_rz_params.html">iwfm.iwfm_read_rz_params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_rz_pc.html">iwfm.iwfm_read_rz_pc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_rz_urban.html">iwfm.iwfm_read_rz_urban</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_sim.html">iwfm.iwfm_read_sim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_sim_file.html">iwfm.iwfm_read_sim_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_strat.html">iwfm.iwfm_read_strat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_stream_reaches.html">iwfm.iwfm_read_stream_reaches</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_streams.html">iwfm.iwfm_read_streams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_uz.html">iwfm.iwfm_read_uz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_read_uz_params.html">iwfm.iwfm_read_uz_params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_strat_arrays.html">iwfm.iwfm_strat_arrays</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_sub_preproc.html">iwfm.iwfm_sub_preproc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.iwfm_sub_sim.html">iwfm.iwfm_sub_sim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.logtrans.html">iwfm.logtrans</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.lu2csv.html">iwfm.lu2csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.lu2tables.html">iwfm.lu2tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.meas_bounds.html">iwfm.meas_bounds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.multiproc.html">iwfm.multiproc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.nearest.html">iwfm.nearest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.nearest_node.html">iwfm.nearest_node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.new_pp_files.html">iwfm.new_pp_files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.new_sim_files.html">iwfm.new_sim_files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.parse_iwfm_date.html">iwfm.parse_iwfm_date</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf2csv.html">iwfm.pdf2csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf_addimage.html">iwfm.pdf_addimage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf_addpages.html">iwfm.pdf_addpages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf_cell.html">iwfm.pdf_cell</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf_combine.html">iwfm.pdf_combine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf_create.html">iwfm.pdf_create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf_save.html">iwfm.pdf_save</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.pdf_setfont.html">iwfm.pdf_setfont</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.plot.html">iwfm.plot</a><input aria-label="Toggle navigation of iwfm.plot" class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.contour_levels.html">iwfm.plot.contour_levels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.data_to_color.html">iwfm.plot.data_to_color</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.draw_plot.html">iwfm.plot.draw_plot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.flip_y.html">iwfm.plot.flip_y</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.get_XYvalues.html">iwfm.plot.get_XYvalues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.get_maxs.html">iwfm.plot.get_maxs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.get_mins.html">iwfm.plot.get_mins</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.gw_hyd_annual.html">iwfm.plot.gw_hyd_annual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.gw_hyd_monthly.html">iwfm.plot.gw_hyd_monthly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.head_hydrographs.html">iwfm.plot.head_hydrographs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.histogram.html">iwfm.plot.histogram</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.iwfm_map_params.html">iwfm.plot.iwfm_map_params</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map.html">iwfm.plot.map</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_params_gw.html">iwfm.plot.map_params_gw</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_params_rz.html">iwfm.plot.map_params_rz</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_params_rz_npc.html">iwfm.plot.map_params_rz_npc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_params_rz_nr.html">iwfm.plot.map_params_rz_nr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_params_rz_pc.html">iwfm.plot.map_params_rz_pc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_params_rz_urban.html">iwfm.plot.map_params_rz_urban</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_to_nodes.html">iwfm.plot.map_to_nodes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_to_nodes_contour.html">iwfm.plot.map_to_nodes_contour</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.map_to_nodes_png.html">iwfm.plot.map_to_nodes_png</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.overlay_histograms.html">iwfm.plot.overlay_histograms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.save_tif.html">iwfm.plot.save_tif</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.simhyd_obs.html">iwfm.plot.simhyd_obs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.plot.simhyds.html">iwfm.plot.simhyds</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_elements_csv.html">iwfm.read_elements_csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_hyd_dict.html">iwfm.read_hyd_dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_lu_change_factors.html">iwfm.read_lu_change_factors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_lu_change_zones.html">iwfm.read_lu_change_zones</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_lu_file.html">iwfm.read_lu_file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_nodes.html">iwfm.read_nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_nodes_csv.html">iwfm.read_nodes_csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_obs_smp.html">iwfm.read_obs_smp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_sim_hyd.html">iwfm.read_sim_hyd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_sim_hyds.html">iwfm.read_sim_hyds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_sim_wells.html">iwfm.read_sim_wells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.read_wells.html">iwfm.read_wells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.refined_lu_factors.html">iwfm.refined_lu_factors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.sim_info.html">iwfm.sim_info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.simhyd_obs.html">iwfm.simhyd_obs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.simhyds.html">iwfm.simhyds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.skip_ahead.html">iwfm.skip_ahead</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.sub.html">iwfm.sub</a><input aria-label="Toggle navigation of iwfm.sub" class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_bc_cghd_file.html">iwfm.sub.gw_bc_cghd_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_bc_file.html">iwfm.sub.gw_bc_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_bc_node_file.html">iwfm.sub.gw_bc_node_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_file.html">iwfm.sub.gw_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_pump_epump_file.html">iwfm.sub.gw_pump_epump_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_pump_file.html">iwfm.sub.gw_pump_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_pump_well_file.html">iwfm.sub.gw_pump_well_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_subs_file.html">iwfm.sub.gw_subs_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.gw_td_file.html">iwfm.sub.gw_td_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.lake_file.html">iwfm.sub.lake_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.lu_file.html">iwfm.sub.lu_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_elem_file.html">iwfm.sub.pp_elem_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_file.html">iwfm.sub.pp_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_lake_file.html">iwfm.sub.pp_lake_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_lakes.html">iwfm.sub.pp_lakes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_node_file.html">iwfm.sub.pp_node_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_node_list.html">iwfm.sub.pp_node_list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_strat_file.html">iwfm.sub.pp_strat_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_stream_file.html">iwfm.sub.pp_stream_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.pp_streams.html">iwfm.sub.pp_streams</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.remove_items.html">iwfm.sub.remove_items</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.rootzone_file.html">iwfm.sub.rootzone_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.rz_npc_file.html">iwfm.sub.rz_npc_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.rz_nv_file.html">iwfm.sub.rz_nv_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.rz_pc_file.html">iwfm.sub.rz_pc_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.rz_urban_file.html">iwfm.sub.rz_urban_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.sim_file.html">iwfm.sub.sim_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.st_bp_file.html">iwfm.sub.st_bp_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.st_inflow_file.html">iwfm.sub.st_inflow_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.streams_file.html">iwfm.sub.streams_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.swhed_file.html">iwfm.sub.swhed_file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.sub.unsat_file.html">iwfm.sub.unsat_file</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.tables2lu.html">iwfm.tables2lu</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.util.html">iwfm.util</a><input aria-label="Toggle navigation of iwfm.util" class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" role="switch" type="checkbox"/><label for="toctree-checkbox-11"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.util.ftp_fetch.html">iwfm.util.ftp_fetch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.util.get_cdec.html">iwfm.util.get_cdec</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.util.get_nwis.html">iwfm.util.get_nwis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.util.get_usacoe.html">iwfm.util.get_usacoe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.util.get_usbr.html">iwfm.util.get_usbr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.util.url_fetch.html">iwfm.util.url_fetch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.util.zip_unzip.html">iwfm.util.zip_unzip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.vic_2_table.html">iwfm.vic_2_table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.wdl_meas_stats.html">iwfm.wdl_meas_stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.wdl_ts_4_wells.html">iwfm.wdl_ts_4_wells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.write_2_csv.html">iwfm.write_2_csv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.write_2_dat.html">iwfm.write_2_dat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.write_2_surfer.html">iwfm.write_2_surfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.write_flows.html">iwfm.write_flows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.write_lu2file.html">iwfm.write_lu2file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.write_results.html">iwfm.write_results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.write_smp.html">iwfm.write_smp</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="iwfm.xls.html">iwfm.xls</a><input aria-label="Toggle navigation of iwfm.xls" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" role="switch" type="checkbox"/><label for="toctree-checkbox-12"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.bud2xl.html">iwfm.xls.bud2xl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.buds2xl.html">iwfm.xls.buds2xl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.excel_init.html">iwfm.xls.excel_init</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.excel_kill.html">iwfm.xls.excel_kill</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.excel_new_workbook.html">iwfm.xls.excel_new_workbook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.write_2_excel.html">iwfm.xls.write_2_excel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.write_budget_to_xl.html">iwfm.xls.write_budget_to_xl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.xl_open.html">iwfm.xls.xl_open</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.xl_quit.html">iwfm.xls.xl_quit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.xl_save.html">iwfm.xls.xl_save</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.xl_write_2d.html">iwfm.xls.xl_write_2d</a></li>
+<li class="toctree-l4"><a class="reference internal" href="iwfm.xls.xls.html">iwfm.xls.xls</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iwfm.zbudget2csv.html">iwfm.zbudget2csv</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/_autosummary/iwfm.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="module-iwfm">
+<span id="iwfm"></span><h1>iwfm<a class="headerlink" href="#module-iwfm" title="Link to this heading">¶</a></h1>
+<p class="rubric">Modules</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.Unbuffered.html#iwfm.Unbuffered" title="iwfm.Unbuffered"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Unbuffered</span></code></a>(stream)</p></td>
+<td><p>Unbuffered() - Write unbuffered output to console, for example</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.bnds2mask.html#iwfm.bnds2mask" title="iwfm.bnds2mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bnds2mask</span></code></a>(bnds_d, coords)</p></td>
+<td><p>bnds2mask() - Bounding polygon for IWFM mmodel</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.bud2csv.html#iwfm.bud2csv" title="iwfm.bud2csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bud2csv</span></code></a>(f, loc_names, column_headers, ...[, ...])</p></td>
+<td><p>budget2csv() - open an IWFM Budget HDF file and retreive all of the data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.budget_info.html#iwfm.budget_info" title="iwfm.budget_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">budget_info</span></code></a>(budget_lines)</p></td>
+<td><p>budget_info() - Get the Budget file header and footer length and number of tables</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.calib.html#module-iwfm.calib" title="iwfm.calib"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calib</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.cdec2monthly.html#iwfm.cdec2monthly" title="iwfm.cdec2monthly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cdec2monthly</span></code></a>(input_file, output_file[, verbose])</p></td>
+<td><p>cdec2monthly() - Read a CDEC observations file, converts sub-monthly</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.cfs2afd.html#iwfm.cfs2afd" title="iwfm.cfs2afd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cfs2afd</span></code></a>(cfs)</p></td>
+<td><p>cfs2afd() - Convert flow in CFS to daily volume in Acre-Feet</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.closest_list.html#module-iwfm.closest_list" title="iwfm.closest_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">closest_list</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.date_index.html#iwfm.date_index" title="iwfm.date_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date_index</span></code></a>(inval, start_date)</p></td>
+<td><p>date_index() - Calculate a date inval months from start_date</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.date_util.html#module-iwfm.date_util" title="iwfm.date_util"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date_util</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.dbf_open.html#iwfm.dbf_open" title="iwfm.dbf_open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dbf_open</span></code></a>() - Open a DBF file (read with PyShp)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.dbf_print_record.html#iwfm.dbf_print_record" title="iwfm.dbf_print_record"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dbf_print_record</span></code></a>(db, rec)</p></td>
+<td><p>dbf_print_record() - Print a DBF record to command line</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.debug.html#module-iwfm.debug" title="iwfm.debug"><code class="xref py py-obj docutils literal notranslate"><span class="pre">debug</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.detaw_2_table.html#iwfm.detaw_2_table" title="iwfm.detaw_2_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detaw_2_table</span></code></a>(dir_name, outfile_name[, verbose])</p></td>
+<td><p>detaw_2_table() - Convert DETAW files to tables and write to text files</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.diagnostics.html#module-iwfm.diagnostics" title="iwfm.diagnostics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagnostics</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.dicu2table.html#iwfm.dicu2table" title="iwfm.dicu2table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dicu2table</span></code></a>(data_file[, verbose])</p></td>
+<td><p>dicu2table() - Read Delta Island Consumptive Use model file and write</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.dll.html#module-iwfm.dll" title="iwfm.dll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dll</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.dss_date.html#iwfm.dss_date" title="iwfm.dss_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dss_date</span></code></a>(date)</p></td>
+<td><p>dss_date() - Convert datetime object 'date' into a string in DSS</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.elem_poly_coords.html#iwfm.elem_poly_coords" title="iwfm.elem_poly_coords"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elem_poly_coords</span></code></a>(elem_nodes, node_coords)</p></td>
+<td><p>elem_poly_coords() - Return a list of element coordinates</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.elem_poly_coords_wkt.html#iwfm.elem_poly_coords_wkt" title="iwfm.elem_poly_coords_wkt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">elem_poly_coords_wkt</span></code></a>(elem_nodes, node_coords)</p></td>
+<td><p>elem_poly_coords_wkt() - Return a list ofelement coordinates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.file2dict.html#iwfm.file2dict" title="iwfm.file2dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file2dict</span></code></a>(infile[, key_field, val_field, ...])</p></td>
+<td><p>file2dict() - Read file with paired items, return dictionary</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.file_2_bak.html#iwfm.file_2_bak" title="iwfm.file_2_bak"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_2_bak</span></code></a>(filename[, force])</p></td>
+<td><p>file_2_bak() - Rename a file to contain .bak extension</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.file_delete.html#iwfm.file_delete" title="iwfm.file_delete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_delete</span></code></a>(filename)</p></td>
+<td><p>file_delete() - Delete a file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.file_missing.html#iwfm.file_missing" title="iwfm.file_missing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_missing</span></code></a>(filename[, context])</p></td>
+<td><p>file_missing() - Raise FileNotFoundError for a file that does</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.file_rename.html#iwfm.file_rename" title="iwfm.file_rename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_rename</span></code></a>(filename, newname[, force])</p></td>
+<td><p>file_rename() - Rename a file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.file_test.html#iwfm.file_test" title="iwfm.file_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_test</span></code></a>(filename)</p></td>
+<td><p>file_test() - Check that the file exists and exit if it does not</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.file_type_error.html#iwfm.file_type_error" title="iwfm.file_type_error"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_type_error</span></code></a>(filename, filetype)</p></td>
+<td><p>file_type_error() - Raise ValueError for an input file of the</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.file_utils.html#module-iwfm.file_utils" title="iwfm.file_utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_utils</span></code></a></p></td>
+<td><p>IWFM File Format Conventions
+
+IWFM input files follow a Fortran-style convention where:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.file_validate_path.html#iwfm.file_validate_path" title="iwfm.file_validate_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_validate_path</span></code></a>(output_file)</p></td>
+<td><p>Validate output file path and create parent directories if needed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.generate_datetime_objects.html#iwfm.generate_datetime_objects" title="iwfm.generate_datetime_objects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_datetime_objects</span></code></a>(start_date, ...)</p></td>
+<td><p>Generate datetime objects for Excel</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.generate_timesteps.html#iwfm.generate_timesteps" title="iwfm.generate_timesteps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_timesteps</span></code></a>(start_date, n_steps, ...)</p></td>
+<td><p>Generate timestep strings matching IWFM format</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.get_change_col.html#iwfm.get_change_col" title="iwfm.get_change_col"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_change_col</span></code></a>(changes_table, in_year, ...)</p></td>
+<td><p>get_change_col() - When changing IWFM land use for a scenario,</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.get_elem_centroids.html#iwfm.get_elem_centroids" title="iwfm.get_elem_centroids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_elem_centroids</span></code></a>(elem_ids, elem_nodes, ...)</p></td>
+<td><p>get_elem_centroids() - Calculate the centroid of each element</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.get_elem_list.html#iwfm.get_elem_list" title="iwfm.get_elem_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_elem_list</span></code></a>(elem_pairs_file)</p></td>
+<td><p>get_elem_list() - Reads the submodel elements and returns a dictionary</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.get_gw_params.html#iwfm.get_gw_params" title="iwfm.get_gw_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gw_params</span></code></a>(gw_file)</p></td>
+<td><p>get_gw_params() - Get nodal coordinates and groundwater parameters</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.get_heads_4_date.html#iwfm.get_heads_4_date" title="iwfm.get_heads_4_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_heads_4_date</span></code></a>(heads_file, out_date[, start])</p></td>
+<td><p>get_heads_4_date() - Read headall.out file and return heads for a</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.get_stream_list_40.html#iwfm.get_stream_list_40" title="iwfm.get_stream_list_40"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_list_40</span></code></a>(stream_lines, line_index, ...)</p></td>
+<td><p>get_stream_list_40() - Reads part of the stream specification file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.get_stream_list_41.html#iwfm.get_stream_list_41" title="iwfm.get_stream_list_41"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_list_41</span></code></a>(stream_lines, line_index, ...)</p></td>
+<td><p>get_stream_list_41() - Reads part of the stream specification file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.get_stream_list_42.html#iwfm.get_stream_list_42" title="iwfm.get_stream_list_42"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_list_42</span></code></a>(stream_lines, line_index, ...)</p></td>
+<td><p>get_stream_list_42() - Reads part of the stream specification file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.get_stream_list_50.html#iwfm.get_stream_list_50" title="iwfm.get_stream_list_50"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_list_50</span></code></a>(stream_lines, line_index, ...)</p></td>
+<td><p>get_stream_list_50() - Reads part of the stream specification file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.gis.html#module-iwfm.gis" title="iwfm.gis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gis</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.gw_well_lay_elev.html#iwfm.gw_well_lay_elev" title="iwfm.gw_well_lay_elev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gw_well_lay_elev</span></code></a>(d_wellinfo, elem_nodes_d, ...)</p></td>
+<td><p>gw_well_lay_elev() - Find aquifer and aquitard layer elevations at</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.hdf5.html#module-iwfm.hdf5" title="iwfm.hdf5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hdf5</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.headall2csv.html#iwfm.headall2csv" title="iwfm.headall2csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2csv</span></code></a>(data, layers, dates, nodes, ...)</p></td>
+<td><p>headall2csv() - Write out IWFM Headall.out data as one csv file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.headall2dtw.html#iwfm.headall2dtw" title="iwfm.headall2dtw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2dtw</span></code></a>(heads_file, pre_file, output_root)</p></td>
+<td><p>headall2dtw() - Reads IWFM HeadAll.out file, subtracts heads from</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.headall2excel.html#iwfm.headall2excel" title="iwfm.headall2excel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2excel</span></code></a>(node_coords, data, dates, ...)</p></td>
+<td><p>headall2excel() - Write out IWFM Headall.out data for selected time steps to</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.headall2map.html#module-iwfm.headall2map" title="iwfm.headall2map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2map</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.headall2shp.html#iwfm.headall2shp" title="iwfm.headall2shp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2shp</span></code></a>(heads_file, pre_file, out_date, ...)</p></td>
+<td><p>headall2shp() - Read headall.out file and stratigraphy file and</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.headall2surfer.html#iwfm.headall2surfer" title="iwfm.headall2surfer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2surfer</span></code></a>(node_coords, data, dates, ...)</p></td>
+<td><p>headall2surfer() - Write out IWFM Headall.out data for one time step to</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.headall2table.html#iwfm.headall2table" title="iwfm.headall2table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2table</span></code></a>(heads_file, output_file, out_date)</p></td>
+<td><p>headall2table() - Read IWFM headall.out file and write results</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.headall2ts.html#iwfm.headall2ts" title="iwfm.headall2ts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall2ts</span></code></a>(input_file, output_file[, verbose])</p></td>
+<td><p>headall2ts() - Read an IWFM HeadAll.out file and write out as a time</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.headall_read.html#iwfm.headall_read" title="iwfm.headall_read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">headall_read</span></code></a>(input_file[, skip, verbose])</p></td>
+<td><p>headall_read() - Reads an IWFM HeadAll.out file and returns</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.hyd_dict.html#iwfm.hyd_dict" title="iwfm.hyd_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hyd_dict</span></code></a>(gwhyd_info_file)</p></td>
+<td><p>hyd_dict() - Read hydrograph info from Groundwater.dat file and build</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.hyd_diff.html#iwfm.hyd_diff" title="iwfm.hyd_diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hyd_diff</span></code></a>(gwhyd_file_1, gwhyd_file_2, outname)</p></td>
+<td><p>hyd_diff() - Subtract the values in one hydrograph file from another</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.igsm_read_chars.html#iwfm.igsm_read_chars" title="iwfm.igsm_read_chars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">igsm_read_chars</span></code></a>(char_file, elem_nodes)</p></td>
+<td><p>igsm_read_chars() - Read an IGSM Element Characteristics file and</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.igsm_read_elements.html#iwfm.igsm_read_elements" title="iwfm.igsm_read_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">igsm_read_elements</span></code></a>(elem_file)</p></td>
+<td><p>igsm_read_elements() - Read an IGSM Element file, and returns a list</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.igsm_read_lake.html#iwfm.igsm_read_lake" title="iwfm.igsm_read_lake"><code class="xref py py-obj docutils literal notranslate"><span class="pre">igsm_read_lake</span></code></a>(lake_file)</p></td>
+<td><p>igsm_read_lake() - Read an IGSM Lake file and returns (a) a list of</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.igsm_read_nodes.html#iwfm.igsm_read_nodes" title="iwfm.igsm_read_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">igsm_read_nodes</span></code></a>(node_file)</p></td>
+<td><p>igsm_read_nodes() - Read the nodal coordinates from the nodes file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.igsm_read_strat.html#iwfm.igsm_read_strat" title="iwfm.igsm_read_strat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">igsm_read_strat</span></code></a>(strat_file, node_coords)</p></td>
+<td><p>igsm_read_strat() - Read an IGSM Stratigraphy file and return a list</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.igsm_read_streams.html#iwfm.igsm_read_streams" title="iwfm.igsm_read_streams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">igsm_read_streams</span></code></a>(stream_file)</p></td>
+<td><p>igsm_read_streams() - Reads an IGSM Stream Geometry file and returns</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.in_element.html#iwfm.in_element" title="iwfm.in_element"><code class="xref py py-obj docutils literal notranslate"><span class="pre">in_element</span></code></a>(e_nodes, e_nos, d_nodexy, x, y)</p></td>
+<td><p>in_element() - Returns the element containing the point (x,y),</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.index_date.html#iwfm.index_date" title="iwfm.index_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_date</span></code></a>(in_date[, start_date])</p></td>
+<td><p>index_date() - Return the number of days from start_date to in_date</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_adj_crops.html#iwfm.iwfm_adj_crops" title="iwfm.iwfm_adj_crops"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_adj_crops</span></code></a>(in_year, in_zone_file, ...[, ...])</p></td>
+<td><p>iwfm_adj_crops() - Use change factors to modify IWFM</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_aquifer_bottom.html#iwfm.iwfm_aquifer_bottom" title="iwfm.iwfm_aquifer_bottom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_aquifer_bottom</span></code></a>(strat)</p></td>
+<td><p>iwfm_aquifer_bottom() - Extract aquitard bottom altitude from</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_aquifer_thickness.html#iwfm.iwfm_aquifer_thickness" title="iwfm.iwfm_aquifer_thickness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_aquifer_thickness</span></code></a>(strat)</p></td>
+<td><p>iwfm_aquifer_thickness() - Extract aquifer thicknesses from</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_aquifer_top.html#iwfm.iwfm_aquifer_top" title="iwfm.iwfm_aquifer_top"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_aquifer_top</span></code></a>(strat)</p></td>
+<td><p>iwfm_aquifer_top() - Extract aquitard top altitude from</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_aquitard_bottom.html#iwfm.iwfm_aquitard_bottom" title="iwfm.iwfm_aquitard_bottom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_aquitard_bottom</span></code></a>(strat)</p></td>
+<td><p>iwfm_aquitard_bottom() - Extract aquitard bottom from</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_aquitard_thickness.html#iwfm.iwfm_aquitard_thickness" title="iwfm.iwfm_aquitard_thickness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_aquitard_thickness</span></code></a>(strat)</p></td>
+<td><p>iwfm_aquitard_thickness() - Extract aquitard thicknesses from</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_aquitard_top.html#iwfm.iwfm_aquitard_top" title="iwfm.iwfm_aquitard_top"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_aquitard_top</span></code></a>(strat)</p></td>
+<td><p>iwfm_aquitard_top() - Extract aquitard top altitude from</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_boundary_coords.html#iwfm.iwfm_boundary_coords" title="iwfm.iwfm_boundary_coords"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_boundary_coords</span></code></a>(node_filename, ...)</p></td>
+<td><p>iwfm_boundary_coords() - Return (x,y) list for the nodes on the bounding polygon</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_dataclasses.html#module-iwfm.iwfm_dataclasses" title="iwfm.iwfm_dataclasses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_dataclasses</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_lse.html#iwfm.iwfm_lse" title="iwfm.iwfm_lse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_lse</span></code></a>(strat)</p></td>
+<td><p>iwfm_lse() - Extract land surface elevation from</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_lu2refined.html#iwfm.iwfm_lu2refined" title="iwfm.iwfm_lu2refined"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_lu2refined</span></code></a>(in_lu_file, lu_factors[, ...])</p></td>
+<td><p>iwfm_lu2refined() - Modify IWFM land use file for a refined model</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_lu2sub.html#iwfm.iwfm_lu2sub" title="iwfm.iwfm_lu2sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_lu2sub</span></code></a>(elem_file, lu_file, out_file[, ...])</p></td>
+<td><p>iwfm_IWFM_lu2sub() - Read an IWFM Preprocessor Element File for a</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_lu4scenario.html#iwfm.iwfm_lu4scenario" title="iwfm.iwfm_lu4scenario"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_lu4scenario</span></code></a>(out_base_name, ...[, skip, ...])</p></td>
+<td><p>iwfm_lu4scenario() - Merge four single-date IWFM land use files</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_model.html#iwfm.iwfm_model" title="iwfm.iwfm_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_model</span></code></a>(pre_fpath, sim_file[, verbose])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_nearest_node.html#iwfm.iwfm_nearest_node" title="iwfm.iwfm_nearest_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_nearest_node</span></code></a>(point, node_set)</p></td>
+<td><p>iwfm_nearest_node() - Given an (x,y) location, return the nearest IWFM node</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_nearest_nodes.html#iwfm.iwfm_nearest_nodes" title="iwfm.iwfm_nearest_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_nearest_nodes</span></code></a>(filename, node_set)</p></td>
+<td><p>iwfm_nearest_nodes() - Read a point file, calculate the nearest node</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_parametric_interp.html#iwfm.iwfm_parametric_interp" title="iwfm.iwfm_parametric_interp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_parametric_interp</span></code></a>(pnode_xy, pnode_vals, ...)</p></td>
+<td><p>iwfm_parametric_interp() - Interpolate parametric-grid values to</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_precip_adj.html#iwfm.iwfm_precip_adj" title="iwfm.iwfm_precip_adj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_precip_adj</span></code></a>(precip_filename, ...[, ...])</p></td>
+<td><p>iwfm_precip_adj() - Read an IWFM precipitation file, a list of VIC grid</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_bud.html#iwfm.iwfm_read_bud" title="iwfm.iwfm_read_bud"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_bud</span></code></a>(bud_file[, verbose])</p></td>
+<td><p>iwfm_read_bud() - Read an IWFM Budget main input file, and</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_div_areas.html#iwfm.iwfm_read_div_areas" title="iwfm.iwfm_read_div_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_div_areas</span></code></a>(divspec_file_name)</p></td>
+<td><p>iwfm_read_div_areas() - read diversion areas from IWFM divirsion specification file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_elements.html#iwfm.iwfm_read_elements" title="iwfm.iwfm_read_elements"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_elements</span></code></a>(elem_file[, verbose])</p></td>
+<td><p>iwfm_read_elements() - Read an IWFM Element file, and return a list</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_elempump.html#iwfm.iwfm_read_elempump" title="iwfm.iwfm_read_elempump"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_elempump</span></code></a>(elempump_file_name, elem_ids)</p></td>
+<td><p>iwfm_read_elements() - Read an IWFM Element Pumping file, and return lists</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_et_vals.html#iwfm.iwfm_read_et_vals" title="iwfm.iwfm_read_et_vals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_et_vals</span></code></a>(et_file[, verbose])</p></td>
+<td><p>iwfm_read_et_vals() - Read evapotranspiration from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_gw.html#iwfm.iwfm_read_gw" title="iwfm.iwfm_read_gw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_gw</span></code></a>(gw_file[, verbose, node_coords])</p></td>
+<td><p>iwfm_read_gw() - Read an IWFM Simulation Groundwater file and return</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_gw_params.html#iwfm.iwfm_read_gw_params" title="iwfm.iwfm_read_gw_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_gw_params</span></code></a>(gw_file[, node_coords])</p></td>
+<td><p>iwfm_read_gw_params() - Read an IWFM Simulation Groundwater file and return</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_lake.html#iwfm.iwfm_read_lake" title="iwfm.iwfm_read_lake"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_lake</span></code></a>(lake_file)</p></td>
+<td><p>iwfm_read_lake() - Read an IWFM Lake file and returns</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_nodes.html#iwfm.iwfm_read_nodes" title="iwfm.iwfm_read_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_nodes</span></code></a>(node_file[, factor])</p></td>
+<td><p>iwfm_read_nodes() - Read an IWFM Node file and return a list of the</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_param_table_floats.html#iwfm.iwfm_read_param_table_floats" title="iwfm.iwfm_read_param_table_floats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_param_table_floats</span></code></a>(file_lines, ...)</p></td>
+<td><p>read_param_table_floats() - Read a table of integer parameters from a file and organize them into lists</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_param_table_ints.html#iwfm.iwfm_read_param_table_ints" title="iwfm.iwfm_read_param_table_ints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_param_table_ints</span></code></a>(file_lines, ...)</p></td>
+<td><p>iwfm_read_param_table_ints() - Read a table of integer parameters from a file and organize them into lists</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_precip_vals.html#iwfm.iwfm_read_precip_vals" title="iwfm.iwfm_read_precip_vals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_precip_vals</span></code></a>(precip_file[, verbose])</p></td>
+<td><p>iwfm_read_precip_vals() - Read precipitation from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_preproc.html#iwfm.iwfm_read_preproc" title="iwfm.iwfm_read_preproc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_preproc</span></code></a>(pre_file)</p></td>
+<td><p>iwfm_read_preproc() - Read an IWFM Preprocessor main input file,</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_rz.html#iwfm.iwfm_read_rz" title="iwfm.iwfm_read_rz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_rz</span></code></a>(rz_file[, verbose])</p></td>
+<td><p>iwfm_read_rz() - Read an IWFM Rootzone main input file and return a list of the</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_rz_file_names.html#iwfm.iwfm_read_rz_file_names" title="iwfm.iwfm_read_rz_file_names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_rz_file_names</span></code></a>(rz_file_name[, verbose])</p></td>
+<td><p>iwfm_read_rz_file_names() - Read rootzone file names from the main rootzone file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_rz_npc.html#iwfm.iwfm_read_rz_npc" title="iwfm.iwfm_read_rz_npc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_rz_npc</span></code></a>(file[, verbose])</p></td>
+<td><p>iwfm_read_rz_npc() - Read non-ponded crop data from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_rz_nr.html#iwfm.iwfm_read_rz_nr" title="iwfm.iwfm_read_rz_nr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_rz_nr</span></code></a>(file[, verbose])</p></td>
+<td><p>iwfm_read_rz_nr() - Read native and riparian data from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_rz_params.html#iwfm.iwfm_read_rz_params" title="iwfm.iwfm_read_rz_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_rz_params</span></code></a>(rz_file[, verbose])</p></td>
+<td><p>iwfm_read_rz_params() - Read root zone parameters from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_rz_pc.html#iwfm.iwfm_read_rz_pc" title="iwfm.iwfm_read_rz_pc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_rz_pc</span></code></a>(file[, verbose])</p></td>
+<td><p>iwfm_read_rz_pc() - Read ponded crop data from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_rz_urban.html#iwfm.iwfm_read_rz_urban" title="iwfm.iwfm_read_rz_urban"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_rz_urban</span></code></a>(file[, verbose])</p></td>
+<td><p>iwfm_read_rz_urban() - Read urban land use data from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_sim.html#iwfm.iwfm_read_sim" title="iwfm.iwfm_read_sim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_sim</span></code></a>(sim_file[, verbose])</p></td>
+<td><p>iwfm_read_sim() - Read an IWFM Simulation main input file, and</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_sim_file.html#iwfm.iwfm_read_sim_file" title="iwfm.iwfm_read_sim_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_sim_file</span></code></a>(sim_file[, verbose])</p></td>
+<td><p>iwfm_read_sim_file() - Read an IWFM Simulation main input file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_strat.html#iwfm.iwfm_read_strat" title="iwfm.iwfm_read_strat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_strat</span></code></a>(strat_file, node_coords[, ...])</p></td>
+<td><p>iwfm_read_strat() - Read an IWFM Stratigraphy file and return a</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_stream_reaches.html#iwfm.iwfm_read_stream_reaches" title="iwfm.iwfm_read_stream_reaches"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_stream_reaches</span></code></a>(reach_file)</p></td>
+<td><p>iwfm_read_stream_reaches() - Read group definitions of stream reaches.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_streams.html#iwfm.iwfm_read_streams" title="iwfm.iwfm_read_streams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_streams</span></code></a>(stream_file[, verbose])</p></td>
+<td><p>iwfm_read_streams() - Read an IWFM Stream Geometry file and return</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_read_uz.html#iwfm.iwfm_read_uz" title="iwfm.iwfm_read_uz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_uz</span></code></a>(file[, verbose])</p></td>
+<td><p>iwfm_read_uz() - Read unsaturated zone data from a file and organize them into lists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_read_uz_params.html#iwfm.iwfm_read_uz_params" title="iwfm.iwfm_read_uz_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_read_uz_params</span></code></a>(uz_file[, verbose])</p></td>
+<td><p>iwfm_read_uz_params() - Read an IWFM Simulation Unsaturated Zone file and return</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_strat_arrays.html#iwfm.iwfm_strat_arrays" title="iwfm.iwfm_strat_arrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_strat_arrays</span></code></a>(strat)</p></td>
+<td><p>iwfm_strat_arrays() - Read IWFM nodal stratigraphy information</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.iwfm_sub_preproc.html#iwfm.iwfm_sub_preproc" title="iwfm.iwfm_sub_preproc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_sub_preproc</span></code></a>(in_pp_file, ...[, verbose])</p></td>
+<td><p>iwfm_sub_preproc() - Read in the Preprocessor main file of a model and a list of element pairs for a submodel.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.iwfm_sub_sim.html#iwfm.iwfm_sub_sim" title="iwfm.iwfm_sub_sim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">iwfm_sub_sim</span></code></a>(in_sim_file, elem_pairs_file, ...)</p></td>
+<td><p>iwfm_sub_sim.py - Read in a list of element pairs for a submodel.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.logtrans.html#iwfm.logtrans" title="iwfm.logtrans"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logtrans</span></code></a>(q[, zero_offset, neg_val, roundoff])</p></td>
+<td><p>logtrans() - Log-transforms a number, accounting for non-zero and</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.lu2csv.html#iwfm.lu2csv" title="iwfm.lu2csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lu2csv</span></code></a>(inFileName[, skip, verbose])</p></td>
+<td><p>lu2csv() - Read an IWFM land use file and write to a csv file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.lu2tables.html#iwfm.lu2tables" title="iwfm.lu2tables"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lu2tables</span></code></a>(land_use_file, output_file_type[, ...])</p></td>
+<td><p>lu2tables() - Read an IWFM land use file and write contents to a</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.meas_bounds.html#iwfm.meas_bounds" title="iwfm.meas_bounds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meas_bounds</span></code></a>(gwhyd_obs)</p></td>
+<td><p>meas_bounds() - Determine the earliest and latest measurement dates</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.multiproc.html#iwfm.multiproc" title="iwfm.multiproc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiproc</span></code></a>(function, inputlist)</p></td>
+<td><p>multiproc() - Spread a function across multiple cpu cores</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.nearest.html#iwfm.nearest" title="iwfm.nearest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nearest</span></code></a>(d_nodes, x, y)</p></td>
+<td><p>nearest() - Find the nearest node to a point from a node dictionary</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.nearest_node.html#iwfm.nearest_node" title="iwfm.nearest_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nearest_node</span></code></a>(point, node_set)</p></td>
+<td><p>nearest_node() - Find the nearest node to a point from the node array</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.new_pp_files.html#iwfm.new_pp_files" title="iwfm.new_pp_files"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_pp_files</span></code></a>(out_base_name)</p></td>
+<td><p>new_pp_files() - Create and return a PreprocessorFiles dataclass of</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.new_sim_files.html#iwfm.new_sim_files" title="iwfm.new_sim_files"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_sim_files</span></code></a>(out_base_name)</p></td>
+<td><p>new_sim_files() - Create and return a SimulationFiles dataclass of</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.parse_iwfm_date.html#iwfm.parse_iwfm_date" title="iwfm.parse_iwfm_date"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_iwfm_date</span></code></a>(date_str)</p></td>
+<td><p>Parse IWFM date string format (e.g., '10/31/1973_24:00')</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.pdf2csv.html#iwfm.pdf2csv" title="iwfm.pdf2csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf2csv</span></code></a>(input_file, output_file[, verbose, ...])</p></td>
+<td><p>pdf2csv() - Read a PDF file and write tables to a csv file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.pdf_addimage.html#iwfm.pdf_addimage" title="iwfm.pdf_addimage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf_addimage</span></code></a>(pdf, image[, ux, uy, width, height])</p></td>
+<td><p>pdf_cell() - Create a cell in a PDF instance</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.pdf_addpages.html#iwfm.pdf_addpages" title="iwfm.pdf_addpages"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf_addpages</span></code></a>(pdf[, pages])</p></td>
+<td><p>pdf_addpages() - Add pages to a PDF instance</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.pdf_cell.html#iwfm.pdf_cell" title="iwfm.pdf_cell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf_cell</span></code></a>(pdf[, h, w, t, b, a])</p></td>
+<td><p>pdf_cell() - Create a cell in a PDF instance</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.pdf_combine.html#iwfm.pdf_combine" title="iwfm.pdf_combine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf_combine</span></code></a>(start_dir, save_dir, save_name)</p></td>
+<td><p>PDF_combine() - Combine all of the PDF files in a folder into one PDF file modified from <a class="reference external" href="https://geektechstuff.com/2018/02/17/python-3-merge-multiple-pdfs-into-one-pdf/">https://geektechstuff.com/2018/02/17/python-3-merge-multiple-pdfs-into-one-pdf/</a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.pdf_create.html#iwfm.pdf_create" title="iwfm.pdf_create"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf_create</span></code></a>([layout, units, pagesize])</p></td>
+<td><p>pdf_create() - Create a PDF object</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.pdf_save.html#iwfm.pdf_save" title="iwfm.pdf_save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf_save</span></code></a>(pdf, filename)</p></td>
+<td><p>pdf_save() - Save a PDF instance to a PDF file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.pdf_setfont.html#iwfm.pdf_setfont" title="iwfm.pdf_setfont"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pdf_setfont</span></code></a>(pdf[, font, style, size])</p></td>
+<td><p>pdf_setfont() - Set the font for a PDF instance</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.plot.html#module-iwfm.plot" title="iwfm.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.read_elements_csv.html#iwfm.read_elements_csv" title="iwfm.read_elements_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_elements_csv</span></code></a>(elem_file_name)</p></td>
+<td><p>read_elements_csv - Read elements from csv file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.read_hyd_dict.html#iwfm.read_hyd_dict" title="iwfm.read_hyd_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_hyd_dict</span></code></a>(gw_dat_file[, verbose])</p></td>
+<td><p>read_hyd_dict() - Read hydrograph info from Groundwater.dat file and build</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.read_lu_change_factors.html#iwfm.read_lu_change_factors" title="iwfm.read_lu_change_factors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_lu_change_factors</span></code></a>(in_chg_file)</p></td>
+<td><p>read_lu_change_factors() - Read the change factors for changing IWFM</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.read_lu_change_zones.html#iwfm.read_lu_change_zones" title="iwfm.read_lu_change_zones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_lu_change_zones</span></code></a>(in_zone_file)</p></td>
+<td><p>read_lu_change_zones() - When changing IWFM land use for a scenario,</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.read_lu_file.html#iwfm.read_lu_file" title="iwfm.read_lu_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_lu_file</span></code></a>(filename[, skip])</p></td>
+<td><p>read_lu_file() - Open and read an IWFM land use file, returning a list</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.read_nodes.html#iwfm.read_nodes" title="iwfm.read_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_nodes</span></code></a>(node_file[, factor, verbose])</p></td>
+<td><p>read_nodes() - Read an IWFM Node file and return a list of the</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.read_nodes_csv.html#iwfm.read_nodes_csv" title="iwfm.read_nodes_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_nodes_csv</span></code></a>(node_file_name)</p></td>
+<td><p>read_nodes_csv - Read nodes from csv file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.read_obs_smp.html#iwfm.read_obs_smp" title="iwfm.read_obs_smp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_obs_smp</span></code></a>(smp_file)</p></td>
+<td><p>read_obs_smp() - Read the contents of an observed values smp file (PEST observation file) and return as a polars DataFrame or dict.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.read_sim_hyd.html#iwfm.read_sim_hyd" title="iwfm.read_sim_hyd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sim_hyd</span></code></a>(gwhyd_file)</p></td>
+<td><p>read_sim_hyd() - Read simulated values from one IWFM output</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.read_sim_hyds.html#iwfm.read_sim_hyds" title="iwfm.read_sim_hyds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sim_hyds</span></code></a>(gwhyd_files)</p></td>
+<td><p>read_sim_hyds() - Read simulated values from multiple IWFM output</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.read_sim_wells.html#iwfm.read_sim_wells" title="iwfm.read_sim_wells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sim_wells</span></code></a>(gw_file[, verbose])</p></td>
+<td><p>read_sim_wells() - Read Groundwater.dat file and build a dictionary of</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.read_wells.html#module-iwfm.read_wells" title="iwfm.read_wells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_wells</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.refined_lu_factors.html#iwfm.refined_lu_factors" title="iwfm.refined_lu_factors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">refined_lu_factors</span></code></a>(orig_areas_file, ...)</p></td>
+<td><p>refined_lu_factors() - Calculate land use factors for refined model elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.sim_info.html#iwfm.sim_info" title="iwfm.sim_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sim_info</span></code></a>(in_file[, verbose])</p></td>
+<td><p>sim_info() - reads simulation input file and returns the starting date, ending</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.simhyd_obs.html#iwfm.simhyd_obs" title="iwfm.simhyd_obs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simhyd_obs</span></code></a>(gwhyd_file)</p></td>
+<td><p>symhyd_obs() - Read simulated groundwater hydrographs from IWFM file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.simhyds.html#iwfm.simhyds" title="iwfm.simhyds"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simhyds</span></code></a>(filename)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.skip_ahead.html#iwfm.skip_ahead" title="iwfm.skip_ahead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">skip_ahead</span></code></a>(line_index, all_lines[, skip])</p></td>
+<td><p>skip_ahead() - Increment line_index by skipping (a) every line that</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.sub.html#module-iwfm.sub" title="iwfm.sub"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sub</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.tables2lu.html#iwfm.tables2lu" title="iwfm.tables2lu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tables2lu</span></code></a>(header, template_lines, ...)</p></td>
+<td><p>tables2lu() - Read an IWFM land use file and write contents to a</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.util.html#module-iwfm.util" title="iwfm.util"><code class="xref py py-obj docutils literal notranslate"><span class="pre">util</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.vic_2_table.html#iwfm.vic_2_table" title="iwfm.vic_2_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vic_2_table</span></code></a>(factorsFileName, outFileName, col)</p></td>
+<td><p>vic_2_table() - Extract one column from a file of VIC gridded climate</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.wdl_meas_stats.html#iwfm.wdl_meas_stats" title="iwfm.wdl_meas_stats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wdl_meas_stats</span></code></a>(input_file[, verbose])</p></td>
+<td><p>wdl_meas_stats() - Calculate water level statistics and write out</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.wdl_ts_4_wells.html#iwfm.wdl_ts_4_wells" title="iwfm.wdl_ts_4_wells"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wdl_ts_4_wells</span></code></a>(station_file, waterlevel_file)</p></td>
+<td><p>wdl_ts_4_wells() - Write well data as time series</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.write_2_csv.html#iwfm.write_2_csv" title="iwfm.write_2_csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_2_csv</span></code></a>(file_base_name, data, crop_list, ...)</p></td>
+<td><p>write_2_csv() - Write a 3D array as 2D tables (row=elements</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.write_2_dat.html#iwfm.write_2_dat" title="iwfm.write_2_dat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_2_dat</span></code></a>(file_base_name, data, crop_list, ...)</p></td>
+<td><p>write_2_dat() - Write a 3D array as 2D tables (row=elements</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.write_2_surfer.html#iwfm.write_2_surfer" title="iwfm.write_2_surfer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_2_surfer</span></code></a>(outfile_name, x_y_locs, data, ...)</p></td>
+<td><p>write_2_surfer() - Write node (x,y) locations and nodal data to a surfer file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.write_flows.html#iwfm.write_flows" title="iwfm.write_flows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_flows</span></code></a>(data_file_base, file_type, ...)</p></td>
+<td><p>write_flows() - Write flow data from a table to a csv file</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.write_lu2file.html#iwfm.write_lu2file" title="iwfm.write_lu2file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_lu2file</span></code></a>(out_table, out_file, in_years)</p></td>
+<td><p>write_lu2file() - Write IWFM land use to file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.write_results.html#iwfm.write_results" title="iwfm.write_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_results</span></code></a>(name, date, meas, sim, start_date)</p></td>
+<td><p>write_results() - Write simulated and observed values for one</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.write_smp.html#iwfm.write_smp" title="iwfm.write_smp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_smp</span></code></a>(output_filename, lines)</p></td>
+<td><p>write_smp() - Write observations to a PEST smp file</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="iwfm.xls.html#module-iwfm.xls" title="iwfm.xls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">xls</span></code></a></p></td>
+<td><p>Excel file operations for IWFM.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="iwfm.zbudget2csv.html#iwfm.zbudget2csv" title="iwfm.zbudget2csv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zbudget2csv</span></code></a>(outfile, zone_names, ...)</p></td>
+<td><p>zbudget2csv() - write info from an IWFM ZBudget HDF file to an output file</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="iwfm.Unbuffered.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">iwfm.Unbuffered</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../api.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">API reference</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2026, University of California
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

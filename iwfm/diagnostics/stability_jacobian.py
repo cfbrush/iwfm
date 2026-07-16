@@ -109,7 +109,7 @@ def read_convergence_quick(hdf_path, iter_threshold=40, diffmax_threshold=0.1):
     iter_threshold : int
         Flag timesteps with ITERX >= this value as trouble.
     diffmax_threshold : float
-        Flag timesteps with |DIFFMAX| >= this value as trouble.
+        Flag timesteps with abs(DIFFMAX) >= this value as trouble.
 
     Returns
     -------
@@ -241,7 +241,7 @@ class StabilityCollector:
     iter_threshold : int
         ITERX threshold for trouble-timestep detection.
     diffmax_threshold : float
-        |DIFFMAX| threshold for trouble-timestep detection.
+        abs(DIFFMAX) threshold for trouble-timestep detection.
     score_threshold : float
         Stability score above which a parameter is flagged.
     top_n : int

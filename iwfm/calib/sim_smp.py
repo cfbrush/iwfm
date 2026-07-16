@@ -18,9 +18,11 @@
 
 
 def sim_smp(smp_list):
-    ''' sim_smp(smp_list) - processes text lines from a sample bore (smp) file 
-        (smp_list) into observation data sets of [site_id, datatime object, observed value] 
-     Parameters
+    ''' sim_smp(smp_list) - processes text lines from a sample bore (smp) file
+        (smp_list) into observation data sets of
+        [site_id, datetime object, observed value]
+
+    Parameters
     ----------
     smp_list : list
         lines from a smp-format file

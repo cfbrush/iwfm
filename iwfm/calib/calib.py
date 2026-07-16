@@ -161,7 +161,7 @@ def pest_res_stats_cmd(
     pest_res_file: str = typer.Argument(..., help="PEST residuals file."),
     verbose: bool = typer.Option(False, "--verbose", "-v"),
 ) -> None:
-    """Summarize PEST residuals (writes a *_stats.out file)."""
+    """Summarize PEST residuals (writes a ``*_stats.out`` file)."""
     from iwfm.calib.pest_res_stats import pest_res_stats
     pest_res_stats(pest_res_file, verbose=verbose)
 
