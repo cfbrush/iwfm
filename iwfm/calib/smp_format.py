@@ -49,7 +49,6 @@ def smp_format( infile, nwidth=20, verbose=False):
     out_lines = []
     for line in smp_lines:
         items = line.split()
-        name = items[0].ljust(nwidth)   # left-justify to nwidth chars
         date = items[1].split('/')
         for i in range(len(date)):
             date[i] = int(date[i])

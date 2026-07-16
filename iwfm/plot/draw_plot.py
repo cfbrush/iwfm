@@ -133,12 +133,10 @@ def draw_plot( well_name, date, meas, no_hyds, gwhyd_obs, gwhyd_name, well_info,
         meas_dates.append(date_dt)
 
     years = mdates.YearLocator()
-    months = mdates.MonthLocator()
-    yearsFmt = mdates.DateFormatter('%Y')
 
     # plot simulated vs sim_dates as line, and meas vs specific dates as points, on one plot
     with PdfPages(well_name + '_' + str(col).rjust(4, '0') + '.pdf') as pdf:  # right-justify to 4 chars
-        fig = plt.figure(figsize=(10, 7.5))
+        plt.figure(figsize=(10, 7.5))
         ax = plt.subplot(111)
         ax.xaxis_date()
         plt.grid(linestyle='dashed')
@@ -162,7 +160,7 @@ def draw_plot( well_name, date, meas, no_hyds, gwhyd_obs, gwhyd_name, well_info,
         for j in range(0, no_hyds):
             plt.plot(sim_dates[j], sim_heads[j], line_colors[j], label=gwhyd_name[j])
 
-        leg = ax.legend(frameon=1, facecolor='white')
+        ax.legend(frameon=1, facecolor='white')
         pdf.savefig()  # saves the current figure into a pdf page
         plt.close()
     return 

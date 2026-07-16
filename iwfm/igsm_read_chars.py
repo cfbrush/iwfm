@@ -47,13 +47,13 @@ def igsm_read_chars(char_file, elem_nodes):
     elem_char = []
     for i in range(0, len(elem_nodes)):
         l = char_lines[char_index + i].split()
-        this_elem = int(l.pop(0))
+        l.pop(0)                       # element ID
         chars = []
         chars.append(int(l.pop(0)))    # rain station
         chars.append(float(l.pop(0)))  # rain factor
         chars.append(int(l.pop(0)))    # drainage destination
         chars.append(int(l.pop(0)))    # subregion
-        temp = int(l.pop(0))           # don't use
+        l.pop(0)                       # don't use
         chars.append(float(l.pop(0)))  # soil type
         elem_char.append(chars)
     return elem_char

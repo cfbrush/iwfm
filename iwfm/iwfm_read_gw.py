@@ -426,7 +426,7 @@ def iwfm_read_gw(gw_file, verbose=False, node_coords=None):
                     if len(parts) != 3:
                         break
                     try:
-                        int(parts[0]); int(parts[1]); int(parts[2])
+                        int(parts[0]), int(parts[1]), int(parts[2])
                         line_index += 1
                     except ValueError:
                         break
@@ -469,7 +469,7 @@ def iwfm_read_gw(gw_file, verbose=False, node_coords=None):
                                 if len(parts) != 3:
                                     break
                                 try:
-                                    int(parts[0]); int(parts[1]); int(parts[2])
+                                    int(parts[0]), int(parts[1]), int(parts[2])
                                     line_index += 1
                                 except ValueError:
                                     break

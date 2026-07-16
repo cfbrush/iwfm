@@ -103,10 +103,8 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
     # diversion specification file name
     _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=0)
     divspec_file = stream_lines[line_index].split()[0]                   # tile drain main file
-    have_divspec = True
     if divspec_file[0] == '/':
         divspec_file = ''
-        have_divspec = False
         stream_lines[line_index] = '                                         / DIVSPECFL'
     else:
         divspec_file = divspec_file.replace('\\', '/')
@@ -136,10 +134,8 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
     # diversion time series file
     _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=0)
     div_file = stream_lines[line_index].split()[0]           # subsidence main file
-    have_div = True
     if div_file[0] == '/':
         div_file = ''
-        have_div = False
         stream_lines[line_index] = '                                         / DIVFL'
     else:
         parts = div_file.replace('\\', ' ').split()

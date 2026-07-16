@@ -126,15 +126,11 @@ def hdf2bud_core(hdf_file, output_file,
         l1_headers = [h.decode('utf-8').strip() for h in attrs['LocationData1%L1_cColumnHeaders']]
         l2_headers = [h.decode('utf-8').strip() for h in attrs['LocationData1%L2_cColumnHeaders']]
         l3_headers = [h.decode('utf-8').strip() for h in attrs['LocationData1%L3_cColumnHeaders']]
-        full_headers = [h.decode('utf-8').strip() for h in attrs['LocationData1%cFullColumnHeaders']]
         col_widths = attrs['LocationData1%iColWidth']
         col_types = attrs['LocationData1%iDataColumnTypes']
 
         # Get title template
         title_lines = [t.decode('utf-8') for t in attrs['ASCIIOutput%cTitles']]
-
-        # Get descriptor
-        descriptor = attrs['Descriptor'].decode('utf-8')
 
         # Write output file
         with open(output_file, 'w', encoding='utf-8') as out:

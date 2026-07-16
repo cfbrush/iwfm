@@ -130,8 +130,6 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
                     pline += 1
                 else:
                     items = precip[pline].split()
-                    pmonth = int(items[0][0:2])
-                    pyear = int(items[0][6:10])
                     cols = len(items)
                     status = 0
 

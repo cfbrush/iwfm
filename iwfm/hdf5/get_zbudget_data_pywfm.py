@@ -76,7 +76,6 @@ def get_zbudget_data(zbud_file, zone_file, area_units = 'ACRES',
         zbud.set_log_file([zone_file[:-4] + '.log'])   # set log file
 
     time_steps, interval = zbud.get_time_specs()       # get list of time steps and interval
-    budget_tyoe_ids = zbud.get_budget_type_ids()       # get list of budget type IDs
 
     # open and read zbudget zone file
     zbud.generate_zone_list_from_file(zone_file)       # read zone file

@@ -44,5 +44,5 @@ def img_swap_bands(infile, outfile, band1=1, band2=2):
         arr[[band1, 0, 2], :], outfile, format='GTIFF', prototype=infile
     )
     # prototype copies the georeferencing information to output file
-    output = None  # force release from memory
+    output = None  # noqa: F841  (releasing the ref flushes the GDAL dataset to disk)
     return

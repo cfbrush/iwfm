@@ -183,7 +183,6 @@ def get_zbudget_data(zbud_file, zone_file,
             if verbose:
                 print(f"    Processing {layer_name}...")
 
-            layer_group = f[layer_name]
             elem_col_map = elem_col_maps[layer_idx]
 
             # Process each component

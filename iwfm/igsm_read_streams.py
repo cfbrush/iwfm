@@ -50,10 +50,8 @@ def igsm_read_streams(stream_file):
     nreach_str, stream_index = read_next_line_value(stream_lines, -1, column=0)
     nreach = int(nreach_str)
     stream_index += 1
-    rating = stream_lines[stream_index].split()[0]
     reach_list = []
     snodes_list = []
-    nsnodes = 0
 
     for i in range(0, nreach):
         # read reach information

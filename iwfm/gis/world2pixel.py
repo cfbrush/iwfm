@@ -40,8 +40,6 @@ def world2pixel(geoMatrix, x, y):
     ulY = geoMatrix[3]
     xDist = geoMatrix[1]
     yDist = geoMatrix[5]
-    rtnX = geoMatrix[2]
-    rtnY = geoMatrix[4]
     pixel = int((x - ulX) / xDist)
     line = int((ulY - y) / abs(yDist))
     return (pixel, line)

@@ -95,7 +95,6 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
     # -- file names --
     # boundary condition file
     bc_file, line_index = read_next_line_value(gw_lines, -1)
-    bc_line = line_index   # if no boundary conditions in submodel, come back and remove file name
     have_bc = True
     if bc_file[0] == '/':
         bc_file = ''
@@ -125,7 +124,6 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
 
     # pumping file
     pump_file, line_index = read_next_line_value(gw_lines, line_index)
-    pump_line = line_index   # if no pumping in submodel, come back and remove file name
     have_pump = True
     if pump_file[0] == '/':
         pump_file = ''
@@ -140,7 +138,6 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
 
     # subsidence file
     subs_file, line_index = read_next_line_value(gw_lines, line_index)
-    subs_line = line_index   # if no subsidence in submodel, come back and remove file name
     have_subs = True
     if subs_file[0] == '/':
         subs_file = ''
@@ -323,7 +320,7 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
     # -- tile drain file --
     if have_td:
         have_td = iwfm.sub_gw_td_file(td_file, sim_files_new.drain_file, node_list, verbose=verbose)
-    if have_td == False:
+    if not have_td:
         gw_lines[tile_line] = '                                         / TDFL'
 
     # -- pumping files --

@@ -58,10 +58,6 @@ def write_2_excel(file_base_name, data, sheets, elements, time_steps, dates, dat
     wkbkname = f'{file_base_name}.xlsx'
     workbook = create_workbook(wkbkname)
 
-    # Remove default sheet (we'll add our own)
-    if hasattr(workbook, 'active'):
-        default_sheet = workbook.active
-
     logger.info(f"Writing {sheets} sheets to {wkbkname}")
 
     for i in range(sheets):

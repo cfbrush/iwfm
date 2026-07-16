@@ -102,7 +102,6 @@ def iwfm_read_uz(file, verbose=False):
     iwfm.file_test(file)
     with open(file, encoding='utf-8') as f:
         uz_lines = f.read().splitlines()                        # open and read input file
-    uz_version = uz_lines[0].split()[0]                         # version number
 
     layers, line_index = read_next_line_value(uz_lines, 0)      # number of layers
     layers = int(layers)
@@ -125,8 +124,7 @@ def iwfm_read_uz(file, verbose=False):
     ngroup, line_index = read_next_line_value(uz_lines, line_index)  # number of parametric grid groups
     ngroup = int(ngroup)
 
-    _, line_index = read_next_line_value(uz_lines, line_index)
-    factors = [float(i) for i in uz_lines[line_index].split()]
+    _, line_index = read_next_line_value(uz_lines, line_index)       # conversion factors (unused)
 
     tunit, line_index = read_next_line_value(uz_lines, line_index)   # time unit for aquifer Kh
 

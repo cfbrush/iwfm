@@ -69,7 +69,7 @@ def iwfm_read_streams(stream_file, verbose=False):
         rating = int(rating_str)
 
     # read in stream reaches
-    reach_list, snodes_list, nsnodes = [], [], 0
+    reach_list, snodes_list = [], []
     for i in range(0, nreach):
         _, stream_index = read_next_line_value(stream_lines, stream_index)
         l = stream_lines[stream_index].split()

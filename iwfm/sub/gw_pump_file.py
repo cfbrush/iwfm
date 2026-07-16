@@ -90,10 +90,7 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
 
     # pumping rates file
     prate_file, line_index = read_next_line_value(pump_lines, line_index)
-    have_rates = True
-    if prate_file[0] == '/':
-        have_rates = False
-    else:
+    if prate_file[0] != '/':
         prate_file = prate_file.replace('\\', '/')
         # Resolve relative path from simulation base directory if provided
         if base_path is not None:
@@ -104,13 +101,13 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
     # -- modify other pumping files for submodel
     if have_well:                                   # process well specification file
         have_well = iwfm.sub_gw_pump_well_file(well_file, sim_files_new.well_file, elems, bounding_poly, verbose)
-    if have_well == False:
+    if not have_well:
         pump_lines[well_index] = '                                          / WELLFL'
 
 
     if have_epump:                                  # process element pumping file
         have_epump = iwfm.sub_gw_pump_epump_file(epump_file, sim_files_new.epump_file, elems, verbose)
-    if have_epump == False:
+    if not have_epump:
         pump_lines[epump_index] = '                                         / ELEMPUMPFL'
 
     # -- write out the modified pumping file

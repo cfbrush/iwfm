@@ -100,7 +100,7 @@ def _parse_res_file(res_file):
     groups = {}  # group -> {n, sum_res, sum_res_sq}
 
     with open(res_file, encoding='utf-8') as f:
-        header = f.readline()  # skip header
+        f.readline()  # skip header
         for line in f:
             parts = line.split()
             if len(parts) < 6:
@@ -239,7 +239,7 @@ def _detect_bounds(par_file, param_bounds, threshold=0.05):
     results = []
 
     with open(par_file, encoding='utf-8') as f:
-        header = f.readline()  # skip "single point"
+        f.readline()  # skip "single point"
         for line in f:
             parts = line.split()
             if len(parts) < 2:

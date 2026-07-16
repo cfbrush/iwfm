@@ -113,10 +113,7 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
 
     # time-series boundary conditions file
     tsbc_file, line_index = read_next_line_value(bc_lines, line_index)
-    have_tsbc = True
-    if tsbc_file[0] == '/':
-        have_tsbc = False
-    else:
+    if tsbc_file[0] != '/':
         tsbc_file = tsbc_file.replace('\\', ' ').split()[1]
         bc_lines[line_index] = '   ' + sim_files_new.tsbc_file + '		        / TSBCFL'
 

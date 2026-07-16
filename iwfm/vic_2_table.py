@@ -80,7 +80,6 @@ def vic_2_table(factorsFileName, outFileName, col, verbose=False):
         VIC_dict[key] = values
         VIC_Grid_IDs.append(ID)
         j += 1
-    VIC_IDs_sorted = sorted(VIC_Grid_IDs)
 
     dates = [] 
     for i in range(0, VIC_Step):

@@ -81,7 +81,7 @@ def img_clip(raster, clipshape, outfile):
     clip = gdal_array.numpy.choose(mask, (clip, 0)).astype(gdal_array.numpy.uint8)  
 
     # Save ndvi as tiff
-    output = gdal_array.SaveArray(clip, outfile, format='GTiff', prototype=raster)  
+    output = gdal_array.SaveArray(clip, outfile, format='GTiff', prototype=raster)
 
-    output = None  # explicitly release memory
+    output = None  # noqa: F841  (releasing the ref flushes the GDAL dataset to disk)
     return

@@ -52,8 +52,6 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
     import iwfm
     from iwfm.file_utils import read_next_line_value
 
-    comments = ['C','c','*','#']
-
     elems = []
     for e in elem_list:
         elems.append(int(e[0]))
@@ -102,7 +100,6 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
     # urban file name
     _, line_index = read_next_line_value(rz_lines, line_index, column=0, skip_lines=0)
     urban_file = rz_lines[line_index].split()[0]                 # urban file
-    urban_line = line_index
     have_urban = True
     if urban_file[0] == '/':
         urban_file = ''

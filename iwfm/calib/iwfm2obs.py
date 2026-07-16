@@ -165,13 +165,13 @@ def iwfm2obs(verbose=False, head_divisor=None):
     hyd_info = []
     hyd_file, hyd_names, hdiff_sites, hdiff_pairs = 'none', [], '', ''
     for nt in nametype:
-        if file_dict[nt][0] != 'none'and file_dict[nt][5] == True:
+        if file_dict[nt][0] != 'none' and file_dict[nt][5]:
             logger.info(f'Reading {nt} Main File {file_dict[nt][0]}')
             if verbose: print(f'\n  Reading {nt} Main File {file_dict[nt][0]}')
             hyd_file, hyd_names = calib.get_hyd_info(nt,file_dict,model_dir=sim_dir)
             logger.info(f'  {len(hyd_names):,} {nt.lower()} hydrograph locations')
             if verbose: print(f'    Read {len(hyd_names):,} {nt.lower()} hydrograph locations')
-            if nt == 'Groundwater' and headdiffs == True:
+            if nt == 'Groundwater' and headdiffs:
                 hdiff_sites, hdiff_pairs, hdiff_link = calib.headdiff_read(hdiffile)
                 logger.info(f'  {len(hdiff_sites):,} vertical well pairs from {hdiffile}')
                 if verbose: print(f'    Read {len(hdiff_sites):,} vertical well pairs')
@@ -182,7 +182,7 @@ def iwfm2obs(verbose=False, head_divisor=None):
     # == Is there anything to do? ----------------------------------------------------------
     todo = 0
     for nt in nametype:
-        if file_dict[nt][5] == True:
+        if file_dict[nt][5]:
             todo += len(hyd_dict[nt][1])                                          # count number of nametypes with work
     if todo == 0:
         logger.warning('Nothing to do, exiting')
@@ -195,7 +195,7 @@ def iwfm2obs(verbose=False, head_divisor=None):
     # == read simulated hydrographs --------------------------------------------------------
     logger.info('Processing simulated hydrographs')
     for nt in nametype:
-        if file_dict[nt][0] != 'none'and file_dict[nt][5] == True:
+        if file_dict[nt][0] != 'none' and file_dict[nt][5]:
             logger.info(f'Processing {nt.lower()} hydrographs')
             if verbose: print(f'\n  Processing {nt.lower()} hydrographs')
             sim_sites = hyd_dict[nt][1]                                           # list of site names from Streams.dat file
@@ -273,10 +273,10 @@ def iwfm2obs(verbose=False, head_divisor=None):
                         smp_out.append(smp)                                       # add smp string to smp_out list
                         ins_out.append(ins)                                       # add ins string to ins_out list
 
-                        if nt == 'Groundwater' and headdiffs == True and obs_site[i] in hdiff_sites:
+                        if nt == 'Groundwater' and headdiffs and obs_site[i] in hdiff_sites:
                             hdiff_data.append([obs_site[i],obs_dt[i],obs_val,ts])   # obs_val already unscaled above
 
-            if nt == 'Groundwater' and headdiffs == True and len(hdiff_data) > 0:  # process headdiffs
+            if nt == 'Groundwater' and headdiffs and len(hdiff_data) > 0:  # process headdiffs
                 smp, ins = calib.headdiff_hyds(hdiff_pairs, hdiff_data, file_dict[nt][7], ts_func, start_date, verbose)
                 smp_out.extend(smp)                                                # add smp string list to smp_out list
                 ins_out.extend(ins)                                                # add ins string list to ins_out list
@@ -290,7 +290,7 @@ def iwfm2obs(verbose=False, head_divisor=None):
             if verbose: print(f'    Wrote {len(smp_out):,} simulated {nt.lower()} values to {smp_outfile}')
 
             # -- write ins file ----------------------------------------------------------------
-            if file_dict[nt][6] == True:        # iwriteins
+            if file_dict[nt][6]:        # iwriteins
                 ins_outfile  = file_dict[nt][3]
                 with open(ins_outfile, 'w', encoding='utf-8') as f:
                     f.write("pif #\n")

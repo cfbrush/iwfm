@@ -42,7 +42,6 @@ def read_gw_file(gw_file, verbose=False):
     
     """
 
-    params_d = {}
     comments = 'Cc*#'
 
     with open(gw_file, 'r', encoding='utf-8') as f:

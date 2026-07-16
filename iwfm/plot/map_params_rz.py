@@ -74,22 +74,18 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
     if len(rz_file_name) > 1:
         # Get the root zone parameters from the non-ponded crop rootzone file
         crops_np, param_vals_np, _ = iwfm.iwfm_read_rz_npc(rz_file_name[1])        # Read parameters
-        param_types_np = ['cn', 'et', 'wsp', 'ip', 'ms', 'ts', 'rf', 'ru', 'ic']
         if verbose: print(f'  Read root zone parameters from the Non-ponded Crop rootzone file {rz_file_name[1]}')
 
         # Get the root zone parameters from the ponded crop rootzone file
         crops_pc, param_vals_pc, _ = iwfm.iwfm_read_rz_pc(rz_file_name[2])          # Read parameters
-        param_types_pc = ['cn', 'et', 'wsp', 'ip', 'pd', 'ad', 'rf', 'ru', 'ic']
         if verbose: print(f'  Read root zone parameters from the Ponded Crop rootzone file {rz_file_name[2]}')
 
         # Get the root zone parameters from the urban rootzone file
         crops_u, param_vals_u, _  = iwfm.iwfm_read_rz_urban(rz_file_name[3])        # Read parameters
-        param_types_u = ['perv', 'cn', 'icpopul', 'icwtruse', 'fracdm', 'iceturb', 'icrtfurb', 'icrufurb', 'icurbspec']
         if verbose: print(f'  Read root zone parameters from the Urban rootzone file {rz_file_name[3]}')
 
         # Get the root zone parameters from the native vegetation rootzone file
         crops_nr, param_vals_nr, _  = iwfm.iwfm_read_rz_nr(rz_file_name[4])         # Read parameters
-        param_types_nr = ['cnnv', 'cnrv', 'icetnv', 'icetrv', 'istrmrv']
         if verbose: print(f'  Read root zone parameters from the Native and Riparian rootzone file {rz_file_name[4]}')
 
 

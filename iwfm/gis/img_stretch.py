@@ -39,7 +39,7 @@ def img_stretch(infile, outfile):
     arr = gdal_array.LoadFile(infile)
     stretched = stretch(arr)
     output = gdal_array.SaveArray(stretched, outfile, format='GTiff', prototype=infile)
-    output = None
+    output = None  # noqa: F841  (releasing the ref flushes the GDAL dataset to disk)
 
     return
     

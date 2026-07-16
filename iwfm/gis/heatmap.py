@@ -43,7 +43,6 @@ def heatmap(infile, outfile, title):
     with open(infile, "r", encoding='utf-8') as f:
         lines = f.readlines()
     lines.pop(0)
-    data = []
     incidents = [list(map(float, l.strip().split(","))) for l in lines]
     m = folium.Map([32.75, -89.52], titles=title, zoom_start=7, max_zoom=7, min_zoom=7)
     HeatMap(incidents, max_zoom=16, radius=22, min_opacity=1, blur=30).add_to(m)

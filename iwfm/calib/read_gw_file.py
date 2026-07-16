@@ -51,7 +51,6 @@ def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt',
     
     """
 
-    params_d = {}
     comments = 'Cc*#'
 
     with open(gw_file, 'r', encoding='utf-8') as f:

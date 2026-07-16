@@ -40,7 +40,7 @@ def pest_res_stats(pest_res_file, verbose=False):
     with open(pest_res_file, encoding='utf-8') as f:
         pest_res = f.read().splitlines()
     
-    header = pest_res.pop(0)                 # remove the first line
+    pest_res.pop(0)                          # remove the header line
 
     # use list comprehension to split each line of pest_res
     pest_res = [line.split() for line in pest_res]

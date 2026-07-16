@@ -327,7 +327,6 @@ class LLMSupervisor:
             verbose=self.verbose,
         )
 
-        n_crashed = [0]
         phi_values = [None, None]  # [start, end]
 
         def epoch_callback(result):
@@ -556,8 +555,8 @@ calibration epoch. Return your decision as a JSON object."""
 
         new_pst = os.path.join(
             self.pest_dir, f'c2vsim_epoch_{epoch + 1:03d}.pst')
-        summary = modify_pst(current_pst, new_pst, modifications,
-                             verbose=self.verbose)
+        modify_pst(current_pst, new_pst, modifications,
+                   verbose=self.verbose)
 
         if self.verbose:
             print(f'  New PST: {new_pst}')

@@ -46,8 +46,6 @@ def shp_add_field(shapefilename, field_name='TEST', type='F', length=8, prec=5):
 
     r = shapefile.Reader(shapefilename)
     shapes = r.shapes()
-    fields = r.fields[1:]                           # skip first deletion field
-    field_names = [field[0] for field in fields]
     attributes = r.records()
 
     with shapefile.Writer(shapefilename, r.shapeType) as w:

@@ -42,11 +42,8 @@ def iwfm2shp(main_file, shape_name, epsg=26910, verbose=False):
     
     '''
 
-    import os
     import iwfm
     import iwfm.gis as igis
-
-    topdir = os.getcwd()
 
     pre_files, have_lake = iwfm.iwfm_read_preproc(main_file)
     if verbose:
@@ -74,7 +71,7 @@ def iwfm2shp(main_file, shape_name, epsg=26910, verbose=False):
             elif len(lakes) == 1:
                 print(f'  Read info for {len(lakes):,} lake from {pre_files.lake_file}')
     else:
-        n_lake_elems, lakes = 0, None
+        lakes = None
         if verbose:
             print('  No lakes file')
 

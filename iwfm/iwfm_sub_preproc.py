@@ -233,7 +233,7 @@ def iwfm_sub_preproc(
     if verbose:
         print(f'  Wrote submodel preprocessor file {pre_files_new.prename}')
 
-    if have_lake == False:
+    if not have_lake:
         lake_info=[]
     logger.info(f'Completed submodel preprocessing for {out_base_name}')
     return pre_files_new, sub_elem_list, new_srs, elem_dict, sub_node_list, snode_dict, lake_info

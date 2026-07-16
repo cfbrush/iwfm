@@ -38,7 +38,6 @@ def sub_pp_node_list(elem_file, elem_list):
     import iwfm
     from iwfm.file_utils import read_next_line_value
 
-    comments = ['Cc*#']
     elems = []
     for e in elem_list:
         elems.append(int(e[0]))

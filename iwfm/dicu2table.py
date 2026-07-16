@@ -38,7 +38,6 @@ def dicu2table(data_file, verbose=False):
 
     # find the base name and extension
     data_file_base = data_file[0 : data_file.find('.')]
-    data_file_ext = data_file[data_file.find('.') + 1 : len(data_file) + 1]
 
     if verbose:
         print(f'  Creating data table from {data_file}')
@@ -52,9 +51,6 @@ def dicu2table(data_file, verbose=False):
         set_lines += 1
     set_lines += 1  # include the 'END DATA' line in the set length
     set_data = set_lines - 5
-
-    # how many data sets are in the file?
-    sets = (len(file_lines) - 1) / set_lines
 
     # get the dates from the first data set
     months = {'JAN': '01','FEB': '02','MAR': '03','APR': '04',

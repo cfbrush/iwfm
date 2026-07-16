@@ -163,7 +163,7 @@ def iteration_callback(pest_dir, iteration=None, model_config=None,
         # Write new .pst (backup original first)
         base, _ = os.path.splitext(pst_file)
         new_pst = f'{base}_iter{iteration:03d}.pst'
-        summary = write_pest_control(pst_file, new_pst, recs, verbose=verbose)
+        write_pest_control(pst_file, new_pst, recs, verbose=verbose)
 
         # Save recommendations
         recs_path = os.path.join(pest_dir,

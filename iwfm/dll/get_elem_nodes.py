@@ -39,9 +39,6 @@ def get_elem_nodes(iwfm_dll,elem_id):
     '''
 
     from ctypes import byref, c_int
-    import iwfm.dll as idll
-
-    nelem = idll.get_nelem(iwfm_dll)[0]
 
     vertices = 4
 

@@ -33,8 +33,6 @@ def qgis_layer_names(project):
         paths to layer files
     
     '''
-    root = project.layerTreeRoot()
-    layers = project.mapLayers()
     layer_names = [layer.name() for layer in project.layerTreeRoot().children()]
     layer_paths = [layer.source() for layer in project.mapLayers().values()]
     return layer_names, layer_paths

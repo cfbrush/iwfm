@@ -35,7 +35,7 @@ def geop_plot(gdf, **kwargs):
 
     '''
     import matplotlib.pyplot as plt
-    fig = gdf.plot(**kwargs)
+    gdf.plot(**kwargs)
     plt.show()
     plt.close()
     return

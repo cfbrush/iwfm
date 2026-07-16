@@ -85,5 +85,5 @@ def img_classify(source, target):
     output = gdal_array.SaveArray(
         rgb.astype(gdal_array.numpy.uint8), target, format="JPEG"
     )
-    output = None
+    output = None  # noqa: F841  (releasing the ref flushes the GDAL dataset to disk)
     return

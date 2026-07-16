@@ -60,7 +60,7 @@ def get_sim_hyd(nt,file_name,start_date):
         logger.warning(f'No simulation data found in {file_name} (empty hydrograph file)')
         return sim_hyd, dates
 
-    while hyd_index < len(hyd_lines) and hyd_lines[hyd_index][0].isdigit() == True:   # get the dates
+    while hyd_index < len(hyd_lines) and hyd_lines[hyd_index][0].isdigit():   # get the dates
         temp = hyd_lines[hyd_index].split()
         date_obj = datetime.strptime(temp[0][:10], '%m/%d/%Y')  # string to datetime
         dates.append((date_obj - start_date).days)  # days since start date

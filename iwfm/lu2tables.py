@@ -52,7 +52,6 @@ def lu2tables(land_use_file, output_file_type, verbose=False, debug=1):
 
     # find the base name and extension
     land_use_file_base = land_use_file[0 : land_use_file.find('.')]
-    land_use_file_ext = land_use_file[land_use_file.find('.') + 1 : len(land_use_file) + 1]
 
     # -- SUGGESTED FUTURE CHANGES TO IMPROVE THIS PROGRAM --
     # -- read a cl value for output file type

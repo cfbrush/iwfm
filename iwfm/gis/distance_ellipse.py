@@ -46,7 +46,6 @@ def distance_ellipse(p1, p2, units='m'):
     
     lat1, lon1 = p1[0], p1[1]
     lat2, lon2 = p2[0], p2[1]
-    distance = None
     # Ellipsoid Parameters
     # Example is NAD83
     a = 6378137  # semi-major axis
@@ -68,8 +67,7 @@ def distance_ellipse(p1, p2, units='m'):
             (cosU2 * sinLam) ** 2 + (cosU1 * sinU2 - sinU1 * cosU2 * cosLam) ** 2
         )
         if sinSigma == 0:
-            distance = 0  # coincident points
-            break
+            return 0.0  # coincident points
         cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLam
         sigma = math.atan2(sinSigma, cosSigma)
         sinAlpha = cosU1 * cosU2 * sinLam / sinSigma

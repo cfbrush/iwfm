@@ -40,9 +40,6 @@ def wdl_ts_4_wells(station_file, waterlevel_file, verbose=False):
     from iwfm.debug.logger_setup import logger
 
     station_file_base = station_file[0 : station_file.find('.')]  # basename
-    station_file_ext = station_file[
-        station_file.find('.') + 1 : len(station_file) + 1
-    ]  # extention
     output_file = station_file_base + '_TS.out'
 
     # -- read stations into a dictionary

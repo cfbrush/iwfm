@@ -70,8 +70,11 @@ def map(dataset, image_name, scaling_factor = 0.01 , point_type='polygon', point
     draw = ImageDraw.Draw(image)
 
     # Scale the coordinates to fit within the image size
-    scale_x = lambda x: int((x - min_x) * scaling_factor) + 100
-    scale_y = lambda y: int((y - min_y) * scaling_factor) + 100
+    def scale_x(x):
+        return int((x - min_x) * scaling_factor) + 100
+
+    def scale_y(y):
+        return int((y - min_y) * scaling_factor) + 100
 
 
     # Draw a polygon or circle around each data point

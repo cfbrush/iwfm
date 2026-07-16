@@ -49,7 +49,6 @@ def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=Fa
     import iwfm
     from iwfm.file_utils import read_next_line_value
 
-    comments = ['C','c','*','#']
     elems = []
     for e in elem_list:
         elems.append(int(e[0]))
@@ -63,8 +62,7 @@ def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=Fa
 
     # -- bypass specifications
     nbp = int(bp_lines[line_index].split()[0])                  # number of diversions
-    nbp_line = line_index
-    new_nbp, nbp_line, keep_divs = 0, line_index, []
+    new_nbp, nbp_line = 0, line_index
 
     _, line_index = read_next_line_value(bp_lines, line_index - 1, column=0, skip_lines=5)  # skip factors
     bp_keep, bp_nlines = [], []

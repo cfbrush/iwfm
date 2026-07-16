@@ -43,7 +43,7 @@ def wdl_meas_stats(input_file, verbose=False):
     lines_in, lines_out, count = 0, 0, 0
     with open(input_file, 'r', encoding='utf-8') as infile, open(output_file, 'w', encoding='utf-8') as outfile:
         outfile.write('STN_ID\tMIN_DATE\tMAX_DATE\tCOUNT\tWL_AVG\tWL_MAX\tWL_MIN\tWL_SDV\n')
-        first_date, first_well_id, start_date, last_date, wl = 0, '', '', '', []
+        first_well_id, start_date, last_date, wl = '', '', '', []
         for line in infile:
             lines_in +=  1
             items = line.split()
@@ -69,7 +69,6 @@ def wdl_meas_stats(input_file, verbose=False):
                     lines_out = lines_out + 1
                     # - reset for the next well
                     first_well_id = this_well_id
-                    first_date = this_date
                     start_date = items[1]
                     count = 1
                     wl = []

@@ -45,8 +45,6 @@ def iwfm_read_rz_nr(file, verbose=False):
     import numpy as np
     from iwfm.file_utils import read_next_line_value
 
-    ncrops = 2                                                  # number of crop types (may be variable in future IWFM versions)
-
     if verbose: print(f"Entered iwfm_read_rz_nr() with {file}")
 
     iwfm.file_test(file)

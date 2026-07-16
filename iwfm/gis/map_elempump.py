@@ -94,8 +94,6 @@ def map_elempump(elempump_file_name, elem_shp_name, out_shp_root, verbose=False)
     gdf.columns = gdf.columns.str.lower()                                   # convert column names to lower case
 
     elem_ids = gdf['elem_id'].tolist()                                      # copy geopandas dataframe field ELEM_ID to a list
-    count = 0
-
     elempump_ag, elempump_ur, elempump_other, header = iwfm.iwfm_read_elempump(elempump_file_name, elem_ids, comment=1, verbose=False)  # Read element pumping file
 
     out_shp_name = out_shp_root + '_elempump_ag.shp'

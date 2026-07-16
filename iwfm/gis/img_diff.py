@@ -64,6 +64,6 @@ def img_diff(img1, img2, outfile):
         start = classes[i] + 1
 
     output = gdal_array.SaveArray(rgb, outfile, format='GTiff', prototype=img2)
-    output = None    # explicitly release memory
+    output = None  # noqa: F841  (releasing the ref flushes the GDAL dataset to disk)
 
     return

@@ -52,8 +52,6 @@ def sub_pp_lakes(lake_file, elem_list):
     # Check if first line has at least 2 characters before slicing
     if not lake_lines:
         raise ValueError("Lake file is empty")
-    lake_type = lake_lines[0][1:] if len(lake_lines[0]) > 1 else ''
-
     _, line_index = read_next_line_value(lake_lines, -1, column=0, skip_lines=0)
     parts = lake_lines[line_index].split()
     if not parts:

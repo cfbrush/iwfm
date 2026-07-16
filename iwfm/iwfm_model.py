@@ -330,13 +330,13 @@ class iwfm_model:
         self.elem_char = []
         for i in range(0, len(elem_nodes)):
             l = char_lines[char_index + i].split()
-            this_elem = int(l.pop(0))
+            l.pop(0)  # element ID
             chars = []
             chars.append(int(l.pop(0)))  # rain station
             chars.append(float(l.pop(0)))  # rain factor
             chars.append(int(l.pop(0)))  # drainage
             chars.append(int(l.pop(0)))  # subregion
-            temp = int(l.pop(0))  # don't use
+            l.pop(0)  # don't use
             chars.append(float(l.pop(0)))  # soil type
             self.elem_char.append(chars)
         return
@@ -396,7 +396,6 @@ class iwfm_model:
 
         self.sreach_list = []
         snodes_list = []
-        nsnodes = 0
         for i in range(0, self.nreach):  # cycle through stream reaches
             # read reach information
             _, stream_index = read_next_line_value(stream_lines, stream_index, column=0)
@@ -455,7 +454,6 @@ class iwfm_model:
             strat_lines = f.read().splitlines()
 
         _, line_index = read_next_line_value(strat_lines, -1, column=0)  # skip comments
-        layers = int(re.findall(r'\d+', strat_lines[line_index])[0])  # read no. layers
 
         _, line_index = read_next_line_value(strat_lines, line_index, column=0)  # skip comments
         factor = float(re.findall(r'[-+]?\d*\.?\d+', strat_lines[line_index])[0])  # read factor

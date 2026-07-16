@@ -44,8 +44,6 @@ def sub_st_inflow_file(old_filename, new_filename, snode_list, verbose=False):
     import iwfm
     from iwfm.file_utils import read_next_line_value
 
-    comments = ['C','c','*','#']
-
     # Check if inflow file exists using iwfm utility
     iwfm.file_test(old_filename)
 
@@ -58,7 +56,6 @@ def sub_st_inflow_file(old_filename, new_filename, snode_list, verbose=False):
     # -- inflows
     ninflows = int(inflow_lines[line_index].split()[0])             # number of inflows
 
-    new_ninflows, ninflows_line = 0, line_index
     _, line_index = read_next_line_value(inflow_lines, line_index - 1, column=0, skip_lines=5)  # skip factors
 
     for j in range(0, ninflows):

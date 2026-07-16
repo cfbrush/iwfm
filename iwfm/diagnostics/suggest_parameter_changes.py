@@ -214,7 +214,6 @@ def _recommend_phase(bundle):
     # Phase 3: add storage + porosity
 
     rmse = bundle.pest_state.rmse
-    phi = bundle.pest_state.phi
     iteration = bundle.pest_state.iteration
 
     # Simple heuristic: advance phase as model improves
