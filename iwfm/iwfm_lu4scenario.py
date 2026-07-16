@@ -17,6 +17,71 @@
 # -----------------------------------------------------------------------------
 
 
+def _read_lu_table(filename, skip, verbose=False):
+    ''' _read_lu_table() - Read a single-date IWFM land use file
+
+    Parameters
+    ----------
+    filename : str
+        IWFM land use file name
+
+    skip : int
+        number of non-comment data-spec lines to skip after the header
+        comment block
+
+    verbose : bool, default=False
+        True = command-line output on
+
+    Returns
+    -------
+    date : str
+        date of the land use data (DSS format)
+
+    table : dict
+        key = element ID (int), value = list of land use values (str,
+        preserved verbatim from the input file)
+
+    '''
+    comments = 'Cc*#'
+
+    with open(filename, encoding='utf-8') as f:
+        data = f.read().splitlines()
+    if verbose:
+        print(f'   Read {len(data):,} lines from {filename}')
+
+    # skip the header comment block, the data-spec lines, and any
+    # comments between the data-spec lines and the data
+    index = 0
+    while data[index][0] in comments:
+        index += 1
+    index += skip
+    while data[index][0] in comments:
+        index += 1
+
+    # the first data line contains the date, element ID, and land use values
+    line = data[index].split()
+    date = line.pop(0)
+    table = {}
+    table[int(line.pop(0))] = line
+    index += 1
+
+    # remaining lines: element ID and land use values
+    while index < len(data):
+        line = data[index].split()
+        if not line:  # skip blank lines
+            index += 1
+            continue
+        if '24:00' in line[0]:
+            raise ValueError(
+                f'{filename} has more than one time step; '
+                'iwfm_lu4scenario() expects single-date land use files'
+            )
+        table[int(line.pop(0))] = line
+        index += 1
+
+    return date, table
+
+
 def iwfm_lu4scenario(
     out_base_name,
     in_npag_file,
@@ -24,34 +89,52 @@ def iwfm_lu4scenario(
     in_urban_file,
     in_nvrv_file,
     skip=4,
+    npag_cols=20,
+    pag_cols=5,
+    nvrv_cols=2,
+    urban_cols=1,
     verbose=False,
 ):
-    ''' iwfm_lu4scenario() - Modify IWFM land use files for a scenario
+    ''' iwfm_lu4scenario() - Merge four single-date IWFM land use files
+        (non-ponded ag, ponded ag, native/riparian, urban) into one
+        combined scenario land use table, matched by element ID
 
-    TODO:
-      Each land use file is done in series. Can this be replaced with a function that
-        does one land use file, and use the function for each land use file?
+    All four input files must contain the same element IDs. Rows are merged
+    by element ID and written in ascending element order, so the files need
+    not list elements in the same order.
 
     Parameters
     ----------
     out_base_name : str
         output files base name
-    
+
     in_npag_file : str
         input Non-Ponded Ag Area file name
-    
+
     in_ponded_file : str
         input Ponded Ag Area File name
-    
+
     in_urban_file : str
         input Urban Area file name
-    
+
     in_nvrv_file : str
         input Native and Riparian Area input file name
-    
+
     skip : int, default=4
         number of non-comment lines to skip in each file (header)
-    
+
+    npag_cols : int, default=20
+        number of non-ponded ag crop columns (default = C2VSim)
+
+    pag_cols : int, default=5
+        number of ponded ag crop columns (default = C2VSim)
+
+    nvrv_cols : int, default=2
+        number of native/riparian columns (default = C2VSim)
+
+    urban_cols : int, default=1
+        number of urban columns (default = C2VSim)
+
     verbose : bool, default=False
         True = command-line output on
 
@@ -60,155 +143,58 @@ def iwfm_lu4scenario(
     nothing
 
     '''
-    comments = 'Cc*#'
+    date, npag_table = _read_lu_table(in_npag_file, skip, verbose=verbose)
+    _, pag_table = _read_lu_table(in_ponded_file, skip, verbose=verbose)
+    _, urb_table = _read_lu_table(in_urban_file, skip, verbose=verbose)
+    _, nvrv_table = _read_lu_table(in_nvrv_file, skip, verbose=verbose)
 
-    # -- Non-Ponded Area file
-    with open(in_npag_file, encoding='utf-8') as f:
-        npag_data = f.read().splitlines()
-    if verbose:
-        print(f'   Read {len(npag_data):,} lines from {in_npag_file}')
+    # -- all four files must cover the same elements
+    elems = sorted(npag_table)
+    for fname, table in (
+        (in_ponded_file, pag_table),
+        (in_urban_file, urb_table),
+        (in_nvrv_file, nvrv_table),
+    ):
+        if sorted(table) != elems:
+            raise ValueError(
+                f'element IDs in {fname} do not match those in {in_npag_file}'
+            )
 
-    npag_index = 0
-    while any((c in comments) for c in npag_data[npag_index][0]): 
-        npag_index += 1
-    for i in range(0, skip):  # skip data spec rows
-        npag_index += 1
-    while any((c in comments) for c in npag_data[npag_index][0]):
-        npag_index += 1
-
-    # -- compile the data from the file 
-    # the first line contains the date, elemeno, and land use data
-    line = npag_data[npag_index].split()
-    date = line.pop(0)
-    elem = line.pop(0)
-    npag_table = []
-    npag_table.append(line)
-    npag_index += 1
-    npag_cols = len(line)  # including elem_no column
-    # do the remaining lines
-    while npag_index < len(npag_data):
-        line = npag_data[npag_index].split()
-        elem = line.pop(0)
-        npag_table.append(line)
-        npag_index += 1
-
-    # -- Ponded Area file
-    with open(in_ponded_file, encoding='utf-8') as f:
-        pag_data = f.read().splitlines() 
-    if verbose:
-        print(f'   Read {len(pag_data):,} lines from {in_ponded_file}')
-
-    pag_index = 0
-    while any((c in comments) for c in pag_data[pag_index][0]):
-        pag_index += 1
-    for i in range(0, skip):  # skip data spec rows
-        pag_index += 1
-    while any((c in comments) for c in pag_data[pag_index][0]):
-        pag_index += 1
-
-    # -- compile the data from the file 
-    # the first line contains the date, elemeno, and land use data
-    line = pag_data[pag_index].split()
-    date = line.pop(0)
-    elem = line.pop(0)
-    pag_table = []
-    pag_table.append(line)
-    pag_index += 1
-    pag_cols = len(line)  # including elem_no column
-    # do the remaining lines
-    while pag_index < len(pag_data):
-        line = pag_data[pag_index].split()
-        elem = line.pop(0)
-        pag_table.append(line)
-        pag_index += 1
-
-    # -- Urban Area file
-    with open(in_urban_file, encoding='utf-8') as f:
-        urb_data = f.read().splitlines() 
-    if verbose:
-        print(f'   Read {len(urb_data):,} lines from {in_urban_file}')
-
-    urb_index = 0
-    while any((c in comments) for c in urb_data[urb_index][0]):
-        urb_index += 1
-    for i in range(0, skip):  # skip data spec rows
-        urb_index += 1
-    while any((c in comments) for c in urb_data[urb_index][0]):
-        urb_index += 1
-
-    # -- compile the data from the file 
-    # the first line contains the date, elemeno, and land use data
-    line = urb_data[urb_index].split()
-    date = line.pop(0)
-    elem = line.pop(0)
-    urb_table = []
-    urb_table.append(line)
-    urb_index += 1
-    urb_cols = len(line)  # including elem_no column
-    # do the remaining lines
-    while urb_index < len(urb_data):
-        line = urb_data[urb_index].split()
-        elem = line.pop(0)
-        urb_table.append(line)
-        urb_index += 1
-
-    # -- Native and Riparian Area file
-    with open(in_nvrv_file, encoding='utf-8') as f:
-        nvrv_data = f.read().splitlines()
-    if verbose:
-        print(f'   Read {len(nvrv_data):,} lines from {in_nvrv_file}')
-
-    nvrv_index = 0
-    while any((c in comments) for c in nvrv_data[nvrv_index][0]):
-        nvrv_index += 1
-    for i in range(0, skip):  # skip data spec rows
-        nvrv_index += 1
-    while any((c in comments) for c in nvrv_data[nvrv_index][0]):
-        nvrv_index += 1
-
-    # -- compile the data from the file 
-    # the first line contains the date, elemeno, and land use data
-    line = nvrv_data[nvrv_index].split()
-    date = line.pop(0)
-    elem = line.pop(0)
-    nvrv_table = []
-    nvrv_table.append(line)
-    nvrv_index += 1
-    nvrv_cols = len(line)  # including elem_no column
-    # do the remaining lines
-    while nvrv_index < len(nvrv_data):
-        line = nvrv_data[nvrv_index].split()
-        elem = line.pop(0)
-        nvrv_table.append(line)
-        nvrv_index += 1
-
-    # -- build one table from the four data sets
-    import itertools
-
+    # -- build one table from the four data sets, one row per element
+    sources = (
+        (in_npag_file, npag_table, npag_cols),
+        (in_ponded_file, pag_table, pag_cols),
+        (in_nvrv_file, nvrv_table, nvrv_cols),
+        (in_urban_file, urb_table, urban_cols),
+    )
     land_use = []
-    for i in range(0, len(npag_table)):
-        npag = npag_table[i][0:20]
-        pag = pag_table[i]
-        urb = urb_table[i][0]
-        nvrv = nvrv_table[i]
-        x = []
-        x.append([str(i + 1)])
-        x.append(npag_table[i][0:20])
-        x.append(pag_table[i][0:5])
-        x.append(nvrv_table[i][0:2])
-        y = list(itertools.chain.from_iterable(x))
-        y.append(urb_table[i][0])
-        land_use.append(y)
+    for elem in elems:
+        row = [str(elem)]
+        for fname, table, ncols in sources:
+            values = table[elem]
+            if len(values) < ncols:
+                raise ValueError(
+                    f'element {elem} in {fname} has {len(values)} values, '
+                    f'expected at least {ncols}'
+                )
+            row.extend(values[:ncols])
+        land_use.append(row)
 
     # -- write to file
+    col_names = (
+        [f'NPA{i + 1}' for i in range(npag_cols)]
+        + [f'PA{i + 1}' for i in range(pag_cols)]
+        + (['NV', 'RV'] if nvrv_cols == 2 else
+           [f'NVRV{i + 1}' for i in range(nvrv_cols)])
+        + (['Urb'] if urban_cols == 1 else
+           [f'Urb{i + 1}' for i in range(urban_cols)])
+    )
     outFileName = out_base_name + '_Landuse.dat'
     with open(outFileName, 'w', newline='', encoding='utf-8') as outFile:
         outFile.write(f'# Date: {date}\n')
-        outFile.write(
-            '# Elem\tNPA1\tNPA2\tNPA3\tNPA4\tNPA5\tNPA6\tNPA7\tNPA8\tNPA9\tNPA10\tNPA11\tNPA12\tNPA13\tNPA14\tNPA15\tNPA16\tNPA17\tNPA18\tNPA19\tNPA20\tPA1\tPA2\tPA3\tPA4\tPA5\tNV\tRV\tUrb\n'
-        )
-        for i in range(0, len(npag_table)):
-            outFile.write('\t'.join(land_use[i]))
+        outFile.write('# Elem\t' + '\t'.join(col_names) + '\n')
+        for row in land_use:
+            outFile.write('\t'.join(row))
             outFile.write('\n')
     if verbose:
         print(f'   Wrote land use data for {date} to {outFileName}')
@@ -243,6 +229,6 @@ if __name__ == '__main__':
 
     idb.exe_time()  # initialize timer
     iwfm_lu4scenario(out_base_name,in_npag_file,in_ponded_file,
-        in_urban_file,in_nvrv_file,verbose=False)
+        in_urban_file,in_nvrv_file,verbose=verbose)
 
     idb.exe_time()  # print elapsed time

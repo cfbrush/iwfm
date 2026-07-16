@@ -1,6 +1,6 @@
 # iwfm_adj_crops.py
 # Use change factors to modify IWFM land use files
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -77,9 +77,9 @@ def iwfm_adj_crops(
 
     elem_zones = iwfm.read_lu_change_zones(in_zone_file)
 
-    npag_table, dates, elems = iwfm.read_lu_file(in_area_npag, skip) # read ag
-    nvrv_table, _, _ = iwfm.read_lu_file(in_area_nvrv, skip)     # read nv
-    urban_table, _, _ = iwfm.read_lu_file(in_area_urban, skip)   # read urban
+    npag_table, dates, npag_elems = iwfm.read_lu_file(in_area_npag, skip)   # read ag
+    nvrv_table, _, nvrv_elems = iwfm.read_lu_file(in_area_nvrv, skip)       # read nv
+    urban_table, _, urban_elems = iwfm.read_lu_file(in_area_urban, skip)    # read urban
 
     changes_NV = iwfm.read_lu_change_factors(in_chg_file_NV)
     changes_UR = iwfm.read_lu_change_factors(in_chg_file_UR)
@@ -88,32 +88,40 @@ def iwfm_adj_crops(
     chg_col_nv = iwfm.get_change_col(changes_NV, in_year, in_chg_file_NV)
     chg_col_ur = iwfm.get_change_col(changes_UR, in_year, in_chg_file_UR)
 
-    lu_rows = len(npag_table[0])  # number of rows in land use files
+    # change-factor rows keyed by zone ID (row = [zone_id, factor, factor, ...])
+    changes_nv_by_zone = {row[0]: row for row in changes_NV[1:]}
+    changes_ur_by_zone = {row[0]: row for row in changes_UR[1:]}
 
     for i in range(0, len(npag_table)):
-        for j in range(0, len(elem_zones) - 1):  # cycle through elements in zone list
+        # map element ID to table row index for each land-use table
+        ag_row = {e: n for n, e in enumerate(npag_elems[i])}
+        nv_row = {e: n for n, e in enumerate(nvrv_elems[i])}
+        ur_row = {e: n for n, e in enumerate(urban_elems[i])}
+
+        for j in range(0, len(elem_zones)):  # cycle through elements in zone list
             elem, zone = elem_zones[j][0], elem_zones[j][1]
             ag2nv, ag2ur = (
-                1.0 - changes_NV[zone][chg_col_nv],
-                1.0 - changes_UR[zone][chg_col_ur],
+                1.0 - changes_nv_by_zone[zone][chg_col_nv],
+                1.0 - changes_ur_by_zone[zone][chg_col_ur],
             )  # factors for this zone
 
-            area_ag = round(sum(npag_table[i][elem]), 2)
+            ag = ag_row[elem]
+
             # reduce ag area and add to NV area
-            if ag2nv < 1 and area_ag > 0:
-                ag_start = sum(npag_table[i][elem])
-                temp = [round(j * ag2nv, 2) for k in npag_table[i][elem]]
-                npag_table[i][elem] = temp
-                ag_change = ag_start - sum(npag_table[i][elem])
-                nvrv_table[i][elem][0] = round(nvrv_table[i][elem][0] + ag_change, 2)
+            if ag2nv < 1 and sum(npag_table[i][ag]) > 0:
+                ag_start = sum(npag_table[i][ag])
+                npag_table[i][ag] = [round(a * ag2nv, 2) for a in npag_table[i][ag]]
+                ag_change = ag_start - sum(npag_table[i][ag])
+                nv = nv_row[elem]
+                nvrv_table[i][nv][0] = round(nvrv_table[i][nv][0] + ag_change, 2)
 
             # reduce ag area and add to Urban area
-            if ag2ur < 1 and area_ag > 0:
-                ag_start = sum(npag_table[i][elem])
-                temp = [round(j * ag2ur, 2) for k in npag_table[i][elem]]
-                npag_table[i][elem] = temp
-                ag_change = ag_start - sum(npag_table[i][elem])
-                urban_table[i][elem][0] = round(urban_table[i][elem][0] + ag_change, 2)
+            if ag2ur < 1 and sum(npag_table[i][ag]) > 0:
+                ag_start = sum(npag_table[i][ag])
+                npag_table[i][ag] = [round(a * ag2ur, 2) for a in npag_table[i][ag]]
+                ag_change = ag_start - sum(npag_table[i][ag])
+                ur = ur_row[elem]
+                urban_table[i][ur][0] = round(urban_table[i][ur][0] + ag_change, 2)
 
     # -- create the output file names
     out_file_ag = out_basename + '_AG_' + in_year + '.dat'

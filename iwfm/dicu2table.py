@@ -46,10 +46,11 @@ def dicu2table(data_file, verbose=False):
     with open(data_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines() 
 
-    # how many lines per data set?
+    # how many lines per data set? each set ends with an 'END DATA' line
     set_lines = 1
-    while file_lines[set_lines][0] != '/':
+    while not file_lines[set_lines].startswith('END DATA'):
         set_lines += 1
+    set_lines += 1  # include the 'END DATA' line in the set length
     set_data = set_lines - 5
 
     # how many data sets are in the file?
