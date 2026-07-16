@@ -1,0 +1,60 @@
+# Build the Sphinx documentation and publish it to GitHub Pages.
+#
+# No manual setup needed: the configure-pages step below enables GitHub
+# Pages (source: GitHub Actions) on first run. Every push to master
+# rebuilds the site at:
+#   https://cfbrush.github.io/iwfm/
+
+name: docs
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:      # allow manual runs from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment at a time; cancel superseded builds
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Creates/enables the Pages site if it doesn't exist yet, so no
+      # Settings -> Pages configuration is required
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install package and docs tools
+        run: python -m pip install -e ".[docs]"
+
+      - name: Build HTML
+        run: sphinx-build -b html -W --keep-going docs docs/_build/html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/_build/html
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
