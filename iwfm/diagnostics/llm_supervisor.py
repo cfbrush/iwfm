@@ -379,7 +379,7 @@ class LLMSupervisor:
                 **self.model_config,
             )
             bundle_json = serialize_bundle(bundle)
-        except Exception as e:
+        except (OSError, KeyError, ValueError, TypeError) as e:
             logger.warning(f'Bundle assembly failed: {e}')
             bundle_json = json.dumps({'error': str(e)})
 
@@ -440,10 +440,18 @@ class LLMSupervisor:
 Analyze the diagnostic bundle and decide what changes to make for the next \
 calibration epoch. Return your decision as a JSON object."""
 
+        # anthropic is imported lazily by _call_api; include its error base
+        # in the catch tuple only when it is importable
+        try:
+            import anthropic
+            api_errors = (anthropic.AnthropicError,)
+        except ImportError:
+            api_errors = ()
+
         try:
             response_text = self._call_api(user_message)
             decision = self._parse_decision(response_text)
-        except Exception as e:
+        except (ImportError, OSError, IndexError, KeyError, ValueError, TypeError) + api_errors as e:
             logger.error(f'LLM query failed: {e}')
             decision = SupervisorDecision(
                 reasoning=f'LLM query failed: {e}',

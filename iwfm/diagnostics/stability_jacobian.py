@@ -288,7 +288,7 @@ class StabilityCollector:
                 print(f'  [stability] base: {m.mean_iterations:.1f} mean iter, '
                       f'{m.max_diffmax:.3e} max DIFFMAX, '
                       f'{m.n_trouble_timesteps} trouble ts')
-        except Exception as e:
+        except (OSError, KeyError, ValueError) as e:
             self._capture_errors.append(f'base: {e}')
 
     def capture_perturbation(self, param_idx, param_name, run_dir):
@@ -315,7 +315,7 @@ class StabilityCollector:
             metrics = read_convergence_quick(
                 hdf_path, self.iter_threshold, self.diffmax_threshold)
             self._perturb_data.append((param_idx, param_name, metrics))
-        except Exception as e:
+        except (OSError, KeyError, ValueError) as e:
             self._capture_errors.append(f'{param_name}: {e}')
 
     def compute(self):

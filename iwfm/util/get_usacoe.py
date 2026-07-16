@@ -339,7 +339,7 @@ def text_to_csv(files, timeout=30):
         #  Parse the HTML
         try:
             soup = bs4(response.text, 'html.parser')
-        except Exception as e:
+        except (ValueError, TypeError) as e:
             print(f"Failed to parse HTML from {url}: {str(e)}")
             failed_urls.append((name, url, "parse_error"))
             continue

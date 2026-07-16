@@ -80,7 +80,7 @@ def save_table_as_csv(name, table):
             df = pl.DataFrame(rows, schema=headers, orient='row')
         else:
             df = pl.DataFrame(rows, orient='row')
-    except Exception as e:
+    except (ValueError, TypeError, AttributeError, pl.exceptions.PolarsError) as e:
         print(f"Failed to parse HTML table for '{name}': {e}")
         return
 

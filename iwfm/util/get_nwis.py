@@ -92,7 +92,7 @@ def get_nwis(files, timeout=30):
         # Parse HTML
         try:
             soup = BeautifulSoup(response.content, "html.parser")
-        except Exception as e:
+        except (ValueError, TypeError) as e:
             print(f"Failed to parse HTML from {url}: {str(e)}")
             failed_urls.append((name, url, "parse_error"))
             continue
