@@ -20,9 +20,22 @@
 
 
 def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=None, verbose=False):
-    '''sub_streams_file() - Read the original Simulation streams main file, 
-        determine which elements are in the submodel, and writes out a new file, 
+    '''sub_streams_file() - Read the original Simulation streams main file,
+        determine which elements are in the submodel, and writes out a new file,
         then modifies the other Simulation stream component files
+
+    Handles stream component versions 4.0, 4.1, 4.2 and 5.0 (formats from
+    the IWFM-2015.1.1443 templates):
+      - v4.x file names: INFLOWFL, DIVSPECFL, BYPSPECFL, DIVFL, STRMRCHBUDFL,
+        DIVDTLBUDFL; v5.0 adds FNSTRMFL
+      - stream bed factors: FACTK/TUNITSK/FACTL (v4.x) — v5.0 adds INTRCTYPE
+        as a fourth factor line
+      - stream bed rows: `IR CSTRM DSTRM WETPR` (v4.0), `IR CSTRM DSTRM`
+        (v4.1, v5.0), `IR WETPR IRGW CSTRM DSTRM` with optional 4-value
+        continuation rows for additional groundwater nodes (v4.2)
+      - after the bed rows, node-keyed rows in the remaining sections are
+        also filtered: stream evaporation (all versions), plus cross-section
+        and initial-condition rows (v5.0)
 
     Parameters
     ----------
@@ -62,6 +75,11 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
     with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
     stream_lines.append('')
+
+    # stream component version from the first line, e.g. '#4.2'
+    stream_type = stream_lines[0][1:].strip() if len(stream_lines[0]) > 1 else ''
+    v42 = stream_type.startswith('4.2')
+    v5 = stream_type.startswith('5')
 
     _, line_index = read_next_line_value(stream_lines, 0, column=0, skip_lines=0)  # skip initial comments (starting from line 1)
 
@@ -131,8 +149,9 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
         stream_lines[line_index] = '   ' + sim_files_new.div_file + '		        / DIVFL'
     st_dict['div_file'] = div_file
 
-    # skip comments to hydrograph section
-    _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=2)
+    # skip output file names to hydrograph section (STRMRCHBUDFL and
+    # DIVDTLBUDFL; v5.0 adds FNSTRMFL)
+    _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=3 if v5 else 2)
 
     nhyds = int(stream_lines[line_index].split()[0])                # number of hydrographs
     hyds_line = line_index
@@ -175,18 +194,73 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
     # update the number of hydrographs
     stream_lines[buds_line] = '     ' + str(new_buds) + '        / NBUDR'
     
-    # -- streambed parameters
-    _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=3)
+    # -- streambed parameters (FACTK/TUNITSK/FACTL; v5.0 adds INTRCTYPE)
+    _, line_index = read_next_line_value(stream_lines, line_index, column=0, skip_lines=4 if v5 else 3)
 
-    count = 0 
+    count = 0
+    keep_node = False
     while len(stream_lines) > line_index and len(stream_lines[line_index]) > 0 and stream_lines[line_index][0] not in comments:
-        sn = int(stream_lines[line_index].split()[0])
+        parts = stream_lines[line_index].split()
+        if v42 and len(parts) == 4:
+            # v4.2 continuation row (WETPR IRGW CSTRM DSTRM) for an
+            # additional groundwater node of the current stream node
+            keep = keep_node
+        else:
+            keep_node = int(parts[0]) in sub_snodes
+            keep = keep_node
 
-        if sn not in sub_snodes:
+        if not keep:
             del stream_lines[line_index]
         else:
             count += 1
             line_index += 1
+
+    # -- remaining sections: filter node-keyed rows, leave factor and file
+    #    lines unchanged. Older files may end after the streambed rows, so
+    #    every step tolerates end-of-file.
+    def next_data(index):
+        '''index of the next non-blank, non-comment line, or None at EOF'''
+        if index is None:
+            return None
+        index += 1
+        while index < len(stream_lines):
+            line = stream_lines[index]
+            if line.strip() and line[0] not in comments:
+                return index
+            index += 1
+        return None
+
+    def filter_node_rows(index):
+        '''delete contiguous data rows keyed by a stream node outside the submodel'''
+        while (index is not None and index < len(stream_lines)
+               and stream_lines[index].strip()
+               and stream_lines[index][0] not in comments):
+            if int(stream_lines[index].split()[0]) not in sub_snodes:
+                del stream_lines[index]
+            else:
+                index += 1
+        return index
+
+    index = line_index - 1
+    if v5:
+        # cross section and Manning's roughness: FACTN, FACTLT, then one row per node
+        index = next_data(index)                  # FACTN
+        index = next_data(index)                  # FACTLT
+        index = filter_node_rows(next_data(index))
+        index = index - 1 if index is not None else None
+        # initial conditions: ICTYPE, TUNITQ, FACTHQ, then one row per node
+        index = next_data(index)                  # ICTYPE
+        index = next_data(index)                  # TUNITQ
+        index = next_data(index)                  # FACTHQ
+        index = filter_node_rows(next_data(index))
+        index = index - 1 if index is not None else None
+    else:
+        # hydraulic disconnection: INTRCTYPE
+        index = next_data(index)
+
+    # stream evaporation: STARFL, then optional `IR ICETST ICARST` rows
+    index = next_data(index)                      # STARFL
+    filter_node_rows(next_data(index))
 
     # -- inflow file --
     if have_inflow:
