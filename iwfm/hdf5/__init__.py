@@ -93,6 +93,7 @@ from iwfm.hdf5.hdf2xlsx_swat import hdf2xlsx_swat
 from iwfm.hdf5.hdf2xlsx_unsat import hdf2xlsx_unsat
 
 # -- Zone budget methods ----------------------------------
+from iwfm.hdf5.zbud_gw_core import read_zone_definition, zbud_gw_aggregate, ZBudgetData
 from iwfm.hdf5.hdf2zbud_gw import hdf2zbud_gw
 from iwfm.hdf5.hdf2zxlsx_gw import hdf2zxlsx_gw
 
