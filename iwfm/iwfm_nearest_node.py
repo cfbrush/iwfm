@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Given an (x,y) location, return the nearest IWFM node.'''
+
 def iwfm_nearest_node(point, node_set):
     '''Given an (x,y) location, return the nearest IWFM node.
 

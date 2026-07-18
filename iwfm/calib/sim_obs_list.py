@@ -19,6 +19,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read (1) IWFM Groundwater file, (2) a PEST .smp file with observed values, and (3) an IWFM hydrograph output file with simulated values, Print a table of well IDs, dates, observed and simulated values and differences.'''
+
 def sim_obs_list(obs, well_dict, gwhyd_sim, dates):
     '''Calculate simulated equivalents for observations and difference between them.
 

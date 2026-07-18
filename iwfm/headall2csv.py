@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read headall.out file and write out a csv file for each layer.'''
+
 def headall2csv(data, layers, dates, nodes, output_file, verbose=False):
     '''Write out IWFM Headall.out data as one csv file for each layer.
 

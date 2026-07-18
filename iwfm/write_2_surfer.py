@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Write node (x,y) locations and nodal data to a surfer file.'''
+
 def write_2_surfer(outfile_name, x_y_locs, data, date):
     '''Write node (x,y) locations and nodal data to a surfer file.
 

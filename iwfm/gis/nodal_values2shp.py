@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create node shapefile for an IWFM model with a value for each node.'''
+
 def nodal_values2shp(node_coords, values, values_name, shape_name, epsg=26910, verbose=False):
     '''Create node shapefile for an IWFM model with a value for each node.
 

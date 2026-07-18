@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create node shapefile for an IWFM model with multiple values for each node.'''
+
 def nodal_multivalues2shp(node_coords, values, layers, values_name, shape_name, epsg=26910, verbose=False):
     '''Create node shapefile for an IWFM model with multiple values for each node.
 

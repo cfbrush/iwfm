@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return integer shape type for PyShp shapefile.'''
+
 def shp_type(shp):
     '''Return integer shape type for a PyShp shapefile.
 

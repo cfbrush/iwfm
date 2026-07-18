@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return OS version as a string.'''
+
 def this_sys_version():
     '''Return the OS version as a string, for debugging.
 

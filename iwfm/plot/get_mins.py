@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''FFind the minimum values of each parameter in a list of lists.'''
+
 def get_mins(dataset):
     '''Find the minimum values of each parameter in a list of lists.
 

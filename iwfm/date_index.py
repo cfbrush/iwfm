@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return date inval dates from start_date.'''
+
 def date_index(inval, start_date):
     '''Calculate a date inval months from start_date.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM Simulation main file.'''
+
 def sim_info(in_file, verbose=False):
     '''Read simulation input file and return the starting date, ending date and time step of the simulation.
 

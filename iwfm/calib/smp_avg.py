@@ -20,6 +20,11 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read an smp file and average the observations values for each observation ID, then write out with the average value replacing the original observation value.
+
+Based on getaverages.f90 from PEST-IEFM Tools.
+'''
+
 def smp_avg( smp_file, verbose=False):
     '''Read an smp file and average the observations values for each observation ID.
 

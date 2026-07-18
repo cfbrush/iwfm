@@ -16,12 +16,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Calculate vertical head differences.'''
+
 from math import ceil
 
 
 def headdiff_hyds(hdiff_pairs, hdiff_data, rthresh, ts_func, start_date, verbose=False):
     '''Calculate vertical head differences and write them to a sample bore (smp) file.
-
 
     Parameters
     ----------

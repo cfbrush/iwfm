@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Take two lists, return list2 items 'in_both' and 'missing' from list1.'''
+
 def compare(list1,list2):
     '''Return two lists.
 

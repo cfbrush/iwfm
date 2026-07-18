@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read a shapefile of IWFM model elements and map IWFM Rootzone Urban parameters to the elements.'''
+
 def map_param2shp_rz_urban(param_types, param_vals, elem_shp_name, out_shp_name='elem_parameters', verbose=False):
     '''Read a shapefile of IWFM model elements and map IWFM Rootzone Urban parameters to the elements.
 

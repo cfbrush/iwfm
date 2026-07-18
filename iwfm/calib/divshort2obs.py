@@ -19,6 +19,11 @@
 # -----------------------------------------------------------------------------
 
 
+'''Convert Diversion Shortages from IWFM Stream Budget to the SMP file format for use by PEST.
+
+Based on STACDEP2OBS.F90 by Matt Tonkin, SSPA with routines by John Doherty.
+'''
+
 def process_budget(budget_file, cwidth=12):
     '''Read IWFM Stream Budget file and process into a table of diversion shortage cols for each reach.
 

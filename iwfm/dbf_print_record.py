@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Print a DBF record to command line.'''
+
 def dbf_print_record(db, rec):
     '''Print a DBF record to command line.
 

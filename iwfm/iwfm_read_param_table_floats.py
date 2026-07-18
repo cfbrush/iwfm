@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a table of integer parameters from a file and organize them into lists and return a numpy array of floats.'''
+
 def iwfm_read_param_table_floats(file_lines, line_index, lines):
     '''Read a table of integer parameters from a file and organize them into lists and return a numpy array of floats.
 

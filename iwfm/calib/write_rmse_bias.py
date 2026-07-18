@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Write RMSE and bias values to a text file.'''
+
 def write_rmse_bias(output_filename, well_dict, well_names, rmse, bias, count):
     '''Write the RMSE and Bias values plus well info (name,x,y,layer) for all observation wells to a text file.
 

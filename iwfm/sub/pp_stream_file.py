@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old stream file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_pp_stream_file(stream_file, new_stream_file, snode_dict, reach_info,
     rattab_dict, rating_header, stream_aq):
     '''Copy the original stream specification file and replace the contents with those of the new model, and write out the new file.
@@ -181,6 +183,8 @@ def _add_streams(sub_stream_lines, reach_info, snode_dict, rattab_dict,
                  rating_header, stream_aq, reaches_header, reach_header,
                  snodes_header):
     '''Shared engine: append reach descriptions, rating tables (if any), and the stream-aquifer section to the submodel stream file lines.
+
+
 
     '''
 

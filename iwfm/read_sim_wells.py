@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read observation well information from IWFM Groundater.dat file.'''
+
 def read_sim_wells(gw_file, verbose=False):
     '''Read Groundwater.dat file and return a dictionary of groundwater hydrograph info and gwhyd_sim columns.
 

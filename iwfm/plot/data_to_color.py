@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Map a data value to a corresponding RGB color.'''
+
 def data_to_color(value, min_value, max_value, colormap='rainbow'):
     '''Map a data value to a corresponding RGB color.
 

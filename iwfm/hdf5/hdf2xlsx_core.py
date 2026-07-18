@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Convert an IWFM Budget HDF5 file to an Excel workbook.'''
+
 import os
 import numpy as np
 import h5py

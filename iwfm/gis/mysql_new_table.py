@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Add a new table to a mysql database.'''
+
 def mysql_new_table(cur, table_name):
     '''Add a new table to a mysql database.
 

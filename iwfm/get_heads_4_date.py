@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read headall.out file and return heads for a specific date.'''
+
 import iwfm
 import numpy as np
 

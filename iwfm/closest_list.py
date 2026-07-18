@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Given two lists A[] and B[] of form (ID, X, Y), returns a list of len(A) with the item of B closest to each item in A.'''
+
 def closest_list(A, B, verbose=False):
     '''Given two lists A[] and B[] of form (ID, X, Y), return a list of len(A) with the item of B closest to each item in A.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a mysql database.'''
+
 def mysql_read(cur):
     '''Read a mysql database.
 

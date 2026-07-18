@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Calculate bias between two lists of values.'''
+
 def bias_calc(predictions, targets):
     '''Return the Bias between measured (targets) and simulated (predictions) values.
 

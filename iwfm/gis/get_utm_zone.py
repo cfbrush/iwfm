@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return UTM zone for latitude.'''
+
 def get_utm_zone(longitude):
     '''Get the UTM zone for longitude.
 

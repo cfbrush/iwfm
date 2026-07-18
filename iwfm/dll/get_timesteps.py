@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''IWFM DLL: Get number of time steps in current model.'''
+
 def get_timesteps(iwfm_dll):
     '''IWFM DLL: Get number of time steps in current model.
 

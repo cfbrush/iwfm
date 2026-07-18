@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Generate timestep strings matching IWFM format.'''
+
 def generate_timesteps(start_date, n_steps, delta_t, time_unit):
     '''Generate timestep strings matching IWFM format.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return the simulated value that corresponds to the observation date.'''
+
 def interp_val(obs_date,early_date,early_val,late_date,late_val):
     '''Return the simulated value that corresponds to the observation date.
 

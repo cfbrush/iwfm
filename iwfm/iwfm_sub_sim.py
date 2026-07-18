@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Use existing model Elements, Nodes, Stream specification and stratigraphy files to produce new preprocessor files for the submodel and a list of model node pairs.'''
+
 from iwfm.debug.logger_setup import logger
 
 

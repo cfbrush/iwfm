@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old lake file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_pp_lake_file(lake_file, new_lake_file, lake_info):
     '''Copy the old lake file and replace the contents with those of the new model, and write out the new IWFM lake file.
 

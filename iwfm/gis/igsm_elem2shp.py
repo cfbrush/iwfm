@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create an elements shapefile for an IGSM model.'''
+
 def igsm_elem2shp(elem_nodes,node_coords,elem_char,lake_elems,shape_name,
     epsg=26910,verbose=False):
     '''Create an elements shapefile for an IGSM model.

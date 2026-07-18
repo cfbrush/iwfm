@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create an image from a histogram array.'''
+
 def histogram_draw(hist, scale=True):
     '''Create an image from a histogram array.
 

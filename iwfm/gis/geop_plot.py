@@ -18,6 +18,8 @@
 
 
 
+'''Create and display a plot from a geopandas dataframe.'''
+
 def geop_plot(gdf, **kwargs):
     '''Create and dislay a plot from a geopandas dataframe.
 

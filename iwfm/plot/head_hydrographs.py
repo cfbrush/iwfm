@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create hydrograph plots comparing simulated vs observed heads.'''
+
 def read_hyd_info(gw_file):
     """Read hydrograph well information from IWFM Groundwater.dat file.
 

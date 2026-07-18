@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Shared utility functions for h5py-based HDF5 file access.'''
+
 import numpy as np
 from datetime import datetime, timedelta
 

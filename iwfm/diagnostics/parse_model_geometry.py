@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Read IWFM model geometry files for node/element coordinates.'''
+
 import re
 
 

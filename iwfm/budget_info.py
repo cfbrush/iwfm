@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get the Budget file header and footer length and number of tables.'''
+
 def budget_info(budget_lines):
     '''Get the Budget file header and footer length and number of tables.
 

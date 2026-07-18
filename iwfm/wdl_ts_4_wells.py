@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Write well data as time series.'''
+
 def wdl_ts_4_wells(station_file, waterlevel_file, verbose=False):
     '''Write well data as time series.
 

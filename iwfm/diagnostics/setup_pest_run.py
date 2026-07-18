@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Create a clean PEST run folder from reference run.'''
+
 import os
 import shutil
 

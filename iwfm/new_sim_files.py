@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create and returns a SimulationFiles dataclass of simulation file names from a basename.'''
+
 from iwfm.iwfm_dataclasses import SimulationFiles
 
 

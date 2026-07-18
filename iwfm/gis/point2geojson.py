@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Point to geojson format.'''
+
 def point2geojson(point, verbose=False):
     '''Convert a point to geojson format.
 

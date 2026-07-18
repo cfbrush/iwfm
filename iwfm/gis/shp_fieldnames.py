@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return field names for a PyShp shapefile.'''
+
 def shp_fieldnames(f):
     '''Return the field names for PyShp shapefile.
 

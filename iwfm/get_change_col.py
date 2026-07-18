@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''When changing IWFM land use for a scenario, determine which column of the change factors table corresponds to a specific year.'''
+
 def get_change_col(changes_table, in_year, in_chg_file):
     '''When changing IWFM land use for a scenario, determine which column of the change factors table corresponds to a specific year.
 

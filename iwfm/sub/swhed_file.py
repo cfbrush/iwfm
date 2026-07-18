@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old node file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_swhed_file(old_filename, new_filename, node_list, snode_list, verbose=False):
     '''Read original old small watershed file, determine which small watersheds are in the submodel, and write out a new file.
 

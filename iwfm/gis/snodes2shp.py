@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create stream node shapefiles for an IWFM model.'''
+
 def snodes2shp(nsnodes, snodes_list, node_coords, shape_name, epsg=26910, verbose=False):
     '''Create an IWFM stream nodes shapefile.
 

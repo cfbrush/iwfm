@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Add a field to a shapefile with PyShp.'''
+
 def shp_add_field(shapefilename, field_name='TEST', type='F', length=8, prec=5):
     '''Add a field to a shapefile with PyShp.
 

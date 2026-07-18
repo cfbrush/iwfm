@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''When changing IWFM land use for a scenario, determine the model elements for each change zone.'''
+
 def read_lu_change_zones(in_zone_file):
     '''When changing IWFM land use for a scenario, determine the model elements for each change zone.
 

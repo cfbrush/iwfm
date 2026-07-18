@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Subtract the values in one hydrograph file from another.'''
+
 def hyd_diff(gwhyd_file_1, gwhyd_file_2, outname):
     '''Subtract the values in one hydrograph file from another.
 

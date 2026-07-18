@@ -17,10 +17,10 @@
 # -----------------------------------------------------------------------------
 
 
+'''Reproject from geographic coordinates to UTM.'''
+
 def latlon_2_utm(lat, lon):
     '''Reproject from geographic coordinates to UTM.
-
-
 
     Parameters
     ----------

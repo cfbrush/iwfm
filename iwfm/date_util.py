@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Date validation utilities for IWFM package.'''
+
 from __future__ import annotations
 
 from typing import Tuple, TYPE_CHECKING

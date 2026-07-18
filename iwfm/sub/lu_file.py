@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy original land use input file, remove the elements that are not in the submodel, and write out the new file.'''
+
 from iwfm.debug.logger_setup import logger
 
 def sub_lu_file(in_filename, out_filename, elems, verbose=False):

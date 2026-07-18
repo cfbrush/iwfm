@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Get simulated hydrograph values.'''
+
 from iwfm.debug.logger_setup import logger
 
 

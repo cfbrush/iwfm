@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Threshold an image to black and white.'''
+
 def img_threshold(source, target):
     '''Threshold an image to black and white.
 

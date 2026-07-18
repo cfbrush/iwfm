@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old node file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_pp_node_file(node_file, new_node_file, node_list):
     '''Copy the original node file, replace the contents with those of the new model, and write out the new file.
 

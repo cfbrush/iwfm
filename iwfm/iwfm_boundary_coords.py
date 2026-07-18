@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return (x,y) list for the nodes on the bounding polygon.'''
+
 def iwfm_boundary_coords(node_filename, elem_filename):
     '''Return (x,y) list for the nodes on the bounding polygon.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Translate shapefile geometry info to WKT format.'''
+
 def shp2wkt(shapefile):
     '''Translate shapefile geometry info to WKT format.
 

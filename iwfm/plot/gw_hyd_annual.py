@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Reduce daily or monthly IWFM groundwater hydrograph to annual.'''
+
 def gw_hyd_annual(gwhyd_file):
     '''Reduce daily or monthlyIWFM groundwater hydrograph to annual.
 

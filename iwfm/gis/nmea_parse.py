@@ -18,6 +18,8 @@
 
 # NMEA sentence types carrying a position, and the 0-based field index
 # of the latitude value (longitude value is two fields later)
+'''Read a GIS waypoint file and writes lat-lon values.'''
+
 _NMEA_LAT_FIELD = {'GGA': 2, 'RMC': 3, 'GLL': 1}
 
 

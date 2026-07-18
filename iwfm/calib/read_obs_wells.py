@@ -18,6 +18,8 @@
 #-----------------------------------------------------------------------------
 
 
+'''Read a PEST-style settings file.'''
+
 def read_obs_wells(gw_file):
     '''Read observation well information from the Groundwater.dat file and return a dictionary of groundwater hydrograph info and gwhyd_sim columns.
 

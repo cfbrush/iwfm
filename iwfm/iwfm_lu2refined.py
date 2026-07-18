@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Modify IWFM land use files for a scenario.'''
+
 def iwfm_lu2refined(in_lu_file,lu_factors,verbose=False):
     '''Modify IWFM land use file for a refined model.
 

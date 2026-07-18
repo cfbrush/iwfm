@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return one row or record for a PyShp shapefile.'''
+
 def shp_getrow(inshape, rec):
     '''Return one row or record for a shapefile opened with PyShp.
 

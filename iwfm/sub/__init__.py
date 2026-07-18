@@ -4,6 +4,8 @@
 # =============================================================================
 
 # -- preprocessor submodel files ---
+'''Submodel extraction functions for IWFM models.'''
+
 from iwfm.sub.pp_file import sub_pp_file
 from iwfm.sub.pp_node_file import sub_pp_node_file
 from iwfm.sub.pp_elem_file import sub_pp_elem_file

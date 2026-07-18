@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get point coords from KML file.'''
+
 def kml_points(filename, verbose=False):
     '''Get point coordinates from a KML file.
 

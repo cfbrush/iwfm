@@ -17,6 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read crop-based information from IWFM Land and Water Use and Root Zone Budget.
+
+HDF files and write to a CSV file in a format amenable to database input.
+'''
+
 def adjust_headers(headers):
     '''Replace each column header string with a truncated code for use as a database field name.
 
@@ -122,7 +127,6 @@ def process_budget_data(f, loc_names, column_headers, loc_values, write_header=F
 
 def cropbud2csv(bud_file_ag, bud_file_pond, outfile, write_header=True, verbose=False):
     '''Read crop-based information from IWFM Land and Water Use and Root Zone Budget HDF files and write to a CSV file in a format amenable to database input.
-
 
     Parameters
     ----------

@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM element file and land use files for a submodel and write out new land use files for the submodel.'''
+
 def iwfm_lu2sub(
     elem_file, lu_file, out_file, skip=4, verbose=False, per_line=6):
     '''Read an IWFM Preprocessor Element File for a submodel and an IWFM Land Use File for the base model, and write a new land use file with land use for only the elements in the Elements File.

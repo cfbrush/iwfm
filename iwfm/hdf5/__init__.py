@@ -18,6 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Classes, methods and functions to read, write and modify IWFM HDF5 output files.
+
+Uses h5py for cross-platform HDF5 access (Unix/Linux/macOS/Windows). The
+pywfm fallback is DEPRECATED and will be removed in a future version.
+'''
+
 import warnings
 
 # -- HDF5 metadata access ---------------------------------

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a TIFF file, swaps two bands, and saves it.'''
+
 def img_swap_bands(infile, outfile, band1=1, band2=2):
     '''Read a TIFF file, swaps two bands, and saves it.
 

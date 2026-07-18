@@ -20,6 +20,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a shapefile of IWFM model elements and an IWFM diversion specification, make a deep copy of the elements files, and add a field to the shapefile for each diversion, setting element value to 1 if in the diversion's recharge area else 0.'''
+
 def map_rchg2shp(div_ids, rchg_areas, elem_shp_name, out_shp_name, verbose=False):
     '''Add diversion recharge areas to shapefile of IWFM model elements.
 

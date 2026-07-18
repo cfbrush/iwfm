@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read headall.out file and write results for one date toa table.'''
+
 def headall2table(heads_file, output_file, out_date):
     '''Read IWFM headall.out file and write results for one date to a table.
 

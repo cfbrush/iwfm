@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Log-transform a value.'''
+
 def logtrans(q, zero_offset=-2.0, neg_val=1e-9, roundoff=4):
     '''Log-transform a number, accounting for non-zero and negative values.
 

@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read the submodel elements and returns a dictionary of old to new elements and a dictionary of new to old elements.'''
+
 def get_elem_list(elem_pairs_file):
     '''Read the submodel elements and returns a dictionary of old to new elements and a dictionary of new to old elements.
 

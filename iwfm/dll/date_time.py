@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''IWFM DLL: Get date and time of current time step.'''
+
 def date_time(iwfm_dll):
     '''IWFM DLL: Get date and time of current time step.
 

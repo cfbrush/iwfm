@@ -18,6 +18,8 @@
 
 # ---- Module-level parameter dictionary ----
 # Maps parameter keyword to [category, description]
+'''Create a contour map representing nodal values such as groundwater data.'''
+
 INPUT_DICT = {
     'kh'     : ['Groundwater',  'Horizontal hydraulic conductivity'],
     'ss'     : ['Groundwater',  'Specific storage'],

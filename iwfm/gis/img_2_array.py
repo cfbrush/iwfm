@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Convert a Python Imaging Library array to a gdal_array image.'''
+
 def img_2_array(img):
     '''Convert a Python Imaging Library array to a gdal_array image.
 

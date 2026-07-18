@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Remove lines from IWFM input file block for components (elements, nodes, stream nodes, etc) that are not in the submodel.'''
+
 def sub_remove_items(file_lines, line_index, items, skip=0):
     '''Remove lines for components (elements, nodes, stream nodes, etc) that are not in the submodel.
 

@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read the stream specification file and returns stream reach and rating table info.'''
+
 def sub_pp_streams(stream_file, node_list):
     '''Read the stream specification file and return stream reach and rating table info for the submodel.
 

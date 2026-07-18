@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''IWFM DLL: Get FE grid identification numbers.'''
+
 def get_elem_ids(iwfm_dll):
     '''IWFM DLL: Get FE grid identification numbers.
 

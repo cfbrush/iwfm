@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return the lat-lon of a street address.'''
+
 def geocode_json(address, verbose=False):
     '''Return the lat-lon of a street address as a GeoJSON FeatureCollection.
 

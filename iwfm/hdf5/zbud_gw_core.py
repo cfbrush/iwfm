@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Shared read/aggregate engine for IWFM groundwater zone-budget HDF5 files.'''
+
 import os
 from collections import defaultdict
 from dataclasses import dataclass

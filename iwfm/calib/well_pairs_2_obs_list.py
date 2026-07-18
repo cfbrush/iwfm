@@ -19,6 +19,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read a file of paired observation well locations for groundwater head differences and a file of head observations.
+
+For each well pair, find matching observations +/- a specified number of days. For each set of well names, write the matching observations, mean date and head difference.
+'''
+
 def well_pairs_2_obs_list(well_pair_file, obs_file, days=15, verbose=False):
     '''Read a file of paired observation well locations for groundwater head differences and a file of head observations.
 
@@ -55,9 +60,6 @@ def well_pairs_2_obs_list(well_pair_file, obs_file, days=15, verbose=False):
 
     obs_count : list
         number of vertical head difference values 
-
-
-
 
     '''
     import datetime

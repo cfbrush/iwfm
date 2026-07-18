@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read ponded crop data from a file and organize them into lists.'''
+
 def iwfm_read_rz_pc(file, verbose=False):
     '''Read ponded crop data from a file and organize them into lists.
 

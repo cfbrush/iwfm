@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read file of paired locations for groundwater head differences.'''
+
 def headdiff_read(headdiff_file):
     '''Read the file with paired locations for calculation of vertical head differences and the observation ID of the head difference.
 

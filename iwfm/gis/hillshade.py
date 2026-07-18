@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Convert array to hillshade.'''
+
 def hillshade(array, azimuth, angle_altitude):
     '''Convert array to hillshade for a city Source: http://geoexamples.blogspot.com.br/2014/03/shaded-relief-images-using-gdal-python.html.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a shapefile of IWFM model elements and map an IWFM parameter to the elements.'''
+
 def map_param2shp_elems(param_types, param_vals, elem_shp_name, out_shp_name='elem_parameters', verbose=False):
     '''Read a shapefile of IWFM model elements and map an IWFM parameter to the elements.
 

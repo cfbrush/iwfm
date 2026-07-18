@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Save a shapefile as a raster with no fill.'''
+
 def shp2png_empty(shape, outname, iwidth=400, iheight=600):
     '''Convert a shapefile to a raster and saves as a png file - just the outline with no fills.
 

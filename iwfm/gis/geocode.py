@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return the lat-lon of a street address.'''
+
 def geocode(address, verbose=True):
     '''Return the lat-lon of a street address.
 

@@ -17,6 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read a PEST .smp file, IWFM groundwater hydrograph file, and IWFM groundwater.dat file, and print a text file with the RMSE and bias of each well and of all observations.'''
+
 from iwfm.read_sim_hyd import read_sim_hyd
 from iwfm.debug.logger_setup import logger
 

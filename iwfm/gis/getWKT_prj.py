@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return a WKT string containing projection information.'''
+
 def getWKT_prj(epsg_code, verbose=False):
     '''Return a WKT string containing PRJ info for <epsg_code>.
 

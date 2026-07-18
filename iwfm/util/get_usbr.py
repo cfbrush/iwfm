@@ -16,6 +16,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Save a data table from a USBR website into a csv file.
+
+Prints status.
+'''
+
 def get_usbr(year, pdf_url, excel_filename='temp.xlsx'):
     '''Save a data table from a USBR website into a csv file.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Print difference between two datetime values.'''
+
 def print_exe_time(start, end, verbose=1):
     '''Function print_exe_time(start, end) returns the time between two datetime values as a sting hh:mm:ss,.
 

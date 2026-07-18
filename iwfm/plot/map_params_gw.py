@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create PNG images of groundwater parameters from an IWFM simulation.'''
+
 def plot_one(param_name, plot_data, bounding_poly, layer, basename, units='', point_width=100, format='tiff', verbose=False ):
     '''Draw and save one plot.
 

@@ -19,9 +19,10 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read parameter values for model from an IWFM overwrite file and write them to an IWFM Groundwater file.'''
+
 def read_gw_file(gw_file, verbose=False):
     '''Read an IWFM Groundwater file and return the number of nodes, the scaling factors, and the parameter values.
-
 
     Parameters
     ----------

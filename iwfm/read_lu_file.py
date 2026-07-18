@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM land use file.'''
+
 def read_lu_file(filename, skip=4):
     '''Read an IWFM land use file and return a list of acrage data.
 

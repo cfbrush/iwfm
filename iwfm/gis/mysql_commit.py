@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Commit changes to a mysql database.'''
+
 def mysql_commit(conn):
     '''Commit changes to a mysql database.
 

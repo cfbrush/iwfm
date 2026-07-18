@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Abstract base classes and data structures for HDF5 metadata access.'''
+
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional, List, Tuple

@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old groundwater constrained general head boundary condition file, replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_gw_bc_cghd_file(old_filename, new_filename, nodes, verbose=False):
     '''Read the original groundwater constrained general head boundary conditions file, determine which boundary conditions are in the submodel, and write out a new file.
 

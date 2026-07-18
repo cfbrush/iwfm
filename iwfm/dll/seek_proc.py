@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''IWFM DLL: check to see if IWFM procedure is available in user's version of IWFM DLL.'''
+
 def seek_proc(iwfm_dll, seek_proc):
     '''IWFM DLL: check to see if IWFM procedure is available in user's version of IWFM DLL.
 

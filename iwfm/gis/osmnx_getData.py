@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get stream network data for a city.'''
+
 def osmnx_getData(place):
     '''Return streen network data for city <place>.
 

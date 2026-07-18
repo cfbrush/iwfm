@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return python version as a string, for debugging.'''
+
 def this_python():
     '''Return the Python version as a string, for debugging.
 

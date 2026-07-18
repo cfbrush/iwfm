@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create a histogram of given data and determine the number of bins.'''
+
 def histogram(data, name, unit, file, method='auto'):
     '''Create a histogram of given data and determine the number of bins.
 

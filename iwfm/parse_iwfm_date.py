@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''DSS date to datetime object.'''
+
 def parse_iwfm_date(date_str):
     '''Parse IWFM date string format (e.g., '10/31/1973_24:00').
 

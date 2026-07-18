@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read elements from csv file.'''
+
 def read_elements_csv(elem_file_name):
     '''Read elements from csv file.
 

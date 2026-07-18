@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get bounding polygon.'''
+
 def wk2_getBoundingBox(wkt):
     '''Get WKT object bounding box.
 

@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read unsaturated zone parameters from a file and organize them into lists.'''
+
 def iwfm_read_uz_params(uz_file, verbose=False):
     '''Read an IWFM Simulation Unsaturated Zone file and return a list of parameters.
 

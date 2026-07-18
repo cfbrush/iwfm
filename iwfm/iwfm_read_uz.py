@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read unsaturated zone parameters from a file and organize them into lists.'''
+
 def _read_param_table_floats(file_lines, line_index, lines):
     '''Read a table of float parameters from a file and organize them into lists.
 

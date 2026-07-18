@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Dataclass definitions for structured data containers used throughout the iwfm package.'''
+
 from dataclasses import dataclass, fields
 
 

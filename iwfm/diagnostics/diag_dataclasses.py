@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Dataclass definitions for IWFM diagnostic bundle.'''
+
 from dataclasses import dataclass, field, asdict
 from typing import List, Dict, Optional
 

@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Bounding polygon for IWFM mmodel.'''
+
 def bnds2mask(bnds_d, coords):
     '''Bounding polygon for IWFM mmodel.
 

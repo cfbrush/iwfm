@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return text string of shape type for PyShp shapefile.'''
+
 def shp_type_txt(shp):
     '''Return a standard text string of the shape type for a PyShp shapefile.
 

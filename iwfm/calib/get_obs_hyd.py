@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Extract one column from a VIC file to another file.'''
+
 from iwfm.debug.logger_setup import logger
 
 

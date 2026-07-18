@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Add an image to a PDF instance.'''
+
 def pdf_addimage(pdf, image, ux=1, uy=1, width=6.5, height=9):
     '''Create a cell in a PDF instance.
 

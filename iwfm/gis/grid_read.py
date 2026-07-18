@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read an ASCII Grid file.'''
+
 def grid_read(infile):
     '''Read an ASCII Grid file.
 

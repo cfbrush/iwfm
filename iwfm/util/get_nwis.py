@@ -17,6 +17,11 @@
 # -----------------------------------------------------------------------------
 
 
+'''Save a data table from an NWIS website into a csv file.
+
+Prints status.
+'''
+
 def get_nwis(files, timeout=30):
     '''Save a data table from an NWIS website into a csv file.
 

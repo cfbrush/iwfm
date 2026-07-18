@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Extract one column from a VIC file to another file.'''
+
 def vic_2_table(factorsFileName, outFileName, col, verbose=False):
     '''Extract one column from a file of VIC gridded climate change factors and writes to a table, with one column for each VIC grid ID and one row for each date.
 

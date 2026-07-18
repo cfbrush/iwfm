@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Automatically extract features of a threshold image to a shapefile.'''
+
 def img_extract(source, target):
     '''Automatically extract features of a threshold image to a shapefile.
 

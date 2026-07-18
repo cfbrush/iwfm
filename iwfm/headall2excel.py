@@ -17,8 +17,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Write out IWFM Headall.out data for selected time steps to an excel workbook, one sheet per time step.'''
+
 class _Worksheet:
     '''Worksheet with a write(row, col, value) method (0-based row/column indices).
+
+
 
     '''
 
@@ -31,6 +35,7 @@ class _Worksheet:
 
 class _Workbook:
     '''Workbook where add_worksheet() creates a named sheet and close() save to the file name given at construction.
+
 
 
     '''

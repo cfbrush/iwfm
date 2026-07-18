@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Initialize IWFM DLL.'''
+
 def dll_init(dll_path):
     '''Initialize IWFM DLL.
 

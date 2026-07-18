@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Reproject a shapefile to UTM with PyShp.'''
+
 def shp_to_utm_pts(shape, outfile, verbose=False):
     '''Reproject a point shapefile to UTM.
 

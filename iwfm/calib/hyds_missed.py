@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Compare lists of sites and return the sites from each list that are not in the other list.'''
+
 def items_not_in_second_list(list1, list2):
     '''Compare two lists and return a new list containing items present in list1 that are not in list2.'''
     # Convert lists to sets for efficient difference calculation

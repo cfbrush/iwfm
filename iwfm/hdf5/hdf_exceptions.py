@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Custom exceptions for the iwfm.hdf5 module.'''
+
 class HdfError(Exception):
     """Base exception for all HDF5-related errors."""
     pass

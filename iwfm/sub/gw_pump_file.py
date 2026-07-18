@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old groundwater pumping main file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_path=None, verbose=False):
     '''Read the original groundwater main pumping file, determine which pumping components are in the submodel, and write out a new file.
 

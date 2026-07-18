@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM Simulation main file.'''
+
 def iwfm_read_sim(sim_file, verbose=False):
     '''Read an IWFM Simulation main input file, and return a SimulationFiles dataclass with the files called and some settings.
 

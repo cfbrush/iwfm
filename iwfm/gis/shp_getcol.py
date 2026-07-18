@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return one column for a PyShp shapefile.'''
+
 def shp_getcol(f, col):
     '''Return one column from the shapefile table.
 

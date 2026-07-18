@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 # program/function timer
+'''Classes, methods and functions for debugging scripts to use IWFM and IGSM files.'''
+
 from iwfm.debug.exe_time import exe_time
 from iwfm.debug.print_exe_time import print_exe_time
 from iwfm.debug.timer import timer

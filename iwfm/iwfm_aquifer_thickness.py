@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Extract aquifer thicknesses from IWFM stratigraphy information.'''
+
 def iwfm_aquifer_thickness(strat):
     '''Extract aquifer thicknesses from IWFM stratigraphy information.
 

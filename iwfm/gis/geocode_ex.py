@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Example - finds the lat-lon of a street address and then reverses to use the lat-lon to get the address information.'''
+
 def geocode_ex(address, verbose=False):
     '''Example: Find the lat-lon of a street address and then reverse to use the lat-lon to get the address information.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Convert an ASCII DEM to an image.'''
+
 def grid2img(source, target):
     '''Convert an ASCII DEM to an image.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Open file as a geopandas dataframe.'''
+
 def geop_open(infile):
     '''Open a file with geopandas and return geopandas object.
 

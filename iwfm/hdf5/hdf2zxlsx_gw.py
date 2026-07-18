@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Convert IWFM Groundwater Zone Budget HDF5 file to Excel workbook.'''
+
 import openpyxl
 from openpyxl.styles import Font, Alignment
 

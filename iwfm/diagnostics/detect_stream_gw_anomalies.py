@@ -4,6 +4,8 @@
 # License: GNU GPL v2.0+
 
 
+'''Detect anomalous stream-groundwater exchange nodes.'''
+
 def detect_stream_gw_anomalies(stream_summary, z_threshold=3.0):
     """Extract anomalous stream nodes from StreamSummary.
 

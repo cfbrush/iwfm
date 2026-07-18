@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Determine the histogram function for multi-dimensional array.'''
+
 def histogram_array(arr, bins=list(range(256))):
     '''Determine the histogram function for multi-dimensional array <arr>.
 

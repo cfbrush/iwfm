@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM Groundwater Overwrite file.'''
+
 def read_overwrite_file(overwrite_file, nnodes, nlay, param_types, verbose=False):
     '''Open and read an IWFM-2015 overwrite file or overwrite template file, and return the number of nodes, the scaling factors, and the parameter values.
 

@@ -17,6 +17,8 @@
 #-----------------------------------------------------------------------------
 
 
+'''Of each observation site.'''
+
 def pest_res_stats(pest_res_file, verbose=False):
     '''Read a PEST .res file, and print a text file with the RMSE and bias of each observation site.
 

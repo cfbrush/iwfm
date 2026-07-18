@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''IWFM DLL: Get the number of FE elements in the current model.'''
+
 def get_nelem(iwfm_dll):
     '''IWFM DLL: Get the number of FE elements in the current model.
 

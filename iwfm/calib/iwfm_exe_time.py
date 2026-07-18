@@ -18,6 +18,8 @@
 #-----------------------------------------------------------------------------
 
 
+'''Extract the simulation time from SimulationMessages.out and write to a file as the number of seconds to execute the model.'''
+
 def iwfm_exe_time(infile='SimulationMessages.out',outfile='exe_time.smp'):
     '''Extract the simulation time from SimulationMessages.out and write to a file as the number of seconds to execute the model.
 

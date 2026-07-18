@@ -17,8 +17,10 @@
 # -----------------------------------------------------------------------------
 
 
+'''Open a DBF file.'''
+
 class _DBFTable(list):
-    '''s'''
+    '''List of DBF records with .fields and .records attributes.'''
 
     def __init__(self, records, fields):
         super().__init__(records)

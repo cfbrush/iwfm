@@ -20,6 +20,8 @@
 
 
 
+'''Copy the stream bypass specification file and replace the contents with those of the new submodel, and write out the new file.'''
+
 def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=False):
     '''Copy the stream bypass specification file and replace the contents with those of the new submodel, and write out the new file.
 

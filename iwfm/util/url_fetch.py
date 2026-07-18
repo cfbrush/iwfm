@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Download a file from URL.'''
+
 def url_fetch(url, filename, verbose=False, timeout=30):
     '''Download file at url to filename.
 

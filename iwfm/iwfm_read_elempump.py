@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM Simulation Element Pumping file.'''
+
 def iwfm_read_elempump(elempump_file_name, elem_ids, ag=1, ur=2, comment=0, verbose=False):
     '''Read an IWFM Element Pumping file, and return lists for ICOLSK, FRACSK, IOPTSK, FRACSKL[Layer], TYPDSTSK, DSTSK, ICFIRIGSK, ICACJSK, ICSKMAX and FSKMAX for Ag and for Urban for each model element.
 

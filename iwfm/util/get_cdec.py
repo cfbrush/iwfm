@@ -17,6 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Save a data table from a California Data Exchange Center (CDEC) website into a csv file.
+
+Prints status.
+'''
+
 from bs4 import BeautifulSoup
 import requests
 import polars as pl

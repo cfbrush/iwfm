@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Convert an ASCII DEM to an image and colorize using a heat-map color ramp.'''
+
 import colorsys
 import numpy as np
 

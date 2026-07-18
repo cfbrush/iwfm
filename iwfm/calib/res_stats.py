@@ -18,6 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read a PEST .smp file, IWFM groundwater hydrograph file, and.
+
+IWFM groundwater.dat file, and print a text file with the RMSE and bias of each well and of all observations.
+'''
+
 import iwfm
 import iwfm.calib as icalib
 

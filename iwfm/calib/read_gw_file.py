@@ -18,10 +18,11 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read an IWFM Groundwater file and return the number of nodes, the scaling factors, and the parameter values.'''
+
 def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt', 
                  dict_file='parvals_d.txt', verbose=False):
     '''Read an IWFM Groundwater file and return the number of nodes, the scaling factors, and the parameter values.
-
 
     Parameters
     ----------

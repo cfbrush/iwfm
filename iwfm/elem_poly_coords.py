@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return a list of the (x,y) coordinates for the nodes of each elememnt.'''
+
 def elem_poly_coords(elem_nodes, node_coords):
     '''Return a list of element coordinates in the form: [[x0,y0],[x1,y1],[x2,y2]<,...>].
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Open a raster file.'''
+
 def raster_open(infile):
     '''Open a raster file.
 

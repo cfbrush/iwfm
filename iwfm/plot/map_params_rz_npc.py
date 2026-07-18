@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create colored maps representing non-ponded-crop rootzone parameters.'''
+
 def get_rz_params_npc(node_file_name, elem_file_name, rz_npc_file_name, verbose=False):
     '''Get non-ponded-crop rootzone parameters and node and element information.
 

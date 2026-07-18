@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Draw an entire contour shapefile to a PNG image.'''
+
 import shapefile  # pyshp
 
 def contour2png(source, target, iwidth=800, iheight=600):

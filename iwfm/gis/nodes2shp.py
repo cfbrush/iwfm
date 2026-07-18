@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create node shapefiles for an IWFM model.'''
+
 def nodes2shp(node_coords, shape_name, epsg=26910, verbose=False):
     '''Create an IWFM nodes shapefile.
 

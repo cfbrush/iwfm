@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read root zone parameters from a file and organize them into lists.'''
+
 def iwfm_read_rz_params(rz_file, verbose=False):
     '''Read root zone parameters from a file and organize them into lists.
 

@@ -17,6 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Print difference between two datetime values.
+
+First call stores start time, subsequent calls print elapsed time.
+'''
+
 import datetime
 
 

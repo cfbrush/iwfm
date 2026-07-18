@@ -17,6 +17,8 @@
 #-----------------------------------------------------------------------------
 
 
+'''Read a PEST SMP file, and log-transform the observation values.'''
+
 import iwfm
 
 

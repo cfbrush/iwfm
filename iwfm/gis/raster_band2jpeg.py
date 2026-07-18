@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Extract raster band to jpeg file.'''
+
 def raster_band2jpeg(infile, band, outfile, format='JPEG'):
     '''Extract a raster band to a file.
 

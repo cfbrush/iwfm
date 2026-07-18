@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM preprocessor stratigraphy file.'''
+
 def iwfm_read_strat(strat_file, node_coords, verbose=False):
     '''Read an IWFM Stratigraphy file and return a list of stratigraphy for each node.
 

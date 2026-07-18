@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read headall.out file and nodal coordinates file and produce head maps.'''
+
 def headall2map(heads_file, pre_file, bnds_file, out_date, basename, label='Heads', units='ft', verbose=False):
     '''Read headall.out file and stratigraphy file and produce head maps.
 

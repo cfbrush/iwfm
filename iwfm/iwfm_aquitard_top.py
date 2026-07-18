@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Extract aquitard top from IWFM stratigraphy information.'''
+
 def iwfm_aquitard_top(strat):
     '''Extract aquitard top altitude from IWFM stratigraphy information.
 

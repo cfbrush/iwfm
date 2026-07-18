@@ -18,6 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Convert IWFM Stream Reach Budget to the SMP file format for use by PEST.
+
+Based on STACDEP2OBS.F90 by Matt Tonkin, SSPA with routines by John Doherty.
+'''
+
 def process_budget(budget_file, cwidth=12):
     '''Read IWFM Stream Reach budget file and process into a table of individual stream reach stream-groundwater flows.
 

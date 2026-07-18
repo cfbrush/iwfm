@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get nodal coordinates and groundwater parameters from an IWFM simulation.'''
+
 def get_gw_params(gw_file):
     '''Get nodal coordinates and groundwater parameters from an IWFM simulation.
 

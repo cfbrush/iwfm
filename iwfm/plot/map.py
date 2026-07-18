@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create a colored image map representing groundwater data.'''
+
 def map(dataset, image_name, scaling_factor = 0.01 , point_type='polygon', point_width=100, verbose=False):
     '''Create a colored image map representing groundwater data.
 

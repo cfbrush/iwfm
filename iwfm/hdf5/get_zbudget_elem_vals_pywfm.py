@@ -20,6 +20,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Open an IWFM ZBudget HDF file and retreive all of the data using DWR's PyWFM package to interface wth the IWFM DLL and create a dataframe with the sum of all of the values in each column for all elements.
+
+DEPRECATED: Use get_zbudget_elem_vals_h5.py instead for cross-platform support.
+'''
+
 def get_zbudget_elem_vals(zbud, zones_file, col_ids, area_conversion_factor=0.0000229568411, area_units='ACRES', 
                         volume_conversion_factor=0.0000229568411, volume_units='ACRE-FEET', verbose=False):
     '''Open an IWFM ZBudget HDF file and retreive all of the data using DWR's PyWFM package to interface wth the IWFM DLL and create a dataframe with the sum of all of the values in each column for all elements.

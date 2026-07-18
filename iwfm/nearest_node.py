@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM well file and return nearest IWFM node to an (x,y) location the nearest node to each (x,y) point.'''
+
 def nearest_node(point, node_set):
     '''Find the nearest node to a point from the node array.
 

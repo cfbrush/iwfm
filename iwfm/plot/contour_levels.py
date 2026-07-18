@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Define the contour levels for a contour map.'''
+
 def contour_levels(Z, no_levels=20, verbose=False):
     '''Define the contour levels for a contour map.
 

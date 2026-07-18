@@ -17,9 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Find the index of the value in the first column of the array that is closest to the given value.'''
+
 def find_nearest_index(array, value):
     '''Find the index of the value in the first column of the array that is closest to the given value.
-
 
     Parameters
     ----------

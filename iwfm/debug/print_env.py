@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Print some envoronment variables to the console for debugging.'''
+
 def print_env():  # print some paths
     '''Print some environment variables to the console, for debugging.
 

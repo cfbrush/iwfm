@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old unsaturated zone file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_unsat_file(old_filename, new_filename, elem_list, verbose=False):
     '''Read the original unsaturated zone file, determine which elements are in the submodel, and write out a new file.
 

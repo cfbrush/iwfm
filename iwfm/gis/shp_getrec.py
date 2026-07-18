@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return a record as a string for a PyShp shapefile.'''
+
 def shp_getrec(f, i):
     '''Return a shapefile record as a string.
 

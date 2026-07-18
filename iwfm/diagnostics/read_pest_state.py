@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Read PEST iteration state from .res, .rec, .par, .pst, .sen files.'''
+
 import math
 from iwfm.diagnostics.diag_dataclasses import PestStateSummary
 

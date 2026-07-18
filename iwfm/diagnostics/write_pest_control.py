@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Write PEST .pst control file from parameter recommendations.'''
+
 import logging
 
 logger = logging.getLogger('iwfm.diagnostics.write_pest_control')

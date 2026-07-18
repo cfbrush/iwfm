@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Reproject from UTM to geographic coordinates.'''
+
 def utm_2_wgs84(zone, easting, northing):
     '''Reproject from UTM to geographic coordinates.
 

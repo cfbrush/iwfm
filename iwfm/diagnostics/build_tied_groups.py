@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Assign non-representative nodes to nearest representative (Voronoi tying).'''
+
 import numpy as np
 
 

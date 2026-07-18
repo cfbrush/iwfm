@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get average street length for a city.'''
+
 def osmnx_street_len(city):
     '''Use OSMNX to calculate average street length for a city.
 

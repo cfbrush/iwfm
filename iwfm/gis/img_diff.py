@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Perform a simple difference image change detection on matched 'before' and 'after' images.'''
+
 def img_diff(img1, img2, outfile):
     '''Perform a simple difference image change detection on matched 'before' and 'after' images.
 

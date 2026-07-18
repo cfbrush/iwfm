@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read headall.out file and return as lists.'''
+
 from iwfm.debug.logger_setup import logger
 
 

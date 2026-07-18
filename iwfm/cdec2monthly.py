@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read CDEC observations, convert sub-monthly observations to the monthly average and write to a csv file.'''
+
 def cdec2monthly(input_file, output_file, verbose=False):
     '''Read a CDEC observations file, convert sub-monthly observations to the monthly average, and write to a csv file.
 

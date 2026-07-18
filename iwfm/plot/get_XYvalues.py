@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create X, Y, values vectors from a dataset.'''
+
 def get_XYvalues(dataset):
     '''Create a colored image map representing groundwater data.
 

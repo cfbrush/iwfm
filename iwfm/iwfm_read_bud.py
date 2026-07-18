@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read IWFM Budget main file.'''
+
 def iwfm_read_bud(bud_file, verbose=False):
     '''Read an IWFM Budget main input file, and return a list of lists with the file information and some settings.
 

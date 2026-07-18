@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''When changing IWFM land use for a scenario, read the change factors for each change zone.'''
+
 def read_lu_change_factors(in_chg_file):
     '''Read the change factors for changing IWFM land use for a scenario.
 

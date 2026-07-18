@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create a PDF object.'''
+
 def pdf_create(layout='P', units='in', pagesize='Letter'):
     '''Create a PDF object.
 

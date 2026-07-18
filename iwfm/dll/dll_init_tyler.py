@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Initialize IWFM DLL.'''
+
 def dll_init(dll_path, preprocessor_file_name, simulation_file_name, has_routed_streams=1, is_for_inquiry=1):
     '''Initialize IWFM DLL.
 

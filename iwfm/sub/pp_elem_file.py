@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old element file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_pp_elem_file(elem_file, new_elem_file, elem_list, new_srs):
     '''Copy the old element file and replace the contents with those of the new model, and write out the new file.
 

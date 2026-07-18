@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the groundwater tile drain file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
     '''Read the original tile drain main file, determine which components are in the submodel, and write out a new file.
 

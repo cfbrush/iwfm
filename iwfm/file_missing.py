@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Raise FileNotFoundError for a missing file.'''
+
 def file_missing(filename, context=None):
     '''Raise FileNotFoundError for a file that does not exist.
 

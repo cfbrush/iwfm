@@ -20,6 +20,11 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read information from an IWFM Budget HDF file and write to a CSV file in a format amenable to database input.
+
+Currently processes any budget file, but only modifies headers to field names for Lane and Water Use and Root Zone budget files.
+'''
+
 def adjust_headers(headers):
     '''Replace each column header string with a truncated code for use as a database field name.
 

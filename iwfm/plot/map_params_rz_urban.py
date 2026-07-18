@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create colored maps representing urban rootzone parameters.'''
+
 def get_params_rz_urban(node_file_name, elem_file_name, rz_ur_file_name, verbose=False):
     '''Get urban rootzone parameters and node and element information.
 

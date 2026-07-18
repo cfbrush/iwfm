@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read part of the stream specification file for file type 4.2 and returns stream reach and rating table info.'''
+
 def get_stream_list_42(stream_lines, line_index, nreach, nrate):
     '''Read part of the stream specification file for file type 4.2 and return stream reach and rating table info.
 

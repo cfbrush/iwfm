@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Determine if given latitude is a northern for UTM.'''
+
 def is_northern(latitude):
     '''Determine if given latitude is a northern for UTM.
 

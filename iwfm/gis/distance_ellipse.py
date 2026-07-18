@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Distance between two lat-lon points on an ellipse.'''
+
 import math
 
 def distance_ellipse(p1, p2, units='m'):

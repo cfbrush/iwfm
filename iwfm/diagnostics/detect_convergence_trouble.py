@@ -4,6 +4,8 @@
 # License: GNU GPL v2.0+
 
 
+'''Detect timesteps with convergence problems.'''
+
 def detect_convergence_trouble(convergence, iter_threshold=40,
                                diffmax_threshold=0.1):
     """Extract trouble timesteps from ConvergenceSummary.

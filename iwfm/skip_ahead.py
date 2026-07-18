@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Skip a specified number of list elements plus all that begin with a comment character.'''
+
 def skip_ahead(line_index, all_lines, skip=0):
     '''Increment line_index by skipping (a) every line that begins with 'C', 'c' '*' or '#' and (b) 'skip' additional lines.
 

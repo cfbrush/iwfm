@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Calculate the centroid of each element.'''
+
 def get_elem_centroids(elem_ids, elem_nodes, node_coords):
     '''Calculate the centroid of each element.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Modify IWFM land use files for a scenario.'''
+
 def _read_lu_table(filename, skip, verbose=False):
     '''Read a single-date IWFM land use file.
 

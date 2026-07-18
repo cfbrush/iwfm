@@ -19,6 +19,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a shapefile of IWFM model elements and an IWFM diversion specification make a deep copy of the elements files, and add a field to the shapefile for each delivery area, setting element value to 1 if in the delivery area else 0.'''
+
 def map_divs2shp(deliv_area_ids, deliv_areas, elem_shp_name, out_shp_name, verbose=False):
     '''Add diversion areas to shapefile of IWFM model elements.
 

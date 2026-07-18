@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create .PRJ files for shapefiles.'''
+
 def projection(shapename, epsg=26910, verbose=False):
     '''Create projection files for shapefiles.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get a writer for a shapefile of the same type as the input shapefile.'''
+
 def shp_get_writer(outfile, type):
     '''Get a writer for a shapefile of the same type as the input shapefile.
 

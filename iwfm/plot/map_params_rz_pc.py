@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create colored maps representing ponded-crop rootzone parameters.'''
+
 def get_params_rz_pc(node_file_name, elem_file_name, rz_pc_file_name, verbose=False):
     '''Get ponded-crop rootzone parameters and node and element information.
 

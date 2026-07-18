@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Convert IWFM Groundwater Zone Budget HDF5 file to text format.'''
+
 from iwfm.debug.logger_setup import logger, setup_debug_logger
 from iwfm.hdf5.zbud_gw_core import read_zone_definition, zbud_gw_aggregate  # noqa: F401  (read_zone_definition re-exported for compatibility)
 

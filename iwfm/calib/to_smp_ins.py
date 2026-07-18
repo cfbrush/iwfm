@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Write smp and ins file lines for one observation.'''
+
 def to_smp_ins(obs_site,obs_dt,obs_val,ts):   # put into smp and ins strings
     '''Write smp and ins file lines for one observation.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Delete file.'''
+
 from iwfm.debug.logger_setup import logger
 
 def file_delete(filename):

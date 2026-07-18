@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create a colored image map representing nodal values such as groundwater data.'''
+
 def map_to_nodes(dataset, bounding_poly, image_name, cmap='rainbow', marker_size = 10, title="Parameter values", 
                 label='Z values', units='', format='tiff', verbose=False):
     '''Create a colored image map representing nodal values such as groundwater data.

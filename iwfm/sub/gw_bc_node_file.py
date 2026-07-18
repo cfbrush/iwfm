@@ -19,6 +19,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy a groundwater boundary-condition sub-file (specified flow, specified head, or general head), keeps the boundary conditions at submodel nodes, and writes out the new file.'''
+
 def sub_gw_bc_node_file(old_filename, new_filename, nodes, verbose=False):
     '''Read a groundwater boundary-condition sub-file (specified flow, specified head, or general head), keep the boundary conditions at submodel nodes, and write out a new file.
 

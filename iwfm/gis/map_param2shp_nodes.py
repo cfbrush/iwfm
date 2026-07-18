@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a shapefile of IWFM model nodes and map an IWFM parameter to the nodes to 1 if served by the diversion else 0.'''
+
 def map_param2shp_nodes(param_type, param_vals, node_shp_name, out_shp_name='nodal_parameters', layers=0, verbose=False):
     '''Read a shapefile of IWFM model nodes and map an IWFM parameter to the nodes.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create colored maps representing native and riparian rootzone parameters.'''
+
 def get_params_rz_nr(node_file_name, elem_file_name, rz_nr_file_name, verbose=False):
     '''Get native and riparian vegetation rootzone parameters and node and element information.
 

@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read part of the stream specification file for file type 5.0 and returns stream reach info.'''
+
 def get_stream_list_50(stream_lines, line_index, nreach):
     '''Read part of the stream specification file for file type 5.0 and return stream reach info.
 

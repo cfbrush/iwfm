@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Classes, methods and functions for plotting IWFM parameters, results, etc.'''
+
 from iwfm.plot.draw_plot import draw_plot
 from iwfm.plot.histogram import histogram
 from iwfm.plot.overlay_histograms import overlay_histograms

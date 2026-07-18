@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Print unbuffered output to console.'''
+
 class Unbuffered(object):
     '''Write unbuffered output to console, for example to print progress at runtime without newline characters.
 

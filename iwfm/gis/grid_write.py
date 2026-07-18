@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Write an ASCII Grid file.'''
+
 def grid_write(outfile, array, xllcorner=277750.0, yllcorner=6122250.0, 
     cellsize=1.0, nodata=-9999):
     '''Write an ASCII Grid file.

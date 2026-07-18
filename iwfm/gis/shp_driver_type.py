@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return shapefile driver name.'''
+
 def shp_driver_type(filename, verbose=False):
     '''Return the driver.
 

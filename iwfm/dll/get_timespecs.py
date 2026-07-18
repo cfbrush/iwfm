@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''IWFM DLL: Get all time information from current model.'''
+
 def get_timespecs(iwfm_dll):
     '''IWFM DLL: Get all time information from current model.
 

@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''R Read hydrograph info from Groundwater.dat file and build a dictionary of groundwater hydrograph info.'''
+
 from iwfm.debug.logger_setup import logger
 
 

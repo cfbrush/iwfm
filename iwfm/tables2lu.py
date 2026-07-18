@@ -17,6 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read individual tables of elemental land use data and write to a single IWFM land use file.'''
+
 from iwfm.debug.logger_setup import logger
 
 def tables2lu(header, template_lines, initial_acreage, factor_tables, output_file_name, start_date, elems):

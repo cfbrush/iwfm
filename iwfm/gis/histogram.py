@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Generates and displays the color histogram of an image.'''
+
 def histogram(infile, scl=True):
     '''Generate and display the color histogram of an image.
 

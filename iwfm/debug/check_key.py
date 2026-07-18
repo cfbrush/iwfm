@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Check if key is in dictionary, for debugging.'''
+
 def check_key(d, key):
     '''Check if key is in dictionary, for debugging.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM preprocessor lakes file.'''
+
 def iwfm_read_lake(lake_file):
     '''Read an IWFM Lake file and return (a) a list of elements and (b) a list of properties for each lake.
 

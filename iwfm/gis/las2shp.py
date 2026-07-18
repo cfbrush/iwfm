@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Convert an LAS LIDAR file to a shapefile.'''
+
 def las2shp(source, target, max_edge_length=3, verbose=0):
     '''Convert an LAS LIDAR file to a shapefile by creating a 3D triangle mesh using Delaunay Triangulation.
 

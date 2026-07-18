@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read file of paired items into a dictionary.'''
+
 def file2dict(infile, key_field=0, val_field=1, skip=0, key_type=str, val_type=str):
     '''Read file with paired items, return dictionary.
 

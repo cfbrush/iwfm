@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 # ** Incomplete **
+'''Class of methods for working with IWFM simulation hydrographs.'''
+
 import bisect
 import iwfm
 from iwfm.debug.logger_setup import logger

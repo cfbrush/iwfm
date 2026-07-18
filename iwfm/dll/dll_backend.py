@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''DLL backend for HDF5 metadata access (deprecated, Windows-only).'''
+
 import platform
 import warnings
 from typing import Tuple, Optional, List

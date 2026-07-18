@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read an smp file and reformat.'''
+
 def smp_format( infile, nwidth=20, verbose=False):
     '''Read an smp file and reformat.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Add pages to a PDF instance.'''
+
 def pdf_addpages(pdf, pages=1):
     '''Add pages to a PDF instance.
 

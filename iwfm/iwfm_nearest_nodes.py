@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a file with (x,y) locations and an IWFM node file, and write a file with the nearest node to each (x,y) point.'''
+
 def iwfm_nearest_nodes(filename, node_set):
     '''Read a point file, calculate the nearest node and distance for each point, and write the results to the output file.
 

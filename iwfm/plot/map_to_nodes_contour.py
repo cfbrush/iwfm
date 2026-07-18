@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Create a contour map representing nodal values such as groundwater data.'''
+
 def map_to_nodes_contour(dataset, bounding_poly, image_name, cmap='rainbow', title="Parameter values", 
                  label='Z values', units='', no_levels=20, contour='line', format='tiff', verbose=False):
     '''Create a contour map representing nodal values such as groundwater data.

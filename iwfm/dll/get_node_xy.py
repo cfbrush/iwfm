@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''IWFM DLL: Get X- and Y-coordinates of FE grid.'''
+
 def get_node_xy(iwfm_dll):
     '''IWFM DLL: Get X- and Y-coordinates of FE grid.
 

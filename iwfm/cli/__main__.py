@@ -19,6 +19,8 @@
 
 
 
+'''Unified Command Line Interface entry point for iwfm.'''
+
 from iwfm.cli.main import run
 
 run()

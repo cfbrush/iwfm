@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create and returns a PreprocessorFiles dataclass of preprocessor file names from a basename.'''
+
 from iwfm.iwfm_dataclasses import PreprocessorFiles
 
 

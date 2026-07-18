@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Save a PDF instance to a PDF file.'''
+
 def pdf_save(pdf, filename):
     '''Save a PDF instance to a PDF file.
 

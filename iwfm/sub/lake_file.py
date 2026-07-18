@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the simulation lake main file and reduce to the lakes in a submodel.'''
+
 def sub_lake_file(sim_files, sim_files_new, lake_info, verbose=False):
     '''Read the original Simulation lake main file, keep only the lakes that are in the submodel, and write out a new file.
 

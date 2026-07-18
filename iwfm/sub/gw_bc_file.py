@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old groundwater boundary condition file and replaces the contents with those of the new submodel, and writes out the new file.'''
+
 def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, base_path=None, verbose=False):
     '''Read the original groundwater boundary conditions file, determine which boundary conditions are in the submodel, and write out a new file.
 

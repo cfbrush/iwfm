@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Clips a raster file to a shapefile clipping mask.'''
+
 def img_clip(raster, clipshape, outfile):
     '''Clip a raster file to a shapefile clipping mask.
 

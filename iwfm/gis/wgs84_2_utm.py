@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Reproject from geographic coordinates to UTM.'''
+
 def wgs84_2_utm(lon, lat):
     '''Reproject a WGS84 shapefile to UTM.
 

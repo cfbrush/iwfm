@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read a shapefile of IWFM model elements and map IWFM Ponded Crop parameters to the elements.'''
+
 def map_param2shp_rz_pc(param_types, param_vals, crops, elem_shp_name, out_shp_name='elem_parameters', verbose=False):
     '''Read a shapefile of IWFM model elements and map IWFM Ponded Crop parameters to the elements.
 

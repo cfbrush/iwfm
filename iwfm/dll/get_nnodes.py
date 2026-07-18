@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''IWFM DLL: Get the number of FE nodes in the current model.'''
+
 def get_nnodes(iwfm_dll):
     '''IWFM DLL: Get the number of FE nodes in the current model.
 

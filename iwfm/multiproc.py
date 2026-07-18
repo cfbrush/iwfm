@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Spreads function across multiple cpu cores.'''
+
 def multiproc(function, inputlist):
     '''Spread a function across multiple cpu cores.
 

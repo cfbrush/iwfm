@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Use GDAL and OGR to create a contour shapefile.'''
+
 def grid_contour(source, target):
     '''Use GDAL and OGR to create a contour shapefile.
 

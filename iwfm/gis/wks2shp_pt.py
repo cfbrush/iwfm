@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read an Excel workbook and creates a POINT shapefile.'''
+
 def wks2shp_pt(inwksheet, outshp, sheet_index=0):
     '''Read an Excel workbook and create a POINT shapefile.
 

@@ -4,6 +4,8 @@
 # License: GNU GPL v2.0+
 
 
+'''Detect PEST parameters near their upper or lower bounds.'''
+
 def detect_params_at_bounds(pest_state, bound_pct_threshold=0.05):
     """Identify parameters within a percentage of their bounds.
 

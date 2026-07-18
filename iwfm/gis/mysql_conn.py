@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Connect to a mysql database.'''
+
 def mysql_conn(dbname, port=3306, host='localhost', user='root', passwd=''):
     '''Connect to a mysql database.
 

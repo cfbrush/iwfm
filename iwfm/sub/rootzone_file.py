@@ -19,6 +19,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old Simulation rootzone main file and replaces the contents with those of the new submodel, and writes out the new file, then calls methods to modify the other Simulation rootzone component files.'''
+
 def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=None, verbose=False):
     '''Read the original Simulation rootzone main file, determine which elements are in the submodel, and writes out a new file, then modify the other Simulation rootzone component files.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Initialize QGIS application.'''
+
 def qgis_init(verbose=False):
     '''Initialize the QGIS application.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Is the point inside the polygon?'''
+
 def point_in_poly(x, y, poly):
     '''Is the point inside the polygon?
 

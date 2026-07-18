@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create a shaded relief ASCII grid from an ASCII DEM.'''
+
 def grid_shadedrelief(source,slopegrid,aspectgrid,shadegrid,
         az=315.0,alt=45.0,z=1.0,scale=1.0,NODATA=-9999):
     '''Create a shaded relief ASCII grid from an ASCII DEM.

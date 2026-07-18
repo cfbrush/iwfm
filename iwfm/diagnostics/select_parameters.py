@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Select representative nodes for PEST parameter estimation.'''
+
 import numpy as np
 
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read native and riparian data from a file and organize them into lists.'''
+
 def iwfm_read_rz_nr(file, verbose=False):
     '''Read native and riparian data from a file and organize them into lists.
 

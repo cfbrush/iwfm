@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 # -- general methods --------------------------------------
+'''Classes, methods and functions to read, write and modify gis files for IWFM and IGSM files.'''
+
 from iwfm.gis.method_fns import method_fns
 
 # -- iwfm methods -----------------------------------------

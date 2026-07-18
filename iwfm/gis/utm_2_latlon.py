@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Reproject from UTM to geographic coordinates.'''
+
 def utm_2_latlon(easting, northing, zone, band='U'):
     '''Reproject from UTM to geographic coordinates.
 

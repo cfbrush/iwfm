@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read simulated hydrographs from IWFM hydrograph.out file.'''
+
 def read_sim_hyd(gwhyd_file):
     '''Read simulated values from one IWFM output hydrograph file into a numpy array.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create a cell in a PDF instance.'''
+
 def pdf_cell(pdf, h=6, w=2, t='', b=0, a='C'):
     '''Create a cell in a PDF instance.
 

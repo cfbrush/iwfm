@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read DICU file and write out to text file.'''
+
 def dicu2table(data_file, verbose=False):
     '''Read Delta Island Consumptive Use model file and write out to text file.
 

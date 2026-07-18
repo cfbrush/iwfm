@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Open a shapefile with OGR.'''
+
 def shp_get_OGR(infile, verbose=False):
     '''Open a shapefile with OGR.
 

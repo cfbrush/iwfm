@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 # -- PEST functions ---------------------------------------
+'''Classes, methods and functions for interactions between IWFM model calibration.'''
+
 from iwfm.calib.read_settings import read_settings
 from iwfm.calib.fac2iwfm import fac2iwfm
 from iwfm.calib.iwfm2obs import iwfm2obs

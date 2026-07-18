@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Copy IWFM model elements shapefile, and create one shapefile of total area for each year and element, and another shapefile with percent element area for each year and element.'''
+
 import re
 import sys
 import iwfm.debug as idb

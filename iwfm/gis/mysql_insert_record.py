@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Insert a new record to a mysql database.'''
+
 def mysql_insert_record(cur, city, coord):
     '''Insert a record into a mysql database.
 

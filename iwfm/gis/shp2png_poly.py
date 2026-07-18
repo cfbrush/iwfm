@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Save a shapefile as a raster filling in polygons.'''
+
 def shp2png_poly(shape, outfile, iwidth=800, iheight=600):
     '''Convert a shapefile to a raster and save as a PNG file, filling in polygon holes.
 

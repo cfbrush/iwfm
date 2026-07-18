@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return observation bore sample info for sites in sim_sites.'''
+
 def obs_smp(obs_lines,sim_sites):
     '''Return observation bore sample info for sites in sim_sites.
 

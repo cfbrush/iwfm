@@ -3,6 +3,8 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+'''Generate parameter selection recommendations from diagnostic bundle.'''
+
 from iwfm.diagnostics.select_parameters import select_parameters
 from iwfm.diagnostics.build_tied_groups import (
     build_tied_groups, build_stream_tied_groups,

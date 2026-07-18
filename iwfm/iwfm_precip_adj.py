@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read IWFM precipitation file, list of VIC cells and VIC adjustment factors and write adjusted precipitation file.'''
+
 def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
     years_filename,out_filename,verbose=False,per_line=6):
     '''Read an IWFM precipitation file, a list of VIC grid cells for each precipitation column, and a table of monthly adjustment factors for each VIC grid cell, and write out an IWFM precipitation file with precipitation rates adjusted by the VIC factors.

@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read evapotranspiration values from a file and organize them into lists.'''
+
 def read_param_table_ints(file_lines, line_index, lines):
     '''Read a table of integer parameters from a file and organize them into lists.
 

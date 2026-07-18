@@ -18,6 +18,11 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read groundwater parameters from SimulationMessages.out file and write to.
+
+Groundwater.dat file.
+'''
+
 def read_gw_file(gw_file):
     '''Read groundwater file.
 

@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Test for file.'''
+
 def file_test(filename):
     '''Check that the file exists and exit if it does not.
 

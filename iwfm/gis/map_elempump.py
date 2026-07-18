@@ -22,6 +22,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read a shapefile of IWFM model elements and an IWFM element pumping file.
+
+Make a deep copy of the elements shapefile, and add a field for Ag pumping on/off, add a field for Urban pumping on/off, add a field for each model layer for Ag pumping, and a field for each model layer for urban pumpimg. Set initial values to zero. Set first two fields to 1 if any pumping else 0. Set Ag and Urban layer columns to FRACSKL. Write the modified shapefile to a new shapefile.
+'''
+
 import sys
 import iwfm.debug as idb
 import iwfm

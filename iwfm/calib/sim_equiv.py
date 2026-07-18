@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Calculate the simulated value for a given date from a simulated hydrograph.'''
+
 def sim_equiv(simhyd, date, simhyd_col, round_val = 2, verbose=False):
     '''Calculate the simulated value for a given date from a simulated hydrograph.
 

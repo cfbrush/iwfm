@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Create shapefiles for an IGSM model.'''
+
 def igsm2shp(main_file, shape_name, verbose=False):
     '''Read the names of the preprocessor component input files, read the contents of these files, and create node, element, stream node and stream reach shapefiles.
 

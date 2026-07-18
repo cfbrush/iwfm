@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read nodes from csv file.'''
+
 def read_nodes_csv(node_file_name):
     '''Read nodes from csv file.
 

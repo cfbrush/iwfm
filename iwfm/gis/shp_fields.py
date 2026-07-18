@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return field property strings for a PyShp shapefile.'''
+
 def shp_fields(f):
     '''Return the field property strings for PyShp shapefile.
 

@@ -19,6 +19,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the rootzone urban main file and replace the contents with those of the new submodel, write out the new file, and process the other non-ponded crop files.'''
+
 def sub_rz_urban_file(old_filename, sim_files_new, elems, base_path=None, verbose=False):
     '''Copy the rootzone urban main file and replace the contents with those of the new submodel, write out the new file, and process the other urban files.
 

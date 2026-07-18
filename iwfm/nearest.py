@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Return nearest IWFM node to an (x,y) location.'''
+
 def nearest(d_nodes, x, y):
     '''Find the nearest node to a point from a node dictionary.
 

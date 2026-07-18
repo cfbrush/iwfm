@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Save a data table from a USACOE website into a csv file.'''
+
 def get_usacoe(files):
     '''Save a data table from a USACOE website into a csv file.
 

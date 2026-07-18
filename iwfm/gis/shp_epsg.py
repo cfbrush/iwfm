@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read the projection file of a shapefile and return EPSG value.'''
+
 def shp_epsg(filename):
     '''Read the projection file and returns the EPSG value.
 

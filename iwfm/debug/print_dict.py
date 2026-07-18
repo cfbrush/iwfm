@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Print contents of a dictionary, for debugging.'''
+
 def print_dict(d):
     '''Print contents of a dictionary, for debugging.
 

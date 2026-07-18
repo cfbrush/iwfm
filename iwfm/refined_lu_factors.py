@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Calculate land use factors for refined model elements.'''
+
 def refined_lu_factors(orig_areas_file,refined_areas_file,elem2elem_file):
     '''Calculate land use factors for refined model elements.
 

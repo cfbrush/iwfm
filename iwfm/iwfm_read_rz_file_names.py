@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Read rootzone file names from the main rootzone file.'''
+
 def iwfm_read_rz_file_names(rz_file_name, verbose=False):
     '''Read rootzone file names from the main rootzone file.
 

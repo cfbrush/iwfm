@@ -16,6 +16,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Write a 3D array as 2D tables to an excel workbook.'''
+
 import warnings
 from iwfm.debug.logger_setup import logger
 

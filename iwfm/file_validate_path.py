@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Validate file path and that file is writable.'''
+
 def file_validate_path(output_file):
     """Validate output file path and create parent directories if needed.
 

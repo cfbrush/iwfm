@@ -18,6 +18,8 @@
 
 
 
+'''Read non-ponded crop data from a file and organize them into lists.'''
+
 def iwfm_read_rz_npc(file, verbose=False):
     '''Read non-ponded crop data from a file and organize them into lists.
 

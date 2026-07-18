@@ -17,6 +17,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Get hydrograph file name from IWFM file.'''
+
 def get_hyd_fname(ftype,file_dict,debug=0):
     '''Return the hydrograph file name.
 

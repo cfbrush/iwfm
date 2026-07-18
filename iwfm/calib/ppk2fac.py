@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Use inverse-distance weighting to calculate factors to translate parameter values from pilot points to model nodes, and write to a file for use by PEST.'''
+
 def read_pp_file(pp_file, verbose=False):
     '''Read pilot points file and return list of tuples.
 

@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 # -- dataclass definitions --------------------------------
+'''Classes and methods to read, write and modify IWFM and IGSM files and associated data files.'''
+
 from iwfm.iwfm_dataclasses import PreprocessorFiles, SimulationFiles, WellInfo
 from iwfm.iwfm_dataclasses import RootzoneFiles, GroundwaterFiles
 

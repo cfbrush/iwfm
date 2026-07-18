@@ -18,6 +18,8 @@
 # -----------------------------------------------------------------------------
 
 
+'''Copy the old simulation input file, replaces the file names with those of the new submodel, and writes out the new file.'''
+
 def sub_sim_file(in_sim_file, sim_files_new, has_lake=False):
     '''Copy the old simulation input file, replacing the file names with those of the new model, and write out the new file.
 

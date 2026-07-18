@@ -17,6 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+'''Read an IWFM Node file and return a list of the nodes and their coordinates.'''
+
 def read_nodes(node_file, factor=0.0, verbose=False):
     '''Read an IWFM Node file and return a list of the nodes and their coordinates.
 
