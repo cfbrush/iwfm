@@ -19,7 +19,7 @@
 
 
 def nearest_node(point, node_set):
-    ''' nearest_node() - Find the nearest node to a point from the node array
+    '''Find the nearest node to a point from the node array.
 
     Parameters
     ----------
@@ -33,7 +33,6 @@ def nearest_node(point, node_set):
     -------
     nearest : int
         node id of the nearest node, or -1 if node_set is empty
-
     '''
     import math
 
@@ -48,7 +47,7 @@ def nearest_node(point, node_set):
     return nearest
 
 def read_well_points(well_file):
-    ''' read_well_points() - Read well locations from a text file
+    '''Read well locations from a text file.
 
     Accepts comma- or whitespace-separated lines of ``ID  X  Y`` (extra
     columns ignored). Comment lines starting with C, c, * or # and a
@@ -63,7 +62,6 @@ def read_well_points(well_file):
     -------
     wells : list
         [well_id (str), x (float), y (float)] per well
-
     '''
     wells = []
     with open(well_file, encoding='utf-8') as f:

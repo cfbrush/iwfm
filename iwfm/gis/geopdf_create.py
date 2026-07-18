@@ -18,7 +18,7 @@
 
 
 def geopdf_create(filename):
-    ''' geopdf_create() - Create a geopdf canvas that can be drawn on
+    '''Create a geopdf canvas that can be drawn on.
 
     Parameters
     ----------
@@ -29,7 +29,8 @@ def geopdf_create(filename):
     -------
     canvas : geopdf object
         geopdf from file contents
-        
+
+
     '''
     from geopdf import GeoCanvas
 

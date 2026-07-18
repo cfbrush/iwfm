@@ -17,8 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def iwfm_read_uz_params(uz_file, verbose=False):
-    ''' iwfm_read_uz_params() - Read an IWFM Simulation Unsaturated Zone file and return
-        a list of parameters
+    '''Read an IWFM Simulation Unsaturated Zone file and return a list of parameters.
 
     Parameters
     ----------
@@ -32,7 +31,8 @@ def iwfm_read_uz_params(uz_file, verbose=False):
     -------
     params : list
         A list containing parameter values. It consists of 6 sublists, each representing a different parameter.
-          
+
+
     '''
     import iwfm
 

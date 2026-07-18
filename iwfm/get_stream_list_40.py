@@ -19,8 +19,7 @@
 
 
 def get_stream_list_40(stream_lines, line_index, nreach, nrate):
-    ''' get_stream_list_40() - Reads part of the stream specification file
-        for file type 4.0 and returns stream reach and rating table info
+    '''Read part of the stream specification file for file type 4.0 and return stream reach and rating table info.
 
     Version 4.0 has the same layout as 4.2: reach lines are
     ID NRD IDWN NAME, each stream node line pairs one stream node with one
@@ -45,7 +44,6 @@ def get_stream_list_40(stream_lines, line_index, nreach, nrate):
     Returns
     -------
     same as :func:`iwfm.get_stream_list_42`
-
     '''
     from iwfm.get_stream_list_42 import get_stream_list_42
 

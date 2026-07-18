@@ -17,8 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def histogram(data, name, unit, file, method='auto'):
-    """
-    histigram() - Create a histogram of given data and determine the number of bins.
+    '''Create a histogram of given data and determine the number of bins.
 
     Parameters
     ----------
@@ -41,7 +40,7 @@ def histogram(data, name, unit, file, method='auto'):
 
     bins : int
         The determined number of bins for the histogram.
-    """
+    '''
     import numpy as np
     import matplotlib.pyplot as plt
 

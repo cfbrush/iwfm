@@ -18,25 +18,25 @@
 
 
 def pdf_cell(pdf, h=6, w=2, t='', b=0, a='C'):
-    ''' pdf_cell() - Create a cell in a PDF instance
+    '''Create a cell in a PDF instance.
 
     Parameters
     ----------
     pdf : PDF object
         PDF object to be modified
-    
+
     h : int, defulat=6
         cell height
-    
+
     w : int, default=2
         cell width
-    
+
     t : str, default=''
         text contents
-    
+
     b : int, default=0
         border thickness
-    
+
     a : str, default='C' (center)
         alignment
 
@@ -44,7 +44,6 @@ def pdf_cell(pdf, h=6, w=2, t='', b=0, a='C'):
     -------
     pdf : PDF object
         modified PDF object
-    
     '''
 
     pdf.cell(h, w, t, border=b, align=a)

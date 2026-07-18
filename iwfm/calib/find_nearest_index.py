@@ -18,22 +18,23 @@
 # -----------------------------------------------------------------------------
 
 def find_nearest_index(array, value):
-    """find_nearest_index() - Finds the index of the value in the first column of the 
-         array that is closest to the given value.
-         
+    '''Find the index of the value in the first column of the array that is closest to the given value.
+
+
     Parameters
     ----------
     array : numpy array
         array of values
-             
+
     value : float
         value to find in the array
-                 
+
     Returns
     -------
     idx : int
         index of the value in the array                 
-    """
+
+    '''
 
     import numpy as np
     idx = np.abs(array[:, 0] - value).argmin()

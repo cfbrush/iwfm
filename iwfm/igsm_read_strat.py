@@ -18,8 +18,7 @@
 
 
 def igsm_read_strat(strat_file, node_coords):
-    ''' igsm_read_strat() - Read an IGSM Stratigraphy file and return a list
-        of stratigraphy for each node
+    '''Read an IGSM Stratigraphy file and return a list of stratigraphy for each node.
 
     Parameters
     ----------
@@ -36,7 +35,6 @@ def igsm_read_strat(strat_file, node_coords):
 
     nlayers : int
         number of aquifer layers
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

@@ -110,10 +110,10 @@ def main(
 # Importing here avoids circular imports and keeps startup predictable
 
 def _register_commands():
-    """
-    Register all command groups.
+    '''Register all command groups.
+
     Power/dev visibility is handled inside each group.
-    """
+    '''
     try:
         from iwfm.calib import calib
         app.add_typer(calib.app, name="calib", help="Model calibration commands")

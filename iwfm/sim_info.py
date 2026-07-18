@@ -18,8 +18,7 @@
 
 
 def sim_info(in_file, verbose=False):
-    ''' sim_info() - reads simulation input file and returns the starting date, ending
-        date and time step of the simulation
+    '''Read simulation input file and return the starting date, ending date and time step of the simulation.
 
     Parameters
     ----------
@@ -47,7 +46,6 @@ def sim_info(in_file, verbose=False):
     ValueError
         If the parsed start_date or end_date does not match the expected
         ``MM/DD/YYYY`` (or ``MM/DD/YYYY_HH:MM``) format.
-
     '''
     import re
     import iwfm

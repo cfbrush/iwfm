@@ -18,7 +18,7 @@
 
 
 def budget_info(budget_lines):
-    ''' budget_info() - Get the Budget file header and footer length and number of tables 
+    '''Get the Budget file header and footer length and number of tables.
 
     Parameters
     ----------
@@ -36,7 +36,6 @@ def budget_info(budget_lines):
 
     footer : int
         number of footer lines in each table
-
     '''
 
     header, footer, table, line = 0, 0, 1, 0

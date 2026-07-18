@@ -19,8 +19,7 @@
 
 
 def get_stream_list_42(stream_lines, line_index, nreach, nrate):
-    ''' get_stream_list_42() - Reads part of the stream specification file
-        for file type 4.2 and returns stream reach and rating table info
+    '''Read part of the stream specification file for file type 4.2 and return stream reach and rating table info.
 
     Parameters
     ----------
@@ -55,7 +54,6 @@ def get_stream_list_42(stream_lines, line_index, nreach, nrate):
 
     stream_aq : str
         stream-aquifer section of stream preprocessor file
-
     '''
     from iwfm.file_utils import read_next_line_value
 

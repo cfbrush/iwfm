@@ -18,22 +18,22 @@
 
 
 def mysql_conn(dbname, port=3306, host='localhost', user='root', passwd=''):
-    ''' mysql_conn() - Connect to a mysql database
+    '''Connect to a mysql database.
 
     Parameters
     ----------
     dbname : str
         database name
-    
+
     port : int, default=3306
         post
-    
+
     host : str, default='localhost'
         database host
 
     user : str, default='root'
         username
-    
+
     passwd : str, default=''
         password
 
@@ -41,10 +41,9 @@ def mysql_conn(dbname, port=3306, host='localhost', user='root', passwd=''):
     -------
     cur : database object
         pointer to current record
-    
+
     conn : database object
         connection to open database
-    
     '''
     import pymysql
 

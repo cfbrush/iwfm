@@ -18,16 +18,16 @@
 
 
 def elem2boundingpoly(elem_nodes, node_coords, verbose=False):
-    ''' elem2boundingpoly() - Creates a shapely Polygon of the boundary of an IWFM model
+    '''Create a shapely Polygon of the boundary of an IWFM model.
 
     Parameters
     ----------
     elem_nodes : list
         list of elements and associated nodes
-    
+
     node_coords : list
         list of nodes and associated X and Y coordinates
-    
+
     verbose : bool, default=False
         True = command-line output on
 
@@ -35,7 +35,6 @@ def elem2boundingpoly(elem_nodes, node_coords, verbose=False):
     -------
     bounding_polygon : shapely Polygon
         Model boundary polygon
-
     '''
     from shapely.geometry import Polygon
     from shapely.ops import unary_union

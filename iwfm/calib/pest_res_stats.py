@@ -18,9 +18,8 @@
 
 
 def pest_res_stats(pest_res_file, verbose=False):
-    ''' pest_res_stats() - Read a PEST .res file, and print a text file with the 
-    RMSE and bias of each observation site
-  
+    '''Read a PEST .res file, and print a text file with the RMSE and bias of each observation site.
+
     Parameters
     ----------
     pest_res_file : string
@@ -32,7 +31,6 @@ def pest_res_stats(pest_res_file, verbose=False):
     Returns
     -------
     nothing
-
     '''
     import numpy as np
 

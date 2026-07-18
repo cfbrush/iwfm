@@ -18,7 +18,7 @@
 
 
 def get_hyd_fname(ftype,file_dict,debug=0):
-    ''' get_hyd_fname()  - returns the hydrograph file name
+    '''Return the hydrograph file name.
 
     Parameters
     ----------
@@ -35,8 +35,6 @@ def get_hyd_fname(ftype,file_dict,debug=0):
     -------
     hyd_file : str
         hydrograph file name
-
-
     '''
     import iwfm.calib as calib
 

@@ -18,7 +18,7 @@
 
 
 def date_index(inval, start_date):
-    ''' date_index() - Calculate a date inval months from start_date
+    '''Calculate a date inval months from start_date.
 
     Parameters
     ----------
@@ -39,7 +39,6 @@ def date_index(inval, start_date):
         If date format is invalid or inval cannot be converted to integer
     TypeError
         If inval is not a valid numeric type
-
     '''
 
     # Validate start_date format

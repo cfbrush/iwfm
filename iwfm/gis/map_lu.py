@@ -24,9 +24,7 @@ import iwfm.debug as idb
 import iwfm 
 
 def map_lu(land_use_file, elem_shp_name, out_shp_basename, verbose=False):
-    '''map_lu() - Copy IWFM model elements shapefile, and create one shapefile of total area 
-                    for each year and element, and another shapefile with percent element area
-                    for each year and element
+    '''Copy IWFM model elements shapefile, and create one shapefile of total area for each year and element, and another shapefile with percent element area for each year and element.
 
     Parameters
     ----------
@@ -45,7 +43,6 @@ def map_lu(land_use_file, elem_shp_name, out_shp_basename, verbose=False):
     Returns
     -------
     nothing
-
     '''
     import geopandas as gpd
     

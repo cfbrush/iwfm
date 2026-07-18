@@ -18,21 +18,21 @@
 
 
 def par2iwfm(A, B):
-    """ par2iwfm() - Implement krige function to create new parameter values.
+    '''Implement krige function to create new parameter values.
 
     Parameters
     ----------
     A : list
         List of tuples representing grid A points. Each tuple contains (id, x, y) coordinates.
-    
+
     B : list
         List of tuples representing grid B points. Each tuple contains (id, x, y, value) coordinates.
-    
+
     Returns
     -------
     a_values : list
         List of calculated floats representing values for A in B's grid
-    """
+    '''
     import iwfm.calib as calib
     import numpy as np
 

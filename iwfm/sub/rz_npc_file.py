@@ -20,9 +20,7 @@
 
 
 def sub_rz_npc_file(old_filename, sim_files_new, elems, base_path=None, verbose=False):
-    '''sub_rz_npc_file() - Copy the rootzone non-ponded crops main file
-       and replace the contents with those of the new submodel, write out
-       the new file, and process the other non-ponded crop files
+    '''Copy the rootzone non-ponded crops main file and replace the contents with those of the new submodel, write out the new file, and process the other non-ponded crop files.
 
     Parameters
     ----------
@@ -44,7 +42,6 @@ def sub_rz_npc_file(old_filename, sim_files_new, elems, base_path=None, verbose=
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

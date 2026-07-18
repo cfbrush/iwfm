@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def get_mins(dataset):
-    """get_mins() - Find the minimum values of each parameter in a list of lists. 
+    '''Find the minimum values of each parameter in a list of lists.
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def get_mins(dataset):
     -------
     mins : list
         A list containing the minimum value of each parameter in the lists.
-    """
+    '''
     import math
     
     #  Set each value to positive infinity

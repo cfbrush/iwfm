@@ -19,8 +19,7 @@
 
 
 def closest_list(A, B, verbose=False):
-    ''' closest_list() - Given two lists A[] and B[] of form (ID, X, Y), 
-            returns a list of len(A) with the item of B closest to each item in A
+    '''Given two lists A[] and B[] of form (ID, X, Y), return a list of len(A) with the item of B closest to each item in A.
 
     Parameters
     ----------
@@ -45,7 +44,6 @@ def closest_list(A, B, verbose=False):
             id : int, id from A
             x, y: float, x,y from A
             ...: items [3:] of B from point closest to A point
-
     '''
     C = []
     for a in A:
@@ -54,8 +52,8 @@ def closest_list(A, B, verbose=False):
 
 
 def nearest(a, B):
-    ''' nearest() - item of B[points] nearest to point a 
-    
+    '''Item of B[points] nearest to point a.
+
     Parameters
     ----------
         a: [id, x,y] where id: int, x, y: float

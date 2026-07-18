@@ -18,7 +18,7 @@
 
 
 def cfs2afd(cfs):
-    ''' cfs2afd() - Convert flow in CFS to daily volume in Acre-Feet
+    '''Convert flow in CFS to daily volume in Acre-Feet.
 
     Parameters
     ----------
@@ -29,7 +29,6 @@ def cfs2afd(cfs):
     -------
     afd : float
         Value in acre-feet per day
-
     '''
     return cfs * 1.983
 

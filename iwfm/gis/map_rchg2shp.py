@@ -21,8 +21,8 @@
 
 
 def map_rchg2shp(div_ids, rchg_areas, elem_shp_name, out_shp_name, verbose=False):
-    ''' map_rchg2shp() - Add diversion recharge areas to shapefile of IWFM model elements
-    
+    '''Add diversion recharge areas to shapefile of IWFM model elements.
+
     Parameters
     ----------
     div_ids : list
@@ -30,7 +30,7 @@ def map_rchg2shp(div_ids, rchg_areas, elem_shp_name, out_shp_name, verbose=False
 
     rchg_areas : list of lists
         List of elements in recharge area of each IWFM diversion area
-    
+
     elem_shp_name : shapefile name
         IWFM Elements shapefile
 
@@ -43,7 +43,6 @@ def map_rchg2shp(div_ids, rchg_areas, elem_shp_name, out_shp_name, verbose=False
     Return
     ------
     nothing
-    
     '''
     import geopandas as gpd
     import os

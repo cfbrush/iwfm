@@ -19,8 +19,7 @@
 
 
 def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbose=False):
-    '''sub_gw_subs_file() - Read the original groundwater subsidence file, determine
-        which nodes are in the submodel, and write out a new file
+    '''Read the original groundwater subsidence file, determine which nodes are in the submodel, and write out a new file.
 
     Parameters
     ----------
@@ -42,7 +41,6 @@ def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbo
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

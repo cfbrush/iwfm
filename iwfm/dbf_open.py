@@ -18,7 +18,7 @@
 
 
 class _DBFTable(list):
-    ''' List of DBF records with .fields and .records attributes. '''
+    '''s'''
 
     def __init__(self, records, fields):
         super().__init__(records)
@@ -27,7 +27,7 @@ class _DBFTable(list):
 
 
 def dbf_open(infile, load=False, verbose=False):
-    ''' dbf_open() - Open a DBF file (read with PyShp)
+    '''Open a DBF file (read with PyShp).
 
     Parameters
     ----------
@@ -45,7 +45,6 @@ def dbf_open(infile, load=False, verbose=False):
     -------
     db: _DBFTable
         list of records with .fields and .records attributes
-
     '''
     import shapefile  # PyShp
 

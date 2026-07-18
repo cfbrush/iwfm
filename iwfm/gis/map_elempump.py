@@ -27,8 +27,8 @@ import iwfm.debug as idb
 import iwfm
 
 def map_to_shp(param_table, header, gdf, out_shp_name, verbose=False):
-    ''' map_to_shp() - Map a parameter table to a shapefile
-    
+    '''Map a parameter table to a shapefile.
+
     Parameters
     ----------
     param_table : pandas dataframe
@@ -46,7 +46,6 @@ def map_to_shp(param_table, header, gdf, out_shp_name, verbose=False):
     Return
     ------
     nothing
-    
     '''
 
     for col in range(0,len(param_table[0])):
@@ -66,13 +65,13 @@ def map_to_shp(param_table, header, gdf, out_shp_name, verbose=False):
 
 
 def map_elempump(elempump_file_name, elem_shp_name, out_shp_root, verbose=False):
-    ''' mam_elempump() - Add diversion areas to shapefile of IWFM model elements
-    
+    '''Add diversion areas to shapefile of IWFM model elements.
+
     Parameters
     ----------
     elempump_file_name : str
         IWFM Elemental Pumping file name
-    
+
     elem_shp_name : shapefile name
         IWFM Element shapefile name
 
@@ -85,7 +84,6 @@ def map_elempump(elempump_file_name, elem_shp_name, out_shp_root, verbose=False)
     Return
     ------
     nothing
-    
     '''
     import geopandas as gpd
 

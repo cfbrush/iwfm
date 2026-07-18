@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def iwfm_read_rz_urban(file, verbose=False):
-    """iwfm_read_rz_urban() - Read urban land use data from a file and organize them into lists.
+    '''Read urban land use data from a file and organize them into lists.
 
     Parameters
     ----------
@@ -38,8 +38,7 @@ def iwfm_read_rz_urban(file, verbose=False):
 
     files : list
         A list of file names: [ur_area_file, ur_pop_file, ur_wtr_file, ur_spec_file]
-
-    """
+    '''
     import iwfm
     import numpy as np
     from iwfm.file_utils import read_next_line_value

@@ -18,25 +18,25 @@
 # -----------------------------------------------------------------------------
 
 def elems2shp_csv(elem_nodes, node_coord_dict, shapename='elems.shp', epsg=26910, verbose=True):
-    ''' Create a shapefile of the elements with the element ids and node ids 
-    
+    '''Create a shapefile of the elements with the element ids and node ids.
+
     Parameters
     ----------
     elem_nodes : list
         List of elements and their nodes
-        
+
     node_coord_dict : dict
         Dictionary of node coordinates
-        
+
     shapename : str, default 'elems.shp'
         Name of the shapefile to be created
-        
+
     epsg : int, default 26910
         EPSG code for the shapefile
-            
+
     verbose : bool, default True
         Print information to the console
-                
+
     Returns
     -------
         nothing

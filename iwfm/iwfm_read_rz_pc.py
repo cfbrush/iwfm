@@ -18,7 +18,7 @@
 
 
 def iwfm_read_rz_pc(file, verbose=False):
-    """iwfm_read_rz_pc() - Read ponded crop data from a file and organize them into lists.
+    '''Read ponded crop data from a file and organize them into lists.
 
     Parameters
     ----------
@@ -39,8 +39,7 @@ def iwfm_read_rz_pc(file, verbose=False):
 
     files : list
         A list of file names: [pc_area_file, pc_bd_file, pc_zb_file, pc_rd_file, pc_ms_file, pc_ts_file, pc_md_file]
-
-    """
+    '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
 

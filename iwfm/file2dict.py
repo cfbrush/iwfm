@@ -18,25 +18,25 @@
 
 
 def file2dict(infile, key_field=0, val_field=1, skip=0, key_type=str, val_type=str):
-    ''' file2dict() - Read file with paired items, return dictionary 
+    '''Read file with paired items, return dictionary.
 
     Parameters
     ----------
     infile : str
         Name of file with tabular data
-    
+
     key_field : int, default=0 (first column)
         Field that is the key
-    
+
     val_field : int, default=1 (second column)
         Field that is the value
-    
+
     skip : int, default=0 (no header)
         Number of non-comment lines to skip (header)
 
     key_type : type, default=str
         Type to convert keys to (str, int, float)
-    
+
     val_type : type, default=str
         Type to convert values to (str, int, float)
 

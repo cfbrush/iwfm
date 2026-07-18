@@ -18,23 +18,22 @@
 
 
 def pdf_create(layout='P', units='in', pagesize='Letter'):
-    ''' pdf_create() - Create a PDF object
+    '''Create a PDF object.
 
     Parameters
     ----------
     layout : str, default=P (portrait)
         layout 
-    
+
     units : str, default = 'in' (inches)
         units
-    
+
     pagesize : str, default='Letter'
         page sixe
 
     Returns
     -------
     pdf : PDF object
-    
     '''
     import fpdf
 

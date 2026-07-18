@@ -24,32 +24,31 @@ from iwfm.gis.world2screen import world2screen
 
 def density_plot(infile,fieldname,iwidth=600,iheight=400,
     denrat=100,savename=None):
-    '''density_plot() - Read a shapefile and write it as an image
+    '''Read a shapefile and write it as an image.
 
     Parameters
     ----------
     infile : str
         source shapefile name
-    
+
     fieldname : str
         field name for shading
-    
+
     iwidth : int, default=600
         image width in pixels
-    
+
     iheight : int, default=400
         image height in pixels
-    
+
     denrat : int, default=100
         density retio
-    
+
     savename : str, default=None
         image destination file name (None = not saved)
 
     Returns
     -------
     nothing
-
     '''
     from PIL import Image, ImageDraw
     from shapely.geometry import Point, Polygon

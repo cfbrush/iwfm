@@ -19,8 +19,7 @@
 
 
 def iwfm_read_param_table_floats(file_lines, line_index, lines):
-    """read_param_table_floats() - Read a table of integer parameters from a file and organize them into lists
-                and return a numpy array of floats.
+    '''Read a table of integer parameters from a file and organize them into lists and return a numpy array of floats.
 
     Parameters
     ----------
@@ -38,7 +37,7 @@ def iwfm_read_param_table_floats(file_lines, line_index, lines):
 
     params : list
         A list of parameters
-    """
+    '''
     from iwfm.file_utils import read_param_table
 
     return read_param_table(file_lines, line_index, lines, cast=float)

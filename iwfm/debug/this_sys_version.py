@@ -18,17 +18,16 @@
 
 
 def this_sys_version():
-    ''' this_sys_version() - Returns the OS version as a string, for debugging
+    '''Return the OS version as a string, for debugging.
 
     Parameters
     ----------
     nothing
-    
+
     Return
     ------
     release : str
         OS version
-    
     '''
     import platform
 

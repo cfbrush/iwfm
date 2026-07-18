@@ -18,21 +18,19 @@
 
 
 def dicu2table(data_file, verbose=False):
-    ''' dicu2table() - Read Delta Island Consumptive Use model file and write
-        out to text file
+    '''Read Delta Island Consumptive Use model file and write out to text file.
 
     Parameters
     ----------
     data_file : str
         name of DICU model file
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-    
     '''
     import iwfm
 

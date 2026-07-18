@@ -21,8 +21,7 @@
 
 
 def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=False):
-    '''sub_st_bp_file() - Copy the stream bypass specification file and 
-       replace the contents with those of the new submodel, and write out the new file
+    '''Copy the stream bypass specification file and replace the contents with those of the new submodel, and write out the new file.
 
     Parameters
     ----------
@@ -44,7 +43,6 @@ def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=Fa
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

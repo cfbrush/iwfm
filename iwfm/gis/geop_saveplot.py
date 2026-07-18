@@ -19,7 +19,7 @@
 
 
 def geop_saveplot(gdf, outname, **kwargs):
-    ''' geop_saveplot() - Create and save plot from geopandas dataframe
+    '''Create and save plot from geopandas dataframe.
 
     Parameters
     ----------
@@ -35,7 +35,6 @@ def geop_saveplot(gdf, outname, **kwargs):
     Returns
     -------
     nothing
-
     '''
     import matplotlib.pyplot as plt
     gdf.plot(**kwargs)

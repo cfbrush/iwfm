@@ -17,8 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def headdiff_read(headdiff_file):
-    ''' headdiff_read() - reads the file with paired locations for calculation of vertical 
-        head differences and the observation ID of the head difference 
+    '''Read the file with paired locations for calculation of vertical head differences and the observation ID of the head difference.
 
     Parameters
     ----------
@@ -36,7 +35,9 @@ def headdiff_read(headdiff_file):
     hdiff_link : list
         list of head difference links
 
-      '''
+
+
+    '''
     with open(headdiff_file, encoding='utf-8') as f:
         hd_lines = f.read().splitlines()          # open and read input file
     hdiff_pairs, hdiff_sites, hdiff_link = [], [], []

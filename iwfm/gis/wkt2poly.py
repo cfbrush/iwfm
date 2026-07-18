@@ -18,7 +18,7 @@
 
 
 def wkt2poly(intxt):
-    ''' wkt2poly() - Turn WKT text description into object
+    '''Turn WKT text description into object.
 
     Parameters
     ----------
@@ -30,7 +30,6 @@ def wkt2poly(intxt):
     -------
     poly : obj
         Polygon
-
     '''
     from shapely import wkt
 

@@ -18,16 +18,15 @@
 
 
 def print_env():  # print some paths
-    ''' print_env() - Prints some environment variables to the console, for debugging
+    '''Print some environment variables to the console, for debugging.
 
     Parameters
     ----------
     nothing
-    
+
     Return
     ------
     nothing
-
     '''
     import os
     import platform

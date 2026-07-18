@@ -18,8 +18,9 @@
 
 
 def test_dict(name, d, key):  # test dictionary
-    ''' test_dict() - Prints dictionary value for key. Normal usage is to set
-        name to the dictionary name so the printed output has meaning
+    '''Print dictionary value for key.
+
+    Normal usage is to set name to the dictionary name so the printed output has meaning
 
     Parameters
     ----------
@@ -31,11 +32,10 @@ def test_dict(name, d, key):  # test dictionary
 
     key : (any type)  
         Dictionary key value
-    
+
     Return
     ------
     nothing
-    
     '''
     
     print(f'   dictionary {name}, key: {key} returns: {d.get(key)}')

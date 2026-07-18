@@ -18,7 +18,7 @@
 
 
 def write_flows(data_file_base, file_type, table, site_info, verbose=False):
-    ''' write_flows() - Write flow data from a table to a csv file
+    '''Write flow data from a table to a csv file.
 
     Parameters
     ----------
@@ -40,7 +40,6 @@ def write_flows(data_file_base, file_type, table, site_info, verbose=False):
     Returns
     -------
     nothing
-
     '''
     import os
     import csv

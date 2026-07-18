@@ -20,22 +20,21 @@
 
 
 def process_budget(budget_file, cwidth=12):
-    """ process_budget() - Read IWFM Stream Budget file and process into
-        a table of diversion shortage cols for each reach
-        
-        Parameters
-        ----------        
-        budget_file: str
-            Name of IWFM Stream Nodes budget file
+    '''Read IWFM Stream Budget file and process into a table of diversion shortage cols for each reach.
 
-        Returns
-        -------
-        budget_lines, list
-            Data from budget tables
+    Parameters
+    ----------        
+    budget_file: str
+        Name of IWFM Stream Nodes budget file
 
-        node_list, list
-            List of node numbers for tables
-    """
+    Returns
+    -------
+    budget_lines, list
+        Data from budget tables
+
+    node_list, list
+        List of node numbers for tables
+    '''
     import numpy as np
 
     with open(budget_file, encoding='utf-8') as f:
@@ -96,41 +95,41 @@ def process_budget(budget_file, cwidth=12):
 
 
 def read_reaches(reach_file):
-    """ read_reaches() - Read group definitions of stream reaches.
+    '''Read group definitions of stream reaches.
 
-        File format (e.g. ``stgwgroups.in``):
+    File format (e.g. ``stgwgroups.in``):
 
-            maxpergroup  <N>
-            numrchgroup <M>
-            groupname<sep>num_per_group<sep>reach_nums...
-            <name><sep><num_per_group><sep><reach_num>[<sep><reach_num>...]
-            ...
+        maxpergroup  <N>
+        numrchgroup <M>
+        groupname<sep>num_per_group<sep>reach_nums...
+        <name><sep><num_per_group><sep><reach_num>[<sep><reach_num>...]
+        ...
 
-        The first three lines are header/control and are skipped. Each
-        subsequent data line names a group and lists ``num_per_group`` stream
-        reach numbers belonging to it. Within a data line the separators
-        between reach numbers can be tabs, spaces, OR commas (or any mix);
-        ``num_per_group`` controls how many of the trailing tokens are read.
+    The first three lines are header/control and are skipped. Each
+    subsequent data line names a group and lists ``num_per_group`` stream
+    reach numbers belonging to it. Within a data line the separators
+    between reach numbers can be tabs, spaces, OR commas (or any mix);
+    ``num_per_group`` controls how many of the trailing tokens are read.
 
-        Parameters
-        ----------
-        reach_file: str
-            Path to the reach groups file (e.g. stgwgroups.in)
+    Parameters
+    ----------
+    reach_file: str
+        Path to the reach groups file (e.g. stgwgroups.in)
 
-        Returns
-        -------
-        reaches: list
-            One entry per group, ``[name, [reach_num, ...]]``. Reach numbers
-            are 1-based integers as they appear in the budget file.
+    Returns
+    -------
+    reaches: list
+        One entry per group, ``[name, [reach_num, ...]]``. Reach numbers
+        are 1-based integers as they appear in the budget file.
 
-        Raises
-        ------
-        FileNotFoundError
-            If ``reach_file`` does not exist (raised by ``open``).
-        ValueError
-            If a data line's ``num_per_group`` token cannot be parsed as
-            ``int``, or if any reach number token cannot be parsed.
-    """
+    Raises
+    ------
+    FileNotFoundError
+        If ``reach_file`` does not exist (raised by ``open``).
+    ValueError
+        If a data line's ``num_per_group`` token cannot be parsed as
+        ``int``, or if any reach number token cannot be parsed.
+    '''
     with open(reach_file, encoding='utf-8') as f:
         lines = f.read().splitlines()
 
@@ -151,43 +150,42 @@ def read_reaches(reach_file):
 
 
 def format_divshort_smp(budget_table, dates, reaches, nwidth=20):
-    """ format_divshort_smp() - Format already-parsed budget data into SMP
-        diversion-shortage rows and matching PEST INS instructions.
+    '''Format already-parsed budget data into SMP diversion-shortage rows and matching PEST INS instructions.
 
-        This is the pure formatting half of :func:`divshort2obs`, exposed so
-        callers (and unit tests) can drive it without reading files.
+    This is the pure formatting half of :func:`divshort2obs`, exposed so
+    callers (and unit tests) can drive it without reading files.
 
-        Parameters
-        ----------
-        budget_table: list
-            One numpy array per stream reach. ``budget_table[n - 1]`` is the
-            diversion-shortage time series for the 1-based reach number ``n``.
-        dates: list
-            Dates corresponding to each row of ``budget_table[i]``, formatted
-            as 'M/D/YYYY' or 'MM/DD/YYYY'.
-        reaches: list
-            Group definitions: ``[[name, [reach_num, ...]], ...]``. When a
-            group has multiple reach numbers, their values are summed.
-        nwidth: int, default=20
-            Width of the name column in SMP output.
+    Parameters
+    ----------
+    budget_table: list
+        One numpy array per stream reach. ``budget_table[n - 1]`` is the
+        diversion-shortage time series for the 1-based reach number ``n``.
+    dates: list
+        Dates corresponding to each row of ``budget_table[i]``, formatted
+        as 'M/D/YYYY' or 'MM/DD/YYYY'.
+    reaches: list
+        Group definitions: ``[[name, [reach_num, ...]], ...]``. When a
+        group has multiple reach numbers, their values are summed.
+    nwidth: int, default=20
+        Width of the name column in SMP output.
 
-        Returns
-        -------
-        divshort: list
-            SMP-format diversion shortage rows.
-        ins: list
-            Matching PEST INS instructions for the SMP file.
+    Returns
+    -------
+    divshort: list
+        SMP-format diversion shortage rows.
+    ins: list
+        Matching PEST INS instructions for the SMP file.
 
-        Raises
-        ------
-        IndexError
-            If a group's ``reach_nums`` references a 1-based reach number
-            that exceeds ``len(budget_table)``. Pre-filter your groups
-            against the budget reach count to avoid this.
-        ValueError
-            If a date in ``dates`` does not match the expected
-            ``M/D/YYYY`` or ``MM/DD/YYYY`` format.
-    """
+    Raises
+    ------
+    IndexError
+        If a group's ``reach_nums`` references a 1-based reach number
+        that exceeds ``len(budget_table)``. Pre-filter your groups
+        against the budget reach count to avoid this.
+    ValueError
+        If a date in ``dates`` does not match the expected
+        ``M/D/YYYY`` or ``MM/DD/YYYY`` format.
+    '''
     smp_dates, ins_dates = [], []
     for date in dates:
         temp = [int(i) for i in date.split('/')]
@@ -213,9 +211,9 @@ def format_divshort_smp(budget_table, dates, reaches, nwidth=20):
 
 
 def divshort2obs(budget_file, reach_file, nwidth=20):
-    ''' divshort2obs() - Convert diversion shortages from IWFM Stream Budget
-        to the SMP file format for use by PEST. (Based on STACDEP2OBS.F90 by
-        Matt Tonkin, SSPA with routines by John Doherty.)
+    '''Convert diversion shortages from IWFM Stream Budget to the SMP file format for use by PEST.
+
+    (Based on STACDEP2OBS.F90 by Matt Tonkin, SSPA with routines by John Doherty.)
 
         Reads ``budget_file`` and ``reach_file``, then delegates the SMP/INS
         formatting to :func:`format_divshort_smp`. Use that helper directly if
@@ -252,7 +250,6 @@ def divshort2obs(budget_file, reach_file, nwidth=20):
     ValueError
         If the budget or reach file is malformed (numeric tokens fail
         to parse).
-
     '''
     budget_table, _reach_list, dates = process_budget(budget_file)
     reaches = read_reaches(reach_file)

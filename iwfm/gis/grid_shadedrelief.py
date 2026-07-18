@@ -19,8 +19,9 @@
 
 def grid_shadedrelief(source,slopegrid,aspectgrid,shadegrid,
         az=315.0,alt=45.0,z=1.0,scale=1.0,NODATA=-9999):
-    '''grid_shadedrelief() - Creates a shaded relief ASCII grid from an ASCII DEM.
-     Also outputs intermediate grids for slope and aspect
+    '''Create a shaded relief ASCII grid from an ASCII DEM.
+
+    Also outputs intermediate grids for slope and aspect
 
     Parameters
     ----------
@@ -54,7 +55,6 @@ def grid_shadedrelief(source,slopegrid,aspectgrid,shadegrid,
     Returns
     -------
     nothing
-    
     '''
 
     import linecache

@@ -18,8 +18,7 @@
 
 
 def read_obs_smp(smp_file):
-    ''' read_obs_smp() - Read the contents of an observed values smp file
-    (PEST observation file) and return as a polars DataFrame or dict.
+    '''Read the contents of an observed values smp file (PEST observation file) and return as a polars DataFrame or dict.
 
     Parameters
     ----------
@@ -39,7 +38,6 @@ def read_obs_smp(smp_file):
 
         If polars is not available, returns a dict with the same keys,
         each containing a list of values. Sorted by (site_name, date, time).
-
     '''
     from datetime import datetime
 

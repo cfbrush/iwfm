@@ -18,8 +18,7 @@
 
 
 def iwfm_aquitard_bottom(strat):
-    ''' iwfm_aquitard_bottom() - Extract aquitard bottom from 
-        IWFM stratigraphy information
+    '''Extract aquitard bottom from IWFM stratigraphy information.
 
     Parameters
     ----------

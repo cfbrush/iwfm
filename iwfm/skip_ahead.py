@@ -18,9 +18,9 @@
 
 
 def skip_ahead(line_index, all_lines, skip=0):
-    ''' skip_ahead() - Increment line_index by skipping (a) every line that
-        begins with 'C', 'c' '*' or '#' and (b) 'skip' additional lines.
-        Stop if last line (all_lines) is reached
+    '''Increment line_index by skipping (a) every line that begins with 'C', 'c' '*' or '#' and (b) 'skip' additional lines.
+
+    Stop if last line (all_lines) is reached
 
     Parameters
     ----------
@@ -44,7 +44,6 @@ def skip_ahead(line_index, all_lines, skip=0):
         If line_index is negative or skip is negative
     TypeError
         If all_lines is not a list or line_index/skip are not integers
-
     '''
     # Input validation
     if not isinstance(all_lines, list):

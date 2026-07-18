@@ -19,7 +19,7 @@
 
 def write_lu2file(out_table,out_file,in_years,date_head_tail=['09/30/', '_24:00'],
     verbose=False,lu_type = ''):
-    ''' write_lu2file() - Write IWFM land use to file
+    '''Write IWFM land use to file.
 
     Parameters
     ----------
@@ -44,7 +44,6 @@ def write_lu2file(out_table,out_file,in_years,date_head_tail=['09/30/', '_24:00'
     Returns
     -------
     nothing
-
     '''
     with open(out_file, 'w', encoding='utf-8') as f:
         for i in range(0,len(in_years)):

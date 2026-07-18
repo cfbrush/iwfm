@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def data_to_color(value, min_value, max_value, colormap='rainbow'):
-    """ data_to_color() - Map a data value to a corresponding RGB color.
+    '''Map a data value to a corresponding RGB color.
 
     Parameters
     ----------
@@ -38,7 +38,7 @@ def data_to_color(value, min_value, max_value, colormap='rainbow'):
     rgb_color : tuple
         A tuple containing three integers (R, G, B) representing the RGB color components of the mapped color.
         Each component ranges from 0 to 255.
-    """
+    '''
     import matplotlib as plt
 
     # Define a colormap

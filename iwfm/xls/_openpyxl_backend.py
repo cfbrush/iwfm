@@ -16,12 +16,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-"""
-openpyxl backend for Excel file operations.
+'''Openpyxl backend for Excel file operations.
 
 This is the primary backend for iwfm.xls, providing cross-platform
 Excel read/write support.
-"""
+'''
 
 from openpyxl import Workbook, load_workbook
 from openpyxl.utils import get_column_letter

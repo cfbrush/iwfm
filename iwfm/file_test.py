@@ -18,7 +18,7 @@
 
 
 def file_test(filename):
-    ''' file_test() - Check that the file exists and exit if it does not
+    '''Check that the file exists and exit if it does not.
 
     Parameters
     ----------
@@ -34,7 +34,6 @@ def file_test(filename):
     FileNotFoundError
         Raised (via :func:`iwfm.file_missing`) if ``filename`` does not
         resolve to an existing file.
-
     '''
     import os
     import iwfm

@@ -18,7 +18,7 @@
 
 
 def ltbud(budget_file, output_file, zero_offset=2.0, neg_val=1.0e-7):
-    ''' ltbud() - Read an IWFM Budget-format output file, and log-transform the values
+    '''Read an IWFM Budget-format output file and log-transform the values.
 
     Parameters
     ----------
@@ -39,7 +39,6 @@ def ltbud(budget_file, output_file, zero_offset=2.0, neg_val=1.0e-7):
     nothing
 
     TOTO: Add error code for too few budget tables
-
     '''
 
     import iwfm

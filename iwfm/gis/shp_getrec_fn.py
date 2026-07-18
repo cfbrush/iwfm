@@ -18,22 +18,20 @@
 
 
 def shp_getrec_fn(f, i, field_name):
-    ''' shp_getrec_fn() - Returns the item in the column specified by 
-        field_name for record i for a PyShp shapefile
+    '''Return the item in the column specified by field_name for record i for a PyShp shapefile.
 
     Parameters
     ----------
     f : Shapefile object
-    
+
     i : int
         record number
-    
+
     field_name : str
         shapefile field name
 
     Returns:
     The requested item (undetermined type)
-
     '''
     from iwfm.shp_fieldnames import shp_fieldnames
     from iwfm.gis.shp_getrec import shp_getrec

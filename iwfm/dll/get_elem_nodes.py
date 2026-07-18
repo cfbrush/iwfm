@@ -18,13 +18,13 @@
 
 
 def get_elem_nodes(iwfm_dll,elem_id):
-    ''' IWFM DLL: Get FE element's nodes 
+    '''IWFM DLL: Get FE element's nodes.
 
     Parameters
     ----------
     iwfm_dll :  IWFM Model object
         instantiated IWFM model object
-    
+
     elem_id : int
         FE element index 
 
@@ -35,7 +35,6 @@ def get_elem_nodes(iwfm_dll,elem_id):
 
     status : int
         0 if everything worked
-
     '''
 
     from ctypes import byref, c_int

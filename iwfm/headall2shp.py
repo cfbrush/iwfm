@@ -18,14 +18,13 @@
 
 
 def headall2shp(heads_file, pre_file, out_date, basename, label='Heads', units='ft', epsg=26910, verbose=True):
-    ''' headall2shp() - Read headall.out file and stratigraphy file and 
-            produce head maps
+    '''Read headall.out file and stratigraphy file and produce head maps.
 
     Parameters
     ----------
     heads_file : str
         name of headall.out file 
-    
+
     pre_file : str
         name of IWFM Preprocessor main input file
 
@@ -43,14 +42,13 @@ def headall2shp(heads_file, pre_file, out_date, basename, label='Heads', units='
 
     epsg : int, default=26910 (NAD 83 UTM 10, CA)
         EPSG projection
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-    
     '''
     import os
     import iwfm

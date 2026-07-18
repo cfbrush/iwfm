@@ -20,7 +20,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def print_methods_hdf(filename, spacing=20, verbose=False):
-    '''print_methods_hdf() - print dll methods for an hdf file
+    '''Print dll methods for an hdf file.
 
     Parameters
     ----------
@@ -34,7 +34,6 @@ def print_methods_hdf(filename, spacing=20, verbose=False):
     -------
     methods : list
         list of methods
-
     '''
     import h5py
     import iwfm

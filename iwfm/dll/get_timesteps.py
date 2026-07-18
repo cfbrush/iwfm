@@ -18,7 +18,7 @@
 
 
 def get_timesteps(iwfm_dll):
-    ''' IWFM DLL: Get number of time steps in current model
+    '''IWFM DLL: Get number of time steps in current model.
 
     Parameters
     ----------
@@ -32,7 +32,6 @@ def get_timesteps(iwfm_dll):
 
     status : int
         0 if everything worked
-
     '''
 
     from ctypes import byref, c_int

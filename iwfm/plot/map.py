@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def map(dataset, image_name, scaling_factor = 0.01 , point_type='polygon', point_width=100, verbose=False):
-    """map() - Create a colored image map representing groundwater data.
+    '''Create a colored image map representing groundwater data.
 
     NOTE: add title, legend, etc. to plot
 
@@ -26,7 +26,7 @@ def map(dataset, image_name, scaling_factor = 0.01 , point_type='polygon', point
     dataset : list of tuples
         A list containing tuples of three values (x, y, value), representing the x and y coordinates of each
         data point along with their corresponding values.
-    
+
     image_name : str
         The desired name of the image file to be saved.
 
@@ -48,7 +48,7 @@ def map(dataset, image_name, scaling_factor = 0.01 , point_type='polygon', point
     Returns
     -------
     nothing
-    """
+    '''
     from PIL import Image, ImageDraw
     import iwfm.plot as iplot
 

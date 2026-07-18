@@ -21,7 +21,7 @@ from functools import wraps
 
 
 def timer(function):
-    ''' timer(functon) -Wrapper to display function execution time
+    '''Wrapper to display function execution time.
 
     Parameters
     ----------
@@ -30,7 +30,6 @@ def timer(function):
     Return
     ------
     calling function object
-
     '''
     @wraps(function)
     def wrapper(*args, **kwargs):

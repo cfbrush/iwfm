@@ -18,7 +18,7 @@
 
 
 def qgis_init(verbose=False):
-    ''' qgis_init() - Initialize the QGIS application 
+    '''Initialize the QGIS application.
 
     Parameters
     ----------
@@ -28,7 +28,6 @@ def qgis_init(verbose=False):
     Returns
     -------
     qgs : QGIS instance object
-
     '''
     import qgis.core as qcore
     from iwfm.gis.qgis_init_paths import qgis_init_paths

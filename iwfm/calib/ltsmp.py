@@ -21,8 +21,7 @@ import iwfm
 
 
 def ltsmp(input_file, output_file, zero_offset=36.0, neg_val=0.001):
-    '''   ltsmp() - Read a PEST SMP-format file, log-transform the observation 
-                    values, and write to a SMP-format file
+    '''Read a PEST SMP-format file, log-transform the observation values, and write to a SMP-format file.
 
     Parameters
     ----------
@@ -41,7 +40,6 @@ def ltsmp(input_file, output_file, zero_offset=36.0, neg_val=0.001):
     Returns
     -------
     nothing
-
     '''
 
     with open(input_file, encoding='utf-8') as f:

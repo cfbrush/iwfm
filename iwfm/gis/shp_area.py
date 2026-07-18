@@ -18,8 +18,7 @@
 
 
 def shp_area(polygon):
-    ''' shp_area() - Return the geodesic area of a polygon in
-        geographic (lon-lat) coordinates
+    '''Return the geodesic area of a polygon in geographic (lon-lat) coordinates.
 
     Parameters
     ----------
@@ -29,7 +28,6 @@ def shp_area(polygon):
     Returns
     -------
     Polygon area in square meters : float
-
     '''
     from pyproj import Geod
     from shapely.geometry import shape

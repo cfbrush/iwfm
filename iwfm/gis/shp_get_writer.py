@@ -18,14 +18,13 @@
 
 
 def shp_get_writer(outfile, type):
-    ''' shp_get_writer() - Get a writer for a shapefile of the same type
-        as the input shapefile
+    '''Get a writer for a shapefile of the same type as the input shapefile.
 
     Parameters
     ----------
     outfile : str
         ouput shapefile name
-    
+
     type : str
         shapefile type
 
@@ -34,7 +33,6 @@ def shp_get_writer(outfile, type):
     w : shapefile.Writer
         The caller MUST call ``w.close()`` (or use it as a context
         manager) for the shapefile to be flushed to disk.
-
     '''
     import shapefile  # PyShp
 

@@ -19,14 +19,13 @@
 
 
 def sub_pp_streams(stream_file, node_list):
-    ''' sub_pp_streams()  - Read the stream specification file and return
-        stream reach and rating table info for the submodel
+    '''Read the stream specification file and return stream reach and rating table info for the submodel.
 
     Parameters
     ----------
     stream_file : str
         existing model preprocessor stream file name
-    
+
     node_list : list
         list of existing model nodes in submodel
 
@@ -34,20 +33,19 @@ def sub_pp_streams(stream_file, node_list):
     -------
     sub_reach_info : list
         reach info line for reaches in submodel
-    
+
     snode_dict : dictionary
         key = existing model stream nodes in submodel,
             value = groundwater node
-    
+
     sub_rattab_dict : dictionray
         key = stream node, values = rating table
-    
+
     rating_header : str
         header info for rating tables including factors
-    
+
     stream_aq : str
         stream-aquifer section of stream preprocessor file
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

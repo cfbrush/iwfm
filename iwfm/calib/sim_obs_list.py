@@ -20,8 +20,7 @@
 
 
 def sim_obs_list(obs, well_dict, gwhyd_sim, dates):
-    ''' sim_obs_list() calculaters simulated equivalents for observations and difference
-      between them
+    '''Calculate simulated equivalents for observations and difference between them.
 
     Parameters
     ----------

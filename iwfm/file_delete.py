@@ -20,7 +20,7 @@
 from iwfm.debug.logger_setup import logger
 
 def file_delete(filename):
-    ''' file_delete() - Delete a file
+    '''Delete a file.
 
     Parameters
     ----------

@@ -22,35 +22,34 @@ import math
 
 def choropleth(infile,fieldname1,fieldname2,iwidth=600,
     iheight=400,denrat=80.0,savename=None):
-    ''' choropleth() - Read a shapefile and write a choropleth image
+    '''Read a shapefile and write a choropleth image.
 
     Parameters
     ----------
     infile : str
         source shapefile name
-    
+
     fieldname1 : str
         name of field for shading
-    
+
     fieldname2 : str
         name of field for normalization
-    
+
     iwidth : int, default=600
         image width in pixels
-    
+
     iheight : int, default=400
         image height in pixels
-    
+
     denrat : float, default=80.0
         density ratio
-    
+
     savename : str, default=None
         image destination file name (None = not saved)
 
     Returns
     -------
     nothing
-
     '''
     from PIL import Image, ImageDraw
 

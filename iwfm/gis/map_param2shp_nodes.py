@@ -19,9 +19,8 @@
 
 
 def map_param2shp_nodes(param_type, param_vals, node_shp_name, out_shp_name='nodal_parameters', layers=0, verbose=False):
-    ''' map_param2shp_nodes() - Read a shapefile of IWFM model nodes and map an IWFM 
-                        parameter to the nodes
-    
+    '''Read a shapefile of IWFM model nodes and map an IWFM parameter to the nodes.
+
     Parameters
     ----------
     param_type : string
@@ -45,7 +44,6 @@ def map_param2shp_nodes(param_type, param_vals, node_shp_name, out_shp_name='nod
     Return
     ------
     nothing
-    
     '''
     import geopandas as gpd
     import os

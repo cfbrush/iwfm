@@ -18,8 +18,7 @@
 
 
 def generate_timesteps(start_date, n_steps, delta_t, time_unit):
-    """
-    Generate timestep strings matching IWFM format
+    '''Generate timestep strings matching IWFM format.
 
     Parameters
     ----------
@@ -35,7 +34,7 @@ def generate_timesteps(start_date, n_steps, delta_t, time_unit):
     Returns
     -------
     list : List of formatted date strings
-    """
+    '''
     import iwfm
     from datetime import datetime, timedelta
 

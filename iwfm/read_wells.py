@@ -19,8 +19,7 @@
 
 
 def read_wells(infile, verbose=False):
-    ''' read_wells() - Read IWFM Groundwater.dat file and build a dictionary
-        of groundwater hydrograph info and gwhyd_sim columns
+    '''Read IWFM Groundwater.dat file and return a dictionary of groundwater hydrograph info and gwhyd_sim columns.
 
     Parameters
     ----------
@@ -34,7 +33,6 @@ def read_wells(infile, verbose=False):
     -------
     well_dict : dictionary
         key = well name (i.e. state ID), values = WellInfo instance
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

@@ -18,8 +18,8 @@
 
 
 def geojson2shp(geojs):
-    ''' geojson2shp() - Create a point shape from a geojson object
-    
+    '''Create a point shape from a geojson object.
+
     Parameters
     ----------
     geojs :  geojson object
@@ -27,7 +27,6 @@ def geojson2shp(geojs):
     Returns
     -------
     point : shapely geometry object
-
     '''
     from shapely.geometry import shape
 

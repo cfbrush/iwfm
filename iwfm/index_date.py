@@ -18,7 +18,7 @@
 
 
 def index_date(in_date, start_date='10/01/1984'):
-    ''' index_date() - Return the number of days from start_date to in_date
+    '''Return the number of days from start_date to in_date.
 
     Parameters
     ----------
@@ -37,7 +37,6 @@ def index_date(in_date, start_date='10/01/1984'):
     ------
     ValueError
         If date format is invalid or dates cannot be parsed
-
     '''
     from datetime import datetime
 

@@ -18,33 +18,31 @@
 
 
 def mysql_create(dbname, host='localhost', port=3306, user='root', passwd='', verbose=False):
-    ''' mysql_create() - Create a mysql database 
-        DEMO - how to do it
-    
+    '''Create a mysql database DEMO - how to do it.
+
     Parameters
     ----------
     dbname : str
         database file base name 
-    
+
     host : str, default='localhost'
         host
-    
+
     port : int, default=3306
         port number
 
     user : str, default='root'
         user name
-    
+
     passwd : str, default=''
         password
 
     verbose : bool, default=False
         True = command line update on
-    
+
     Returns
     -------
     nothing
-
     '''
     import pymysql
 

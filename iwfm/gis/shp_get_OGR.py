@@ -18,20 +18,19 @@
 
 
 def shp_get_OGR(infile, verbose=False):
-    '''shp_get_OGR() - Opens a shapefile with OGR
+    '''Open a shapefile with OGR.
 
     Parameters
     ----------
     infile : str
         name to save info from url
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     shape :  shapefile as OGR object
-    
     '''
     from osgeo import ogr
 

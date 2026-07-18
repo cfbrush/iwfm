@@ -20,9 +20,7 @@
 
 
 def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=None, verbose=False):
-    '''sub_rootzone_file() - Read the original Simulation rootzone main file,
-        determine which elements are in the submodel, and writes out a new file,
-        then modify the other Simulation rootzone component files
+    '''Read the original Simulation rootzone main file, determine which elements are in the submodel, and writes out a new file, then modify the other Simulation rootzone component files.
 
     Parameters
     ----------
@@ -47,7 +45,6 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

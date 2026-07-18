@@ -18,21 +18,19 @@
 
 
 def xml_fix(infile, outfile, verbose=False):
-    ''' xml_fix() - Read a broken XML file and write repaired file
-    
+    '''Read a broken XML file and write repaired file.
 
     Parameters
     ----------
     infile : str
         input XML file name
-    
+
     outfile : str
         output XML file name
 
     Returns
     -------
     nothing
-    
     '''
     from bs4 import BeautifulSoup
 

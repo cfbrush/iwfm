@@ -18,9 +18,8 @@
 
 
 def histogram_array(arr, bins=list(range(256))):
-    ''' histogram_array() - Determines the histogram function for 
-        multi-dimensional array <arr>
-    
+    '''Determine the histogram function for multi-dimensional array <arr>.
+
     Parameters
     ----------
     arr : multidimensional array

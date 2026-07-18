@@ -19,8 +19,7 @@
 
 
 def sub_pp_lake_file(lake_file, new_lake_file, lake_info):
-    ''' sub_pp_lake_file() - Copy the old lake file and replace the contents with
-        those of the new model, and write out the new IWFM lake file
+    '''Copy the old lake file and replace the contents with those of the new model, and write out the new IWFM lake file.
 
     Parameters
     ----------
@@ -36,7 +35,6 @@ def sub_pp_lake_file(lake_file, new_lake_file, lake_info):
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

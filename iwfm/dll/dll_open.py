@@ -18,7 +18,7 @@
 
 
 def dll_open(iwfm_dll, pre_file, sim_file, routed_streams=1, for_inquiry=1):
-    ''' IWFM DLL: instantiate an IWFM_Model object from Preprocessor and Simulation filenames
+    '''IWFM DLL: instantiate an IWFM_Model object from Preprocessor and Simulation filenames.
 
     Parameters
     ----------
@@ -46,7 +46,6 @@ def dll_open(iwfm_dll, pre_file, sim_file, routed_streams=1, for_inquiry=1):
 
     status : int
         0 if everything worked
- 
     '''
 
     #import ctypes

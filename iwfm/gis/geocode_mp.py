@@ -20,7 +20,7 @@ import multiprocessing as mp
 from iwfm.gis.geocode import geocode
 
 def geocode_mp(cities):
-    ''' geo_code() - Use multiprocessing to find and return multiple geocodes
+    '''Use multiprocessing to find and return multiple geocodes.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def geocode_mp(cities):
     -------
     results : list
         geocodes for the input cities
-    
     '''
 
     with mp.Pool(processes=mp.cpu_count()) as pool:  # allocate a pool of processors

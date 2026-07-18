@@ -20,9 +20,7 @@
 
 
 def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, sim_base_path=None, verbose=False):
-    '''sub_gw_file() - Read the original groundwater main file, determine
-        which elements are in the submodel, and write out a new file, then
-        modifies the other groundwater component files
+    '''Read the original groundwater main file, determine which elements are in the submodel, and write out a new file, then modifies the other groundwater component files.
 
     Parameters
     ----------
@@ -50,7 +48,6 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

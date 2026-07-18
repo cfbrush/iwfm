@@ -22,8 +22,7 @@ from iwfm.debug.logger_setup import logger
 
 def get_zbudget_elemids(zbud, zones_file, area_conversion_factor=0.0000229568411, area_units='ACRES',
                         volume_conversion_factor=0.0000229568411, volume_units='ACRE-FEET', verbose=False):
-    ''' get_zbudget_elemids() - return the element IDs referenced in an
-        IWFM Z-Budget zone definition file
+    '''Return the element IDs referenced in an IWFM Z-Budget zone definition file.
 
     Parameters
     ----------
@@ -53,7 +52,6 @@ def get_zbudget_elemids(zbud, zones_file, area_conversion_factor=0.0000229568411
     -------
     elemids : list
         sorted list of unique element IDs assigned to zones
-
     '''
     from iwfm.hdf5.hdf5_utils import read_zone_definition
 

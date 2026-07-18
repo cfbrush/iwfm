@@ -18,8 +18,7 @@
 
 
 def interp_val(obs_date,early_date,early_val,late_date,late_val):
-    ''' interp_val() - return the simulated value that corresponds to the
-        observation date.
+    '''Return the simulated value that corresponds to the observation date.
 
     Parameters
     ----------
@@ -36,7 +35,6 @@ def interp_val(obs_date,early_date,early_val,late_date,late_val):
     -------
     return value : float
         simulated value interpolated to obs_date
-    
     '''
     if early_date == obs_date:
         return early_val

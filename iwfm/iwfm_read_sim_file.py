@@ -18,8 +18,7 @@
 
 
 def iwfm_read_sim_file(sim_file, verbose=False):
-    ''' iwfm_read_sim_file() - Read an IWFM Simulation main input file
-        and return a list of the files called and some settings
+    '''Read an IWFM Simulation main input file and return a list of the files called and some settings.
 
     Parameters
     ----------
@@ -36,7 +35,6 @@ def iwfm_read_sim_file(sim_file, verbose=False):
 
     have_lake : bool
         True if existing model has a lake file
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

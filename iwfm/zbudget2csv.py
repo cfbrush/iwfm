@@ -21,7 +21,7 @@
 
 def zbudget2csv(outfile, zone_names, column_headers, zone_values, titles, zone_list, 
                          zone_extent_ids):
-    ''' zbudget2csv() - write info from an IWFM ZBudget HDF file to an output file
+    '''Write info from an IWFM ZBudget HDF file to an output file.
 
     Parameters
     ----------
@@ -39,15 +39,15 @@ def zbudget2csv(outfile, zone_names, column_headers, zone_values, titles, zone_l
 
     titles : list
         Titles for each zone
-        
+
     zone_list : string
         List of zone names
-        
+
     zone_extent_ids : dictionary (retained for potential future use)
         {'horizontal': horizontal_extent_id, 'vertical': vertical_extent_id}
         horizontal_extent_id: int (0,1)
         vertical_extent_id: int (0,1)
-        
+
     Returns
     -------
     nothing

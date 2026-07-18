@@ -18,7 +18,7 @@
 
 
 def nodal_values2shp(node_coords, values, values_name, shape_name, epsg=26910, verbose=False):
-    ''' nodal_values2shp() - Create node shapefile for an IWFM model with a value for each node
+    '''Create node shapefile for an IWFM model with a value for each node.
 
     Parameters
     ----------
@@ -30,20 +30,19 @@ def nodal_values2shp(node_coords, values, values_name, shape_name, epsg=26910, v
 
     values_name : str
         name of values
-    
+
     shape_name : str
         output file name
-    
+
     epsg : int, default=26910 (NAD 83 UTM 10, CA)
         EPSG projection
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-
     '''
     import iwfm.gis as igis
     import shapefile

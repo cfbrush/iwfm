@@ -18,9 +18,7 @@
 
 
 def iwfm_read_elempump(elempump_file_name, elem_ids, ag=1, ur=2, comment=0, verbose=False):
-    ''' iwfm_read_elements() - Read an IWFM Element Pumping file, and return lists
-        for ICOLSK, FRACSK, IOPTSK, FRACSKL[Layer], TYPDSTSK, DSTSK, ICFIRIGSK, 
-        ICACJSK, ICSKMAX and FSKMAX for Ag and for Urban for each model element
+    '''Read an IWFM Element Pumping file, and return lists for ICOLSK, FRACSK, IOPTSK, FRACSKL[Layer], TYPDSTSK, DSTSK, ICFIRIGSK, ICACJSK, ICSKMAX and FSKMAX for Ag and for Urban for each model element.
 
     Parameters
     ----------
@@ -60,7 +58,6 @@ def iwfm_read_elempump(elempump_file_name, elem_ids, ag=1, ur=2, comment=0, verb
 
     header : list
         list of column headers
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

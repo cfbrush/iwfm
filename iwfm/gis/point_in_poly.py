@@ -18,23 +18,22 @@
 
 
 def point_in_poly(x, y, poly):
-    ''' point_in_poly() - Is the point inside the polygon?
+    '''Is the point inside the polygon?
 
     Parameters
     ----------
     x : float
         Easting of point in UTM
-    
+
     y : float
         Northing of point in UTM
-    
+
     ppoly : polygon object
 
     Returns
     -------
     True if point <x,y> is inside or on an edge
     False otherwise
-    
     '''
     if (x, y) in poly:  # check if point is a vertex
         return True

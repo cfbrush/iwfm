@@ -18,8 +18,8 @@
 
 
 def projection(shapename, epsg=26910, verbose=False):
-    ''' projection() - Create projection files for shapefiles
-    
+    '''Create projection files for shapefiles.
+
     Parameters
     ----------
     shapename : str

@@ -18,14 +18,13 @@
 
 
 def img_extract(source, target):
-    ''' img_extract() - Automatically extract features of a threshold image 
-        to a shapefile
-    
+    '''Automatically extract features of a threshold image to a shapefile.
+
     Parameters
     ----------
     source : str
         input file name
-    
+
     target : str
         ouput file name
 
@@ -33,7 +32,8 @@ def img_extract(source, target):
     -------
     extract : OGR object
         extracted features
-        
+
+
     '''
     from osgeo import gdal
     from osgeo import ogr

@@ -20,9 +20,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def get_obs_hyd(obs_file,start_date):
-    ''' get_obs_hyd - reads an observation sample bore (smp) file, and returns a list
-        of observation sites and a list of observation data as [site_id, days since
-        start, date as datetime object]
+    '''Read an observation sample bore (smp) file, and return a list of observation sites and a list of observation data as [site_id, days since start, date as datetime object].
 
     Parameters
     ----------
@@ -40,7 +38,6 @@ def get_obs_hyd(obs_file,start_date):
 
     obs_data : list
         [site name, days since start, date as datetime object]
-
     '''
 
     from datetime import datetime

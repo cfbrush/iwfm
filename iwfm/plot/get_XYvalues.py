@@ -17,20 +17,19 @@
 # -----------------------------------------------------------------------------
 
 def get_XYvalues(dataset):
-    """get_XYvalues() - Create a colored image map representing groundwater data.
+    '''Create a colored image map representing groundwater data.
 
     Parameters
     ----------
     dataset : list of lists
         A list containing tuples of three values (x, y, value), representing the x and y coordinates of each
         data point along with their corresponding values.
-    
+
     Returns
     -------
     X, Y, values: numpy arrays
         numpy arrays containing x, y, and value
-
-    """
+    '''
     import numpy as np
 
     X, Y, value = [], [], []

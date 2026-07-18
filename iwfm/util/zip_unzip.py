@@ -18,7 +18,7 @@
 
 
 def zip_unzip(filename, verbose=False):
-    ''' zip_unzip() - Unzip a zipfile
+    '''Unzip a zipfile.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def zip_unzip(filename, verbose=False):
     Return
     ------
     nothing
-
     '''
     import zipfile
 

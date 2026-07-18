@@ -344,7 +344,7 @@ class HdfReader(HdfBackend):
         return metadata
 
     def close(self):
-        """Close the HDF5 file and release resources."""
+        '''The HDF5 file and release resources.'''
         if self._h5file is not None:
             logger.info(f"Closing HDF5 file: {self._hdf5_file}")
             self._h5file.close()

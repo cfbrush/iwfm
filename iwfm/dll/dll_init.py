@@ -18,7 +18,7 @@
 
 
 def dll_init(dll_path):
-    ''' dll_init() - Initialize IWFM DLL
+    '''Initialize IWFM DLL.
 
     Parameters
     ----------
@@ -30,7 +30,6 @@ def dll_init(dll_path):
     -------
     iwfm_dll : object
         iwfm dll object
-
     '''
     import ctypes
     import iwfm

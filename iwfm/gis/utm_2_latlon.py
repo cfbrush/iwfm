@@ -18,19 +18,19 @@
 
 
 def utm_2_latlon(easting, northing, zone, band='U'):
-    ''' utm_2_latlon() - Reproject from UTM to geographic coordinates
+    '''Reproject from UTM to geographic coordinates.
 
     Parameters
     ----------
     easting : float
         Easting (X) value
-    
+
     notthing : float
         Northing (Y) value
-    
+
     zone : int
         UTM zone
-    
+
     band : str, default='U'
         MGRS latitude band letter; bands N-X are the northern
         hemisphere, C-M the southern
@@ -39,7 +39,6 @@ def utm_2_latlon(easting, northing, zone, band='U'):
     -------
     (lat, lon) : tuple of float
         Latitude and Longitude
-
     '''
     from pyproj import Transformer
 

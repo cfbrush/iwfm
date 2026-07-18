@@ -18,8 +18,8 @@
 
 
 def grid_read(infile):
-    '''grid_read() - Read an ASCII Grid file
-    
+    '''Read an ASCII Grid file.
+
     Parameters
     ----------
     infile : str
@@ -31,7 +31,6 @@ def grid_read(infile):
         information about ASCII Grid array
 
     myArray : ASCII Grid array
-
     '''
     import numpy as np
     from iwfm.debug.logger_setup import logger

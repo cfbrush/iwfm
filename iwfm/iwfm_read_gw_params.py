@@ -18,8 +18,7 @@
 
 
 def iwfm_read_gw_params(gw_file, node_coords=None):
-    ''' iwfm_read_gw_params() - Read an IWFM Simulation Groundwater file and return
-        a list of parameters
+    '''Read an IWFM Simulation Groundwater file and return a list of parameters.
 
     Parameters
     ----------
@@ -30,7 +29,8 @@ def iwfm_read_gw_params(gw_file, node_coords=None):
     -------
     params : list
         A list containing parameter values. It consists of 13 sublists, each representing a different parameter.
-          
+
+
     '''
     import iwfm
 

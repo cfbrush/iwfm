@@ -20,37 +20,34 @@
 
 def sub_pp_stream_file(stream_file, new_stream_file, snode_dict, reach_info,
     rattab_dict, rating_header, stream_aq):
-    ''' sub_pp_stream_file() - Copy the original stream specification file 
-        and replace the contents with those of the new model, and write
-        out the new file
+    '''Copy the original stream specification file and replace the contents with those of the new model, and write out the new file.
 
     Parameters
     ----------
     stream_file : str
         name of existing preprocessor node file
-    
+
     new_stream_file : str
         name of submodel preprocessor node file
-    
+
     snode_dict : ints
         dictionary of existing model stream nodes in submodel
-    
+
     reach_info : str
         reach info line for reaches in submodel
-    
+
     rattab_dict : dict
         rating tables for stream nodes in submodel
-    
+
     rating_header : str
         header info for rating tables including factors
-    
+
     stream_aq : str
         stream-aquifer section of stream preprocessor file
 
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
@@ -105,14 +102,13 @@ def sub_pp_stream_file(stream_file, new_stream_file, snode_dict, reach_info,
 
 
 def add_streams_42(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating_header, stream_aq):
-    ''' add_streams_42()  - adds the reach and rating table info in the format of
-        stream file type 4.2
-    
+    '''Add the reach and rating table info in the format of stream file type 4.2.
+
     Parameters
     ----------
     sub_stream_lines : list
         sumbodel stream file being assembled
-    
+
     reach_info : list
         one entry per reach as [id, nrd, idwn, name, [stream_node_ids]]:
         id (int) reach number; nrd (int) count of stream nodes in the reach;
@@ -122,23 +118,22 @@ def add_streams_42(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating
 
     snode_dict : dictionary
         key = stream node ID, values = groundwater node
-    
+
     rattab_dict : dictionary
         key = stream node ID, values = rating table contents
-    
+
     rating_header : list of strings
         rating table comments and flags/constants from original streams file
-    
+
     stream_aq : list of strings
         stream-aquifer section of original streams file
-    
+
     Returns
     -------
     sub_stream_lines : list
         the input list with the new model's reach descriptions, rating
         tables, and stream-aquifer section appended in stream-file v4.2
         format. Ready to be written out as the submodel stream file.
-
     '''
     return _add_streams(sub_stream_lines, reach_info, snode_dict, rattab_dict,
                         rating_header, stream_aq,
@@ -146,9 +141,9 @@ def add_streams_42(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating
 
 
 def add_streams_40(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating_header, stream_aq):
-    ''' add_streams_40()  - adds the reach and rating table info in the format
-        of stream file type 4.0. Same layout as 4.2 (one groundwater node per
-        stream node; BOTR/HRTB/QRTB rating rows carried verbatim).
+    '''Add the reach and rating table info in the format of stream file type 4.0.
+
+    Same layout as 4.2 (one groundwater node per stream node; BOTR/HRTB/QRTB rating rows carried verbatim).
 
     Parameters and return value are the same as :func:`add_streams_42`.
     '''
@@ -158,10 +153,9 @@ def add_streams_40(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating
 
 
 def add_streams_41(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating_header, stream_aq):
-    ''' add_streams_41()  - adds the reach and rating table info in the format
-        of stream file type 4.1. Same layout as 4.2 except rating table rows
-        carry an extra wetted-perimeter column (WPTB), which passes through
-        verbatim.
+    '''Add the reach and rating table info in the format of stream file type 4.1.
+
+    Same layout as 4.2 except rating table rows carry an extra wetted-perimeter column (WPTB), which passes through verbatim.
 
     Parameters and return value are the same as :func:`add_streams_42`.
     '''
@@ -171,9 +165,9 @@ def add_streams_41(sub_stream_lines, reach_info, snode_dict, rattab_dict, rating
 
 
 def add_streams_50(sub_stream_lines, reach_info, snode_dict, stream_aq):
-    ''' add_streams_50()  - adds the reach info in the format of stream file
-        type 5.0. Version 5.0 preprocessor files carry no rating tables
-        (those moved to the simulation stream file).
+    '''Add the reach info in the format of stream file type 5.0.
+
+    Version 5.0 preprocessor files carry no rating tables (those moved to the simulation stream file).
 
     Parameters and return value are the same as :func:`add_streams_42`,
     without the rating-table arguments.
@@ -186,9 +180,9 @@ def add_streams_50(sub_stream_lines, reach_info, snode_dict, stream_aq):
 def _add_streams(sub_stream_lines, reach_info, snode_dict, rattab_dict,
                  rating_header, stream_aq, reaches_header, reach_header,
                  snodes_header):
-    ''' _add_streams()  - shared engine: append reach descriptions, rating
-        tables (if any), and the stream-aquifer section to the submodel
-        stream file lines. '''
+    '''Shared engine: append reach descriptions, rating tables (if any), and the stream-aquifer section to the submodel stream file lines.
+
+    '''
 
     # -- write stream reaches
     for s in reaches_header:

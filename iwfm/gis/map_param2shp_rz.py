@@ -18,9 +18,8 @@
 
 
 def map_param2shp_rz(param_types, param_vals, elem_shp_name, out_shp_name='elem_parameters.shp', verbose=False):
-    ''' map_param2shp_rz() - Read a shapefile of IWFM model elements and map IWFM 
-                    Rootzone Crop parameters to the elements
-    
+    '''Read a shapefile of IWFM model elements and map IWFM Rootzone Crop parameters to the elements.
+
     Parameters
     ----------
     param_types : list
@@ -41,7 +40,6 @@ def map_param2shp_rz(param_types, param_vals, elem_shp_name, out_shp_name='elem_
     Return
     ------
     nothing
-    
     '''
     import geopandas as gpd
     import os

@@ -18,8 +18,7 @@
 
 
 def print_exe_time(start, end, verbose=1):
-    '''Function print_exe_time(start, end) returns the time between two datetime values
-       as a sting hh:mm:ss, 
+    '''Function print_exe_time(start, end) returns the time between two datetime values as a sting hh:mm:ss,.
 
     Parameters
     ----------
@@ -28,7 +27,7 @@ def print_exe_time(start, end, verbose=1):
 
     end : datetime
         ending time
-    
+
     verbose : bool, default=False
         True = print exe_time
 
@@ -42,7 +41,6 @@ def print_exe_time(start, end, verbose=1):
              'mm min ss sec'
           else:
              'ss.s seconds'
- 
     '''
     diff = str(end - start).split(':')
     secs = str(round(float(diff[2]), 1))

@@ -18,22 +18,22 @@
 
 
 def iwfm_read_stream_reaches(reach_file):
-    """ iwfm_read_stream_reaches() - Read group definitions of stream reaches.
+    '''Read group definitions of stream reaches.
 
-        Thin wrapper around :func:`iwfm.calib.divshort2obs.read_reaches`,
-        which is the canonical parser for the stream-groundwater group file
-        format (e.g. ``stgwgroups.in``).
+    Thin wrapper around :func:`iwfm.calib.divshort2obs.read_reaches`,
+    which is the canonical parser for the stream-groundwater group file
+    format (e.g. ``stgwgroups.in``).
 
-        Parameters
-        ----------
-        reach_file: str
-            Path to the reach groups file.
+    Parameters
+    ----------
+    reach_file: str
+        Path to the reach groups file.
 
-        Returns
-        -------
-        reaches: list
-            One entry per group, ``[name, [reach_num, ...]]``.
-    """
+    Returns
+    -------
+    reaches: list
+        One entry per group, ``[name, [reach_num, ...]]``.
+    '''
     from iwfm.calib.divshort2obs import read_reaches
     return read_reaches(reach_file)
 

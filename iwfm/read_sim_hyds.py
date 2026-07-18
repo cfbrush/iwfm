@@ -18,8 +18,7 @@
 
 
 def read_sim_hyds(gwhyd_files):
-    ''' read_sim_hyds() - Read simulated values from multiple IWFM output
-        hydrograph files into numpy arrays
+    '''Read simulated values from multiple IWFM output hydrograph files into numpy arrays.
 
     Parameters
     ----------
@@ -30,7 +29,6 @@ def read_sim_hyds(gwhyd_files):
     -------
     gwhyd_sim : list
         list with one item of hydrograph values for each input hydrograph file
-
     '''
     from iwfm.read_sim_hyd import read_sim_hyd
 

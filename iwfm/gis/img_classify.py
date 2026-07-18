@@ -18,8 +18,8 @@
 
 
 def img_classify(source, target):
-    ''' img_classify() - Classify a remotely sensed image
-    
+    '''Classify a remotely sensed image.
+
     Parameters
     ----------
     source : str
@@ -31,7 +31,6 @@ def img_classify(source, target):
     Returns
     -------
     nothing
-
     '''
     from osgeo import gdal_array as gdal_array
 

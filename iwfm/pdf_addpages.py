@@ -18,20 +18,19 @@
 
 
 def pdf_addpages(pdf, pages=1):
-    ''' pdf_addpages() - Add pages to a PDF instance
+    '''Add pages to a PDF instance.
 
     Parameters
     ----------
     pdf : PDF object
         PDF instance
-    
+
     pages :int, default=1
         number of pages to add
 
     Returns
     -------
     pdf : PDF object
-    
     '''
 
     for i in range(pages):

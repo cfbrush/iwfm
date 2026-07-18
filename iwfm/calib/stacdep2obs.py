@@ -19,28 +19,27 @@
 # -----------------------------------------------------------------------------
 
 def process_budget(budget_file, cwidth=12):
-    """ process_budget() - Read IWFM Stream Reach budget file and process into
-        a table of individual stream reach stream-groundwater flows
-        
-        Parameters
-        ----------        
-        budget_file: str
-            Name of IWFM Stream Nodes budget file
+    '''Read IWFM Stream Reach budget file and process into a table of individual stream reach stream-groundwater flows.
 
-        cwidth : int, default = 12
-                Width of column in budget file
+    Parameters
+    ----------        
+    budget_file: str
+        Name of IWFM Stream Nodes budget file
 
-        Returns
-        -------
-        budget_table, list
-            Stream-groundwater flows for each reach
+    cwidth : int, default = 12
+            Width of column in budget file
 
-        run_stacdep2obs.sh, list
-            List of reach names
+    Returns
+    -------
+    budget_table, list
+        Stream-groundwater flows for each reach
 
-        dates, list
-            List of dates for budget_table
-    """
+    run_stacdep2obs.sh, list
+        List of reach names
+
+    dates, list
+        List of dates for budget_table
+    '''
     import numpy as np
 
     with open(budget_file, encoding='utf-8') as f:
@@ -108,43 +107,42 @@ def process_budget(budget_file, cwidth=12):
 
 
 def format_stacdep_smp(budget_table, dates, reaches, nwidth=20):
-    """ format_stacdep_smp() - Format already-parsed budget data into SMP
-        stream-depletion rows and matching PEST INS instructions.
+    '''Format already-parsed budget data into SMP stream-depletion rows and matching PEST INS instructions.
 
-        This is the pure formatting half of :func:`stacdep2obs`, exposed so
-        callers (and unit tests) can drive it without reading files.
+    This is the pure formatting half of :func:`stacdep2obs`, exposed so
+    callers (and unit tests) can drive it without reading files.
 
-        Parameters
-        ----------
-        budget_table: list
-            One numpy array per stream reach. ``budget_table[n - 1]`` is the
-            stream-groundwater (inside + outside model) time series for the
-            1-based reach number ``n``.
-        dates: list
-            Dates corresponding to each row of ``budget_table[i]``, formatted
-            as 'M/D/YYYY' or 'MM/DD/YYYY'.
-        reaches: list
-            Group definitions: ``[[name, [reach_num, ...]], ...]``. When a
-            group has multiple reach numbers, their values are summed.
-        nwidth: int, default=20
-            Width of the name column in SMP output.
+    Parameters
+    ----------
+    budget_table: list
+        One numpy array per stream reach. ``budget_table[n - 1]`` is the
+        stream-groundwater (inside + outside model) time series for the
+        1-based reach number ``n``.
+    dates: list
+        Dates corresponding to each row of ``budget_table[i]``, formatted
+        as 'M/D/YYYY' or 'MM/DD/YYYY'.
+    reaches: list
+        Group definitions: ``[[name, [reach_num, ...]], ...]``. When a
+        group has multiple reach numbers, their values are summed.
+    nwidth: int, default=20
+        Width of the name column in SMP output.
 
-        Returns
-        -------
-        stacdep: list
-            SMP-format stream-depletion rows.
-        ins: list
-            Matching PEST INS instructions for the SMP file.
+    Returns
+    -------
+    stacdep: list
+        SMP-format stream-depletion rows.
+    ins: list
+        Matching PEST INS instructions for the SMP file.
 
-        Raises
-        ------
-        IndexError
-            If a group's ``reach_nums`` references a 1-based reach number
-            that exceeds ``len(budget_table)``.
-        ValueError
-            If a date in ``dates`` does not match the expected
-            ``M/D/YYYY`` or ``MM/DD/YYYY`` format.
-    """
+    Raises
+    ------
+    IndexError
+        If a group's ``reach_nums`` references a 1-based reach number
+        that exceeds ``len(budget_table)``.
+    ValueError
+        If a date in ``dates`` does not match the expected
+        ``M/D/YYYY`` or ``MM/DD/YYYY`` format.
+    '''
     smp_dates, ins_dates = [], []
     for date in dates:
         temp = [int(i) for i in date.split('/')]
@@ -170,9 +168,9 @@ def format_stacdep_smp(budget_table, dates, reaches, nwidth=20):
 
 
 def stacdep2obs(budget_file, reach_file, nwidth=20):
-    ''' stacdep2obs() - Convert stream-groundwater flows from IWFM Stream
-        Budget to the SMP file format for use by PEST. (Based on
-        STACDEP2OBS.F90 by Matt Tonkin, SSPA with routines by John Doherty.)
+    '''Convert stream-groundwater flows from IWFM Stream Budget to the SMP file format for use by PEST.
+
+    (Based on STACDEP2OBS.F90 by Matt Tonkin, SSPA with routines by John Doherty.)
 
         Reads ``budget_file`` and ``reach_file``, then delegates the SMP/INS
         formatting to :func:`format_stacdep_smp`. Use that helper directly if
@@ -209,7 +207,6 @@ def stacdep2obs(budget_file, reach_file, nwidth=20):
     ValueError
         If the budget or reach file is malformed (numeric tokens fail
         to parse).
-
     '''
     from iwfm.calib.divshort2obs import read_reaches
 

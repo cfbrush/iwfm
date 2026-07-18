@@ -18,22 +18,19 @@
 
 
 def igsm2shp(main_file, shape_name, verbose=False):
-    ''' igsm2shp() - Read the names of the preprocessor component input files, 
-        read the contents of these files, and create node, element, stream 
-        node and stream reach shapefiles
+    '''Read the names of the preprocessor component input files, read the contents of these files, and create node, element, stream node and stream reach shapefiles.
 
     Parameters
     ----------
     main_file : str
         IGSM Preprocessor input file name
-    
+
     shape_name : str
         output shapefiles base name
 
     Returns
     -------
     nothing
-
     '''
 
     import iwfm

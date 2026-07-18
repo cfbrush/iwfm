@@ -18,8 +18,9 @@
 
 
 def compare(list1,list2):
-    ''' compare() - returns two lists. missing has list1 items not in 
-        list2, in_both has list1 items in list2
+    '''Return two lists.
+
+    missing has list1 items not in list2, in_both has list1 items in list2
 
     Parameters
     ----------
@@ -36,7 +37,6 @@ def compare(list1,list2):
 
     in_both : list of str
         observation site names in both list1 and list2
-
     '''
 
     missing, in_both  = [], []

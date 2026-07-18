@@ -18,7 +18,7 @@
 
 
 def shp2wkt(shapefile):
-    ''' shp2wkt() - Translate shapefile geometry info to WKT format
+    '''Translate shapefile geometry info to WKT format.
 
     Parameters
     ----------
@@ -29,7 +29,6 @@ def shp2wkt(shapefile):
     -------
     wkt : list
         shaefile description in WKT format
-
     '''
     import iwfm
 

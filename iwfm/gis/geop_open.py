@@ -18,7 +18,7 @@
 
 
 def geop_open(infile):
-    ''' geop_open() - Open a file with geopandas and return geopandas object
+    '''Open a file with geopandas and return geopandas object.
 
     Parameters
     ----------
@@ -29,7 +29,6 @@ def geop_open(infile):
     -------
     gdf_file : Geopandas object 
         information from the infile
-
     '''
     import geopandas
 

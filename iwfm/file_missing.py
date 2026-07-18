@@ -18,8 +18,7 @@
 
 
 def file_missing(filename, context=None):
-    ''' file_missing() - Raise FileNotFoundError for a file that does
-        not exist
+    '''Raise FileNotFoundError for a file that does not exist.
 
     Parameters
     ----------
@@ -38,7 +37,6 @@ def file_missing(filename, context=None):
     FileNotFoundError
         Always, with the file name, optional context, and current
         working directory in the message.
-
     '''
     import os
 

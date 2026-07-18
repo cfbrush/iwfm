@@ -18,26 +18,26 @@
 # -----------------------------------------------------------------------------
 
 def ppk2fac_trans(factors_file, trans_file, out_file, verbose=False):
-    """Converts the ppk2fac file to the fac2fac file.
-    
+    '''Convert the ppk2fac file to the fac2fac file.
+
     Parameters
     ----------
     factors_file: str
         Name of factors file from ppk2fac
-        
+
     trans_file: str
         Name of file containing the translation from sequential to actual node
-        
+
     out_file: str
         Name of output file
-        
+
     verbose: bool
         If True, prints out the translation
-        
+
     Returns
     -------
     None
-    """
+    '''
     with open(factors_file, 'r', encoding='utf-8') as f:
         factor_lines = []
         for line in f:

@@ -20,9 +20,9 @@
 
 
 def read_gw_file(gw_file, verbose=False):
-    """ read_gw_file - Read an IWFM Groundwater file and return the number of nodes, 
-        the scaling factors, and the parameter values
-        
+    '''Read an IWFM Groundwater file and return the number of nodes, the scaling factors, and the parameter values.
+
+
     Parameters
     ----------
 
@@ -39,8 +39,7 @@ def read_gw_file(gw_file, verbose=False):
 
     params_d : dictionary of lists
         default model parameters, key = node_layer, value = list of parameter values
-    
-    """
+    '''
 
     comments = 'Cc*#'
 
@@ -124,13 +123,12 @@ def read_gw_file(gw_file, verbose=False):
 
 
 def read_params(param_types, verbose=False):
-    '''  read_params() - Interactively reads parameters for each node and parameter type
+    '''Interactively read parameters for each node and parameter type.
 
     Parameters
     ----------
     verbose : bool, default=False
         Print to screen?
-
     '''
 
     import iwfm
@@ -192,8 +190,8 @@ def read_params(param_types, verbose=False):
 
 
 def write_gw_file(outfile, gw_lines, nlay, parnodes, parvals, fp, parvals_d, verbose=False):
-    '''  write_gw_file() - receive a list of parameters and write them to 
-         an IWFM-2015 Groundwater file    
+    '''Receive a list of parameters and write them to an IWFM-2015 Groundwater file.
+
     Parameters
     ----------
     outfile : str
@@ -219,7 +217,6 @@ def write_gw_file(outfile, gw_lines, nlay, parnodes, parvals, fp, parvals_d, ver
 
     verbose : bool, default=False
         Print to screen?
-
     '''
 
     comments = 'Cc*#'

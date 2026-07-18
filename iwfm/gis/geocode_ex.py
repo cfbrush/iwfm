@@ -19,14 +19,13 @@
 
 
 def geocode_ex(address, verbose=False):
-    ''' geocode_ex() - example: finds the lat-lon of a street address and then
-        reverses to use the lat-lon to get the address information
-    
+    '''Example: Find the lat-lon of a street address and then reverse to use the lat-lon to get the address information.
+
     Parameters
     ----------
     address : str
         address
-    
+
     verbose : bool, default=False
         True = command line update on
 
@@ -34,7 +33,6 @@ def geocode_ex(address, verbose=False):
     -------
     result : tuple
         A tuple containing the reversed address (str) and the geocode of the address (str)
-
     '''
     from geopy.geocoders import Nominatim
 

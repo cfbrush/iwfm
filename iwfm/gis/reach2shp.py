@@ -19,14 +19,13 @@
 
 def reach2shp(reach_list, stnodes_dict, node_coords, shape_name, epsg=26910, 
         verbose=False):
-    ''' reach2shp() - Creates an IWFM stream reaches shapefile from IWFM
-        Preprocessor stream specification information
+    '''Create an IWFM stream reaches shapefile from IWFM Preprocessor stream specification information.
 
     Parameters
     ----------
     reach_list : list
         list of elements and associated nodes
-    
+
     stnodes_dict : dictionary
         key = stream node ID, values = [gw_node, reach, elevation]
 
@@ -45,7 +44,6 @@ def reach2shp(reach_list, stnodes_dict, node_coords, shape_name, epsg=26910,
     Returns
     -------
     nothing
-
     '''
     import shapefile
     import pyproj

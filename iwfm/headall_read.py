@@ -21,15 +21,13 @@ from iwfm.debug.logger_setup import logger
 
 
 def headall_read(input_file, skip=5, verbose=False):
-    ''' headall_read() - Reads an IWFM HeadAll.out file and returns
-        the data as floats, with lists of dates and model nodes and
-        the number of model layers
+    '''Read an IWFM HeadAll.out file and return the data as floats, with lists of dates and model nodes and the number of model layers.
 
     Parameters
     ----------
     input_file : str
         IWFM HeadAll.out file name
-    
+
     skip : int, default=5
         number of header lines
 
@@ -40,16 +38,15 @@ def headall_read(input_file, skip=5, verbose=False):
     -------
     data : list
         heads from headall file
-    
+
     layers : int
         number of model layers
-    
+
     dates : list
         simulation time step dates corresponding to data rows
-    
+
     nodes : list
         model nodes corresponding to data columns
-
     '''
 
     try:

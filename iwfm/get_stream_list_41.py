@@ -19,8 +19,7 @@
 
 
 def get_stream_list_41(stream_lines, line_index, nreach, nrate):
-    ''' get_stream_list_41() - Reads part of the stream specification file
-        for file type 4.1 and returns stream reach and rating table info
+    '''Read part of the stream specification file for file type 4.1 and return stream reach and rating table info.
 
     Version 4.1 has the same section layout as 4.2; its rating tables
     carry an extra wetted-perimeter column (WPTB). Rating table rows are
@@ -44,7 +43,6 @@ def get_stream_list_41(stream_lines, line_index, nreach, nrate):
     Returns
     -------
     same as :func:`iwfm.get_stream_list_42`
-
     '''
     from iwfm.get_stream_list_42 import get_stream_list_42
 

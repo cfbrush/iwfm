@@ -18,8 +18,7 @@
 
 
 def shp_crs(filename):
-    ''' shp_crs() - Return the shapefile coordinate reference system
-        from the sidecar .prj file
+    '''Return the shapefile coordinate reference system from the sidecar .prj file.
 
     Parameters
     ----------
@@ -30,7 +29,6 @@ def shp_crs(filename):
     -------
     c : pyproj.CRS or None
         shapefile coordinate reference system (None if no .prj file)
-
     '''
     from pathlib import Path
     from pyproj import CRS

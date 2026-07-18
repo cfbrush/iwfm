@@ -18,8 +18,7 @@
 
 
 def sub_lake_file(sim_files, sim_files_new, lake_info, verbose=False):
-    '''sub_lake_file() - Read the original Simulation lake main file, keep
-        only the lakes that are in the submodel, and write out a new file
+    '''Read the original Simulation lake main file, keep only the lakes that are in the submodel, and write out a new file.
 
     Handles lake component versions 4.0 and 5.0:
       - v4.0 file names: MXLKELVFL, LKBUDFL, FNLKELVFL; parameter rows are
@@ -53,7 +52,6 @@ def sub_lake_file(sim_files, sim_files_new, lake_info, verbose=False):
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

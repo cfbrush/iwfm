@@ -18,7 +18,7 @@
 
 
 def get_rz_params_npc(node_file_name, elem_file_name, rz_npc_file_name, verbose=False):
-    ''' map_rz_params_npc() - Get non-ponded-crop rootzone parameters and node and element information
+    '''Get non-ponded-crop rootzone parameters and node and element information.
 
     Parameters
     ----------
@@ -37,7 +37,6 @@ def get_rz_params_npc(node_file_name, elem_file_name, rz_npc_file_name, verbose=
     Return
     ------
     nothing
-
     '''                
     import iwfm
     import iwfm.gis as igis
@@ -64,7 +63,7 @@ def get_rz_params_npc(node_file_name, elem_file_name, rz_npc_file_name, verbose=
 
 def map_params_rz_npc(node_file_name, elem_file_name, out_name, rz_npc_file_name, 
                   format='tiff', point_width=100, verbose=False):
-    ''' map_params_rz_npc() -Create a colored image map representing non-ponded-crop rootzone parameters
+    '''Create a colored image map representing non-ponded-crop rootzone parameters.
 
     Parameters
     ----------
@@ -92,7 +91,6 @@ def map_params_rz_npc(node_file_name, elem_file_name, out_name, rz_npc_file_name
     Return
     ------
     nothing
-
     '''                
 
     elem_centroids, boundary_coords, crops_np, param_vals_np, param_types_np = get_rz_params_npc(node_file_name, 

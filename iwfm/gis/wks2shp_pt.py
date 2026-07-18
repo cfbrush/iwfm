@@ -18,7 +18,7 @@
 
 
 def wks2shp_pt(inwksheet, outshp, sheet_index=0):
-    ''' wks2shp_pt() - Read an Excel workbook and create a POINT shapefile
+    '''Read an Excel workbook and create a POINT shapefile.
 
     Parameters
     ----------
@@ -43,7 +43,6 @@ def wks2shp_pt(inwksheet, outshp, sheet_index=0):
         If sheet_index is out of range
     ValueError
         If coordinate columns contain invalid data
-
     '''
     import xlrd
     from iwfm.gis.shp_get_writer import shp_get_writer

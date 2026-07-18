@@ -18,8 +18,7 @@
 
 
 def iwfm_read_elements(elem_file, verbose=False):
-    ''' iwfm_read_elements() - Read an IWFM Element file, and return a list
-        of the nodes making up each element
+    '''Read an IWFM Element file, and return a list of the nodes making up each element.
 
     Parameters
     ----------
@@ -30,13 +29,12 @@ def iwfm_read_elements(elem_file, verbose=False):
     -------
     elem_ids : list
         element numbers
-    
+
     elem_nodes : list
         nodes for each element
-    
+
     elem_sub : list
         subregion for each element
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

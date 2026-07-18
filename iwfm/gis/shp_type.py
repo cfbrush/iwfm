@@ -18,7 +18,7 @@
 
 
 def shp_type(shp):
-    ''' shp_type() - Return integer shape type for a PyShp shapefile
+    '''Return integer shape type for a PyShp shapefile.
 
     Parameters
     ----------
@@ -27,6 +27,5 @@ def shp_type(shp):
     Returns
     -------
     Shape type
-
     '''
     return shp.shapeType 

@@ -19,35 +19,34 @@
 
 def igsm_elem2shp(elem_nodes,node_coords,elem_char,lake_elems,shape_name,
     epsg=26910,verbose=False):
-    ''' igsm_elem2shp() - Create an elements shapefile for an IGSM model
+    '''Create an elements shapefile for an IGSM model.
 
     Parameters
     ----------
     elem_nodes : list
         list of elements and associated nodes
-    
+
     node_coords : list
         list of nodes and associated X and Y coordinates
-    
+
     elem_sub : list
         list of elements and associated subregions
-    
+
     lake_elems : list
         list of lakes and associated elements
-    
+
     shape_name : str
         output shapefiles base name
-    
+
     epsg : int, default=26910 (NAD 83 UTM 10, CA)
         EPSG projection
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-
     '''
     import shapefile
     import pyproj

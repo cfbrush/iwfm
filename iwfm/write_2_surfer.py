@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def write_2_surfer(outfile_name, x_y_locs, data, date):
-    ''' write_2_surfer() - Write node (x,y) locations and nodal data to a surfer file
+    '''Write node (x,y) locations and nodal data to a surfer file.
 
     Parameters
     ----------
@@ -36,7 +36,6 @@ def write_2_surfer(outfile_name, x_y_locs, data, date):
     Returns
     -------
     nothing
-
     '''
     import numpy as np
 

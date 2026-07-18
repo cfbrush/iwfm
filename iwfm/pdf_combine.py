@@ -19,8 +19,7 @@
 
 
 def pdf_combine(start_dir, save_dir, save_name):
-    ''' PDF_combine() - Combine all of the PDF files in a folder into one PDF file
-    modified from https://geektechstuff.com/2018/02/17/python-3-merge-multiple-pdfs-into-one-pdf/
+    '''Combine all of the PDF files in a folder into one PDF file modified from https://geektechstuff.com/2018/02/17/python-3-merge-multiple-pdfs-into-one-pdf/.
 
     Parameters
     ----------
@@ -37,7 +36,6 @@ def pdf_combine(start_dir, save_dir, save_name):
     -------
     count : int
         Number of PDFs combined
-
     '''
     import os
     import pypdf

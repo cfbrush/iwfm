@@ -18,8 +18,7 @@
 
 
 def write_overwrite_file(overwrite_file, in_lines, parnodes, nlay, parvals, fp, ctime, verbose=False):
-    '''  write_overwrite_file() - receive a list of parameters and write them to 
-         an IWFM-2015 overwrite file    
+    '''Receive a list of parameters and write them to an IWFM-2015 overwrite file.
 
          From REAL2IGSM.F90 by Matt Tonkin, with modifications by others
 
@@ -48,7 +47,6 @@ def write_overwrite_file(overwrite_file, in_lines, parnodes, nlay, parvals, fp, 
 
     verbose : bool, default=False
         Print to screen?
-
     '''
 
     line_index = 0

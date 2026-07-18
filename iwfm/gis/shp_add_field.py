@@ -18,29 +18,28 @@
 
 
 def shp_add_field(shapefilename, field_name='TEST', type='F', length=8, prec=5):
-    ''' shp_add_field() - Add a field to a shapefile with PyShp
-    
+    '''Add a field to a shapefile with PyShp.
+
     Parameters
     ----------
     shapefilename : str
         shapefile name
-    
+
     field_name : str
         field name, default='test'
-    
+
     type : str, default='F'
         field type
-    
+
     length : int, default=8
         field length
-    
+
     prec : int, default=5
         field Precision
 
     Return
     ------
     nothing
-    
     '''
     import shapefile  # PyShp
 

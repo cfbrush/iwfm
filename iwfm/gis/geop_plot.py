@@ -19,7 +19,7 @@
 
 
 def geop_plot(gdf, **kwargs):
-    ''' geop_plot() - Create and dislay a plot from a geopandas dataframe
+    '''Create and dislay a plot from a geopandas dataframe.
 
     Parameters
     ----------
@@ -32,7 +32,6 @@ def geop_plot(gdf, **kwargs):
     Returns
     -------
     nothing
-
     '''
     import matplotlib.pyplot as plt
     gdf.plot(**kwargs)

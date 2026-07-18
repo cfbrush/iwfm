@@ -19,8 +19,7 @@
 
 
 def buds2xl(bud_file, type='xlsx', verbose=False):
-    ''' buds2xl() - Read IWFM Budget.in file and write output to an Excel
-        or csv file
+    '''Read IWFM Budget.in file and write output to an Excel or csv file.
 
     Parameters
     ----------
@@ -36,7 +35,6 @@ def buds2xl(bud_file, type='xlsx', verbose=False):
     Returns
     -------
     nothing
-
     '''
 
     import os

@@ -18,7 +18,7 @@
 
 
 def get_params_rz_urban(node_file_name, elem_file_name, rz_ur_file_name, verbose=False):
-    ''' get_params_rz_urban() - Get urban rootzone parameters and node and element information
+    '''Get urban rootzone parameters and node and element information.
 
     Parameters
     ----------
@@ -37,7 +37,6 @@ def get_params_rz_urban(node_file_name, elem_file_name, rz_ur_file_name, verbose
     Return
     ------
     nothing
-
     '''                
     import iwfm
     import iwfm.gis as igis
@@ -64,7 +63,7 @@ def get_params_rz_urban(node_file_name, elem_file_name, rz_ur_file_name, verbose
 
 def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_name, 
                   format='tiff', point_width=100, verbose=False):
-    ''' map_params_rz_urban() -Create a colored image map representing urban data
+    '''Create a colored image map representing urban data.
 
     Parameters
     ----------
@@ -92,7 +91,6 @@ def map_params_rz_urban(node_file_name, elem_file_name, out_name, rz_ur_file_nam
     Return
     ------
     nothing
-
     '''                
 
     elem_centroids, boundary_coords, crops_ur, param_vals_ur, param_types_pc = get_params_rz_urban(node_file_name, 

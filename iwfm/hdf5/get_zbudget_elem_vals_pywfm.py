@@ -22,10 +22,7 @@
 
 def get_zbudget_elem_vals(zbud, zones_file, col_ids, area_conversion_factor=0.0000229568411, area_units='ACRES', 
                         volume_conversion_factor=0.0000229568411, volume_units='ACRE-FEET', verbose=False):
-    ''' get_zbudget_elem_vals() - open an IWFM ZBudget HDF file and retreive all of the data
-             using DWR's PyWFM package to interface wth the IWFM DLL
-             and create a dataframe with the sum of all of the values in each
-             column for all elements
+    '''Open an IWFM ZBudget HDF file and retreive all of the data using DWR's PyWFM package to interface wth the IWFM DLL and create a dataframe with the sum of all of the values in each column for all elements.
 
     Parameters
     ----------
@@ -34,10 +31,10 @@ def get_zbudget_elem_vals(zbud, zones_file, col_ids, area_conversion_factor=0.00
 
     zones_file : str
         name of ZBudget zones file
-        
+
     col_ids : list of ints
         Column numbers to retrieve
-        
+
     area_conversion_factor : float, default = =0.0000229568411
         Area conversion factor
 
@@ -60,8 +57,6 @@ def get_zbudget_elem_vals(zbud, zones_file, col_ids, area_conversion_factor=0.00
 
     zone_data : numpy array
         first column is zone id, the rest are column sums from col_ids columns
-
-
     '''
     import warnings
     warnings.warn(

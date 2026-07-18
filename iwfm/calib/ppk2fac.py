@@ -19,15 +19,15 @@
 
 
 def read_pp_file(pp_file, verbose=False):
-    """ read_pp_file() - Read pilot points file and return list of tuples.
-    
+    '''Read pilot points file and return list of tuples.
+
     Parameters
     ----------
     pp_file : str
         Name of pilot points file
-        
+
     verbose : bool, default=False   
-        
+
     Returns
     -------
     pp_coord: list
@@ -35,7 +35,7 @@ def read_pp_file(pp_file, verbose=False):
 
     pp_list : list
         List of pilot points IDs.
-    """
+    '''
     import numpy as np
 
     pp_list, pp_coord = [], []
@@ -56,20 +56,19 @@ def read_pp_file(pp_file, verbose=False):
 
 
 def par2fac_idw2(pp_coord, node_coord, n_ppoints=3, min_ppoints=3, max_ppoints=10, verbose=False):
-    ''' par2fac() - Calculate inverse-distance-squared weighting factors between nodes and
-                    n_ppoints pilot points.
-    
+    '''Calculate inverse-distance-squared weighting factors between nodes and n_ppoints pilot points.
+
     Parameters
     ----------
     pp_coord : list
         List of pilot point coordinates [x, y]
-        
+
     node_coord : str
         List of nodal coordinates [x, y]
 
     n_ppoints : int; default = 3
         Number of pilot points for interpolation.
-        
+
     min_ppoints : int; default = 3
         Minimum number of pilot points for interpolation.
 
@@ -117,36 +116,38 @@ def par2fac_idw2(pp_coord, node_coord, n_ppoints=3, min_ppoints=3, max_ppoints=1
 
 
 def write_factors(factors_outfile, pp_file, pp_list, node_list, ppoints, weights, verbose):
-    """ write_factors() - Write pilot point factors to output file (hard-wired for 3 ppoints).
-    
+    '''Write pilot point factors to output file (hard-wired for 3 ppoints).
+
     Parameters
     ----------
     factors_outfile : str
         Name of output file.
-        
+
     pp_file : str
         Name of pilot points file
-        
+
     pp_list : list
         List of pilot points IDs.
-        
+
     node_list : list
         List of node IDs.
-        
+
     ppoints : list
         List of pilot points for each node.
-        
+
     weights : list
         List of pilot point weights for each node.
-        
+
     verbose : bool, default=False
         Turn command-line output on or off
-        
+
     Returns
     -------
     count : int
         Number of factors written to output file.
-        """
+
+
+    '''
 
     count = 0
 

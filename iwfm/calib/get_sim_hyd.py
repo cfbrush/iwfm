@@ -20,9 +20,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def get_sim_hyd(nt,file_name,start_date):
-    ''' get_sim_hyd() - get simulated hydrograph values and return as a list of lists
-        with row=timestep, 1st col=dates and remaining cols=sites, dates as datetime
-        objects, everything else as numpy arrays of floats
+    '''Get simulated hydrograph values and return as a list of lists with row=timestep, 1st col=dates and remaining cols=sites, dates as datetime objects, everything else as numpy arrays of floats.
 
     Parameters
     ----------
@@ -42,7 +40,6 @@ def get_sim_hyd(nt,file_name,start_date):
 
     dates : list of ints
         days since start date for each row of sim_hyd
-
     '''
     from datetime import datetime
     import numpy as np

@@ -18,21 +18,19 @@
 
 
 def rmse_calc(predictions, targets):
-    ''' rmse_calc() - Return the RMSE between measured (targets)
-        and simulated (predictions) values
+    '''Return the RMSE between measured (targets) and simulated (predictions) values.
 
     Parameters
     ----------
     predictions : list
         simulated values
-    
+
     targets : list
         observed values
 
     Returns
     -------
     numpy array of RMSE values for each set of values
-    
     '''
     import numpy as np
 

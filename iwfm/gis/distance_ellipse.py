@@ -19,10 +19,10 @@
 import math
 
 def distance_ellipse(p1, p2, units='m'):
-    ''' distance_ellipse() - Uses the Vincenty formula to calculate the
-        distance between two (lat,lon) points on an ellipsoid Earth.
-        Vincenty formula at https://en.wikipedia.org/wiki/Vincenty%27s_formulae
-    
+    '''Use the Vincenty formula to calculate the distance between two (lat,lon) points on an ellipsoid Earth.
+
+    Vincenty formula at https://en.wikipedia.org/wiki/Vincenty%27s_formulae
+
     Parameters
     ----------
     p1 : list
@@ -38,7 +38,6 @@ def distance_ellipse(p1, p2, units='m'):
     -------
     distance : float
         distance between p1 and p2
-    
     '''
 
     if not (isinstance(p1, list) and isinstance(p2, list) and len(p1) == 2 and len(p2) == 2):

@@ -18,7 +18,7 @@
 
 
 def url_fetch(url, filename, verbose=False, timeout=30):
-    ''' url_fetch() - Download file at url to filename
+    '''Download file at url to filename.
 
     This function downloads content from a URL and saves it to a local file.
     It includes comprehensive error handling for network issues, HTTP errors,

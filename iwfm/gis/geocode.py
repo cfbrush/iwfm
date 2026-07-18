@@ -18,18 +18,20 @@
 
 
 def geocode(address, verbose=True):
-    '''geocode() - Return the lat-lon of a street address
-    
+    '''Return the lat-lon of a street address.
+
     Parameters
     ----------
     address : str
         street address
-      
+
     verbose : bool, sefault=True
         turn command-line output on or off
 
 
-      '''
+
+
+    '''
     from geopy.geocoders import Nominatim
 
     g = Nominatim()

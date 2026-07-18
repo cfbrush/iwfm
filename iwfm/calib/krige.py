@@ -17,21 +17,21 @@
 # -----------------------------------------------------------------------------
 
 def krige(A, B):
-    """ krige() - Perform spatial interpolation using kriging factors from grid A to grid B.
+    '''Perform spatial interpolation using kriging factors from grid A to grid B.
 
     Parameters
     ----------
     A : list
         List of tuples representing grid A points. Each tuple contains (id, x, y) coordinates.
-    
+
     B : list
         List of tuples representing grid B points. Each tuple contains (id, x, y, value) coordinates.
-    
+
     Returns
     -------
     kriging_factors : list
         List of lists containing kriging factor floats for spatial interpolation.
-    """
+    '''
     import numpy as np
     from scipy.spatial.distance import cdist
 

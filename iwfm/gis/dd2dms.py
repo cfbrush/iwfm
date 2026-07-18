@@ -18,8 +18,8 @@
 
 
 def dd2dms(lat, lon):
-    ''' dd2dms() - Convert lat-lon point from decimal degrees to degree-minute-second
-    
+    '''Convert lat-lon point from decimal degrees to degree-minute-second.
+
     Parameters
     ----------
     lat : float
@@ -32,7 +32,6 @@ def dd2dms(lat, lon):
     -------
     lat-lon : str
         latitude and longitude in degree-minute-second format
-
     '''
     import math
 

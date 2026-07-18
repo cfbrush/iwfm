@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def get_elem_centroids(elem_ids, elem_nodes, node_coords):
-    ''' get_elem_centroids() - Calculate the centroid of each element
+    '''Calculate the centroid of each element.
 
     Parameters
     ----------
@@ -34,7 +34,6 @@ def get_elem_centroids(elem_ids, elem_nodes, node_coords):
     ------
     elem_centroids : list of lists
         list of element centroids
-
     '''
 
     elem_centroids = []

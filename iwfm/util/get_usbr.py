@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def get_usbr(year, pdf_url, excel_filename='temp.xlsx'):
-    ''' get_usbr() - Save a data table from a USBR website into a csv file
+    '''Save a data table from a USBR website into a csv file.
 
     Parameters
     ----------
@@ -92,7 +92,7 @@ def get_usbr(year, pdf_url, excel_filename='temp.xlsx'):
 
 # Function to read tables from an online PDF and save to Excel
 def pdf_to_excel(pdf_url, excel_filename, timeout=60):
-    '''pdf_to_excel() - Read tables from an online PDF and save them to an Excel file.
+    '''Read tables from an online PDF and save them to an Excel file.
 
     Parameters
     ----------
@@ -192,7 +192,7 @@ def pdf_to_excel(pdf_url, excel_filename, timeout=60):
         ) from e
 
 def is_year_in_list(year, string_list):
-    """is_year_in_list() - Check if a given year is present in any of the strings in a list.
+    '''Check if a given year is present in any of the strings in a list.
 
     Parameters
     ----------
@@ -207,7 +207,7 @@ def is_year_in_list(year, string_list):
     int or -1
         If the year is found in any of the strings, it returns the index (integer) of the first occurrence.
         If the year is not found in any of the strings, it returns -1.
-    """
+    '''
 
     for i, string in enumerate(string_list):
         # Split the string by whitespace to get individual words
@@ -222,7 +222,7 @@ def is_year_in_list(year, string_list):
     return -1
 
 def get_data(df, table_number, year):
-    """get_data() - Extract data for a given year from a polars DataFrame.
+    '''Extract data for a given year from a polars DataFrame.
 
     Parameters
     ----------
@@ -239,7 +239,7 @@ def get_data(df, table_number, year):
     -------
     list
         A list containing the data for the given year. If the year is not found, an empty list is returned.
-    """
+    '''
 
     #  Account for different format in recent year's (2022) pdf
     if int(year) > 2021 and table_number < 3:
@@ -274,7 +274,7 @@ def get_data(df, table_number, year):
     return datas
 
 def get_names(df, table_number, year):
-    """get_names() - Extract reservoir names from a polars DataFrame.
+    '''Extract reservoir names from a polars DataFrame.
 
     Parameters
     ----------
@@ -291,7 +291,7 @@ def get_names(df, table_number, year):
     -------
     list
         A list of reservoir names extracted from the DataFrame.
-    """
+    '''
 
     #  Account for different format in recent year's (2022) pdf
     if int(year) > 2021:
@@ -331,7 +331,7 @@ def get_names(df, table_number, year):
 
 
 def extract_data_to_csv(excel_file):
-    '''extract_data_to_csv() - Extract data from an Excel file and save it into 4 separate csv files.
+    '''Extract data from an Excel file and save it into 4 separate csv files.
 
     Parameters
     ----------

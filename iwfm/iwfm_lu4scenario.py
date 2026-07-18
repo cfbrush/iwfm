@@ -18,7 +18,7 @@
 
 
 def _read_lu_table(filename, skip, verbose=False):
-    ''' _read_lu_table() - Read a single-date IWFM land use file
+    '''Read a single-date IWFM land use file.
 
     Parameters
     ----------
@@ -40,7 +40,6 @@ def _read_lu_table(filename, skip, verbose=False):
     table : dict
         key = element ID (int), value = list of land use values (str,
         preserved verbatim from the input file)
-
     '''
     comments = 'Cc*#'
 
@@ -95,9 +94,7 @@ def iwfm_lu4scenario(
     urban_cols=1,
     verbose=False,
 ):
-    ''' iwfm_lu4scenario() - Merge four single-date IWFM land use files
-        (non-ponded ag, ponded ag, native/riparian, urban) into one
-        combined scenario land use table, matched by element ID
+    '''Merge four single-date IWFM land use files (non-ponded ag, ponded ag, native/riparian, urban) into one combined scenario land use table, matched by element ID.
 
     All four input files must contain the same element IDs. Rows are merged
     by element ID and written in ascending element order, so the files need
@@ -141,7 +138,6 @@ def iwfm_lu4scenario(
     Returns
     -------
     nothing
-
     '''
     date, npag_table = _read_lu_table(in_npag_file, skip, verbose=verbose)
     _, pag_table = _read_lu_table(in_ponded_file, skip, verbose=verbose)

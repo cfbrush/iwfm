@@ -20,9 +20,9 @@
 
 def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt', 
                  dict_file='parvals_d.txt', verbose=False):
-    """ read_gw_file - Read an IWFM Groundwater file and return the number of nodes, 
-        the scaling factors, and the parameter values
-        
+    '''Read an IWFM Groundwater file and return the number of nodes, the scaling factors, and the parameter values.
+
+
     Parameters
     ----------
 
@@ -37,7 +37,7 @@ def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt',
 
     dict_file : str, default = 'parvals_d.txt'
         Output text file with parameter keys and values
-    
+
     verbose : bool, default=False
         Print to screen?
 
@@ -48,8 +48,7 @@ def read_gw_file(gw_file, nlay, keys_file='parvals_keys.txt',
 
     params_d : dictionary of lists
         default model parameters, key = node_layer, value = list of parameter values
-    
-    """
+    '''
 
     comments = 'Cc*#'
 

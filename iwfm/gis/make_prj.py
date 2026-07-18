@@ -18,20 +18,19 @@
 
 
 def make_prj(filename, epsg_code):
-    '''make_prj() - Make projection file <filename>.prj for epsg code <epsg_code>
-    
+    '''Make projection file <filename>.prj for epsg code <epsg_code>.
+
     Parameters
     ----------
     filename : str
         input file name
-    
+
     epsg_code : int
         EPSG code for projection
 
     Returns
     -------
     nothing
-
     '''
     from urllib.request import urlopen
 

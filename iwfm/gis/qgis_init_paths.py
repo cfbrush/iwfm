@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-''' Constant definitions'''
+'''Constant definitions.'''
 # Windows 10 paths - can they be read?
 PYTHONPATH_W10 = r'C:\Programs\QGIS3.4\python'
 PLUGINSPATH_W10 = r'C:\Programs\QGIS3.4\python\plugins'  # for processing module, etc
@@ -36,7 +36,7 @@ APPPATH_MAC = '/Applications/QGIS3.4.app/Contents/MacOS/'
 
 
 def qgis_init_paths(debug=0):  # must run this
-    ''' qgis_init_paths() - Query system and initialize QGIS paths 
+    '''Initialize QGIS paths.
 
     Parameters
     ----------
@@ -47,7 +47,6 @@ def qgis_init_paths(debug=0):  # must run this
     -------
     app_path : str
         paths
-
     '''
     import sys
     import platform

@@ -21,17 +21,16 @@ import numpy as np
 
 
 def get_heads_4_date(heads_file, out_date, start=5):
-    ''' get_heads_4_date() - Read headall.out file and return heads for a
-        specific date 
+    '''Read headall.out file and return heads for a specific date.
 
     Parameters
     ----------
     heads_file : str
         name of IWFM headall.out file
-    
+
     out_date : str
         date in MM/DD/YYYY format
-    
+
     start : int, default=5
         number of header lines to skip
 
@@ -43,7 +42,6 @@ def get_heads_4_date(heads_file, out_date, start=5):
         List of node names
     header : list
         List of header labels (Node + Layer labels)
-
     '''
     date_parts = out_date.split('/')  # parse date components
     out_mon, out_day, out_year = int(date_parts[0]), int(date_parts[1]), int(date_parts[2])

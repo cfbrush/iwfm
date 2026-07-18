@@ -17,9 +17,8 @@
 # -----------------------------------------------------------------------------
 
 def map_param2shp_rz_urban(param_types, param_vals, elem_shp_name, out_shp_name='elem_parameters', verbose=False):
-    ''' map_param2shp_rz_urbanrz() - Read a shapefile of IWFM model elements and map IWFM 
-                    Rootzone Urban parameters to the elements
-    
+    '''Read a shapefile of IWFM model elements and map IWFM Rootzone Urban parameters to the elements.
+
     Parameters
     ----------
     param_types : list
@@ -40,7 +39,6 @@ def map_param2shp_rz_urban(param_types, param_vals, elem_shp_name, out_shp_name=
     Return
     ------
     nothing
-    
     '''
     import geopandas as gpd
     import os

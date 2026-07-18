@@ -22,8 +22,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def read_hyd_dict(gw_dat_file, verbose=False):
-    ''' read_hyd_dict() - Read hydrograph info from Groundwater.dat file and build
-        a dictionary of groundwater hydrograph info
+    '''Read hydrograph info from Groundwater.dat file and build a dictionary of groundwater hydrograph info.
 
     Parameters
     ----------
@@ -37,7 +36,6 @@ def read_hyd_dict(gw_dat_file, verbose=False):
     -------
     well_dict : dictionary
         key = well name (i.e. state well ID), value = WellInfo instance
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

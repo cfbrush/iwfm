@@ -19,7 +19,7 @@
 
 
 def to_smp_ins(obs_site,obs_dt,obs_val,ts):   # put into smp and ins strings
-    ''' to_smp_ins() - Write smp and ins file lines for one observation
+    '''Write smp and ins file lines for one observation.
 
     Parameters
     ----------
@@ -44,7 +44,6 @@ def to_smp_ins(obs_site,obs_dt,obs_val,ts):   # put into smp and ins strings
     ins : string
         the observation in ins-file format: 
              'L1  [obs_site_0ts]42:70'
-
     '''
 
 

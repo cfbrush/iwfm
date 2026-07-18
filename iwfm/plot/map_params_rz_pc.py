@@ -18,7 +18,7 @@
 
 
 def get_params_rz_pc(node_file_name, elem_file_name, rz_pc_file_name, verbose=False):
-    ''' map_params_rz_pc() - Get ponded-crop rootzone parameters and node and element information
+    '''Get ponded-crop rootzone parameters and node and element information.
 
     Parameters
     ----------
@@ -37,7 +37,6 @@ def get_params_rz_pc(node_file_name, elem_file_name, rz_pc_file_name, verbose=Fa
     Return
     ------
     nothing
-
     '''                
     import iwfm
     import iwfm.gis as igis
@@ -64,7 +63,7 @@ def get_params_rz_pc(node_file_name, elem_file_name, rz_pc_file_name, verbose=Fa
 
 def map_params_rz_pc(node_file_name, elem_file_name, out_name, rz_pc_file_name, 
                   format='tiff', point_width=100, verbose=False):
-    ''' map_params_rz_pc() -Create a colored image map representing ponded-crop rootzone parameters
+    '''Create a colored image map representing ponded-crop rootzone parameters.
 
     Parameters
     ----------
@@ -92,7 +91,6 @@ def map_params_rz_pc(node_file_name, elem_file_name, out_name, rz_pc_file_name,
     Return
     ------
     nothing
-
     '''                
 
     elem_centroids, boundary_coords, crops_pc, param_vals_pc, param_types_pc = get_params_rz_pc(node_file_name, 

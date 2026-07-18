@@ -18,34 +18,32 @@
 # -----------------------------------------------------------------------------
 
 def headall2surfer(node_coords, data, dates, out_dates, output_base, verbose=False):
-    ''' headall2surfer() - Write out IWFM Headall.out data for one time step to
-        a surfer-format file
+    '''Write out IWFM Headall.out data for one time step to a surfer-format file.
 
     Parameters
     ----------
     node_coords: list
         (x,y) coordinates of nodes
-    
+
     data : list
         numpy array of floats, size nodes x layers
-    
+
     dates : list
         list of simulated head dates
-    
+
     out_dates: list
         dates for output
-    
+
     output_base : str
         output surfer file base name
-    
+
     verbose : bool, default=False
         True = command-line output on
-    
+
     Return
     ------
     count : int
         Number of output files written
-    
     '''
     import iwfm
 

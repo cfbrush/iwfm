@@ -18,8 +18,7 @@
 
 
 def iwfm_strat_arrays(strat):
-    ''' iwfm_strat_arrays() - Read IWFM nodal stratigraphy information
-        into individual arrays
+    '''Read IWFM nodal stratigraphy information into individual arrays.
 
     Parameters
     ----------
@@ -30,22 +29,21 @@ def iwfm_strat_arrays(strat):
     -------
     aquitard_thick : list
         aquitard thickness by model layer and node
-    
+
     aquifer_thick : list
         aquifer thickness by model layer and node
-    
+
     aquitard_top : list
         aquitard top altitude by model layer and node
-    
+
     aquitard_bot : list
         aquitard bottom altitude by model layer and node
-    
+
     aquifer_top : list
         aquifer top altitude by model layer and node
-    
+
     aquifer_bot : list
         aquifer bottom altitude by model layer and node
-
     '''
     nlayers = (len(strat[0]) - 2) // 2
 

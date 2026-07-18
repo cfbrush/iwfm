@@ -19,21 +19,19 @@
 
 
 def iwfm_nearest_nodes(filename, node_set):
-    ''' iwfm_nearest_nodes() - Read a point file, calculate the nearest node 
-        and distance for each point, and write the results to the output file
+    '''Read a point file, calculate the nearest node and distance for each point, and write the results to the output file.
 
     Parameters
     ----------
     out_file : str
         output file name base
-    
+
     node_set : list
         node IDs and x,y locations
 
     Returns
     -------
     number of points processed
-    
     '''
     import iwfm
 

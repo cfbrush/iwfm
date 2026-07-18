@@ -18,8 +18,7 @@
 
 
 def meas_bounds(gwhyd_obs):
-    ''' meas_bounds() - Determine the earliest and latest measurement dates
-        in a SMP-format groundwater head observation file.
+    '''Determine the earliest and latest measurement dates in a SMP-format groundwater head observation file.
 
     Parameters
     ----------
@@ -45,7 +44,6 @@ def meas_bounds(gwhyd_obs):
     FileNotFoundError
         If ``gwhyd_obs`` does not exist (raised via :func:`iwfm.file_test`
         → :func:`iwfm.file_missing`).
-
     '''
     from datetime import datetime
     import iwfm

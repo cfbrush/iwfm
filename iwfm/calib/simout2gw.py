@@ -19,8 +19,8 @@
 
 
 def read_gw_file(gw_file):
-    ''' read_gw_file() - Read groundwater file 
-    
+    '''Read groundwater file.
+
     Parameters
     ----------
     gw_file : str
@@ -33,7 +33,6 @@ def read_gw_file(gw_file):
 
     param_line : int
         Line number where groundwater parameters are located.
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
@@ -58,7 +57,7 @@ def read_gw_file(gw_file):
 
 
 def read_gw_params(simout_file):
-    """read_gw_params() - Read groundwater parameters from a file and organize them into lists.
+    '''Read groundwater parameters from a file and organize them into lists.
 
     Parameters
     ----------
@@ -69,8 +68,7 @@ def read_gw_params(simout_file):
     -------
     gw_params : list
         A list containing the groundwater parameters.
-
-    """
+    '''
     import iwfm
 
     iwfm.file_test(simout_file)
@@ -94,21 +92,20 @@ def read_gw_params(simout_file):
 
 
 def replace_params(gw_params, gw_data, param_line):
-    ''' replace_params() - Process groundwater data
-    
+    '''Process groundwater data.
+
     Parameters
     ----------
     gw_params : list
         A list containing the groundwater parameters.
-        
+
     gw_data : list
         A list containing the groundwater data file contents.
-        
+
     Returns
     -------
     gw_data : list
         A list containing the groundwater data file contents w/new parameters.
-    
     '''
     param_len = len(gw_params)
 
@@ -118,9 +115,7 @@ def replace_params(gw_params, gw_data, param_line):
 
 
 def simout2gw(simout_file, gw_in_file, output_file):
-    ''' simout2gw() - Read groundwater parameters from SimulationMessages.out 
-        file, replace parameters in template groundwater.dat file, and write to
-        a new groundwater.dat file
+    '''Read groundwater parameters from SimulationMessages.out file, replace parameters in template groundwater.dat file, and write to a new groundwater.dat file.
 
     Parameters
     ----------

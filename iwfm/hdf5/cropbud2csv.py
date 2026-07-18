@@ -18,8 +18,7 @@
 # -----------------------------------------------------------------------------
 
 def adjust_headers(headers):
-    ''' adjust_headers() - Replace each column header string with 
-            a truncated code for use as a database field name
+    '''Replace each column header string with a truncated code for use as a database field name.
 
     Parameters
     ----------
@@ -30,7 +29,6 @@ def adjust_headers(headers):
     -------
     headers: list of strings
         Modified column headers
-
     '''
 
     headers = [w.replace('Time', 'Timestep') for w in headers]
@@ -68,7 +66,7 @@ def adjust_headers(headers):
 
 
 def process_budget_data(f, loc_names, column_headers, loc_values, write_header=False, verbose=False):
-    ''' process_budget_data() - open an IWFM Budget HDF file and retreive all of the data
+    '''Open an IWFM Budget HDF file and retreive all of the data.
 
     Parameters
     ----------
@@ -86,7 +84,7 @@ def process_budget_data(f, loc_names, column_headers, loc_values, write_header=F
 
     print_header : bool, default=False
         If True then print header at top of file
-    
+
     verbose : bool, default=False
         Turn command-line output on or off
 
@@ -123,18 +121,17 @@ def process_budget_data(f, loc_names, column_headers, loc_values, write_header=F
 
 
 def cropbud2csv(bud_file_ag, bud_file_pond, outfile, write_header=True, verbose=False):
-    """ cropbud2csv() - Read crop-based information from IWFM Land and Water Use 
-    and Root Zone Budget HDF files and write to a CSV file in a format amenable 
-    to database input
-        
+    '''Read crop-based information from IWFM Land and Water Use and Root Zone Budget HDF files and write to a CSV file in a format amenable to database input.
+
+
     Parameters
     ----------
     bud_file_ag : string
         Name of IWFM Budget output HDF-formatted file for agricultural water use
-        
+
     bud_file_pond : string
         Name of IWFM Budget output HDF-formatted file for ponded crop water use
-        
+
     outfile : string
         Name of output CSV file
 
@@ -143,11 +140,11 @@ def cropbud2csv(bud_file_ag, bud_file_pond, outfile, write_header=True, verbose=
 
     verbose : bool, default=False
         Turn command-line output on or off
-        
+
     Returns
     -------
     nothing
-    """
+    '''
     # Import directly from module files to avoid circular dependency
     # (iwfm.hdf5.__init__.py imports from this file)
     try:

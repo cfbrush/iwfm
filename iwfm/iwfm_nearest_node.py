@@ -18,13 +18,13 @@
 
 
 def iwfm_nearest_node(point, node_set):
-    ''' iwfm_nearest_node() - Given an (x,y) location, return the nearest IWFM node
+    '''Given an (x,y) location, return the nearest IWFM node.
 
     Parameters
     ----------
     point : [float,float]
         [X,Y] values of a point
-    
+
     node_set : list
         node IDs and x,y locations
 
@@ -35,7 +35,6 @@ def iwfm_nearest_node(point, node_set):
 
     nearest_distance : float
         distance between point and nearest node
-    
     '''
     import math
 

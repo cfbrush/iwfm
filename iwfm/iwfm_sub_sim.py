@@ -22,10 +22,9 @@ from iwfm.debug.logger_setup import logger
 
 
 def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, debug=False):
-    '''iwfm_sub_sim.py - Read in a list of element pairs for a submodel.
-    Use existing model Elements, Nodes, Stream specification and stratigraphy
-    files to produce new preprocessor files for the submodel and a list of
-    model node pairs
+    '''Read in a list of element pairs for a submodel.
+
+    Use existing model Elements, Nodes, Stream specification and stratigraphy files to produce new preprocessor files for the submodel and a list of model node pairs
 
     Parameters
     ----------
@@ -55,7 +54,6 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     nodes, element nodes, node coordinates, stream nodes, submodel stream
     nodes). A FileNotFoundError naming the missing pickles is raised
     otherwise.
-
     '''
     import iwfm
     import iwfm.gis as gis

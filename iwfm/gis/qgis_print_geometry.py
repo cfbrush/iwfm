@@ -20,7 +20,7 @@ from qgis.core import QgsWkbTypes
 
 
 def qgis_print_geometry(geom):
-    ''' qgis_print_geometry() - Print QGIS geometry informatio to screen 
+    '''Print QGIS geometry informatio to screen.
 
     Parameters
     ----------
@@ -30,7 +30,6 @@ def qgis_print_geometry(geom):
     Returns
     -------
     nothing
-
     '''
 
     

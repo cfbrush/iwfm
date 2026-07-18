@@ -19,8 +19,7 @@
 
 
 def read_obs_wells(gw_file):
-    ''' read_obs_wells() read observation well information from the Groundwater.dat file
-                and return a dictionary of groundwater hydrograph info and gwhyd_sim columns
+    '''Read observation well information from the Groundwater.dat file and return a dictionary of groundwater hydrograph info and gwhyd_sim columns.
 
     Parameters
     ----------

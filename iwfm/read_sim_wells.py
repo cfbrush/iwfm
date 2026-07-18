@@ -18,9 +18,7 @@
 
 
 def read_sim_wells(gw_file, verbose=False):
-    ''' read_sim_wells() - Read Groundwater.dat file and build a dictionary of
-        groundwater hydrograph info and gwhyd_sim columns, and returns the
-        dictionary
+    '''Read Groundwater.dat file and return a dictionary of groundwater hydrograph info and gwhyd_sim columns.
 
     Parameters
     ----------
@@ -37,7 +35,6 @@ def read_sim_wells(gw_file, verbose=False):
 
     well_list : list
         list of well names
-
     '''
     from iwfm.file_utils import read_next_line_value
     from iwfm.iwfm_dataclasses import WellInfo

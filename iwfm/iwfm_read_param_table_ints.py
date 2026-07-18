@@ -18,8 +18,7 @@
 # -----------------------------------------------------------------------------
 
 def iwfm_read_param_table_ints(file_lines, line_index, lines):
-    """iwfm_read_param_table_ints() - Read a table of integer parameters from a file and organize them into lists
-                    and return a numpy array.
+    '''Read a table of integer parameters from a file and organize them into lists and return a numpy array.
 
     Parameters
     ----------
@@ -31,13 +30,13 @@ def iwfm_read_param_table_ints(file_lines, line_index, lines):
 
     lines : int
         The number of lines to read.
-  
+
     Returns
     -------
 
     params : list
         A list of parameters
-    """
+    '''
     from iwfm.file_utils import read_param_table
 
     return read_param_table(file_lines, line_index, lines, cast=int)

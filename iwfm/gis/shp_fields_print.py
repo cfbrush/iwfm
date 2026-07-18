@@ -18,9 +18,8 @@
 
 
 def shp_fields_print(f):
-    ''' shp_fields_print() - Print the field property strings for a PyShp
-        shapefile
-    
+    '''Print the field property strings for a PyShp shapefile.
+
     Parameters
     ----------
     f : PyShp shapefile object
@@ -29,7 +28,6 @@ def shp_fields_print(f):
     Returns
     -------
     nothing
-
     '''
     from iwfm.gis.shp_fields import shp_fields
 

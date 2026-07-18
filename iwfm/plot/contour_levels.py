@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def contour_levels(Z, no_levels=20, verbose=False):
-    """contour_levels() - Define the contour levels for a contour map.
+    '''Define the contour levels for a contour map.
 
     Parameters
     ----------
@@ -34,7 +34,7 @@ def contour_levels(Z, no_levels=20, verbose=False):
     -------
     levels : numpy array
         The contour levels.
-    """
+    '''
 
     import numpy as np
 

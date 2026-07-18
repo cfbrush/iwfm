@@ -18,8 +18,7 @@
 
 
 def iwfm_lse(strat):
-    ''' iwfm_lse() - Extract land surface elevation from 
-        IWFM stratigraphy information
+    '''Extract land surface elevation from IWFM stratigraphy information.
 
     Parameters
     ----------
@@ -30,7 +29,6 @@ def iwfm_lse(strat):
     -------
     elevation : list
         land surface elevation for each model node
-
     '''
     elevation = [[i[0], i[1]] for i in strat]  
     # include node no because child models don't contain all nodes

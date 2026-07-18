@@ -18,24 +18,22 @@
 
 
 def img_diff(img1, img2, outfile):
-    ''' img_diff() - Perform a simple difference image change detection 
-        on matched 'before' and 'after' images
+    '''Perform a simple difference image change detection on matched 'before' and 'after' images.
 
     Parameters
     ----------
     img1 : str
         input image file name
-    
+
     img2 : str
         input image file name
-    
+
     outfile : str
         output image file name
-    
+
     Return
     ------
     nothing
-    
     '''
     
     from osgeo import gdal_array as gdal_array

@@ -21,8 +21,7 @@
 
 
 def smp_avg( smp_file, verbose=False):
-    ''' smp_avg() - read an smp file and average the observations values for
-        each observation ID
+    '''Read an smp file and average the observations values for each observation ID.
 
     Parameters
     ----------
@@ -35,7 +34,7 @@ def smp_avg( smp_file, verbose=False):
     Returns
     -------
     averages: list of smp-format strings
-        
+
 
     '''
 

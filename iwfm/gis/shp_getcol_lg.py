@@ -18,13 +18,14 @@
 
 
 def shp_getcol_lg(f, col):
-    ''' shp_getcol_lg() - Return one column from the shapefile table.
-        Works better than shp_getcol() for large DBF files
+    '''Return one column from the shapefile table.
+
+    Works better than shp_getcol() for large DBF files
 
     Parameters
     ----------
     f : PyShp shapefile object
-    
+
     col : int
         column number
 
@@ -32,7 +33,6 @@ def shp_getcol_lg(f, col):
     -------
     data : list
         items from specified column
-
     '''
     from iwfm.shp_recno import shp_recno
     from iwfm.gis.shp_getrec_lg import shp_getrec_lg

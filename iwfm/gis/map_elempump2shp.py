@@ -20,8 +20,8 @@
 
 
 def map_elempump2shp(zone_data, field_names, elem_shp_name, out_shp_name, verbose=False):
-    ''' map_elempump2shp() - Add diversion areas to shapefile of IWFM model elements
-    
+    '''Add diversion areas to shapefile of IWFM model elements.
+
     Parameters
     ----------
     zone_data : numpy array
@@ -42,7 +42,6 @@ def map_elempump2shp(zone_data, field_names, elem_shp_name, out_shp_name, verbos
     Return
     ------
     nothing
-    
     '''
     import geopandas as gpd
     import os

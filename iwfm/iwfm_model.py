@@ -24,7 +24,7 @@ from iwfm.iwfm_dataclasses import PreprocessorFiles, SimulationFiles
 
 
 class IWFMModelError(Exception):
-    """Custom exception for IWFM model operations"""
+    '''Custom exception for IWFM model operations.'''
     pass
 
 
@@ -132,8 +132,7 @@ class iwfm_model:
 
     # -- the functions that do the work 
     def read_preproc(self, pre_file):
-        ''' read_prepcoc() - Read an IWFM Preprocessor main input file, and
-            return a list of the files called and some settings.'''
+        '''Read an IWFM Preprocessor main input file, and return a list of the files called and some settings.'''
         # -- read the preprocessor file into array file_lines
         iwfm.file_test(pre_file)
         with open(pre_file, encoding='utf-8') as f:
@@ -173,8 +172,7 @@ class iwfm_model:
 
 
     def read_sim(self, sim_file):
-        ''' read_sim() - Read an IWFM Simulation main input file, and return
-            a SimulationFiles dataclass with the files called and some settings.'''
+        '''Read an IWFM Simulation main input file, and return a SimulationFiles dataclass with the files called and some settings.'''
 
         iwfm.file_test(sim_file)
         with open(sim_file, encoding='utf-8') as f:
@@ -251,8 +249,7 @@ class iwfm_model:
 
 
     def read_nodes(self, node_file):
-        ''' read_nodes() - Read an IWFM Node file, and return a list of the
-            nodes and their coordinates.'''
+        '''Read an IWFM Node file, and return a list of the nodes and their coordinates.'''
 
         # -- read the Node file into array file_lines
         iwfm.file_test(node_file)
@@ -284,8 +281,7 @@ class iwfm_model:
 
 
     def read_elements(self, elem_file):
-        ''' read_elements() - Read an IWFM Element file, and return a list of
-            the nodes making up each element.'''
+        '''Read an IWFM Element file, and return a list of the nodes making up each element.'''
         # -- read the Element file into array file_lines
         iwfm.file_test(elem_file)
         with open(elem_file, encoding='utf-8') as f:
@@ -319,8 +315,7 @@ class iwfm_model:
 
 
     def read_chars(self, char_file, elem_nodes):
-        ''' read_chars() - Read an IWFM Element Characteristics file and return
-            a list of characteristics for each element.'''
+        '''Read an IWFM Element Characteristics file and return a list of characteristics for each element.'''
 
         iwfm.file_test(char_file)
         with open(char_file, encoding='utf-8') as f:
@@ -343,8 +338,7 @@ class iwfm_model:
 
 
     def read_lake_pre(self, lake_file):
-        ''' read_lake() - Read an IWFM Lake file and return (a) a list of
-            elements and (b) a list of properties for each lake.'''
+        '''Read an IWFM Lake file and return (a) a list of elements and (b) a list of properties for each lake.'''
         iwfm.file_test(lake_file)
         with open(lake_file, encoding='utf-8') as f:
             lake_lines = f.read().splitlines()
@@ -375,9 +369,7 @@ class iwfm_model:
 
 
     def read_streams_pre(self, stream_file):
-        ''' read_streams() - Read an IWFM Stream Geometry file and compile
-            a list of stream reaches and (b) a dictionary of stream nodes,
-            and return the number of stream nodes.'''
+        '''Read an IWFM Stream Geometry file and compile a list of stream reaches and (b) a dictionary of stream nodes, and return the number of stream nodes.'''
         iwfm.file_test(stream_file)
         with open(stream_file, encoding='utf-8') as f:
             stream_lines = f.read().splitlines()
@@ -493,8 +485,7 @@ class iwfm_model:
 
 
     def elems2poly(self):
-        ''' elem_poly() - Compile a dictionary of model elements as shapely
-            polygons'''
+        '''Compile a dictionary of model elements as shapely polygons.'''
         from shapely.geometry import Point, Polygon
 
         self.d_elem_polys = {}
@@ -515,8 +506,7 @@ class iwfm_model:
 
 
     def point_in_elem(self, x, y):
-        ''' point_in_elem() - Return the element number if the point (x,y) is
-            in an element, 0 otherwise'''
+        '''Return the element number if the point (x,y) is in an element, 0 otherwise.'''
         from shapely.geometry import Point
 
         p = Point(x, y)
@@ -527,8 +517,7 @@ class iwfm_model:
         return 0
 
     def elem_coords(self):
-        ''' elem_coords() - Return a list of coordinates of an element 
-            [[x0,y0],[x1,y1],[x2,y2]<,...>]'''
+        '''Return a list of coordinates of an element [[x0,y0],[x1,y1],[x2,y2]<,...>].'''
         polys = []
         for i in range(0, len(self.elem_nodes)):  # for each element ...
             coords = []

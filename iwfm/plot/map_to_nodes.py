@@ -18,7 +18,7 @@
 
 def map_to_nodes(dataset, bounding_poly, image_name, cmap='rainbow', marker_size = 10, title="Parameter values", 
                 label='Z values', units='', format='tiff', verbose=False):
-    """map_to_nodes() - Create a colored image map representing nodal values such as groundwater data.
+    '''Create a colored image map representing nodal values such as groundwater data.
 
     NOTE: add title, legend, etc. to plot
 
@@ -27,10 +27,10 @@ def map_to_nodes(dataset, bounding_poly, image_name, cmap='rainbow', marker_size
     dataset : list of lists [[x, y, value], [x, y, value], ...
         A list containing lists of three values (x, y, value), representing the x and y coordinates of each
         data point along with their corresponding values.
-    
+
     bounding_poly : shapely Polygon
         Model boundary polygon
-    
+
     image_name : str
         The desired name of the image file to be saved.
 
@@ -58,7 +58,7 @@ def map_to_nodes(dataset, bounding_poly, image_name, cmap='rainbow', marker_size
     Returns
     -------
     nothing
-    """
+    '''
     import matplotlib.pyplot as plt
     from matplotlib.path import Path
     from matplotlib.patches import PathPatch

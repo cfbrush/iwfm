@@ -18,7 +18,7 @@
 
 
 def get_nelem(iwfm_dll):
-    ''' IWFM DLL: Get the number of FE elements in the current model
+    '''IWFM DLL: Get the number of FE elements in the current model.
 
     Parameters
     ----------
@@ -32,7 +32,6 @@ def get_nelem(iwfm_dll):
 
     status : int
         0 if everything worked
-
     '''
 
     from ctypes import byref, c_int

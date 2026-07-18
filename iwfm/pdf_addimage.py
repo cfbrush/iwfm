@@ -18,25 +18,25 @@
 
 
 def pdf_addimage(pdf, image, ux=1, uy=1, width=6.5, height=9):
-    ''' pdf_cell() - Create a cell in a PDF instance
+    '''Create a cell in a PDF instance.
 
     Parameters
     ----------
     pdf : PDF object
         PDF object to be modified
-    
+
     image : image object
         image to be added to PDF
-    
+
     ux : int, default=1
         X location of image
-    
+
     uy : int, default=1
         Y location of image
-    
+
     width : float, default=6.5
         image width
-    
+
     height : float, default=9
         image height
 
@@ -44,7 +44,6 @@ def pdf_addimage(pdf, image, ux=1, uy=1, width=6.5, height=9):
     -------
     pdf : PDF object
         modiified PDF object
-    
     '''
 
     pdf.image(image, x=ux, y=uy, w=width, h=height)

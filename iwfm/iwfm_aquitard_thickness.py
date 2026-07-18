@@ -18,8 +18,7 @@
 
 
 def iwfm_aquitard_thickness(strat):
-    ''' iwfm_aquitard_thickness() - Extract aquitard thicknesses from 
-        IWFM stratigraphy information
+    '''Extract aquitard thicknesses from IWFM stratigraphy information.
 
     Parameters
     ----------

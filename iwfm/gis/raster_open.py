@@ -18,7 +18,7 @@
 
 
 def raster_open(infile):
-    ''' raster_open() - Open a raster file
+    '''Open a raster file.
 
     Parameters
     ----------
@@ -28,7 +28,6 @@ def raster_open(infile):
     Returns
     -------
     raster :  raster as GDAL object
-
     '''
     from osgeo import gdal
 

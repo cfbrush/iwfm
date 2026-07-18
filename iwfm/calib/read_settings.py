@@ -19,8 +19,9 @@
 
 
 def read_settings(in_file='settings.fig'):
-    ''' read_settings() - Subroutine read_settings reads the settings.fig file 
-        located in the current directory. From John Doherty.
+    '''Subroutine read_settings reads the settings.fig file located in the current directory.
+
+    From John Doherty.
 
     Parameters
     ----------
@@ -40,7 +41,6 @@ def read_settings(in_file='settings.fig'):
 
     iheader : int, default = 0
         zero unless headerspec is incorrect in settings file
-
     '''
     import os
 

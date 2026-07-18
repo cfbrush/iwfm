@@ -23,9 +23,7 @@ import iwfm.calib as icalib
 
 
 def res_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
-    ''' res_stats() - Read a PEST .smp file, IWFM groundwater hydrograph
-        file, and IWFM groundwater.dat file, and print a text file with the
-        RMSE and bias of each well and of all observations
+    '''Read a PEST .smp file, IWFM groundwater hydrograph file, and IWFM groundwater.dat file, and print a text file with the RMSE and bias of each well and of all observations.
 
     Parameters
     ----------
@@ -44,7 +42,6 @@ def res_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
     Returns
     -------
     nothing
-
     '''
     
     # == read pest observation file into array obs

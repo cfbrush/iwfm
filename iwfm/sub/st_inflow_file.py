@@ -19,8 +19,7 @@
 
 
 def sub_st_inflow_file(old_filename, new_filename, snode_list, verbose=False):
-    '''sub_st_inflow_file() - Read the original stream inflow file, determine 
-        which stream nodes are in the submodel, and write out a new file
+    '''Read the original stream inflow file, determine which stream nodes are in the submodel, and write out a new file.
 
     Parameters
     ----------
@@ -39,7 +38,6 @@ def sub_st_inflow_file(old_filename, new_filename, snode_list, verbose=False):
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

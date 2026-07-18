@@ -18,7 +18,7 @@
 
 
 def hyd_diff(gwhyd_file_1, gwhyd_file_2, outname):
-    ''' hyd_diff() - Subtract the values in one hydrograph file from another
+    '''Subtract the values in one hydrograph file from another.
 
     Parameters
     ----------
@@ -34,7 +34,6 @@ def hyd_diff(gwhyd_file_1, gwhyd_file_2, outname):
     Return
     ------
     nothing
-
     '''
 
     import iwfm

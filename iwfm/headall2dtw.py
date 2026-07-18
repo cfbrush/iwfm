@@ -19,21 +19,19 @@
 
 
 def headall2dtw(heads_file, pre_file, output_root, verbose=False):
-    ''' headall2dtw() - Reads IWFM HeadAll.out file, subtracts heads from
-        land surface elevation, and writes out as a time series with
-        one csv file for each layer
+    '''Read IWFM HeadAll.out file, subtract heads from land surface elevation, and write out as a time series with one csv file for each layer.
 
     Parameters
     ----------
     heads_file : str
         name of headall.out file 
-    
+
     pre_file : str
         name of IWFM Preprocessor main input file
-    
+
     output_root : str
         basename of output file
-    
+
     verbose : bool, default=False
         True = command-line output on
 
@@ -51,7 +49,6 @@ def headall2dtw(heads_file, pre_file, output_root, verbose=False):
         If ``pre_file`` does not exist or its referenced node/strat files
         are missing (raised inside :func:`iwfm.iwfm_read_preproc` →
         :func:`iwfm.file_test`).
-
     '''
     from pathlib import Path
 

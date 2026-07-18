@@ -24,8 +24,7 @@ def hdf2xlsx_swat(hdf_file, output_file,
              area_fact=0.000022957, area_units='AC',
              vol_fact=0.000022957, vol_units='ACFT',
              verbose=False, debug=False):
-    """
-    Convert IWFM Small Watersheds Budget HDF5 file to Excel workbook
+    '''Convert IWFM Small Watersheds Budget HDF5 file to Excel workbook.
 
     Parameters
     ----------
@@ -60,7 +59,7 @@ def hdf2xlsx_swat(hdf_file, output_file,
     - Length: 1.0 (no conversion, stays in feet)
     - Area: 0.000022957 (square feet to acres, exact: 1/43560 = 0.0000229568411)
     - Volume: 0.000022957 (cubic feet to acre-feet, exact: 1/43560 = 0.0000229568411)
-    """
+    '''
     from iwfm.hdf5.hdf2xlsx_core import hdf2xlsx_core
 
     return hdf2xlsx_core(hdf_file, output_file,

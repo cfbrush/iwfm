@@ -18,8 +18,7 @@
 # -----------------------------------------------------------------------------
 
 def read_nodes(node_file, factor=0.0, verbose=False):
-    ''' read_nodes() - Read an IWFM Node file and return a list of the
-        nodes and their coordinates
+    '''Read an IWFM Node file and return a list of the nodes and their coordinates.
 
     Parameters
     ----------
@@ -40,7 +39,6 @@ def read_nodes(node_file, factor=0.0, verbose=False):
 
     node_list : list
         Node numbers
-
     '''
     from iwfm.file_test import file_test
     from iwfm.file_utils import read_next_line_value

@@ -18,8 +18,7 @@
 
 
 def geocode_json(address, verbose=False):
-    ''' geocode_json() - Return the lat-lon of a street address
-        as a GeoJSON FeatureCollection
+    '''Return the lat-lon of a street address as a GeoJSON FeatureCollection.
 
     Parameters
     ----------
@@ -32,7 +31,6 @@ def geocode_json(address, verbose=False):
     Returns
     -------
     geocode of address : GeoJSON FeatureCollection dict, or None if not found
-
     '''
     from geopy.geocoders import Nominatim
 

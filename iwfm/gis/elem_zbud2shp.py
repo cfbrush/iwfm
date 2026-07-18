@@ -19,8 +19,7 @@
 
 
 def elem_zbud2shp(budget_file, field_file, elem_shp_name, out_shp_name, verbose=False):
-    ''' elem_zbud2shp() - Read IWFM Elemental Z-Budget output file and place the sum of each column into
-                    a copy of the elemental hapefile
+    '''Read IWFM Elemental Z-Budget output file and place the sum of each column into a copy of the elemental hapefile.
 
     Parameters
     ----------

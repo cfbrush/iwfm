@@ -224,7 +224,7 @@ def compute_stability_scores(base_metrics, perturb_data,
 # ---------------------------------------------------------------------------
 
 class StabilityCollector:
-    """Collects convergence metrics from base and perturbation model runs.
+    '''Collect convergence metrics from base and perturbation model runs.
 
     Set as ``JacobianCalculator.stability_collector``.  The calculator
     calls ``capture_base()`` after the base run and
@@ -248,7 +248,7 @@ class StabilityCollector:
         Number of top destabilizers to report.
     verbose : bool
         Print capture events.
-    """
+    '''
 
     def __init__(self, diagnostics_subdir='model/diagnostics',
                  convergence_filename='Diagnostics_Convergence.hdf',
@@ -319,12 +319,12 @@ class StabilityCollector:
             self._capture_errors.append(f'{param_name}: {e}')
 
     def compute(self):
-        """Compute stability scores from collected metrics.
+        '''Stability scores from collected metrics.
 
         Returns
         -------
         StabilityJacobian
-        """
+        '''
         result = compute_stability_scores(
             self.base_metrics, self._perturb_data,
             score_threshold=self.score_threshold, top_n=self.top_n)
@@ -343,7 +343,10 @@ class StabilityCollector:
         return result
 
     def reset(self):
-        """Reset for next iteration. Called at start of each Jacobian."""
+        '''For next iteration.
+
+        Called at start of each Jacobian.
+        '''
         self.base_metrics = None
         self._perturb_data = []
         self._capture_errors = []

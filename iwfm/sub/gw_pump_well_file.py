@@ -19,8 +19,7 @@
 
 
 def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verbose=False):
-    '''sub_gw_pump_well_file() - Copies the old well pumping file and replaces the
-        contents with those of the new submodel, and writes out the new file
+    '''Copy the old well pumping file and replace the contents with those of the new submodel, and write out the new file.
 
     Parameters
     ----------
@@ -43,7 +42,6 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
     -------
     new_nwells > 0 : bool
         True if any wells in submodel, False otherwise
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

@@ -19,30 +19,28 @@
 
 
 def sub_swhed_file(old_filename, new_filename, node_list, snode_list, verbose=False):
-    '''sub_swhed_file() - Read original old small watershed file, determine
-        which small watersheds are in the submodel, and write out a new file
+    '''Read original old small watershed file, determine which small watersheds are in the submodel, and write out a new file.
 
     Parameters
     ----------
     old_filename : str
         name of existing nmodel small watersheds file
-    
+
     new_filename : str
         name of new subnmodel small watersheds file
 
     node_list : ints
         list of existing model nodes in submodel
-    
+
     snode_list : ints
         list of existing model stream nodes in submodel
-    
+
     verbose : bool, default=False
         turn command-line output on or off
 
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

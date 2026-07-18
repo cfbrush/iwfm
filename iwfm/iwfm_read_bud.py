@@ -17,8 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def iwfm_read_bud(bud_file, verbose=False):
-    ''' iwfm_read_bud() - Read an IWFM Budget main input file, and 
-        return a list of lists with the file information and some settings
+    '''Read an IWFM Budget main input file, and return a list of lists with the file information and some settings.
 
     Parameters
     ----------
@@ -27,12 +26,11 @@ def iwfm_read_bud(bud_file, verbose=False):
 
     verbose : bool, default=False
         Turn command-line output on or off
-            
+
      Returns
     -------
     budget_list : list of lists
         Input and output file names, times etc
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

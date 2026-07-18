@@ -18,7 +18,7 @@
 
 
 def utm_2_wgs84(zone, easting, northing):
-    ''' utm_2_wgs84() - Reproject from UTM to geographic coordinates
+    '''Reproject from UTM to geographic coordinates.
 
     Parameters
     ----------
@@ -35,7 +35,6 @@ def utm_2_wgs84(zone, easting, northing):
     ------
     (lon, lat, altitude) : tuple
         Longitude, Latitude, and altitude (0)
-
     '''
     from iwfm.gis.utm_2_latlon import utm_2_latlon
 

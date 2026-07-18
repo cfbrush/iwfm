@@ -19,10 +19,7 @@
 from iwfm.debug.logger_setup import logger
 
 def lu2tables(land_use_file, output_file_type, verbose=False, debug=1):
-    '''lu2tables() - Read an IWFM land use file and write contents to a 
-       separate file for each land use type
-
-    *** INCOMPLETE - UNDER DEVELOPMENT ***
+    '''Read an IWFM land use file and write contents to a separate file for each land use type.
 
     Parameters
     ----------
@@ -42,25 +39,16 @@ def lu2tables(land_use_file, output_file_type, verbose=False, debug=1):
     -------
     nothing
 
-    SUGGESTED FUTURE CHANGES:
-      - include option for output file type i.e. type='dat' with options
-            like 'csv', 'excel', 'dbf', etc
-
+    Notes
+    -----
+    Supported output types are 'csv' and 'dat' (default). Excel output is a
+    possible future addition (see the commented write_2_excel call below).
     '''
     import datetime
     import iwfm
 
     # find the base name and extension
     land_use_file_base = land_use_file[0 : land_use_file.find('.')]
-
-    # -- SUGGESTED FUTURE CHANGES TO IMPROVE THIS PROGRAM --
-    # -- read a cl value for output file type
-    # -- allow multiple items: pop each item from arvg[] and process it
-    # -- may need to add varnames i.e. '-ext=xlsx' or '--excel'
-    # out_file_ext = 'dat'                 # default output
-    # if len(sys.argv) > 2:                # If there is a value...
-    #    cl_value = sys.argv[2]            # Read the debug value from command line
-    # if cl_value == 'xls'||'xlsx' then call write_2_excel() to write
 
     if verbose:
         print(f'  Creating land use area tables from {land_use_file}')  
@@ -203,12 +191,7 @@ def lu2tables(land_use_file, output_file_type, verbose=False, debug=1):
 
 
 if __name__ == '__main__':
-    ''' Run lu2tables() from command line 
-
-    SUGGESTED FUTURE CHANGES TO IMPROVE THIS PROGRAM
-      - allow multiple items: pop each item from arvg[] and process it
-
-    '''
+    ''' Run lu2tables() from command line '''
     import sys
     import iwfm.debug as idb
     import iwfm

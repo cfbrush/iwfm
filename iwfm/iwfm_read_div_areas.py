@@ -18,13 +18,13 @@
 
 
 def iwfm_read_div_areas(divspec_file_name):
-    ''' iwfm_read_div_areas() - read diversion areas from IWFM divirsion specification file
-    
+    '''Read diversion areas from IWFM divirsion specification file.
+
     Parameters
     ----------
     divspec_file_name : str
         IWFM Diversion Specification file name
-    
+
     Return
     ------
     div_ids : list
@@ -35,10 +35,9 @@ def iwfm_read_div_areas(divspec_file_name):
 
     rchg_area_ids : list
         IWFM recharge numbers
-    
+
     rchg_areas : list of lists
         List of elements in each IWFM recharge area
-    
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

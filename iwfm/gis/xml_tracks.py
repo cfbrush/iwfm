@@ -18,13 +18,13 @@
 
 
 def xml_tracks(filename, verbose=False):
-    '''xml_tracks() - Reproject from UTM to geographic coordinates
+    '''Reproject from UTM to geographic coordinates.
 
     Parameters
     ----------
     filename : str
         name of file continaing UTM coordinates
-    
+
     verbose : bool, default=False
         True = command-line output on
 
@@ -32,7 +32,6 @@ def xml_tracks(filename, verbose=False):
     -------
     tracks : list
         tracking points
-
     '''
     from bs4 import BeautifulSoup
 

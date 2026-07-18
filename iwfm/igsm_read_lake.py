@@ -18,8 +18,7 @@
 
 
 def igsm_read_lake(lake_file):
-    ''' igsm_read_lake() - Read an IGSM Lake file and returns (a) a list of
-        elements and (b) a list of properties for each lake
+    '''Read an IGSM Lake file and return (a) a list of elements and (b) a list of properties for each lake.
 
     Parameters
     ----------
@@ -33,7 +32,6 @@ def igsm_read_lake(lake_file):
 
     lakes : list
         [lake_id, max_elev, next, nelem] for each lake
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

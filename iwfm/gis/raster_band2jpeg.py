@@ -18,7 +18,7 @@
 
 
 def raster_band2jpeg(infile, band, outfile, format='JPEG'):
-    ''' raster_band2jpeg() - Extract a raster band to a file
+    '''Extract a raster band to a file.
 
     Parameters
     ----------
@@ -27,7 +27,7 @@ def raster_band2jpeg(infile, band, outfile, format='JPEG'):
 
     band : int
         image band to process
-    
+
     outfile : str
         output file name
 
@@ -37,7 +37,6 @@ def raster_band2jpeg(infile, band, outfile, format='JPEG'):
     Returns
     -------
     nothing
-
     '''
     from osgeo import gdal_array as gdal_array
 

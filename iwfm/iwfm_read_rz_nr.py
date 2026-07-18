@@ -18,7 +18,7 @@
 
 
 def iwfm_read_rz_nr(file, verbose=False):
-    """iwfm_read_rz_nr() - Read native and riparian data from a file and organize them into lists.
+    '''Read native and riparian data from a file and organize them into lists.
 
     Parameters
     ----------
@@ -39,8 +39,7 @@ def iwfm_read_rz_nr(file, verbose=False):
 
     files : list
         A list of file names: [nr_area_file]
-
-    """
+    '''
     import iwfm
     import numpy as np
     from iwfm.file_utils import read_next_line_value

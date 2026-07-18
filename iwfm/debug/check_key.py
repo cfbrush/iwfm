@@ -18,7 +18,7 @@
 
 
 def check_key(d, key):
-    ''' check_key() - check if key is in dictionary, for debugging
+    '''Check if key is in dictionary, for debugging.
 
     Parameters
     ----------
@@ -27,11 +27,10 @@ def check_key(d, key):
 
     key : (any type)
         Dictionary key value
-    
+
     Return
     ------
     True : bool  if key is in dictionary
     False : bool if key is not in dictionary
-    
     '''
     return key in d.keys()

@@ -20,10 +20,7 @@
 
 
 def sub_gw_bc_node_file(old_filename, new_filename, nodes, verbose=False):
-    '''sub_gw_bc_node_file() - Read a groundwater boundary-condition
-        sub-file (specified flow, specified head, or general head),
-        keep the boundary conditions at submodel nodes, and write out
-        a new file.
+    '''Read a groundwater boundary-condition sub-file (specified flow, specified head, or general head), keep the boundary conditions at submodel nodes, and write out a new file.
 
     The file layout shared by these BC types is: a count of boundary
     conditions (first data line), one or more single-value factor/unit
@@ -50,7 +47,6 @@ def sub_gw_bc_node_file(old_filename, new_filename, nodes, verbose=False):
     -------
     new_nbc : int
         number of boundary conditions in new file
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

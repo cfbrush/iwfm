@@ -19,38 +19,37 @@
 
 def elem2shp(elem_ids, elem_nodes, node_coord_dict, elem_sub, lakes, shape_name,
              epsg=26910, verbose=False):
-    ''' elem2shp() - Creates an IWFM element shapefile 
+    '''Create an IWFM element shapefile.
 
     Parameters
     ----------
     elem_ids : list
         list of element id numbers
-    
+
     elem_nodes : list
         list of elements and associated nodes
 
     node_coord_dict : dictionary
         key = node_id, values = associated X and Y coordinates
-    
+
     elem_sub : list
         list of elements and associated subregions
-    
+
     lakes : list
         list of lakes and associated elements
-    
+
     shape_name : str
          output shapefiles base name
-    
+
     epsg : int, default=26910 (NAD 83 UTM 10N, CA)
         EPSG projection
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-
     '''
     import shapefile
     import pyproj

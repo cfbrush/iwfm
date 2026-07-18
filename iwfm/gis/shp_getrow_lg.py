@@ -18,13 +18,12 @@
 
 
 def shp_getrow_lg(inshape, rec):
-    ''' shp_getrow() - Return one row or record for a shapefile opened
-        with PyShp, works better for large DBF files
+    '''Return one row or record for a shapefile opened with PyShp, works better for large DBF files.
 
     Parameters
     ----------
     inshape : PyShp shapefile object
-    
+
     rec : int
         record number
 

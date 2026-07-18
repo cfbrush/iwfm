@@ -18,8 +18,9 @@
 # -----------------------------------------------------------------------------
 
 class _Worksheet:
-    ''' Worksheet with a write(row, col, value) method
-        (0-based row/column indices). '''
+    '''Worksheet with a write(row, col, value) method (0-based row/column indices).
+
+    '''
 
     def __init__(self, ws):
         self._ws = ws
@@ -29,8 +30,10 @@ class _Worksheet:
 
 
 class _Workbook:
-    ''' Workbook where add_worksheet() creates a named sheet and
-        close() saves to the file name given at construction. '''
+    '''Workbook where add_worksheet() creates a named sheet and close() save to the file name given at construction.
+
+
+    '''
 
     def __init__(self, filename):
         import openpyxl
@@ -49,7 +52,7 @@ class _Workbook:
 
 
 def new_excel(outfile_name, verbose=False):
-    ''' new_excel() - Create a new Excel workbook
+    '''Create a new Excel workbook.
 
     Parameters
     ----------
@@ -63,7 +66,6 @@ def new_excel(outfile_name, verbose=False):
     -------
     workbook : object
         Excel workbook object with add_worksheet() and close() methods
-
     '''
     workbook = _Workbook(outfile_name)
 
@@ -73,34 +75,32 @@ def new_excel(outfile_name, verbose=False):
 
 
 def headall2excel(node_coords, data, dates, out_dates, outfile_name, verbose=False):
-    ''' headall2excel() - Write out IWFM Headall.out data for selected time steps to
-        an excel workbook, one sheet per time step
+    '''Write out IWFM Headall.out data for selected time steps to an excel workbook, one sheet per time step.
 
     Parameters
     ----------
     node_coords: list
         (x,y) coordinates of nodes
-    
+
     data : list
         numpy array of floats, size nodes x layers
-    
+
     dates : list
         list of simulated head dates
-    
+
     out_dates: list
         dates for output
-    
+
     outfile_name : str
         output excel file name
-    
+
     verbose : bool, default=False
         True = command-line output on
-    
+
     Return
     ------
     count : int
         Number of output files written
-    
     '''
     count = 0
 

@@ -18,8 +18,7 @@
 
 
 def hyd_dict(gwhyd_info_file):
-    ''' hyd_dict() - Read hydrograph info from Groundwater.dat file and build
-        a dictionary of groundwater hydrograph info
+    '''Read hydrograph info from Groundwater.dat file and build a dictionary of groundwater hydrograph info.
 
     Parameters
     ----------
@@ -30,7 +29,6 @@ def hyd_dict(gwhyd_info_file):
     -------
     well_dict : dictionary
         key = well name (i.e. state well ID), value = WellInfo instance
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

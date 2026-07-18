@@ -18,8 +18,7 @@
 
 
 def read_sim_hyd(gwhyd_file):
-    ''' read_sim_hyd() - Read simulated values from one IWFM output
-        hydrograph file into a numpy array
+    '''Read simulated values from one IWFM output hydrograph file into a numpy array.
 
     Parameters
     ----------
@@ -31,7 +30,6 @@ def read_sim_hyd(gwhyd_file):
     gwhyd_sim : numpy.ndarray
         2D array of shape (num_timesteps, num_columns) where
         column 0 is datetime and columns 1..N are hydrograph values
-
     '''
     import numpy as np
     import iwfm

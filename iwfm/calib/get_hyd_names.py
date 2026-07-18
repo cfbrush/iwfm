@@ -18,7 +18,7 @@
 
 
 def get_hyd_names(ftype,file_dict,verbose=False):
-    ''' get_hyd_names() - returns hydrograph names
+    '''Return hydrograph names.
 
     Parameters
     ----------
@@ -35,8 +35,6 @@ def get_hyd_names(ftype,file_dict,verbose=False):
     -------
     hyd_names : list
         hydrograph names
-
-    
     '''
     import iwfm.calib as calib
 

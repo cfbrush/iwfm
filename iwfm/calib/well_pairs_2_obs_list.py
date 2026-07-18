@@ -20,10 +20,9 @@
 # -----------------------------------------------------------------------------
 
 def well_pairs_2_obs_list(well_pair_file, obs_file, days=15, verbose=False):
-    ''' well_pairs_2_obs_list() - Read a file of paired observation well locations 
-               for groundwater head differences and a file of head observations. 
-               For each well pair, find matching observations +/- a specified 
-               number of days. For each set of well names, write the matching
+    '''Read a file of paired observation well locations for groundwater head differences and a file of head observations.
+
+    For each well pair, find matching observations +/- a specified number of days. For each set of well names, write the matching
 
     Parameters
     ----------
@@ -58,7 +57,9 @@ def well_pairs_2_obs_list(well_pair_file, obs_file, days=15, verbose=False):
         number of vertical head difference values 
 
 
-      '''
+
+
+    '''
     import datetime
 
     with open(well_pair_file, encoding='utf-8') as f:

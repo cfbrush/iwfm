@@ -19,9 +19,7 @@
 
 
 def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_path=None, verbose=False):
-    '''sub_gw_pump_file() - Read the original groundwater main pumping file,
-        determine which pumping components are in the submodel, and write out a new
-        file
+    '''Read the original groundwater main pumping file, determine which pumping components are in the submodel, and write out a new file.
 
     Parameters
     ----------
@@ -46,7 +44,6 @@ def sub_gw_pump_file(old_filename, sim_files_new, elems, bounding_poly, base_pat
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

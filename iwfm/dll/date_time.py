@@ -18,7 +18,7 @@
 
 
 def date_time(iwfm_dll):
-    ''' IWFM DLL: Get date and time of current time step
+    '''IWFM DLL: Get date and time of current time step.
 
     Parameters
     ----------
@@ -32,7 +32,6 @@ def date_time(iwfm_dll):
 
     status : int
         0 if everything worked
-
     '''
 
     from ctypes import byref, c_int, create_string_buffer

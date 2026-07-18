@@ -18,8 +18,7 @@
 # -----------------------------------------------------------------------------
 
 def fac2iwfm(pp_file_name, param_file_name, save_name, rlow=0.0, rhigh=1000000.0, empty=-999.0, verbose=False):
-    ''' fac2iwfm() - Transfer parameter values from pilot points to model nodes
-        from fac2reali.f90 by M Tonkin
+    '''Transfer parameter values from pilot points to model nodes from fac2reali.f90 by M Tonkin.
 
     Parameters
     ----------
@@ -45,7 +44,6 @@ def fac2iwfm(pp_file_name, param_file_name, save_name, rlow=0.0, rhigh=1000000.0
     -------
     count : int
         Number of PDFs combined
-
     '''
 
     import iwfm

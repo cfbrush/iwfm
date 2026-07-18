@@ -18,9 +18,7 @@
 
 
 def read_overwrite_file(overwrite_file, nnodes, nlay, param_types, verbose=False):
-    '''  read_overwrite_file() - open and read an IWFM-2015 overwrite file  or 
-              overwrite template file, and return the number of nodes, the
-                scaling factors, and the parameter values  
+    '''Open and read an IWFM-2015 overwrite file or overwrite template file, and return the number of nodes, the scaling factors, and the parameter values.
 
          From REAL2IGSM.F90 by Matt Tonkin, with modifications by others
 
@@ -48,7 +46,7 @@ def read_overwrite_file(overwrite_file, nnodes, nlay, param_types, verbose=False
 
     factors : list
         multiplication factors
-    
+
     ctimes : list of strs
         time steps in DSS format
 
@@ -57,7 +55,6 @@ def read_overwrite_file(overwrite_file, nnodes, nlay, param_types, verbose=False
 
     in_lines : list
         each item is one line from the overwrite file
-    
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

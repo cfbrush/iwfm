@@ -21,8 +21,7 @@ from datetime import datetime, timedelta
 
 
 def generate_datetime_objects(start_date, n_steps, delta_t, time_unit):
-    """
-    Generate datetime objects for Excel
+    '''Generate datetime objects for Excel.
 
     Parameters
     ----------
@@ -38,7 +37,7 @@ def generate_datetime_objects(start_date, n_steps, delta_t, time_unit):
     Returns
     -------
     list : List of datetime objects
-    """
+    '''
     import iwfm
     
     dates = []

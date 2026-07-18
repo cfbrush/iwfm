@@ -18,8 +18,8 @@
 
 
 def mysql_commit(conn):
-    ''' mysql_commit() - Commit changes to a mysql database
-    
+    '''Commit changes to a mysql database.
+
     Parameters
     ----------
     conn : mysqp database object
@@ -27,6 +27,5 @@ def mysql_commit(conn):
     Returns
     -------
     nothing
-    
     '''
     conn.commit()

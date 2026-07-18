@@ -18,8 +18,8 @@
 
 
 def shp_epsg(filename):
-    ''' shp_epsg() - Read the projection file and returns the EPSG value
-    
+    '''Read the projection file and returns the EPSG value.
+
     Parameters
     ----------
     filename : str
@@ -28,7 +28,6 @@ def shp_epsg(filename):
     Returns
     -------
     EPSG cose : int
-    
     '''
     from urllib.parse import urlencode
     from urllib.request import urlopen

@@ -18,13 +18,13 @@
 
 
 def getWKT_prj(epsg_code, verbose=False):
-    ''' getWKT_prj() - Return a WKT string containing PRJ info for <epsg_code>
+    '''Return a WKT string containing PRJ info for <epsg_code>.
 
     Parameters
     ----------
     epsg_code : int
         EPSG code
-    
+
     verbose : bool, default=False
         True = command-line output on
 
@@ -32,7 +32,6 @@ def getWKT_prj(epsg_code, verbose=False):
     -------
     output : str
         File name to save info from url
-
     '''
     from urllib.request import urlopen
 

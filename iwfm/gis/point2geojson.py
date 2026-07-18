@@ -18,19 +18,18 @@
 
 
 def point2geojson(point, verbose=False):
-    ''' point2geojson() - Convert a point to geojson format  
+    '''Convert a point to geojson format.
 
     Parameters
     ----------
     point : Point object
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     geojs : Point as GeoJSON dict
-
     '''
     import json
 

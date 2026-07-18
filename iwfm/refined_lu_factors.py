@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def refined_lu_factors(orig_areas_file,refined_areas_file,elem2elem_file):
-    ''' refined_lu_factors() - Calculate land use factors for refined model elements
+    '''Calculate land use factors for refined model elements.
 
     Parameters
     ----------
@@ -34,7 +34,6 @@ def refined_lu_factors(orig_areas_file,refined_areas_file,elem2elem_file):
     -------
     lu_factors : list
         list of land use factors for refined model elements
-
     '''
 
     import csv

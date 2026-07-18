@@ -19,9 +19,7 @@
 
 
 def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, base_path=None, verbose=False):
-    '''sub_gw_bc_file() - Read the original groundwater boundary conditions file,
-        determine which boundary conditions are in the submodel, and write out a new
-        file
+    '''Read the original groundwater boundary conditions file, determine which boundary conditions are in the submodel, and write out a new file.
 
     Parameters
     ----------
@@ -49,7 +47,6 @@ def sub_gw_bc_file(old_filename, sim_files_new, nodes, elems, bounding_poly, bas
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

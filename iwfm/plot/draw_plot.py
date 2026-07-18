@@ -20,47 +20,44 @@
 
 def draw_plot( well_name, date, meas, no_hyds, gwhyd_obs, gwhyd_name, well_info,
     start_date, title_words, yaxis_width=-1):
-    ''' draw_plot() - Creates a PDF file with a graph of the simulated data vs time
-        for all hydrographs as lines, with observed values vs time as dots, saved 
-        as the well_name.pdf
+    '''Create a PDF file with a graph of the simulated data vs time for all hydrographs as lines, with observed values vs time as dots, saved as the well_name.pdf.
 
     Parameters
     ----------
     well_name : str
         Well name, often state well number
-    
+
     date : list
         list of dates (paired with meas)
-    
+
     meas : list
         list of observed values (paired with date)
-    
+
     no_hyds : int
         number of simulation time series to be graphed
-    
+
     gwhyd_obs : list
         simulated IWFM groundwater hydrographs 
         [0]==dates, [1 to no_hyds]==datasets
-    
+
     gwhyd_name : list
         hydrograph names from PEST observations file
-    
+
     well_dict : dict
         key = well name, value = well data from Groundwater.dat file
-    
+
     start_date : str
         first date in simulation hydrograph files
-    
+
     title_words : str
         plot title words
-    
+
     yaxis_width : int, default=-1
         minimum y-axis width, -1 for automatic
-    
+
     Return
     ------
     nothing
-
     '''
     import iwfm
     import matplotlib

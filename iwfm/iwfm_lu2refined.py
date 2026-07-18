@@ -18,7 +18,7 @@
 
 
 def iwfm_lu2refined(in_lu_file,lu_factors,verbose=False):
-    ''' iwfm_lu2refined() - Modify IWFM land use file for a refined model
+    '''Modify IWFM land use file for a refined model.
 
     Parameters
     ----------
@@ -34,7 +34,6 @@ def iwfm_lu2refined(in_lu_file,lu_factors,verbose=False):
     Returns
     -------
     nothing
-
     '''
     import os
     import re

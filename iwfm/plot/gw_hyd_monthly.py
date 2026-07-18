@@ -18,18 +18,17 @@
 
 
 def gw_hyd_monthly(gwhyd_file):
-    ''' gw_hyd_monthly() - Reduce daily IWFM groundwater hydrograph to monthly
+    '''Reduce daily IWFM groundwater hydrograph to monthly.
 
     Parameters
     ----------
     gwhyd_file : str
         IWFM groundwater hydrograph file name
-    
-    
+
+
     Return
     ------
     nothong
-    
     '''
     
     import iwfm

@@ -18,7 +18,7 @@
 
 
 def smp_format( infile, nwidth=20, verbose=False):
-    ''' smp_format() - Read an smp file and reformat 
+    '''Read an smp file and reformat.
 
     Parameters
     ----------
@@ -27,7 +27,7 @@ def smp_format( infile, nwidth=20, verbose=False):
 
     nwidth : int; default=14
         width of name field in characters
-        
+
     verbose : bool, default = False
         Print to screen?
 
@@ -35,7 +35,6 @@ def smp_format( infile, nwidth=20, verbose=False):
     -------
     out_lines : list
         reformatted smp file contents
-
     '''
 
     import iwfm

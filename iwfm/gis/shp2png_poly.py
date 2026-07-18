@@ -18,8 +18,7 @@
 
 
 def shp2png_poly(shape, outfile, iwidth=800, iheight=600):
-    ''' shp2png_poly() - Convert a shapefile to a raster and save as a
-        PNG file, filling in polygon holes
+    '''Convert a shapefile to a raster and save as a PNG file, filling in polygon holes.
 
     Parameters
     ----------
@@ -38,7 +37,6 @@ def shp2png_poly(shape, outfile, iwidth=800, iheight=600):
     Returns
     -------
     nothing
-
     '''
     import shapefile  # PyShp
     from PIL import Image, ImageDraw

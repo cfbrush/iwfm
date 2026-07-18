@@ -18,19 +18,18 @@
 
 
 def this_sys():
-    ''' this_sys() - Returns the OS name as a string
+    '''Return the OS name as a string.
 
     Parameters
     ----------
     nothing
-    
+
     Return
     ------
       "Linux" : str if  Linux
       "Darwin" : str if  MacOS
       "Windows" : str if  Windows
-
-   '''
+    '''
     import platform
 
     return platform.system()

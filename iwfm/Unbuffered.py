@@ -18,8 +18,7 @@
 
 
 class Unbuffered(object):
-    ''' Unbuffered() - Write unbuffered output to console, for example
-        to print progress at runtime without newline characters
+    '''Write unbuffered output to console, for example to print progress at runtime without newline characters.
 
         Example::
 
@@ -31,7 +30,8 @@ class Unbuffered(object):
     Parameters
     ----------
     object : console object
-        
+
+
     '''
 
     def __init__(self, stream):

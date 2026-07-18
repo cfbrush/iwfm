@@ -18,30 +18,28 @@
 
 
 def write_results(name, date, meas, sim, start_date):
-    ''' write_results() - Write simulated and observed values for one 
-        observation well to a text file
+    '''Write simulated and observed values for one observation well to a text file.
 
     Parameters
     ----------
     name : str
         name of output file
-    
+
     date : list
         dates corresponding to measured values
-    
+
     meas : list of floats
         measured values
-    
+
     sim : list of floats
         simulated equivalents to measured values
-    
+
     start_date : str
         date in MM/DD/YYYY format
 
     Returns
     -------
     nothing
-    
     '''
     import iwfm
 

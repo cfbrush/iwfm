@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def read_elements_csv(elem_file_name):
-    ''' read_elements_csv - Read elements from csv file
+    '''Read elements from csv file.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def read_elements_csv(elem_file_name):
 
     elem_nodes : list
         list of node ids for each element
-    
     '''
     import csv as csv
 

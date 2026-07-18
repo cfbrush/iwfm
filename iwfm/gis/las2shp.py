@@ -18,8 +18,7 @@
 
 
 def las2shp(source, target, max_edge_length=3, verbose=0):
-    ''' las2shp() - Convert an LAS LIDAR file to a shapefile by creating a
-        3D triangle mesh using Delaunay Triangulation
+    '''Convert an LAS LIDAR file to a shapefile by creating a 3D triangle mesh using Delaunay Triangulation.
 
     Parameters
     ----------
@@ -39,8 +38,6 @@ def las2shp(source, target, max_edge_length=3, verbose=0):
     Returns
     -------
     nothing
-
-
     '''
     import math
     import time

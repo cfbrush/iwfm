@@ -21,18 +21,9 @@
 
 
 def real2iwfm(verbose=False):
-    '''  real2iwfm() - prompts the user for the no. of layers (nlay) in
-         and IWFM model application; and the no. of parameter types (ntype)
-         for which pilot points have been employed in order to define node
-         values. program real2iwfm then prompts for (nlay*ntype) file names
-         where each of these files is the output from running program
-         ppk2fac_iwfm in order to use pilot points to define nodal parameter
-         values. These files are formatted with a header indicating the number
-         of nodes that are in the full IWFM application, and the number of nodes
-         that are 'informed' by the contents of that file on the basis of
-         pilot points. program real2iwfm then concatenates these files, for each
-         layer and for each parameter type, into a file compatible with the new
-         IWFM external node-value replacement file designed by Can Dogrul.
+    '''Read pilot point parameters and write to IWFM Overwrite.dat file.
+
+    Prompt the user for the no. of layers (nlay) in an IWFM model application; and the no. of parameter types (ntype) for which pilot points have been employed in order to define node values. program real2iwfm then prompts for (nlay*ntype) file names where each of these files is the output from running program ppk2fac_iwfm in order to use pilot points to define nodal parameter values. These files are formatted with a header indicating the number of nodes that are in the full IWFM application, and the number of nodes that are 'informed' by the contents of that file on the basis of pilot points. program real2iwfm then concatenates these files, for each layer and for each parameter type, into a file compatible with the new IWFM external node-value replacement file designed by Can Dogrul.
 
          From REAL2IGSM.F90 by Matt Tonkin, with modifications by others
 
@@ -40,7 +31,6 @@ def real2iwfm(verbose=False):
     ----------
     verbose : bool, default=False
         Print to screen?
-
     '''
     from iwfm import file_test
     from iwfm.calib import read_overwrite_file, write_overwrite_file

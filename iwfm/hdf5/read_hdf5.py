@@ -17,20 +17,19 @@
 # -----------------------------------------------------------------------------
 
 def read_hdf5(filename, verbose=False):
-    '''read_hdf5() - Read an HDF5 file
+    '''Read an HDF5 file.
 
     Parameters
     ----------
     filename : str
         name of hdf5 file
-    
+
 
     Returns
     -------
     f : h5py.File
         Open in read mode. The caller is responsible for closing it
         (``f.close()`` or use as a context manager).
-
     '''
     import h5py
     import iwfm

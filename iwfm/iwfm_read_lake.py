@@ -18,8 +18,7 @@
 
 
 def iwfm_read_lake(lake_file):
-    ''' iwfm_read_lake() - Read an IWFM Lake file and returns 
-        (a) a list of elements and (b) a list of properties for each lake
+    '''Read an IWFM Lake file and return (a) a list of elements and (b) a list of properties for each lake.
 
     Parameters
     ----------
@@ -30,7 +29,7 @@ def iwfm_read_lake(lake_file):
     -------
     lake_elems : list
         element numbers for each lake
-    
+
     lakes : list
         configuration info for each lake
           lake_id : int
@@ -41,7 +40,6 @@ def iwfm_read_lake(lake_file):
               destination stream node or lake id
           nelem : int
               number of elements in lake
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

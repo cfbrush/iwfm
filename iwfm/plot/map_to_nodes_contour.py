@@ -18,7 +18,7 @@
 
 def map_to_nodes_contour(dataset, bounding_poly, image_name, cmap='rainbow', title="Parameter values", 
                  label='Z values', units='', no_levels=20, contour='line', format='tiff', verbose=False):
-    """map_to_nodes_contour() - Create a contour map representing nodal values such as groundwater data.
+    '''Create a contour map representing nodal values such as groundwater data.
 
     Parameters
     ----------
@@ -28,7 +28,7 @@ def map_to_nodes_contour(dataset, bounding_poly, image_name, cmap='rainbow', tit
 
     bounding_poly : shapely Polygon
         Model boundary polygon
-    
+
     image_name : str
         The desired name of the image file to be saved.
 
@@ -59,7 +59,7 @@ def map_to_nodes_contour(dataset, bounding_poly, image_name, cmap='rainbow', tit
     Returns
     -------
     nothing
-    """
+    '''
     import matplotlib.pyplot as plt
     from matplotlib.path import Path
     from matplotlib.patches import PathPatch

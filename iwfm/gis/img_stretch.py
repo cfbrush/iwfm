@@ -18,7 +18,7 @@
 
 
 def img_stretch(infile, outfile):
-    '''img_stretch() - Stretch the color bands of an image
+    '''Stretch the color bands of an image.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def img_stretch(infile, outfile):
     Returns
     -------
     nothing
-    
     '''
     from osgeo import gdal_array as gdal_array
     from iwfm.gis.stretch import stretch

@@ -226,12 +226,12 @@ class LLMSupervisor:
         self._epoch_history = []
 
     def run(self):
-        """Run the supervisor loop.
+        '''The supervisor loop.
 
         Returns
         -------
         SupervisorResult
-        """
+        '''
         t0 = time.perf_counter()
         current_pst = self.pst_file
         epochs = []

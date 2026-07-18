@@ -18,13 +18,12 @@
 
 
 def world2pixel(geoMatrix, x, y):
-    ''' world2pixel() - Use a GDAL geomatrix to calculate the pixel location
-        of a geospatial coordinate
+    '''Use a GDAL geomatrix to calculate the pixel location of a geospatial coordinate.
 
     Parameters
     ----------
     geoMatrix :   GDAL geomatrix
-    
+
     x : float
         x coordonate
     y : float
@@ -34,7 +33,6 @@ def world2pixel(geoMatrix, x, y):
     -------
     (pixel, line) : (tuple)
         Geospatiol coordinate
-
     '''
     ulX = geoMatrix[0]
     ulY = geoMatrix[3]

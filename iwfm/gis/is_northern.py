@@ -18,8 +18,8 @@
 
 
 def is_northern(latitude):
-    ''' is_northern() - Determines if given latitude is a northern for UTM
-    
+    '''Determine if given latitude is a northern for UTM.
+
     Parameters
     ----------
     latitude : float
@@ -29,6 +29,5 @@ def is_northern(latitude):
     -------
     True = latitude is in northern hemisphere
     False = latitude is in southern hemisphere
-    
     '''
     return latitude >= 0.0

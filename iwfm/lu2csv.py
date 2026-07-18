@@ -20,7 +20,7 @@
 from iwfm.debug.logger_setup import logger
 
 def lu2csv(inFileName, skip=4, verbose=False):
-    ''' lu2csv() - Read an IWFM land use file and write to a csv file
+    '''Read an IWFM land use file and write to a csv file.
 
     Parameters
     ----------

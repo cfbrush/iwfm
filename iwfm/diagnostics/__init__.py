@@ -3,6 +3,13 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
+"""Process IWFM Simulation diagnostic output files.
+
+Reads IWFM HDF5 diagnostic output (convergence, residuals, element mass
+balance, stream flows) and PEST state, assembles them into a diagnostic
+bundle, and supports an LLM-supervised outer calibration loop.
+"""
+
 # Disable HDF5 POSIX file locking before any h5py import.
 # Required on macOS where parallel IWFM Simulation processes hold locks
 # on their HDF5 files, blocking read-only opens from Python.

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def iwfm_read_precip_vals(precip_file, verbose=False):
-    """iwfm_read_precip_vals() - Read precipitation from a file and organize them into lists.
+    '''Read precipitation values from a file and organize them into lists.
 
     Parameters
     ----------
@@ -32,8 +32,7 @@ def iwfm_read_precip_vals(precip_file, verbose=False):
 
     params : list
         A list of precipitation values
-
-    """
+    '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
 

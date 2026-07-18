@@ -18,14 +18,13 @@
 
 
 def headall2map(heads_file, pre_file, bnds_file, out_date, basename, label='Heads', units='ft', verbose=False):
-    ''' headall2map() - Read headall.out file and stratigraphy file and 
-            produce head maps
+    '''Read headall.out file and stratigraphy file and produce head maps.
 
     Parameters
     ----------
     heads_file : str
         name of headall.out file 
-    
+
     pre_file : str
         name of IWFM Preprocessor main input file
 
@@ -43,14 +42,13 @@ def headall2map(heads_file, pre_file, bnds_file, out_date, basename, label='Head
 
     units : str, default='ft'
         units for colorbar
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-    
     '''
     import os
     import numpy as np

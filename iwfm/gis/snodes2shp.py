@@ -18,7 +18,7 @@
 
 
 def snodes2shp(nsnodes, snodes_list, node_coords, shape_name, epsg=26910, verbose=False):
-    ''' snodes2shp() - Creates an IWFM stream nodes shapefile
+    '''Create an IWFM stream nodes shapefile.
 
     Parameters
     ----------
@@ -44,7 +44,6 @@ def snodes2shp(nsnodes, snodes_list, node_coords, shape_name, epsg=26910, verbos
     Returns
     -------
     nothing
-
     '''
     import shapefile
     import pyproj

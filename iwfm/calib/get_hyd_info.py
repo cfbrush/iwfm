@@ -20,7 +20,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def get_hyd_info(ftype,file_dict,model_dir=''):
-    ''' get_hyd_info() - unpack control variables from file_dict for one hydrograph type
+    '''Unpack control variables from file_dict for one hydrograph type.
 
     Parameters
     ----------
@@ -41,7 +41,6 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
 
     hyd_names : list
         hydrograph names
-
     '''
 
     import os

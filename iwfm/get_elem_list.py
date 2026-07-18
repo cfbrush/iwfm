@@ -19,8 +19,7 @@
 
 
 def get_elem_list(elem_pairs_file):
-    ''' get_elem_list() - Reads the submodel elements and returns a dictionary
-        of old to new elements and a dictionary of new to old elements
+    '''Read the submodel elements and returns a dictionary of old to new elements and a dictionary of new to old elements.
 
     Parameters
     ----------
@@ -31,16 +30,15 @@ def get_elem_list(elem_pairs_file):
     -------
     elem_list : list
         list of existing model elements in submodel
-    
+
     new_srs : list
         list of existing model subregions in submodel
-    
+
     elem_dict : dictionary
         dictionary key = existing model element, value = submodel element
-    
+
     rev_elem_dict : dictionary
         dictionary key = submodel element, value = existing model element
-
     '''
     import re
 

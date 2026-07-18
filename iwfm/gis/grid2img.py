@@ -18,8 +18,8 @@
 
 
 def grid2img(source, target):
-    ''' grid2img() - Convert an ASCII DEM to an image
-    
+    '''Convert an ASCII DEM to an image.
+
     Parameters
     ----------
     source : str
@@ -31,7 +31,6 @@ def grid2img(source, target):
     Returns
     -------
     nothing
-
     '''
     import numpy as np
     from PIL import Image, ImageOps  # pip install pillow

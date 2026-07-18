@@ -26,9 +26,7 @@
 
 
 def iwfm2obs(verbose=False, head_divisor=None):
-    ''' iwfm2obs() interpolates model output to match the times and
-        locations of calibration observations and puts them into a PEST-compatible
-        smp-formatted output file.
+    '''Interpolate model output to match the times and locations of calibration observations and put them into a PEST-compatible smp-formatted output file.
 
         head_divisor : float or None (default None)
             Divisor applied to simulated GROUNDWATER heads before writing, to undo the
@@ -46,7 +44,6 @@ def iwfm2obs(verbose=False, head_divisor=None):
     Returns
     -------
     nothing
-
     '''
     import os
     import iwfm

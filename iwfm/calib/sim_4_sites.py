@@ -18,10 +18,8 @@
 
 
 def sim_4_sites(sim_data, obs_sites):
-    ''' sim_4_sites() - selects simulated values at sites with observed values, 
-        and returns an array of simulated values for these sites and a 
-        corresponding list of dates for the simulated values
-    
+    '''Select simulated values at sites with observed values, and return an array of simulated values for these sites and a corresponding list of dates for the simulated values.
+
     Parameters
     ----------
     sim_data : list
@@ -37,7 +35,6 @@ def sim_4_sites(sim_data, obs_sites):
 
     sim_values : list
         list of simulation values for sim_dates
-
     '''
     sim_data.sort( key = lambda l: (l[0], l[1]))
     sim_dates, sim_values, d, v = [], [], [], []

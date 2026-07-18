@@ -18,9 +18,7 @@
 
 
 def dss_date(date):
-    ''' dss_date() - Convert datetime object 'date' into a string in DSS 
-        format MM/DD/YYYY_HH:MM with HH in 24-hour format, 
-        midnight = 24:00
+    '''Convert datetime object 'date' into a string in DSS format MM/DD/YYYY_HH:MM with HH in 24-hour format, midnight = 24:00.
 
     Parameters
     ----------
@@ -31,7 +29,6 @@ def dss_date(date):
     -------
     date : str
         date as string in DSS format
-    
     '''
 
     mo = str(date.month).rjust(2, '0')  # right-justify to 2 chars

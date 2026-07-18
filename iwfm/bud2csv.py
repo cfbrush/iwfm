@@ -22,7 +22,7 @@
 
 def bud2csv(f, loc_names, column_headers, loc_values, budget_info, 
                         print_header=False):
-    ''' budget2csv() - open an IWFM Budget HDF file and retreive all of the data
+    '''Open an IWFM Budget HDF file and retreive all of the data.
 
     Parameters
     ----------
@@ -42,10 +42,10 @@ def bud2csv(f, loc_names, column_headers, loc_values, budget_info,
         Type of budget, 'GROUNDWATER' == Groundwater, 'LAND' == Lane Use,
         'STREAM' == Stream or Stream Node, 'ROOT' == Root Zone,
         'SMALL' == Small Watershed, 'UNSAT' == Unsaturates Zone
-        
+
     print_header : bool, default=False
         If True then print header at top of file
-    
+
     Returns
     -------
     nothing

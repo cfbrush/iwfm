@@ -22,7 +22,7 @@ def get_zbudget_data(zbud_file, zone_file, area_units = 'ACRES',
                     area_conversion_factor   = 0.0000229568411, volume_units = 'AC-FT', 
                     volume_conversion_factor = 0.0000229568411, 
                     logging=False, verbose=False):
-    ''' get_zbudget_data() - open an IWFM Budget HDF file and retreive all of the data
+    '''Open an IWFM Budget HDF file and retreive all of the data.
 
     Parameters
     ----------

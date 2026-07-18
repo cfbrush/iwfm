@@ -30,38 +30,37 @@ def iwfm_adj_crops(
     date_head_tail=['09/30/', '_24:00'],
     verbose=False,
 ):
-    ''' iwfm_adj_crops() - Use change factors to modify IWFM 
-        land use files
+    '''Use change factors to modify IWFM land use files.
 
     Parameters
     ----------
     in_year : str
         water year of output land use
-    
+
     in_zone_file : str
         zones file name
-    
+
     in_chg_file_NV : str
         Ag to Native factors file name
-    
+
     in_chg_file_UR : str
         Ag to Urban factors file name
-    
+
     in_area_npag : str
         Non-Ponded Ag Area file name
-    
+
     in_area_nvrv : str
         Native and Riparian Area file name
-    
+
     in_area_urban : str
         Urban Area file name
-    
+
     out_basename : str
         output land use files basename
-    
+
     skip : int, default=4
         number of non-comment lines to skip in each file (header)
-    
+
     date_head_tail : list, default=['09/30/', '_24:00']
         info to turn in_year into a model-readable date in DSS format
 
@@ -71,7 +70,6 @@ def iwfm_adj_crops(
     Returns
     -------
     nothing
-    
     '''
     import iwfm
 

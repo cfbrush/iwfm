@@ -18,8 +18,7 @@
 
 
 def iwfm_read_sim(sim_file, verbose=False):
-    ''' iwfm_read_sim() - Read an IWFM Simulation main input file, and
-        return a SimulationFiles dataclass with the files called and some settings
+    '''Read an IWFM Simulation main input file, and return a SimulationFiles dataclass with the files called and some settings.
 
     Parameters
     ----------
@@ -36,7 +35,6 @@ def iwfm_read_sim(sim_file, verbose=False):
         Field names: preout, gw_file, stream_file, lake_file, root_file,
         swshed_file, unsat_file, irrfrac, supplyadj, precip, et,
         start, step, end.
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

@@ -326,10 +326,10 @@ class DllBackend(HdfBackend):
         return metadata
 
     def close(self):
-        """Close the DLL backend.
+        '''The DLL backend.
 
         Note: The DLL stays loaded in memory. This is a no-op for compatibility.
-        """
+        '''
         logger.debug("Close called on DLL backend (no-op, DLL stays loaded)")
         self._metadata_cache = None
 

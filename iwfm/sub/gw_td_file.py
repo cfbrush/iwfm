@@ -19,8 +19,7 @@
 
 
 def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
-    '''sub_gw_td_file() - Read the original tile drain main file, determine
-        which components are in the submodel, and write out a new file
+    '''Read the original tile drain main file, determine which components are in the submodel, and write out a new file.
 
     Parameters
     ----------
@@ -40,7 +39,6 @@ def sub_gw_td_file(old_filename, new_filename, node_list, verbose=False):
     -------
     ntd > 0 : bool
         True if there are any tile drains in the submodel, False otherwise
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value, skip_to_next_line

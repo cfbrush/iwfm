@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def get_maxs(dataset):
-    """get_maxs() - Find the maximum values of each parameter in a list of lists. 
+    '''Find the maximum values of each parameter in a list of lists.
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def get_maxs(dataset):
     -------
     maxs : list
         A list containing the maximum value of each parameter in the lists.
-    """
+    '''
     import math 
 
     #  Set each value to negative infinity

@@ -18,26 +18,25 @@
 
 
 def nodes2shp(node_coords, shape_name, epsg=26910, verbose=False):
-    ''' nodes2shp() - Create an IWFM nodes shapefile 
+    '''Create an IWFM nodes shapefile.
 
     Parameters
     ----------
     node_coords : list
         node coordinates
-    
+
     shape_name : str
         output file name
-    
+
     epsg : int, default=26910 (NAD 83 UTM 10, CA)
         EPSG projection
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-
     '''
     import shapefile
     import pyproj

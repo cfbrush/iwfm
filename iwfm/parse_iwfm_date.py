@@ -18,8 +18,7 @@
 
 
 def parse_iwfm_date(date_str):
-    """
-    Parse IWFM date string format (e.g., '10/31/1973_24:00')
+    '''Parse IWFM date string format (e.g., '10/31/1973_24:00').
 
     Parameters
     ----------
@@ -29,7 +28,7 @@ def parse_iwfm_date(date_str):
     Returns
     -------
     datetime : datetime object
-    """
+    '''
     from datetime import datetime, timedelta
 
     try:

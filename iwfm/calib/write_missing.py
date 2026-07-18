@@ -17,11 +17,11 @@
 # -----------------------------------------------------------------------------
 
 def write_missing(missing,obs_file,fname='missing.tmp',verbose=False):
-    ''' write_missing() - takes a list of observation IDs and filename obs_file, 
-        and writes them to an output files (default output file name missing.tmp). 
-        This is used to write out the observation IDs of observations in the observation
-        data set that are not used in the simulation file 
-        
+    '''Take a list of observation IDs and filename obs_file, and write them to an output files (default output file name missing.tmp).
+
+    This is used to write out the observation IDs of observations in the observation data set that are not used in the simulation file
+
+
     Parameters
     ----------
     missing : list of strings
@@ -36,7 +36,6 @@ def write_missing(missing,obs_file,fname='missing.tmp',verbose=False):
     Returns
     -------
     nothing
-
     '''
 
     if len(missing) > 0:

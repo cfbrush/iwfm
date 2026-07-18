@@ -20,8 +20,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def write_smp(output_filename, lines):
-    ''' write_smp() - Write observations to a PEST smp file
-        smp format:'   OBSLOCATIONID          MM/DD/YYYY   HH:MM:SS   123.456'
+    '''Write observations to a PEST smp file smp format:' OBSLOCATIONID MM/DD/YYYY HH:MM:SS 123.456'.
 
     Parameters
     ----------
@@ -35,7 +34,6 @@ def write_smp(output_filename, lines):
     -------
     len(lines) : int
         number of items written to the smp file
-
     '''
     if not output_filename.endswith('.smp'):  # ensure .smp extension
         output_filename = output_filename.rstrip('.') + '.smp'

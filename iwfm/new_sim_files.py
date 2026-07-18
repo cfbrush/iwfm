@@ -20,8 +20,7 @@ from iwfm.iwfm_dataclasses import SimulationFiles
 
 
 def new_sim_files(out_base_name):
-    ''' new_sim_files() - Create and return a SimulationFiles dataclass of
-        simulation file names from a basename
+    '''Create and return a SimulationFiles dataclass of simulation file names from a basename.
 
     Parameters
     ----------
@@ -32,7 +31,6 @@ def new_sim_files(out_base_name):
     -------
     sim_files_new : SimulationFiles
         SimulationFiles dataclass of new simulation input file names
-
     '''
     return SimulationFiles(
         preout       = out_base_name + '_Preprocessor.bin',

@@ -19,30 +19,28 @@
 
 
 def in_element(e_nodes, e_nos, d_nodexy, x, y):
-    ''' in_element() - Returns the element containing the point (x,y), 
-        or 0 if not in any element
+    '''Return the element containing the point (x,y), or 0 if not in any element.
 
     Parameters
     ----------
     e_nodes : list
         element numbers and corresponding nodes
-    
+
     e_nos : list
         element numbers
-    
+
     d_nodexy : dictionary
         key=nodes, values=coordinates
-    
+
     x : float
         X coordinate
-    
+
     y : float
         Y coordinate
 
     Returns
     -------
     Integer element number of element containing point, or 0 if none
-    
     '''
     from shapely.geometry import Polygon, Point
 

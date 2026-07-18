@@ -18,8 +18,7 @@
 
 
 def sub_pp_node_list(elem_file, elem_list):
-    ''' sub_pp_node_list() - Read the element file and return a list of the
-        nodes in the submodel
+    '''Read the element file and return a list of the nodes in the submodel.
 
     Parameters
     ----------
@@ -33,7 +32,6 @@ def sub_pp_node_list(elem_file, elem_list):
     -------
     node_list : list of ints
         list of existing model nodes in submodel
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

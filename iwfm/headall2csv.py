@@ -18,33 +18,31 @@
 
 
 def headall2csv(data, layers, dates, nodes, output_file, verbose=False):
-    ''' headall2csv() - Write out IWFM Headall.out data as one csv file
-        for each layer
+    '''Write out IWFM Headall.out data as one csv file for each layer.
 
     Parameters
     ----------
     data : list
         numpy array of floats, size nodes x layers
-    
+
     layers : int
         number of layers
-    
+
     dates : list
         list of dates
-    
+
     nodes : int
         number of nodes
-    
+
     output_file : str
         output csv file base name
-    
+
     verbose : bool, default=False
         True = command-line output on
-    
+
     Return
     ------
     nothing
-    
     '''
     import polars as pl
 

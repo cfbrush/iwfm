@@ -18,8 +18,8 @@
 
 
 def image2Array(i):
-    ''' image2Array() - Convert a Python Imaging Library array to a gdal_array
-    
+    '''Convert a Python Imaging Library array to a gdal_array.
+
     Parameters
     ----------
     i : Python Imaging Library array
@@ -27,7 +27,6 @@ def image2Array(i):
     Returns
     -------
     a : GDAL array
-
     '''
     from osgeo import gdal_array as gdal_array
 

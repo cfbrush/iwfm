@@ -19,8 +19,7 @@
 
 
 def get_stream_list_50(stream_lines, line_index, nreach):
-    ''' get_stream_list_50() - Reads part of the stream specification file
-        for file type 5.0 and returns stream reach info
+    '''Read part of the stream specification file for file type 5.0 and return stream reach info.
 
     Version 5.0 stream specification files contain only NRH, the reach
     descriptions, and the partial stream-aquifer interaction section —
@@ -57,7 +56,6 @@ def get_stream_list_50(stream_lines, line_index, nreach):
 
     stream_aq : list of strings
         stream-aquifer section of stream preprocessor file
-
     '''
     from iwfm.file_utils import read_next_line_value
 

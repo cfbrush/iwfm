@@ -18,7 +18,7 @@
 
 
 def pdf_save(pdf, filename):
-    ''' pdf_save() - Save a PDF instance to a PDF file
+    '''Save a PDF instance to a PDF file.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def pdf_save(pdf, filename):
     Returns
     -------
     nothing
-    
     '''
     pdf.output(filename, 'F')  # 'F' = to file system
     return

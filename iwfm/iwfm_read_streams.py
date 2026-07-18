@@ -18,9 +18,7 @@
 
 
 def iwfm_read_streams(stream_file, verbose=False):
-    ''' iwfm_read_streams() - Read an IWFM Stream Geometry file and return
-        a list of stream reaches, a dictionary of stream nodes, and the
-        number of stream nodes
+    '''Read an IWFM Stream Geometry file and return a list of stream reaches, a dictionary of stream nodes, and the number of stream nodes.
 
     Parameters
     ----------
@@ -43,7 +41,6 @@ def iwfm_read_streams(stream_file, verbose=False):
 
     rating_dict : dictionary
         key = stream node ID, values = rating table
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

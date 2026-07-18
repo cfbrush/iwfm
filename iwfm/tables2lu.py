@@ -20,8 +20,7 @@
 from iwfm.debug.logger_setup import logger
 
 def tables2lu(header, template_lines, initial_acreage, factor_tables, output_file_name, start_date, elems):
-    '''tables2lu() - Read an IWFM land use file and write contents to a 
-       separate file for each land use type
+    '''Read an IWFM land use file and write contents to a separate file for each land use type.
 
     Parameters
     ----------
@@ -49,8 +48,6 @@ def tables2lu(header, template_lines, initial_acreage, factor_tables, output_fil
     Returns
     -------
     nothing
-
-
     '''
 
     month_day = start_date[0:5]
@@ -98,12 +95,7 @@ def tables2lu(header, template_lines, initial_acreage, factor_tables, output_fil
 
 
 if __name__ == '__main__':
-    ''' Run lu2tables() from command line 
-
-    SUGGESTED FUTURE CHANGES TO IMPROVE THIS PROGRAM
-      - allow multiple items: pop each item from arvg[] and process it
-
-    '''
+    ''' Run tables2lu() from command line '''
     import sys
     import iwfm.debug as idb
     import iwfm

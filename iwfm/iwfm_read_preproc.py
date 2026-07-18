@@ -21,9 +21,7 @@ from iwfm.iwfm_dataclasses import PreprocessorFiles
 
 
 def iwfm_read_preproc(pre_file):
-    ''' iwfm_read_preproc() - Read an IWFM Preprocessor main input file,
-        and return a PreprocessorFiles dataclass with file names and some
-        settings
+    '''Read an IWFM Preprocessor main input file, and return a PreprocessorFiles dataclass with file names and some settings.
 
     Parameters
     ----------
@@ -37,7 +35,6 @@ def iwfm_read_preproc(pre_file):
 
     have_lake : bool
         True = the existing model has a lake file
-
     '''
     import iwfm
     from pathlib import Path

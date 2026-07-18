@@ -18,13 +18,13 @@
 
 
 def json_read(jdata, verbose=False):
-    ''' json_read() - Read a json file
-    
+    '''Read a json file.
+
     Parameters
     ----------
     jdata : str
         JSON file name
-    
+
     verbose : bool, default=False
         True = command line updating on
 
@@ -32,7 +32,6 @@ def json_read(jdata, verbose=False):
     -------
     j : JSON object
         JSON data
-    
     '''
     import json
 

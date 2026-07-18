@@ -18,28 +18,25 @@
 
 
 def iwfm2shp(main_file, shape_name, epsg=26910, verbose=False):
-    ''' iwfm2shp() - Takes the IWFM model main preprocessor file name
-        and a base name for output files, and create node, element, 
-        stream node and stream reach shapefiles
+    '''Take the IWFM model main preprocessor file name and a base name for output files, and create node, element, stream node and stream reach shapefiles.
 
     Parameters
     ----------
     main_file : str
         IWFM Preprocessor main file name
-    
+
     shape_name : str
         output shapefiles base name
-        
+
     epsg : int, default=26910 (NAD 83 UTM 10, CA)
         EPSG projection
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-    
     '''
 
     import iwfm

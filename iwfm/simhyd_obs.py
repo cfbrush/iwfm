@@ -18,7 +18,7 @@
 
 
 def simhyd_obs(gwhyd_file):
-    ''' symhyd_obs() - Read simulated groundwater hydrographs from IWFM file
+    '''Read simulated groundwater hydrographs from IWFM file.
 
     Parameters
     ----------
@@ -29,7 +29,6 @@ def simhyd_obs(gwhyd_file):
     -------
     simhyd_obs : list
         table of hydrograph information
-    
     ''' 
 
     with open(gwhyd_file, encoding='utf-8') as f:

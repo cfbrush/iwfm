@@ -18,24 +18,22 @@
 
 
 def shp_reproject(srcName, tgtName, epsg=26910):
-    ''' shp_reproject() - Project a shapefile to another shapefile in 
-        <spatRef> coordinate system. 
+    '''Project a shapefile to another shapefile in <spatRef> coordinate system.
 
     Parameters
     ----------
     srcName : str
         input shapefile name
-    
+
     tgtName : str
         output shapefile name
-    
+
     epsg : int, default=26910 (NAD 83 UTM 10, CA)
         EPSG projection
 
     Returns
     -------
     nothing
-    
     '''
 
     import shutil

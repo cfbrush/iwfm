@@ -18,13 +18,13 @@
 
 
 def kml_points(filename, verbose=False):
-    ''' kml_points() - Get point coordinates from a KML file
+    '''Get point coordinates from a KML file.
 
     Parameters
     ----------
     filename : str
         name to save info from url
-    
+
     verbose : bool, default=False
         True = command-line output on
 
@@ -32,7 +32,6 @@ def kml_points(filename, verbose=False):
     -------
     points :  llist
         point coordinates
-
     '''
     from xml.dom import minidom  # python -m pip install xml
 

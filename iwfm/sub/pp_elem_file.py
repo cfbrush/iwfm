@@ -19,9 +19,7 @@
 
 
 def sub_pp_elem_file(elem_file, new_elem_file, elem_list, new_srs):
-    ''' sub_pp_elem_file() - Copy the old element file and
-        replace the contents with those of the new model,
-        and write out the new file
+    '''Copy the old element file and replace the contents with those of the new model, and write out the new file.
 
     Parameters
     ----------
@@ -41,7 +39,6 @@ def sub_pp_elem_file(elem_file, new_elem_file, elem_list, new_srs):
     -------
     elem_nodes : list of lists of ints
         list of [element id, nodes and subregion] for each submodel element
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

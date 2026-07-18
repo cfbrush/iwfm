@@ -18,9 +18,7 @@
 
 
 def gw_well_lay_elev(d_wellinfo, elem_nodes_d, node_xy_d, strat, verbose=False):
-    ''' gw_well_lay_elev() - Find aquifer and aquitard layer elevations at
-        each well by inverse-distance weighting from the nodes of the
-        element containing the well.
+    '''Find aquifer and aquitard layer elevations at each well by inverse-distance weighting from the nodes of the element containing the well.
 
     Parameters
     ----------
@@ -50,7 +48,6 @@ def gw_well_lay_elev(d_wellinfo, elem_nodes_d, node_xy_d, strat, verbose=False):
         the element's node IDs, and [aquifer_top, aquifer_bot,
         aquitard_top, aquitard_bot], each a list of nlayers elevations
         interpolated to the well location
-
     '''
     import iwfm
     from iwfm.calib.idw import idw

@@ -18,15 +18,15 @@
 
 
 def shp_to_utm_pts(shape, outfile, verbose=False):
-    ''' shp_to_utm_pts() - Reproject a point shapefile to UTM
+    '''Reproject a point shapefile to UTM.
 
     Parameters
     ----------
     shape : PyShp point shapefile
-    
+
     outfile : str
         output point shapefile name
-    
+
     verbose : bool, default=False
         True = command-line output on
 
@@ -34,7 +34,6 @@ def shp_to_utm_pts(shape, outfile, verbose=False):
     -------
     tracks : list
         tracking points
-
     '''
     import shapefile  # PyShp
     from pyproj import CRS

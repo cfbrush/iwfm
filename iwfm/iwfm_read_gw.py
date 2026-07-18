@@ -20,8 +20,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def get_name(s):
-    ''' get_name() - Read an IWFM Simulation Groundwater file and return
-        a dictionary of sub-process file names, and arrays of parameters
+    '''Read an IWFM Simulation Groundwater file and return a dictionary of sub-process file names, and arrays of parameters.
 
     Parameters
     ----------
@@ -44,8 +43,7 @@ def get_name(s):
 
 
 def iwfm_read_gw(gw_file, verbose=False, node_coords=None):
-    ''' iwfm_read_gw() - Read an IWFM Simulation Groundwater file and return
-        a dictionary of sub-process file names, and arrays of parameters
+    '''Read an IWFM Simulation Groundwater file and return a dictionary of sub-process file names, and arrays of parameters.
 
     Parameters
     ----------
@@ -103,7 +101,8 @@ def iwfm_read_gw(gw_file, verbose=False, node_coords=None):
 
     factxy : float
         (X,Y) scale factor for hydrographs
-                
+
+
     '''
     import iwfm
     import numpy as np

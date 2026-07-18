@@ -18,20 +18,19 @@
 
 
 def file_2_bak(filename, force=1):
-    ''' file_2_bak() - Rename a file to contain .bak extension
+    '''Rename a file to contain .bak extension.
 
     Parameters
     ----------
     filename : str
         Name of existing file
-    
+
     force : int, default=1
         Force overwrite? 1=yes, 0=no
 
     Returns
     -------
     nothing
-
     '''
     import os
     import iwfm

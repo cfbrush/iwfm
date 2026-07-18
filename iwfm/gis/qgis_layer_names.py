@@ -18,20 +18,19 @@
 
 
 def qgis_layer_names(project):
-    ''' qgis_layer_names() - Get a list of QGIS project layer names and paths
-    
+    '''Get a list of QGIS project layer names and paths.
+
     Parameters
     ----------
     project : qcore.QgsProject.instance() object
-    
+
     Return
     ------
     layer_names : list
         project layer names
-    
+
     layer_paths : list
         paths to layer files
-    
     '''
     layer_names = [layer.name() for layer in project.layerTreeRoot().children()]
     layer_paths = [layer.source() for layer in project.mapLayers().values()]

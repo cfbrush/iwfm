@@ -19,7 +19,7 @@
 
 
 def pdf2csv(input_file, output_file, verbose=False, log_file='pdf2csv.log'):
-    ''' pdf2csv() - Read a PDF file and write tables to a csv file
+    '''Read a PDF file and write tables to a csv file.
 
     Parameters
     ----------
@@ -38,7 +38,6 @@ def pdf2csv(input_file, output_file, verbose=False, log_file='pdf2csv.log'):
     Returns
     -------
     nothing
-
     '''
     from tabula.io import convert_into
     import warnings

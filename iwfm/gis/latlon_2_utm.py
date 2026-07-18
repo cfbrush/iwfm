@@ -18,9 +18,10 @@
 
 
 def latlon_2_utm(lat, lon):
-    ''' latlon_2_utm() - Reproject from geographic coordinates to UTM
-        
-    
+    '''Reproject from geographic coordinates to UTM.
+
+
+
     Parameters
     ----------
     lat : float
@@ -32,7 +33,6 @@ def latlon_2_utm(lat, lon):
     Returns
     -------
     UTM coordinates: X, Y, Zone Number, Zone Letter
-
     '''
     import numpy as np
     from pyproj import Transformer

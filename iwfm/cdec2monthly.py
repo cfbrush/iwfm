@@ -19,8 +19,7 @@
 
 
 def cdec2monthly(input_file, output_file, verbose=False):
-    ''' cdec2monthly() - Read a CDEC observations file, converts sub-monthly
-        observations to the monthly average, and writes to a csv file
+    '''Read a CDEC observations file, convert sub-monthly observations to the monthly average, and write to a csv file.
 
     Parameters
     ----------
@@ -36,7 +35,6 @@ def cdec2monthly(input_file, output_file, verbose=False):
     Returns
     -------
     nothing
-
     '''
     import polars as pl
 

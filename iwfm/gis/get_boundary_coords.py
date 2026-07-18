@@ -18,9 +18,7 @@
 # -----------------------------------------------------------------------------
 
 def get_boundary_coords(elem_nodes, node_coords):
-    ''' get_boundary_coords() - Use elem_nodes and node_coords to get (x,y) list for the nodes 
-            on the bounding polygon
-
+    '''Get (x,y) list for the nodes on the bounding polygon.
 
     Parameters
     ----------
@@ -34,7 +32,6 @@ def get_boundary_coords(elem_nodes, node_coords):
     ------
     boundary_coords : list of tuples
         bounding coordinates for the model
-
     '''
 
     from shapely.geometry import mapping

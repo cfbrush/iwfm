@@ -18,16 +18,15 @@
 
 
 def shp_geomtype(f):
-    ''' shp_geomtype() - Return shape geometry for PyShp shapefile 
-    
+    '''Return shape geometry for PyShp shapefile.
+
     Parameters
     ----------
     f : str
         name of shapefile
-    
+
     Return
     ------
     shape geometry
-    
     '''
     return f.shape(0)

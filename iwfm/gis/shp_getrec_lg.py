@@ -18,19 +18,19 @@
 
 
 def shp_getrec_lg(f, i):
-    ''' shp_getrec_lg() - Returns a record as a string. Works better than
-        shp_getrec() for large DBF files
+    '''Return a record as a string.
+
+    Works better than shp_getrec() for large DBF files
 
     Parameters
     ----------
     f : PyShp shapefile
-    
+
     i : int
         record number
 
     Returns
     -------
     Specified record : str
-
     '''
     return f.iterRecord(i)

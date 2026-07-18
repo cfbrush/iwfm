@@ -19,21 +19,19 @@
 
 
 def wdl_meas_stats(input_file, verbose=False):
-    ''' wdl_meas_stats() - Calculate water level statistics and write out 
-        to a file
+    '''Calculate water level statistics and write out to a file.
 
     Parameters
     ----------
     input_file : str
         input file name
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     Returns
     -------
     nothing
-
     '''
     import statistics
     from datetime import datetime

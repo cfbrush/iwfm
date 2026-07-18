@@ -18,7 +18,7 @@
 
 
 def iwfm_read_rz_file_names(rz_file_name, verbose=False):
-    """iwfm_read_rz_file_names() - Read rootzone file names from the main rootzone file.
+    '''Read rootzone file names from the main rootzone file.
 
     Parameters
     ----------
@@ -41,8 +41,7 @@ def iwfm_read_rz_file_names(rz_file_name, verbose=False):
 
     rz_nv_file_name : str
         Native and riparian vegetation file name (NVRVFL)
-
-    """
+    '''
     from pathlib import Path
 
     import iwfm

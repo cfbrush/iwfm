@@ -18,12 +18,12 @@
 
 
 def multiproc(function, inputlist):
-    ''' multiproc() - Spread a function across multiple cpu cores
+    '''Spread a function across multiple cpu cores.
 
     Parameters
     ----------
     function : a function
-    
+
     inputlist : list
         function input list
 
@@ -31,7 +31,6 @@ def multiproc(function, inputlist):
     -------
     results : list
         function results
-    
     '''
     import multiprocessing as mp  
 

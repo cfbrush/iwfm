@@ -18,8 +18,7 @@
 
 
 def get_gw_params(gw_file):
-    ''' get_gw_params() - Get nodal coordinates and groundwater parameters 
-            from an IWFM simulation
+    '''Get nodal coordinates and groundwater parameters from an IWFM simulation.
 
     Parameters
     ----------
@@ -39,8 +38,10 @@ def get_gw_params(gw_file):
 
     Kh, Ss, Sy, Kq, Kv: numpy arrays
         groundwater parameters
-    
-        '''
+
+
+
+    '''
     import iwfm
     import numpy as np
 

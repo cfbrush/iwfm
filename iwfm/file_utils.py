@@ -17,10 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-"""
-IWFM File Format Conventions
------------------------------
-IWFM input files follow a Fortran-style convention where:
+'''IWFM File Format Conventions ----------------------------- IWFM input files follow a Fortran-style convention where:
 
 - Comment lines start with 'C', 'c', '*', or '#' in the first column (column 1)
 - Data lines MUST start with whitespace (space, tab) to avoid being treated as comments
@@ -31,7 +28,7 @@ markers. For example, a filename 'crop_data.dat' would appear as ' crop_data.dat
 
 The skip_ahead() function implements this convention and is used internally by the
 utility functions in this module.
-"""
+'''
 
 from __future__ import annotations
 
@@ -265,8 +262,7 @@ def read_line_values_to_dict(lines: List[str], start_index: int, keys: List[str]
 
 def read_param_table(file_lines: List[str], line_index: int, lines: int,
                      cast: Callable[[str], Any] = float) -> Tuple['np.ndarray', int]:
-    """read_param_table() - Read a table of numeric parameters and return
-    a numpy array.
+    '''Read a table of numeric parameters and return a numpy array.
 
     Shared engine for iwfm_read_param_table_floats and
     iwfm_read_param_table_ints.
@@ -296,7 +292,7 @@ def read_param_table(file_lines: List[str], line_index: int, lines: int,
 
     line_index : int
         Index of the last line read
-    """
+    '''
     import numpy as np
 
     params = []

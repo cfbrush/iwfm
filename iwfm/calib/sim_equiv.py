@@ -17,8 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def sim_equiv(simhyd, date, simhyd_col, round_val = 2, verbose=False):
-    ''' sim_equiv() - Calculate the simulated value for a given date from a 
-        simulated hydrograph
+    '''Calculate the simulated value for a given date from a simulated hydrograph.
 
     Parameters
     ----------
@@ -42,7 +41,6 @@ def sim_equiv(simhyd, date, simhyd_col, round_val = 2, verbose=False):
     -------
     sim_head : float
         simulated value for the given date
-    
     '''
     import iwfm.calib as ical
     # calculate the simulated value for this observation

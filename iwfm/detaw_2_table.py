@@ -18,8 +18,8 @@
 
 
 def detaw_2_table(dir_name, outfile_name, verbose=False):
-    '''detaw_2_table() - Convert DETAW files to tables and write to text files
-    
+    '''Convert DETAW files to tables and write to text files.
+
     Parameters
     ----------
 
@@ -28,14 +28,14 @@ def detaw_2_table(dir_name, outfile_name, verbose=False):
 
     outfile_name : str
         name of output file
-    
+
     verbose : bool, default=False
      Turn command-line output on or off
-    
+
     Returns
     -------
     nothing    
-    
+
     '''
     import os
     import csv

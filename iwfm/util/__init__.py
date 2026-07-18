@@ -16,6 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
+"""Download external data (CDEC, NWIS, USACE, USBR)."""
 
 # -- internet functions -----------------------------------
 from iwfm.util.ftp_fetch import ftp_fetch

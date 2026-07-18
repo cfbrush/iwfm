@@ -41,7 +41,7 @@ class simhyds:
             self.sim_vals.append(line)
 
     def sim_head(self, date, col):
-        ''' sim_head() - Get interpolated head value at a specific date
+        '''Get interpolated head value at a specific date.
 
         Parameters
         ----------

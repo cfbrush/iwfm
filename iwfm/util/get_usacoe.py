@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def get_usacoe(files):
-    ''' get_usacoe() - Save a data table from a USACOE website into a csv file
+    '''Save a data table from a USACOE website into a csv file.
 
     Parameters
     ----------
@@ -57,7 +57,7 @@ def get_usacoe(files):
 
 
 def add_data(lines, start, year):
-    """ add_data() - Sort data by month in the months list.
+    '''Sort data by month in the months list.
 
     Parameters
     ----------
@@ -73,7 +73,7 @@ def add_data(lines, start, year):
     months : list of list
         A nested list containing six sublists, representing six consecutive months, 
         starting from the specified start index in the months list.
-    """
+    '''
     #  Months list, the first element in each sublist is the month number
     months = [[10], [11], [12], [1], [2], [3], [4], [5], [6], [7], [8], [9]]
     
@@ -121,7 +121,7 @@ def add_data(lines, start, year):
     return months[start:start+6]
 
 def format_file(info):
-    ''' format_file() - Read raw data file and write formatted data to new file.
+    '''Read raw data file and write formatted data to new file.
 
     Parameters
     ----------
@@ -236,7 +236,7 @@ def format_file(info):
         print(f"Data saved to {name}")
 
 def is_leap_year(year):
-    """ is_leap_yar() - Check if a given year is a leap year.
+    '''Check if a given year is a leap year.
 
     Parameters
     ----------
@@ -247,7 +247,7 @@ def is_leap_year(year):
     -------
     bool
         True if the year is a leap year, False otherwise.
-    """
+    '''
 
     if year % 4 == 0:
         if year % 100 == 0:
@@ -259,7 +259,7 @@ def is_leap_year(year):
     return False
 
 def text_to_csv(files, timeout=30):
-    ''' text_to_csv() - Extract text from web pages and save as CSV files.
+    '''Extract text from web pages and save as CSV files.
 
     Parameters
     ----------

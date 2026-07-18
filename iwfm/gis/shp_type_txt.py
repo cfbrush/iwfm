@@ -18,8 +18,7 @@
 
 
 def shp_type_txt(shp):
-    ''' shp_type_txt() - Return a standard text string of the shape type
-        for a PyShp shapefile
+    '''Return a standard text string of the shape type for a PyShp shapefile.
 
     Parameters
     ----------
@@ -28,7 +27,6 @@ def shp_type_txt(shp):
     Returns
     -------
     shape type : str
-
     '''
     from iwfm.gis.shp_type import shp_type
 

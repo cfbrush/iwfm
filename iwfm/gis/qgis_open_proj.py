@@ -1,6 +1,6 @@
 # qgis_open_proj.py
 # Open QGIS project
-# Copyright (C) 2020-2021 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -18,50 +18,49 @@
 
 
 def qgis_open_proj(filename, verbose=False, debug=0):
-    ''' qgis_open_proj() - Open a QGIS project
+    '''Open a QGIS project.
 
-    ** INCOMPLETE **
-    
+    Must be run inside a QGIS Python environment (the qgis package is not
+    pip-installable).
+
     Parameters
     ----------
     filename : str
-        input shapefile name
+        QGIS project file name
 
     verbose : bool, default=False
         turn command-line output on or off
 
     debug : int, default=0
-        0 no CLI debug logging 
-        1 debug logging via print statements
-        debug statements and parameter should be removed after completion
+        1 = print debug information about the opened project
 
     Returns
     -------
-    project : qgis object
+    project : qgis.core.QgsProject
         QGIS project
 
+    Raises
+    ------
+    FileNotFoundError
+        if the project file does not exist
+    ValueError
+        if QGIS cannot read the project file
     '''
     import os
     import qgis.core as qcore
 
     if debug:
-        print(f'  Opening QGIS project {filename}')  
+        print(f'  Opening QGIS project {filename}')
 
     # check for the project file
     if not os.path.isfile(os.path.join(os.getcwd(), filename)):
         raise FileNotFoundError(f'Could not find {os.path.join(os.getcwd(), filename)}')
 
-    #  # for QGIS standalone app, bridge to sync loaded project with canvas
-    #  bridge = QgsLayerTreeMapCanvasBridge(project.layerTreeRoot(), canvas)
-    #  # NameError: name 'QgsLayerTreeMapCanvasBridge' is not defined
-
-    #  apparently python 2 / QGIS2 way:
-    #  project = qutil.QFile(filename)
-
     project = qcore.QgsProject.instance()  # instantiate
 
     # fill instantiated project (file name, not full path)
-    project.read(filename)
+    if not project.read(filename):
+        raise ValueError(f'QGIS could not read project file {filename}')
     if verbose:
         print(f'  Opened QGIS project {filename}')
     if debug:

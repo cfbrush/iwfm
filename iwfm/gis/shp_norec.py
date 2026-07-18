@@ -18,7 +18,7 @@
 
 
 def shp_norec(f):
-    ''' shp_norec() - Return the number of records in a shapefile
+    '''Return the number of records in a shapefile.
 
     Parameters
     ----------
@@ -27,6 +27,5 @@ def shp_norec(f):
     Returns
     -------
     Number of records : int
-
     '''
     return f.numRecords

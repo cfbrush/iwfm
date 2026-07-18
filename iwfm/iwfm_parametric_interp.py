@@ -20,10 +20,7 @@ import numpy as np
 
 
 def iwfm_parametric_interp(pnode_xy, pnode_vals, pelems, targets, tol=1e-6):
-    ''' iwfm_parametric_interp() - Interpolate parametric-grid values to
-        target points using finite element shape functions, matching IWFM's
-        parametric grid method: linear (barycentric) interpolation within
-        triangles and bilinear interpolation within quadrilaterals.
+    '''Interpolate parametric-grid values to target points using finite element shape functions, matching IWFM's parametric grid method: linear (barycentric) interpolation within triangles and bilinear interpolation within quadrilaterals.
 
     Parameters
     ----------
@@ -49,7 +46,6 @@ def iwfm_parametric_interp(pnode_xy, pnode_vals, pelems, targets, tol=1e-6):
     values : numpy array
         shape (len(targets), layers, nparam). Points outside the parametric
         grid receive the values of the nearest parametric node.
-
     '''
     ids = sorted(pnode_xy)
     xy = np.array([pnode_xy[i] for i in ids], dtype=float)

@@ -18,15 +18,15 @@
 
 
 def read_lu_file(filename, skip=4):
-    ''' read_lu_file() - Open and read an IWFM land use file, returning a list
-        of acrage data. The list dimensions are (no. elements)x(no. land use 
-        types or crops)x(no. time steps)
+    '''Read an IWFM land use file and return a list of acrage data.
+
+    The list dimensions are (no. elements)x(no. land use types or crops)x(no. time steps)
 
     Parameters
     ----------
     filename : str
         IWFM lane use file name
-    
+
     skip : int, default=4
         number of header rows to skip
 
@@ -34,10 +34,9 @@ def read_lu_file(filename, skip=4):
     -------
     table : list
         land use data
-    
+
     dates : list
         DSS dates for each time step
-    
     '''
     import iwfm
 

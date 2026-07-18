@@ -19,8 +19,7 @@
 
 
 def sub_remove_items(file_lines, line_index, items, skip=0):
-    '''sub_remove_items() - Remove lines for components (elements, nodes, stream 
-       nodes, etc) that are not in the submodel
+    '''Remove lines for components (elements, nodes, stream nodes, etc) that are not in the submodel.
 
     Parameters
     ----------
@@ -40,7 +39,6 @@ def sub_remove_items(file_lines, line_index, items, skip=0):
     -------
     line_index: int
         ending line number after processing
-
     '''
     from iwfm.file_utils import read_next_line_value
 

@@ -19,8 +19,7 @@
 
 def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name, 
                   format='tiff', point_width=100, verbose=False):
-    ''' map_params_rz() - Read a shapefile of IWFM model elements and map IWFM 
-                    Rootzone parameters to the elements
+    '''Read a shapefile of IWFM model elements and map IWFM Rootzone parameters to the elements.
 
     Parameters
     ----------
@@ -48,7 +47,6 @@ def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name,
     Return
     ------
     nothing
-
     '''                
     import iwfm
     import iwfm.gis as igis

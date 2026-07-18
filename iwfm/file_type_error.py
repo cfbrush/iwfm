@@ -18,8 +18,7 @@
 
 
 def file_type_error(filename, filetype):
-    ''' file_type_error() - Raise ValueError for an input file of the
-        wrong type
+    '''Raise ValueError for an input file of the wrong type.
 
     Parameters
     ----------
@@ -37,6 +36,5 @@ def file_type_error(filename, filetype):
     ------
     ValueError
         Always, naming the file and the required file type.
-
     '''
     raise ValueError(f'{filename} must be a {filetype} file')

@@ -18,23 +18,22 @@
 
 
 def world2screen(bbox, w, h, x, y):
-    ''' world2screen() - Convert geospatial coordinates to screen pixels
-
+    '''Convert geospatial coordinates to screen pixels.
 
     Parameters
     ----------
     bbox : list
         bounding box [minx, miny, maxx, maxy]
-    
+
     w : int
         screen width in pixels
-    
+
     h : int
         screen height in pixels
-    
+
     x : float
         X-coordinate to be transformed
-    
+
     y : float
         Y-coordinate to be transformed
 
@@ -42,7 +41,6 @@ def world2screen(bbox, w, h, x, y):
     -------
     px, py : ints
         coordinates in pixels
-    
     '''
     minx, miny, maxx, maxy = bbox
     xdist = maxx - minx

@@ -17,8 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def iwfm_read_rz(rz_file, verbose=False):
-    """iwfm_read_rz() - Read an IWFM Rootzone main input file and return a list of the
-                        files called
+    '''Read an IWFM Rootzone main input file and return a list of the files called.
 
     Parameters
     ----------
@@ -32,8 +31,7 @@ def iwfm_read_rz(rz_file, verbose=False):
     -------
     rz_files : RootzoneFiles
         dataclass of existing model rootzone file names
-
-    """
+    '''
 
     import iwfm
     from iwfm.file_utils import read_next_line_value

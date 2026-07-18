@@ -18,18 +18,17 @@
 
 
 def osmnx_getData(place):
-    '''osmnx_getData() - Return streen network data for city <place>
-    
+    '''Return streen network data for city <place>.
+
     Parameters
     ----------
     place : str
       Place name
-    
+
     Return
     ------
     ox : obj
       Stream newtork data
-
     '''
     import osmnx
 

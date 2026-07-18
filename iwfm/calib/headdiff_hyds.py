@@ -20,9 +20,9 @@ from math import ceil
 
 
 def headdiff_hyds(hdiff_pairs, hdiff_data, rthresh, ts_func, start_date, verbose=False):
-    ''' headdiff_hyds() - calculates vertical head differences and writes them to a 
-      sample bore (smp) file 
-      
+    '''Calculate vertical head differences and write them to a sample bore (smp) file.
+
+
     Parameters
     ----------
     hdiff_sites : list
@@ -50,7 +50,6 @@ def headdiff_hyds(hdiff_pairs, hdiff_data, rthresh, ts_func, start_date, verbose
 
     ins_out : list of strings
         instructions for reading smp_out data
-
     '''
     import iwfm.calib as icalib
 

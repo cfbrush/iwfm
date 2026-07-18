@@ -17,8 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def bud2xl(budget_file, excel_file, verbose=False, row=6):
-    ''' bud2xl() - Read IWFM Budget or Z-Budget output file and paste
-        into existing Excel workbook.
+    '''Read IWFM Budget or Z-Budget output file and paste into existing Excel workbook.
 
     .. deprecated::
         Use :func:`iwfm.xls.open_workbook`, :func:`iwfm.xls.write_cells`,

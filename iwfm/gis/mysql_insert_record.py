@@ -18,25 +18,24 @@
 
 
 def mysql_insert_record(cur, city, coord):
-    ''' mysql_insert_record() - Insert a record into a mysql database
+    '''Insert a record into a mysql database.
 
     ** Demo  **
-    
+
     Parameters
     ----------
     cur : obj
         cursor (pointer to mysql record)
-    
+
     city : str
         city name
-    
+
     coord : str
         city coordinates
-    
+
     Return
     ------
     nothing
-    
     '''
     cur.execute(
         'INSERT INTO PLACES (name, location) VALUES ('

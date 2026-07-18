@@ -22,7 +22,7 @@ _NMEA_LAT_FIELD = {'GGA': 2, 'RMC': 3, 'GLL': 1}
 
 
 def nmea_parse(infile):
-    ''' nmea_parse() - Read a GIS waypoint file and write lat-lon values
+    '''Read a GIS waypoint file and write lat-lon values.
 
     Parameters
     ----------
@@ -32,7 +32,6 @@ def nmea_parse(infile):
     Returns
     -------
     nothing
-
     '''
     with open(infile, encoding='ascii', errors='replace') as nmea_file:
         for line in nmea_file:

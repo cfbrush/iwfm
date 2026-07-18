@@ -21,9 +21,7 @@
 from iwfm.debug.logger_setup import logger
 
 def sub_lu_file(in_filename, out_filename, elems, verbose=False):
-    ''' sub_lu_file() - Copy original land use input file,
-        remove the elements that are not in the submodel,
-        and write out the new file
+    '''Copy original land use input file, remove the elements that are not in the submodel, and write out the new file.
 
     Parameters
     ----------
@@ -41,7 +39,6 @@ def sub_lu_file(in_filename, out_filename, elems, verbose=False):
 
     Returns:
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

@@ -20,7 +20,7 @@
 from iwfm.debug.logger_setup import logger
 
 def file_rename(filename, newname, force=0):
-    ''' file_rename() - Rename a file
+    '''Rename a file.
 
     Parameters
     ----------
@@ -39,7 +39,6 @@ def file_rename(filename, newname, force=0):
     Returns
     -------
     nothing
-
     '''
     import os
 

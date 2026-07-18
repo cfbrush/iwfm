@@ -18,7 +18,9 @@
 
 
 def get_nwis(files, timeout=30):
-    ''' get_nwis() - Save a data table from an NWIS website into a csv file. Prints status.
+    '''Save a data table from an NWIS website into a csv file.
+
+    Prints status.
 
     Parameters
     ----------
@@ -117,7 +119,7 @@ def get_nwis(files, timeout=30):
     return info
 
 def parse_html_table(table):
-    ''' parse_html_table() - Parse an HTML table element into headers and rows.
+    '''Parse an HTML table element into headers and rows.
 
     Parameters
     ----------
@@ -148,7 +150,9 @@ def parse_html_table(table):
 
 
 def save_table_as_csv(name, table):
-    ''' save_table_as_csv() - Save a data table from a website into a csv file. Prints status.
+    '''Save a data table from a website into a csv file.
+
+    Prints status.
 
     Parameters
     ----------
@@ -211,7 +215,9 @@ def save_table_as_csv(name, table):
     
 
 def format_file(info):
-    ''' format_file() - Save a data table from a website into a csv file. Prints status.
+    '''Save a data table from a website into a csv file.
+
+    Prints status.
 
     Parameters
     ----------

@@ -19,9 +19,7 @@
 
 
 def sub_pp_file(in_pp_file, pre_files, pre_files_new, has_lake=False):
-    ''' sub_pp_file() - Copy the old preprocessor input file,
-        replacing the file names with those of the new model,
-        and write out the new file
+    '''Copy the old preprocessor input file, replacing the file names with those of the new model, and write out the new file.
 
     Parameters
     ----------
@@ -39,7 +37,6 @@ def sub_pp_file(in_pp_file, pre_files, pre_files_new, has_lake=False):
 
     Returns:
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

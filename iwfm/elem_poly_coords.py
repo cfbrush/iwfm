@@ -18,8 +18,7 @@
 
 
 def elem_poly_coords(elem_nodes, node_coords):
-    ''' elem_poly_coords() - Return a list of element coordinates
-        in the form: [[x0,y0],[x1,y1],[x2,y2]<,...>]
+    '''Return a list of element coordinates in the form: [[x0,y0],[x1,y1],[x2,y2]<,...>].
 
     Parameters
     ----------
@@ -34,7 +33,6 @@ def elem_poly_coords(elem_nodes, node_coords):
     -------
     polygons : list
         list of polygon coordinates
-
     '''
 
     # Convert node_coords to dictionary if it's a list

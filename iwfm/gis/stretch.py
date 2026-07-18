@@ -18,7 +18,7 @@
 
 
 def stretch(a):
-    '''stretch() - Perform a histogram stretch on a gdal_array array image
+    '''Perform a histogram stretch on a gdal_array array image.
 
     Parameters
     ----------
@@ -27,7 +27,6 @@ def stretch(a):
     Returns
     -------
     a : GDAL array object
-
     '''
     import operator
     from osgeo import gdal_array

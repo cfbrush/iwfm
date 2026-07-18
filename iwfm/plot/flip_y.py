@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def flip_y(dataset):
-    """flip_y() - multiply y values by -1 to flip image
+    '''Multiply y values by -1 to flip image.
 
     Parameters
     ----------
@@ -28,8 +28,7 @@ def flip_y(dataset):
     -------
     dataset : list of lists
         [[x,y,value], [x,y,value], ...]
-
-    """
+    '''
     for item in dataset:
         item[1] = item[1] * -1
 

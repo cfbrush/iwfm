@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def bnds2mask(bnds_d, coords):
-    ''' bnds2mask() - Bounding polygon for IWFM mmodel
+    '''Bounding polygon for IWFM mmodel.
 
     Parameters
     ----------

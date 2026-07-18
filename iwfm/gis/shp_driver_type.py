@@ -18,13 +18,13 @@
 
 
 def shp_driver_type(filename, verbose=False):
-    ''' shp_driver_type() - Return the driver
-    
+    '''Return the driver.
+
     Parameters
     ----------
     filename : str
         Input shapefile
-    
+
     verbose : bool, default=False
         turn command-line output on or off
 

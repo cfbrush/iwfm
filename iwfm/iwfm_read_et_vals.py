@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def read_param_table_ints(file_lines, line_index, lines):
-    """read_param_table_ints() - Read a table of integer parameters from a file and organize them into lists.
+    '''Read a table of integer parameters from a file and organize them into lists.
 
     Parameters
     ----------
@@ -29,13 +29,13 @@ def read_param_table_ints(file_lines, line_index, lines):
 
     lines : int
         The number of lines to read.
-  
+
     Returns
     -------
 
     params : list
         A list of parameters
-    """
+    '''
 
 
     params = []
@@ -50,7 +50,7 @@ def read_param_table_ints(file_lines, line_index, lines):
     return params, line_index
 
 def read_param_table_floats(file_lines, line_index, lines):
-    """read_param_table_floats() - Read a table of integer parameters from a file and organize them into lists.
+    '''Read a table of integer parameters from a file and organize them into lists.
 
     Parameters
     ----------
@@ -68,7 +68,7 @@ def read_param_table_floats(file_lines, line_index, lines):
 
     params : list
         A list of parameters
-    """
+    '''
 
     from iwfm.file_utils import read_next_line_value
 
@@ -90,7 +90,7 @@ def read_param_table_floats(file_lines, line_index, lines):
 
 
 def iwfm_read_et_vals(et_file, verbose=False):
-    """iwfm_read_et_vals() - Read evapotranspiration from a file and organize them into lists.
+    '''Read evapotranspiration values from a file and organize them into lists.
 
     Parameters
     ----------
@@ -105,8 +105,7 @@ def iwfm_read_et_vals(et_file, verbose=False):
 
     params : list
         A list of evapotranspiration values
-
-    """
+    '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
 

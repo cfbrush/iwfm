@@ -18,23 +18,22 @@
 
 
 def wdl_ts_4_wells(station_file, waterlevel_file, verbose=False):
-    ''' wdl_ts_4_wells() - Write well data as time series
+    '''Write well data as time series.
 
     Parameters
     ----------
     station_file : str
         well information file name
-    
+
     waterlevel_file : str
         water levels file name
-    
+
     verbose : bool, default=True
         True = command-line output on 
 
     Returns
     -------
     nothing
-    
     '''
     import csv
     from iwfm.debug.logger_setup import logger

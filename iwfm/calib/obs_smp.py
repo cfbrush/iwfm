@@ -19,7 +19,7 @@
 
 
 def obs_smp(obs_lines,sim_sites):
-    ''' obs_smp() - returns observation bore sample info for sites in sim_sites
+    '''Return observation bore sample info for sites in sim_sites.
 
     Parameters
     ----------
@@ -39,7 +39,6 @@ def obs_smp(obs_lines,sim_sites):
 
     missing : list of stringz
         observation sites not used in simulation
-
     '''
     from datetime import date
 

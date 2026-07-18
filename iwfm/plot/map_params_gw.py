@@ -17,13 +17,13 @@
 # -----------------------------------------------------------------------------
 
 def plot_one(param_name, plot_data, bounding_poly, layer, basename, units='', point_width=100, format='tiff', verbose=False ):
-    ''' plot_one() - Draw and save one plot
+    '''Draw and save one plot.
 
     Parameters
     ----------
     param_name : string
         name of parameter
-    
+
     plot_data : list
         numpy array containing x, y, and value
 
@@ -47,7 +47,7 @@ def plot_one(param_name, plot_data, bounding_poly, layer, basename, units='', po
 
     verbose : bool, default = False
         If True, print status messages.
-    
+
     Returns
     -------
     nothing
@@ -83,7 +83,7 @@ def plot_one(param_name, plot_data, bounding_poly, layer, basename, units='', po
 
 def map_params_gw(param_type, param_values, node_coords, layers, bounding_poly, strat, format='tiff', basename='gw_param_map',
                    point_width=100, verbose=False):
-    ''' map_params_gw() - Create PNG images of groundwater parameters from an IWFM simulation
+    '''Create PNG images of groundwater parameters from an IWFM simulation.
 
     Parameters
     ----------
@@ -105,7 +105,7 @@ def map_params_gw(param_type, param_values, node_coords, layers, bounding_poly, 
     strat : list
         thicknesses of model layers
         strat[][2] == Aquiclude 1, strat[][3] == Layer 1, etc
-    
+
     format : string, default = 'tiff'
         output file format: eps, jpeg, jpg, pdf, pgf, png, ps, raw, rgba, svg, svgz, tif, tiff, webp
 

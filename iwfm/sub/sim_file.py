@@ -19,24 +19,21 @@
 
 
 def sub_sim_file(in_sim_file, sim_files_new, has_lake=False):
-    ''' sub_sim_file() - Copy the old simulation input file,
-        replacing the file names with those of the new model,
-        and write out the new file
+    '''Copy the old simulation input file, replacing the file names with those of the new model, and write out the new file.
 
     Parameters
     ----------
     in_sim_file : str
         name of existing simprocessor main input file
-    
+
     sim_files_new : SimulationFiles
         SimulationFiles dataclass of submodel simulation file names
-    
+
     has_lake : bool, default=False
         does the submodel have a lake file?
 
     Returns:
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

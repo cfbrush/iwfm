@@ -69,9 +69,7 @@ class ZBudgetData:
 def zbud_gw_aggregate(hdf_file, zone_file,
                       area_fact=0.000022957, vol_fact=0.000022957,
                       verbose=False, debug=False):
-    """
-    Read an IWFM groundwater zone-budget HDF5 file and aggregate the raw
-    per-element, per-layer component data into per-zone in/out time series.
+    '''Read an IWFM groundwater zone-budget HDF5 file and aggregate the raw per-element, per-layer component data into per-zone in/out time series.
 
     Shared engine for hdf2zbud_gw (text output) and hdf2zxlsx_gw (Excel
     output). Zone-budget HDF5 files hold raw element data in Layer_N groups
@@ -98,7 +96,7 @@ def zbud_gw_aggregate(hdf_file, zone_file,
     Returns
     -------
     ZBudgetData
-    """
+    '''
     # Configure loguru logger for debug mode
     if debug:
         setup_debug_logger()  # Auto-detects script name

@@ -18,23 +18,22 @@
 
 
 def write_results(name, date, meas, sim, start_date):
-    ''' write_results() - Write simulated and observed values for one
-        observation well to a text file
+    '''Write simulated and observed values for one observation well to a text file.
 
     Parameters
     ----------
     name : str
         Basename of output file
-  
+
     date : list
         Dates for measurements
-  
+
     meas : list
         Measured values
-  
+
     sim : list
         Simulated equivalent values
-  
+
     start_date : obj
         Simulation starting date
 
@@ -42,7 +41,6 @@ def write_results(name, date, meas, sim, start_date):
     -------
     i : int
         Number of lines written
-
     '''
     with open(name + '_obs.out', 'w', encoding='utf-8') as o:
         o.write(f'# Observations for well {name}\n')

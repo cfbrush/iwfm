@@ -21,8 +21,7 @@
 
 
 def adjust_headers(headers):
-    ''' adjust_headers() - Replace each column header string with 
-            a truncated code for use as a database field name
+    '''Replace each column header string with a truncated code for use as a database field name.
 
     Parameters
     ----------
@@ -33,7 +32,6 @@ def adjust_headers(headers):
     -------
     headers: list of strings
         Modified column headers
-
     '''
 
     # NOTE: Some items are repeated here because they occur in multiple budgets
@@ -226,7 +224,7 @@ def adjust_headers(headers):
     return headers
 
 def process_budget_data(f, loc_names, column_headers, loc_values, titles, write_header=False, verbose=False):
-    ''' process_budget_data() - open an IWFM Budget HDF file and retreive all of the data
+    '''Open an IWFM Budget HDF file and retreive all of the data.
 
     Parameters
     ----------
@@ -247,7 +245,7 @@ def process_budget_data(f, loc_names, column_headers, loc_values, titles, write_
 
     write_header : bool, default=False
         If True then print header at top of file
-    
+
     verbose : bool, default=False
         Turn command-line output on or off
 
@@ -280,24 +278,23 @@ def process_budget_data(f, loc_names, column_headers, loc_values, titles, write_
     return
 
 def hdfbud2csv(bud_file, outfile, write_header=True, verbose=False):
-    """ hdfbud2csv() - Read information from an IWFM Budget HDF file and write to a CSV file in a 
-            format amenable to database input
-    
+    '''Read information from an IWFM Budget HDF file and write to a CSV file in a format amenable to database input.
+
     Parameters
     ----------
     bud_file : string
         Name of IWFM Budget output HDF-formatted file
-    
+
     outfile : string
         Name of output CSV file
-        
+
     verbose : bool, default=False
         Turn command-line output on or off
-        
+
     Returns
     -------
     nothing
-    """
+    '''
     # Import directly from module files to avoid circular dependency
     # (iwfm.hdf5.__init__.py imports from this file)
     try:

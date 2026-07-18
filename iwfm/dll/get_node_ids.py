@@ -18,7 +18,7 @@
 
 
 def get_node_ids(iwfm_dll):
-    ''' IWFM DLL: Get FE grid identification numbers
+    '''IWFM DLL: Get FE grid identification numbers.
 
     Parameters
     ----------
@@ -35,7 +35,6 @@ def get_node_ids(iwfm_dll):
 
     status : int
         0 if everything worked
-
     '''
 
     from ctypes import byref, c_int

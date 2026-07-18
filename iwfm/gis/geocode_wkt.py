@@ -18,7 +18,7 @@
 
 
 def geocode_wkt(address, verbose=False):
-    '''geocode_wkt() - Return the lat-lon of a street address in WKT format
+    '''Return the lat-lon of a street address in WKT format.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def geocode_wkt(address, verbose=False):
     Returns
     -------
     geocode of address as WKT point : str, or None if not found
-
     '''
     from geopy.geocoders import Nominatim
 

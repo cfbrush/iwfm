@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def _read_param_table_floats(file_lines, line_index, lines):
-    """read_param_table_floats() - Read a table of float parameters from a file and organize them into lists.
+    '''Read a table of float parameters from a file and organize them into lists.
 
     Parameters
     ----------
@@ -34,7 +34,7 @@ def _read_param_table_floats(file_lines, line_index, lines):
     -------
     params : list
         A list of parameters
-    """
+    '''
     params = []
     if int(file_lines[line_index].split()[0]) == 0:                  # one set of parameter values for all elements
         params = [float(e) for e in file_lines[line_index].split()]
@@ -51,8 +51,7 @@ def _read_param_table_floats(file_lines, line_index, lines):
     return params, line_index
 
 def get_name(s):
-    ''' get_name() - Read an IWFM Simulation Groundwater file and return
-        a dictionary of sub-process file names, and arrays of parameters
+    '''Read an IWFM Simulation Groundwater file and return a dictionary of sub-process file names, and arrays of parameters.
 
     Parameters
     ----------
@@ -76,7 +75,7 @@ def get_name(s):
 
 
 def iwfm_read_uz(file, verbose=False):
-    """iwfm_read_uz() - Read unsaturated zone data from a file and organize them into lists.
+    '''Read unsaturated zone data from a file and organize them into lists.
 
     Parameters
     ----------
@@ -90,8 +89,7 @@ def iwfm_read_uz(file, verbose=False):
     -------
     params : list
         A list of parameters: [pd, pn, pi, pk, prhc, ic]
-
-    """
+    '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
 

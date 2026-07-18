@@ -24,8 +24,7 @@ def hdf2zbud_gw(hdf_file, zone_file, output_file,
                 area_fact=0.000022957, area_units='AC',
                 vol_fact=0.000022957, vol_units='ACFT',
                 verbose=False, debug=False):
-    """
-    Convert IWFM Groundwater Zone Budget HDF5 file to text format
+    '''Convert IWFM Groundwater Zone Budget HDF5 file to text format.
 
     Reading and zone aggregation are shared with hdf2zxlsx_gw via
     zbud_gw_core.zbud_gw_aggregate(); this function only formats the
@@ -51,7 +50,7 @@ def hdf2zbud_gw(hdf_file, zone_file, output_file,
         Print progress messages
     debug : bool, default=False
         Enable debug output (more detailed than verbose)
-    """
+    '''
     import iwfm
 
     # Configure loguru logger for debug mode

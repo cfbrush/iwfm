@@ -20,7 +20,7 @@
 
 
 def map_divs2shp(deliv_area_ids, deliv_areas, elem_shp_name, out_shp_name, verbose=False):
-    ''' map_divs2shp() - Add diversion areas to shapefile of IWFM model elements
+    '''Add diversion areas to shapefile of IWFM model elements.
 
     Parameters
     ----------
@@ -42,7 +42,6 @@ def map_divs2shp(deliv_area_ids, deliv_areas, elem_shp_name, out_shp_name, verbo
     Return
     ------
     nothing
-
     '''
     import geopandas as gpd
     import os

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def iwfm_read_rz_params(rz_file, verbose=False):
-    """iwfm_read_rz_params() - Read root zone parameters from a file and organize them into lists.
+    '''Read root zone parameters from a file and organize them into lists.
 
     Parameters
     ----------
@@ -31,8 +31,7 @@ def iwfm_read_rz_params(rz_file, verbose=False):
     -------
     params : list
         A list containing parameter values. It consists of 13 sublists, each representing a different parameter.
-
-    """
+    '''
 
     import iwfm
     from iwfm.file_utils import read_next_line_value

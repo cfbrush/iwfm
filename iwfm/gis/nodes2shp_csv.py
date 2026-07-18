@@ -17,27 +17,29 @@
 # -----------------------------------------------------------------------------
 
 def nodes2shp_csv(node_coord_dict, shapename='nodes.shp', epsg=26910, verbose=False):
-    ''' Create a shapefile of the nodes with the node ids 
-    
+    '''Create a shapefile of the nodes with the node ids.
+
     Parameters
     ----------
     node_coord_dict : dict
         Dictionary of node coordinates
-        
+
     shapename : str, default 'nodes.shp'
         Name of the shapefile to be created
-        
+
     epsg : int, default 26910
         EPSG code for the shapefile
-        
+
     verbose : bool, default False
         Print information to the console
-        
+
     Returns
     -------
     nothing
-        
-        '''
+
+
+
+    '''
 
     import shapefile
     import pyproj

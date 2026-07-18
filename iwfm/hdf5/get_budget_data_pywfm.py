@@ -26,7 +26,7 @@ def get_budget_data(bud_file,
                     volume_units="ACRE-FEET",
                     verbose=False,
                     ):
-    ''' get_budget_data() - open an IWFM Budget HDF file and retreive all of the data
+    '''Open an IWFM Budget HDF file and retreive all of the data.
 
     Parameters
     ----------
@@ -48,7 +48,7 @@ def get_budget_data(bud_file,
     -------
     loc_names : list
         Location names
-    
+
     column_headers : list
         Column headers for each location
 
@@ -57,7 +57,6 @@ def get_budget_data(bud_file,
 
     titles : list
         Titles (3 items) for each location
-    
     '''
     import warnings
     warnings.warn(

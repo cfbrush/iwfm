@@ -18,8 +18,7 @@
 
 
 def ftp_fetch(server, dir, filename='download.txt', verbose=False):
-    ''' ftp_fetch() - Download a file from a server and save to
-        the specified directory and file name
+    '''Download a file from a server and save to the specified directory and file name.
 
     This function uses anonymous FTP login to access the server.
     Anonymous FTP allows public access without requiring a username
@@ -63,7 +62,6 @@ def ftp_fetch(server, dir, filename='download.txt', verbose=False):
     - Uses password: '' (empty) or email address
     - Requires server to allow anonymous access
     - Common for public data repositories and archives
-
     '''
     import ftplib
     import socket

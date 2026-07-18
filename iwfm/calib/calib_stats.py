@@ -22,28 +22,25 @@ from iwfm.debug.logger_setup import logger
 
 
 def calib_stats(pest_smp_file, gwhyd_info_file, gwhyd_file, verbose=False):
-    ''' calib_stats() - Read a PEST .smp file, IWFM groundwater hydrograph 
-        file, and IWFM groundwater.dat file, and print a text file with the 
-        RMSE and bias of each well and of all observations
-    
+    '''Read a PEST .smp file, IWFM groundwater hydrograph file, and IWFM groundwater.dat file, and print a text file with the RMSE and bias of each well and of all observations.
+
     Parameters
     ----------
     pest_smp_file : str
         PEST .smp file name
-    
+
     gwhyd_info_file : str
         IWFM groundwater hydrograph file name
-    
+
     gwhyd_file : str
         IWFM groundwater.dat file name
-    
+
     verbose : bool, default=False
         True = command line updates on
-    
+
     Returns
     -------
     nothing
-    
     '''
 
     import iwfm

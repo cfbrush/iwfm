@@ -18,20 +18,19 @@
 
 
 def img_threshold(source, target):
-    ''' img_threshold() - Threshold an image to black and white
-    
+    '''Threshold an image to black and white.
+
     Parameters
     ----------
     source : str
         image file name
-    
+
     target : str
         output image file name
-    
+
     Returns
     -------
     nothing
-
     '''
     from osgeo import gdal_array as gdal_array
 

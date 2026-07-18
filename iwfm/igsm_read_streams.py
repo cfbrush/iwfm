@@ -18,9 +18,7 @@
 
 
 def igsm_read_streams(stream_file):
-    ''' igsm_read_streams() - Reads an IGSM Stream Geometry file and returns
-        (a) a list of stream reaches and (b) a dictionary of stream nodes, and
-        (c) the number of stream nodes
+    '''Read an IGSM Stream Geometry file and return (a) a list of stream reaches and (b) a dictionary of stream nodes, and (c) the number of stream nodes.
 
     Parameters
     ----------
@@ -37,7 +35,6 @@ def igsm_read_streams(stream_file):
 
     len(snodes_list) : int
         Number of stream nodes
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

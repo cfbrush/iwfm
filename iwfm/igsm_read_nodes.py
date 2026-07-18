@@ -18,7 +18,7 @@
 
 
 def igsm_read_nodes(node_file):
-    ''' igsm_read_nodes() - Read the nodal coordinates from the nodes file
+    '''Read the nodal coordinates from the nodes file.
 
     Parameters
     ----------
@@ -29,10 +29,11 @@ def igsm_read_nodes(node_file):
     -------
     node_coord : list
         nodes and x,y coordinates
-    
+
     node_list : list
         nodes
-        
+
+
     '''
     import iwfm
 

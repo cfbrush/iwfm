@@ -19,24 +19,22 @@
 
 
 def sub_pp_node_file(node_file, new_node_file, node_list):
-    ''' sub_pp_node_file() - Copy the original node file, replace the 
-        contents with those of the new model, and write out the new file
+    '''Copy the original node file, replace the contents with those of the new model, and write out the new file.
 
     Parameters
     ----------
     node_file : str
         name of existing preprocessor node file
-    
+
     new_node_file : str
         name of submodel preprocessor node file
-    
+
     node_list : llist of ints
         list of submodel nodes
 
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

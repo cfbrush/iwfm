@@ -19,25 +19,22 @@
 
 
 def sub_pp_strat_file(strat_file, new_strat_file, node_list):
-    ''' sub_pp_strat_file() - Ccopy the original stratigraphy file 
-        and replace the contents with those of the new submodel,
-        and write out the new file
+    '''Copy the original stratigraphy file and replace the contents with those of the new submodel, and write out the new file.
 
     Parameters
     ----------
     strat_file : str
         name of existing preprocessor stratigraphy file
-    
+
     new_strat_file : str
         name of submodel preprocessor stratigraphy file
-    
+
     node_list : list of ints
         list of submodel nodes
 
     Returns
     -------
     nothing
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

@@ -18,7 +18,7 @@
 
 
 def get_node_xy(iwfm_dll):
-    ''' IWFM DLL: Get X- and Y-coordinates of FE grid
+    '''IWFM DLL: Get X- and Y-coordinates of FE grid.
 
     Parameters
     ----------
@@ -35,7 +35,6 @@ def get_node_xy(iwfm_dll):
 
     status : int
         0 if everything worked
-
     '''
 
     from ctypes import byref, c_int, c_double

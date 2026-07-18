@@ -18,7 +18,7 @@
 
 
 def get_timespecs(iwfm_dll):
-    ''' IWFM DLL: Get all time information from current model
+    '''IWFM DLL: Get all time information from current model.
 
     Parameters
     ----------
@@ -35,7 +35,6 @@ def get_timespecs(iwfm_dll):
 
     status : int
         0 if everything worked
-
     '''
 
     #from ctypes import c_int, create_string_buffer

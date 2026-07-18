@@ -20,10 +20,7 @@
 
 def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
     years_filename,out_filename,verbose=False,per_line=6):
-    ''' iwfm_precip_adj() - Read an IWFM precipitation file, a list of VIC grid 
-        cells for each precipitation column, and a table of monthly adjustment 
-        factors for each VIC grid cell, and writes out an IWFM precipitation 
-        file with precipitation rates adjusted by the VIC factors
+    '''Read an IWFM precipitation file, a list of VIC grid cells for each precipitation column, and a table of monthly adjustment factors for each VIC grid cell, and write out an IWFM precipitation file with precipitation rates adjusted by the VIC factors.
 
     Parameters
     ----------
@@ -41,17 +38,16 @@ def iwfm_precip_adj(precip_filename,elem_VIC_filemane,factors_filename,
 
     out_filename : str
       Name of output IWFM precipitation file
-    
+
     verbose : bool, default=False
      Turn command-line output on or off
-    
+
     per_line : int, default=6
       If verbose==True, number of items to write to CLI per line
 
     Returns
     -------
     nothing
-
     '''
     import re
     import sys

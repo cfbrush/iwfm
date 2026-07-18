@@ -19,9 +19,7 @@
 
 
 def sub_gw_bc_cghd_file(old_filename, new_filename, nodes, verbose=False):
-    '''sub_gw_bc_cghd_file() - Read the original groundwater constrained general head
-        boundary conditions file, determine which boundary conditions are in the submodel,
-        and write out a new file
+    '''Read the original groundwater constrained general head boundary conditions file, determine which boundary conditions are in the submodel, and write out a new file.
 
     Parameters
     ----------
@@ -41,7 +39,6 @@ def sub_gw_bc_cghd_file(old_filename, new_filename, nodes, verbose=False):
     -------
     new_ngb : int
         number of boundary conditions in new file
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

@@ -21,10 +21,9 @@
 
 def iwfm_sub_preproc(
     in_pp_file, elem_pairs_file, out_base_name, verbose=False):
-    ''' iwfm_sub_preproc() - Read in the Preprocessor main file of a model and a list
-    of element pairs for a submodel. Use existing model Elements, Nodes, Stream
-    specification, Lake and Stratigraphy files to produce new preprocessor files for
-    the submodel, and pickle files of submodel nodes, stream nodes and lakes
+    '''Read in the Preprocessor main file of a model and a list of element pairs for a submodel.
+
+    Use existing model Elements, Nodes, Stream specification, Lake and Stratigraphy files to produce new preprocessor files for the submodel, and pickle files of submodel nodes, stream nodes and lakes
 
     Parameters
     ----------
@@ -62,7 +61,6 @@ def iwfm_sub_preproc(
 
     lake_info : list
         description of each lake in the submodel
-
     '''
     import iwfm
     import pickle

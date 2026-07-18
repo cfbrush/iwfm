@@ -18,9 +18,7 @@
 
 
 def write_2_csv(file_base_name, data, crop_list, elem_list, no_time_steps, date_list):
-    ''' write_2_csv() - Write a 3D array as 2D tables (row=elements
-        x col=time_steps) to (crops) # of comma-separated text files with filename 
-        extension 'csv'
+    '''Write a 3D array as 2D tables (row=elements x col=time_steps) to (crops) # of comma-separated text files with filename extension 'csv'.
 
     Parameters
     ----------
@@ -45,7 +43,6 @@ def write_2_csv(file_base_name, data, crop_list, elem_list, no_time_steps, date_
     Returns
     -------
     nothing
-
     '''
     # Create the output file names
     files = ['' for x in range(0, len(crop_list))]  # empty list

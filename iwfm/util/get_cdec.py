@@ -23,7 +23,7 @@ import polars as pl
 
 
 def parse_html_table(table):
-    """ parse_html_table() - Parse an HTML table element into a list of rows.
+    '''Parse an HTML table element into a list of rows.
 
     Parameters
     ----------
@@ -36,7 +36,7 @@ def parse_html_table(table):
         List of column headers.
     rows : list
         List of rows, each row is a list of cell values.
-    """
+    '''
     # Extract headers
     headers = []
     header_row = table.find('tr')
@@ -54,7 +54,9 @@ def parse_html_table(table):
 
 
 def save_table_as_csv(name, table):
-    """ save_table_as_csv() - Save a data table from a website into a csv file. Prints status.
+    '''Save a data table from a website into a csv file.
+
+    Prints status.
 
     Parameters
     ----------
@@ -67,7 +69,7 @@ def save_table_as_csv(name, table):
     Returns
     -------
     nothing
-    """
+    '''
     try:
         headers, rows = parse_html_table(table)
         if not rows:
@@ -99,18 +101,20 @@ def save_table_as_csv(name, table):
     
 
 def download_data_table(files):
-    """ download_data_table() - Save a data table from a website into a csv file. Prints status.
+    '''Save a data table from a website into a csv file.
+
+    Prints status.
 
     Parameters
     ----------
     files : list
         List of information about each file in the form [Name, Data Source, url]
-    
+
     Returns
     -------
     info : list
         List of information about the saved files in the form [Name, Data Source]
-    """
+    '''
 
 
     info = []
@@ -157,7 +161,7 @@ def download_data_table(files):
 
 
 def get_cdec(files):
-    ''' get_cdec() - Download and format data tables from CDEC websites.
+    '''Download and format data tables from CDEC websites.
 
     This is the main entry point for downloading CDEC data. It downloads
     the raw data tables and formats them into standard CSV format.
@@ -188,7 +192,9 @@ def get_cdec(files):
 
 
 def format_file(info):
-    ''' format_file() - Save a data table from a website into a csv file. Prints status.
+    '''Save a data table from a website into a csv file.
+
+    Prints status.
 
     Parameters
     ----------

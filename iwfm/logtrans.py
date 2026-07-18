@@ -18,8 +18,7 @@
 
 
 def logtrans(q, zero_offset=-2.0, neg_val=1e-9, roundoff=4):
-    ''' logtrans() - Log-transforms a number, accounting for non-zero and 
-        negative values
+    '''Log-transform a number, accounting for non-zero and negative values.
 
     Parameters
     ----------
@@ -39,7 +38,6 @@ def logtrans(q, zero_offset=-2.0, neg_val=1e-9, roundoff=4):
       - the log-transformed value for positive q
       - neg_val for negative q, or
       - zero_offset for q == 0
-
     '''
     import math
 

@@ -19,8 +19,7 @@
 
 
 def read_lu_change_factors(in_chg_file):
-    ''' read_lu_change_factors() - Read the change factors for changing IWFM 
-        land use for a scenario
+    '''Read the change factors for changing IWFM land use for a scenario.
 
     Parameters
     ----------
@@ -31,7 +30,6 @@ def read_lu_change_factors(in_chg_file):
     -------
     change_table : list
         change factors
-    
     '''
     import re
     import iwfm

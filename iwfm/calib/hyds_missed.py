@@ -19,10 +19,7 @@
 
 
 def items_not_in_second_list(list1, list2):
-    """
-    Compares two lists and returns a new list containing items 
-    present in list1 that are not in list2.
-    """
+    '''Compare two lists and return a new list containing items present in list1 that are not in list2.'''
     # Convert lists to sets for efficient difference calculation
     set1 = set(list1)
     set2 = set(list2)
@@ -35,8 +32,7 @@ def items_not_in_second_list(list1, list2):
     return list(difference)
 
 def hyds_missed(sim_sites,obs_sites):
-    ''' hyds_missed() - compare lists of sites and return the sites
-        from each list that are not in the other list
+    '''Compare lists of sites and return the sites from each list that are not in the other list.
 
     Parameters
     ----------
@@ -53,7 +49,6 @@ def hyds_missed(sim_sites,obs_sites):
 
     obs_miss : list of strings
         observation sites not in sim_sites
-
     '''
     sim_miss = items_not_in_second_list(sim_sites,obs_sites)
     obs_miss = items_not_in_second_list(obs_sites,sim_sites)

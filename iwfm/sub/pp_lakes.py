@@ -18,14 +18,13 @@
 
 
 def sub_pp_lakes(lake_file, elem_list):
-    ''' sub_pp_lakes() - Read the lake file and return information for
-        lakes in the submodel
+    '''Read the lake file and return information for lakes in the submodel.
 
     Parameters
     ----------
     lake_file : str
         name of existing preprocessor lake file
-    
+
     elem_list : list of ints
         list of existing model elements in submodel
 
@@ -33,10 +32,9 @@ def sub_pp_lakes(lake_file, elem_list):
     -------
     lake_info : list
         description of each lake in the submodel
-    
+
     have_lake : bool
         True if the submodel includes any lakes
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

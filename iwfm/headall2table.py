@@ -18,24 +18,22 @@
 
 
 def headall2table(heads_file, output_file, out_date):
-    ''' headall2table() - Read IWFM headall.out file and write results
-        for one date to a table
+    '''Read IWFM headall.out file and write results for one date to a table.
 
     Parameters
     ----------
     heads_file : str
         IWFM headall.out file name
-    
+
     output_file : str
         name of output file
-    
+
     out_date : str
         date to process, mm/dd/yyyy format
 
     Returns
     -------
     nothing
-
     '''
     import numpy as np
     import polars as pl

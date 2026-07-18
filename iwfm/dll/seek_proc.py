@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def seek_proc(iwfm_dll, seek_proc):
-    ''' IWFM DLL: check to see if IWFM procedure is available in user's version of IWFM DLL
+    '''IWFM DLL: check to see if IWFM procedure is available in user's version of IWFM DLL.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def seek_proc(iwfm_dll, seek_proc):
     Returns
     -------
     nothing
-
     '''
 
     if not hasattr(iwfm_dll, seek_proc):

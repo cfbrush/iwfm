@@ -20,9 +20,7 @@ from iwfm.debug.logger_setup import logger
 
 
 def idw(x, y, elem, nnodes, nlayers, nodexy, elevations, debug=0):
-    ''' idw() - Interpolate per-layer nodal values to the point (x, y)
-        using inverse distance weighting over the nodes of the element
-        containing the point.
+    '''Interpolate per-layer nodal values to the point (x, y) using inverse distance weighting over the nodes of the element containing the point.
 
     Parameters
     ----------
@@ -56,7 +54,6 @@ def idw(x, y, elem, nnodes, nlayers, nodexy, elevations, debug=0):
     -------
     interp_values : list
         nlayers values interpolated to (x, y)
-
     '''
     import math
 

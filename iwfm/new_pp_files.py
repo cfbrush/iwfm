@@ -21,8 +21,7 @@ from iwfm.iwfm_dataclasses import PreprocessorFiles
 
 
 def new_pp_files(out_base_name):
-    ''' new_pp_files() - Create and return a PreprocessorFiles dataclass of
-        preprocessor file names from a basename
+    '''Create and return a PreprocessorFiles dataclass of preprocessor file names from a basename.
 
     Parameters
     ----------
@@ -33,7 +32,6 @@ def new_pp_files(out_base_name):
     -------
     pre_files_new : PreprocessorFiles
         PreprocessorFiles dataclass of submodel preprocessor file names
-
     '''
     pre_files_new = PreprocessorFiles(
         prename=out_base_name + '_Preprocessor.in',

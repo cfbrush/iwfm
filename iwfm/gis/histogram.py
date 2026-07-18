@@ -18,7 +18,7 @@
 
 
 def histogram(infile, scl=True):
-    '''histogram() - Generate and display the color histogram of an image
+    '''Generate and display the color histogram of an image.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def histogram(infile, scl=True):
     Returns
     -------
     nothing
-
     '''
 
     import numpy as np

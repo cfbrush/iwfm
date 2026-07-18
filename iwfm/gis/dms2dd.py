@@ -19,21 +19,20 @@
 import re
 
 def dms2dd(lat, lon):
-    ''' dms2dd() - Converts from degree-minute-second to decimal degrees
-    
+    '''Convert from degree-minute-second to decimal degrees.
+
     Parameters
     ----------
     lat : str
-        Latitude in DMS format (e.g., "34°3'30\"N")
+        Latitude in DMS format (e.g., "34°3'30"N")
 
     lon : str
-        Longitude in DMS format (e.g., "118°15'0\"W")
+        Longitude in DMS format (e.g., "118°15'0"W")
 
     Return
     ------
     (lat_dd, lon_dd) : (float, float)
         Decimal latitude and longitude values
-
     '''
 
     try:

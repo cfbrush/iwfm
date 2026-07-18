@@ -18,7 +18,7 @@
 
 
 def mysql_read(cur):
-    ''' mysql_read() - Read a mysql database
+    '''Read a mysql database.
 
     Parameters
     ----------
@@ -28,7 +28,6 @@ def mysql_read(cur):
     Returns
     -------
     nothing
-
     '''
     cur.execute('SELECT AsText(location) FROM')
     return

@@ -19,7 +19,7 @@
 
 
 def iwfm_read_rz_npc(file, verbose=False):
-    """iwfm_read_rz_npc() - Read non-ponded crop data from a file and organize them into lists.
+    '''Read non-ponded crop data from a file and organize them into lists.
 
     Parameters
     ----------
@@ -40,8 +40,7 @@ def iwfm_read_rz_npc(file, verbose=False):
 
     files : list
         A list of file names: [npc_area_file, npc_bd_file, npc_zb_file, npc_rd_file, npc_ms_file, npc_ts_file, npc_md_file]
-
-    """
+    '''
     import iwfm
     from iwfm.file_utils import read_next_line_value
 

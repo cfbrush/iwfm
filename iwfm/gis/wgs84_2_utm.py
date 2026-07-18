@@ -18,7 +18,7 @@
 
 
 def wgs84_2_utm(lon, lat):
-    ''' wgs84_2_utm() - Reproject a WGS84 shapefile to UTM
+    '''Reproject a WGS84 shapefile to UTM.
 
     Parameters
     ----------
@@ -32,7 +32,6 @@ def wgs84_2_utm(lon, lat):
     -------
     (easting, northing, altitude) : tuple
         UTM easting, northing, and altitude (0)
-
     '''
     from iwfm.gis.latlon_2_utm import latlon_2_utm
 

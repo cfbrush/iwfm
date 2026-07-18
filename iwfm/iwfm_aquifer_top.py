@@ -18,8 +18,7 @@
 
 
 def iwfm_aquifer_top(strat):
-    ''' iwfm_aquifer_top() - Extract aquitard top altitude from 
-        IWFM stratigraphy information
+    '''Extract aquitard top altitude from IWFM stratigraphy information.
 
     Parameters
     ----------

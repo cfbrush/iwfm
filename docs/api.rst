@@ -15,10 +15,10 @@ Package                       Contents
 ``iwfm.sub``                  submodel component-file extraction
 ``iwfm.plot``                 plotting utilities
 ``iwfm.xls``                  Excel output
-``iwfm.util``                 external data fetching (CDEC, NWIS, USACE, USBR)
+``iwfm.util``                 download external data (CDEC, NWIS, USACE, USBR)
 ``iwfm.dll``                  IWFM DLL interface
 ``iwfm.debug``                logging and debugging helpers
-``iwfm.diagnostics``          LLM-supervised PEST calibration diagnostics
+``iwfm.diagnostics``          Process IWFM Simulation diagnostic output files
 ============================  ==================================================
 
 .. autosummary::

@@ -34,8 +34,7 @@ _exe_time_instance = None
 
 
 def exe_time():
-    ''' exe_time() - Tracks the time since the first call, and prints
-        the elapsed time on subsequent calls
+    '''Track the time since the first call and print the elapsed time on subsequent calls.
 
     Parameters
     ----------
@@ -44,7 +43,6 @@ def exe_time():
     Return
     ------
     nothing
-
     '''
     global _exe_time_instance
 

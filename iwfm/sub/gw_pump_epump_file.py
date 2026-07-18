@@ -19,8 +19,7 @@
 
 
 def sub_gw_pump_epump_file(old_filename, new_filename, elems, verbose=False):
-    '''sub_gw_pump_epump_file() - Copies the old element pumping file and replaces
-        the contents with those of the new submodel, and writes out the new file
+    '''Copy the old element pumping file and replace the contents with those of the new submodel, and write out the new file.
 
     Parameters
     ----------
@@ -40,7 +39,6 @@ def sub_gw_pump_epump_file(old_filename, new_filename, elems, verbose=False):
     -------
     bool : new_nsink > 0
         True if there are any wells
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

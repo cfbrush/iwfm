@@ -20,8 +20,9 @@ import numpy as np
 
 
 def las2dem(source, target, cell=1.0, NODATA=0):
-    ''' las2dem() - Convert a LIDAR LAS file to an ASCII DEM.
-        Interpolation is used to account for data loss
+    '''Convert a LIDAR LAS file to an ASCII DEM.
+
+    Interpolation is used to account for data loss
 
     Parameters
     ----------
@@ -40,7 +41,6 @@ def las2dem(source, target, cell=1.0, NODATA=0):
     Return
     ------
     nothing
-
     '''
     import laspy
 

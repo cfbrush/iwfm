@@ -20,13 +20,13 @@ from inspect import getmembers
 
 
 def method_fns(shpfilename, shpfile, verbose=False):
-    '''method_fns() - Return the functions associated with the shpfile library
-    
+    '''Return the functions associated with the shpfile library.
+
     Parameters
     ----------
     shofilename : str
         shapefile name (for printing)
-    
+
     shpfile : PyShp shapefile object
 
     verbose : bool, default=False
@@ -36,7 +36,7 @@ def method_fns(shpfilename, shpfile, verbose=False):
     -------
     mtds : list
         list of methods      
-    
+
     '''
     # may only work with shpfile created with PyShp
     mtds = getmembers(shpfile)

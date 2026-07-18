@@ -18,7 +18,7 @@
 
 
 def smp_read(smp_file_name):
-    ''' smp_read() reads observed values smp file into list of lists obs
+    '''Read observed values smp file into list of lists obs.
 
     Parameters
     ----------

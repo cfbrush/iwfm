@@ -19,8 +19,8 @@
 import shapefile  # pyshp
 
 def contour2png(source, target, iwidth=800, iheight=600):
-    ''' contour2png() - Draw an entire contour shapefile to a PNG image
-    
+    '''Draw an entire contour shapefile to a PNG image.
+
     Parameters
     ----------
     source : str
@@ -38,7 +38,6 @@ def contour2png(source, target, iwidth=800, iheight=600):
     Returns
     -------
     nothing
-
     '''
     from PIL import Image, ImageDraw
 

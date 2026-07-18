@@ -18,22 +18,21 @@
 
 
 def iwfm_boundary_coords(node_filename, elem_filename):
-    ''' iwfm_boundary_coords() - Return (x,y) list for the nodes on the bounding polygon
+    '''Return (x,y) list for the nodes on the bounding polygon.
 
     Parameters
     ----------
     nose_filename : str
         Path to node file
-    
+
     elem_filename : str
         Path to elelment file
-    
+
 
     Returns
     -------
     centroids : list
         (x,y) list for the nodes on the bounding polygon
-    
     '''
     import iwfm
     import iwfm.gis as igis

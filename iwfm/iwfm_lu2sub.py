@@ -20,35 +20,31 @@
 
 def iwfm_lu2sub(
     elem_file, lu_file, out_file, skip=4, verbose=False, per_line=6):
-    ''' iwfm_IWFM_lu2sub() - Read an IWFM Preprocessor Element File for a 
-        submodel and an IWFM Land Use File for the base model, and write 
-        a new land use file with land use for only the elements in the 
-        Elements File
+    '''Read an IWFM Preprocessor Element File for a submodel and an IWFM Land Use File for the base model, and write a new land use file with land use for only the elements in the Elements File.
 
     Parameters
     ----------
     elem_file : str
         IWFM submodel Preprocessor Element file name
-    
+
     lu_file : str
         IWFM base model land use area file
-    
+
     out_file : str
         IWFM submodel land use area file name (output)
-    
+
     skip : int, default=4
         number of non-comment lines to skip in each file
-    
+
     verbose : bool, default=False
         True = command-line output on
 
     per_line : int, default=6
         if verbose==True, items per line to write to the console
-    
+
     Returns
     -------
     nothing
-    
     '''
     import sys
     import re

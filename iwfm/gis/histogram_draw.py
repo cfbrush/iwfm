@@ -18,8 +18,8 @@
 
 
 def histogram_draw(hist, scale=True):
-    '''histogram_draw() - Create an image from a histogram array
-    
+    '''Create an image from a histogram array.
+
     Parameters
     ----------
     hist : numpy array or list
@@ -27,11 +27,10 @@ def histogram_draw(hist, scale=True):
 
     scale : bool, default=True
         Whether or not to scale the histogram
-    
+
     Return
     ------
     t : image object
-    
     '''
     import turtle as t
 

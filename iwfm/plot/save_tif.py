@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def save_plot(fig, filename):
-    """save_plot() - Create a colored image map representing groundwater data.
+    '''Create a colored image map representing groundwater data.
 
     Parameters
     ----------
@@ -30,8 +30,7 @@ def save_plot(fig, filename):
     Returns
     -------
     nothing
-
-    """
+    '''
 
     from PIL import Image
     from io import BytesIO

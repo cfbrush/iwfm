@@ -18,16 +18,16 @@
 
 
 def nearest(d_nodes, x, y):
-    ''' nearest() - Find the nearest node to a point from a node dictionary
+    '''Find the nearest node to a point from a node dictionary.
 
     Parameters
     ----------
     d_nodes : dictionary
         key = model node, value = x and y locations
-    
+
     x : float
         x location of point
-    
+
     y : float
         y location of point
 
@@ -35,7 +35,6 @@ def nearest(d_nodes, x, y):
     -------
     nearest : int
         node ID of node closest to (x,y)
-    
     '''
     import math
 

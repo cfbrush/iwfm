@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 def read_nodes_csv(node_file_name):
-    ''' read_nodes_csv - Read nodes from csv file
+    '''Read nodes from csv file.
 
     Parameters
     ----------
@@ -31,7 +31,6 @@ def read_nodes_csv(node_file_name):
 
     node_dict : dictionary
         Key = node id, Value = [x, y]
-
     '''
     import csv as csv
 

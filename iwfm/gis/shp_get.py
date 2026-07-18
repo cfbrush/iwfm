@@ -18,7 +18,7 @@
 
 
 def shp_get(infile):
-    ''' shp_get() - Read a shapefile with PyShp
+    '''Read a shapefile with PyShp.
 
     Parameters
     ----------
@@ -28,7 +28,6 @@ def shp_get(infile):
     Returns
     -------
     shp : Shapefile object
-
     '''
     from iwfm.gis.shp_get_PyShp import shp_get_PyShp
 

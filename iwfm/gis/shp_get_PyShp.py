@@ -18,7 +18,7 @@
 
 
 def shp_get_PyShp(infile, verbose=False):
-    ''' shp_get_PyShp() - Read a shapefile with PyShp
+    '''Read a shapefile with PyShp.
 
     Parameters
     ----------
@@ -33,7 +33,6 @@ def shp_get_PyShp(infile, verbose=False):
     shp : PyShp shapefile.Reader
         The caller is responsible for closing it (``shp.close()`` or
         use as a context manager: ``with iwfm.shp_get_PyShp(...) as shp``).
-
     '''
     import shapefile  # pyshp
 

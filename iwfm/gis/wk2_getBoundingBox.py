@@ -18,16 +18,15 @@
 
 
 def wk2_getBoundingBox(wkt):
-    ''' wk2_getBoundingBox() - Get WKT object bounding box
-    
+    '''Get WKT object bounding box.
+
     Parameters
     ----------
     wkt : WKT object
-    
+
     Return
     ------
     poly : bounding box
-    
     '''
     from osgeo import ogr
 

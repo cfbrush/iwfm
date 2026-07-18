@@ -18,8 +18,7 @@
 
 
 def igsm_read_chars(char_file, elem_nodes):
-    ''' igsm_read_chars() - Read an IGSM Element Characteristics file and
-        returns a list of characteristics for each element.
+    '''Read an IGSM Element Characteristics file and return a list of characteristics for each element.
 
     Parameters
     ----------
@@ -33,7 +32,6 @@ def igsm_read_chars(char_file, elem_nodes):
     -------
     elem_char : list
         element characteristics
-
     '''
     import iwfm
     from iwfm.file_utils import read_next_line_value

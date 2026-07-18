@@ -21,8 +21,7 @@ import numpy as np
 
 
 def grid_colorize(source, target):
-    ''' grid_colorize() - Convert an ASCII DEM to an image and colorize
-        using a heat-map color ramp
+    '''Convert an ASCII DEM to an image and colorize using a heat-map color ramp.
 
     Parameters
     ----------
@@ -35,7 +34,6 @@ def grid_colorize(source, target):
     Returns
     -------
     nothing
-
     '''
     from PIL import Image, ImageOps
 
