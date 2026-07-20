@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Get bounding polygon.'''
+'''Read a json file.'''
 
 def json_read(jdata, verbose=False):
     '''Read a json file.

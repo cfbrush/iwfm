@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Set font for a PDF instance.'''
+'''Set the font for a PDF instance.'''
 
 def pdf_setfont(pdf, font='Arial', style='B', size=20):
     '''Set the font for a PDF instance.

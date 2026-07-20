@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Select simulated values at sites with observed values.'''
+'''Select simulated values at sites with observed values, and return an array of simulated values for these sites and a corresponding list of dates for the simulated values.'''
 
 def sim_4_sites(sim_data, obs_sites):
     '''Select simulated values at sites with observed values, and return an array of simulated values for these sites and a corresponding list of dates for the simulated values.

@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Write observation IDs with no simulated equivalent to a text file.'''
+'''Take a list of observation IDs and filename obs_file, and write them to an output files (default output file name missing.tmp).'''
 
 def write_missing(missing,obs_file,fname='missing.tmp',verbose=False):
     '''Take a list of observation IDs and filename obs_file, and write them to an output files (default output file name missing.tmp).

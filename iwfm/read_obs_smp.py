@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read observations from an smp file (PEST observation file).'''
+'''Read the contents of an observed values smp file (PEST observation file) and return as a polars DataFrame or dict.'''
 
 def read_obs_smp(smp_file):
     '''Read the contents of an observed values smp file (PEST observation file) and return as a polars DataFrame or dict.

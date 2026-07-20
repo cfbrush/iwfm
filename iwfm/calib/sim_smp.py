@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Process text lines from a smp-format file into observation data sets.'''
+'''Process text lines from a sample bore (smp) file (smp_list) into observation data sets of [site_id, datetime object, observed value].'''
 
 def sim_smp(smp_list):
     '''Process text lines from a sample bore (smp) file (smp_list) into observation data sets of [site_id, datetime object, observed value].

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return OS name as a string.'''
+'''Return the OS name as a string.'''
 
 def this_sys():
     '''Return the OS name as a string.

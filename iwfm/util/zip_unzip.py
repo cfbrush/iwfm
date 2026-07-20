@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Unzip a zip file.'''
+'''Unzip a zipfile.'''
 
 def zip_unzip(filename, verbose=False):
     '''Unzip a zipfile.

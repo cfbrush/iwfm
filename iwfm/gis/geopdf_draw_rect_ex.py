@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Example - draw a rectangle on geopdf canvas.'''
+'''Example - draw a rectangle on the geopdf canvas.'''
 
 def geopdf_draw_rect_ex(canvas):
     '''Example - draw a rectangle on the geopdf canvas.

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Create shapefiles for an IWFM model.'''
+'''Take the IWFM model main preprocessor file name and a base name for output files, and create node, element, stream node and stream reach shapefiles.'''
 
 def iwfm2shp(main_file, shape_name, epsg=26910, verbose=False):
     '''Take the IWFM model main preprocessor file name and a base name for output files, and create node, element, stream node and stream reach shapefiles.

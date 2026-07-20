@@ -19,7 +19,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read a shapefile of IWFM model elements and elemental pmping from a ZBudget file, make a deep copy of the elements files, and add a field to the shapefile for each type of pumping, then total pumping of each type for each element.'''
+'''Add diversion areas to shapefile of IWFM model elements.'''
 
 def map_elempump2shp(zone_data, field_names, elem_shp_name, out_shp_name, verbose=False):
     '''Add diversion areas to shapefile of IWFM model elements.

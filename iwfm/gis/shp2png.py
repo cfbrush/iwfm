@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Save a shapefile as a raster.'''
+'''Convert a shapefile to a raster and save as a png file - including white fill.'''
 
 def shp2png(shape, outname, iwidth=400, iheight=600):
     '''Convert a shapefile to a raster and save as a png file - including white fill.

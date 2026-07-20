@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read headall.out file and write out a surfer-formated file for all layers for the specified time steps.'''
+'''Write out IWFM Headall.out data for one time step to a surfer-format file.'''
 
 def headall2surfer(node_coords, data, dates, out_dates, output_base, verbose=False):
     '''Write out IWFM Headall.out data for one time step to a surfer-format file.

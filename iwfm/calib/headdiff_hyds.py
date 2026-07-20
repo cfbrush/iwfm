@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Calculate vertical head differences.'''
+'''Calculate vertical head differences and write them to a sample bore (smp) file.'''
 
 from math import ceil
 

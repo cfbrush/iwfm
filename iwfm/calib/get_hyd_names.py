@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Get hydrograph names from IWFM input file.'''
+'''Return hydrograph names.'''
 
 def get_hyd_names(ftype,file_dict,verbose=False):
     '''Return hydrograph names.

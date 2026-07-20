@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read information from an IWFM Budget.in file and write output to an Excel file (perhaps in future also to csv file or other type of file).'''
+'''Read IWFM Budget.in file and write output to an Excel or csv file.'''
 
 def buds2xl(bud_file, type='xlsx', verbose=False):
     '''Read IWFM Budget.in file and write output to an Excel or csv file.

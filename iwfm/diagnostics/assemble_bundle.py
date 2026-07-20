@@ -3,7 +3,7 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
-'''Orchestrate readers and detectors into a DiagnosticBundle.'''
+'''Assemble a complete DiagnosticBundle from HDF5 files and PEST state.'''
 
 import os
 from datetime import datetime

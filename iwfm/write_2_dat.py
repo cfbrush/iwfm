@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Write a 3D array of crop areas to a series of 2D files for each crop.'''
+'''Write a 3D array as 2D tables (row=elements x col=time_steps) to (crops) # of text files with filename extension 'dat'.'''
 
 def write_2_dat(file_base_name, data, crop_list, elem_list, no_time_steps, date_list):
     '''Write a 3D array as 2D tables (row=elements x col=time_steps) to (crops) # of text files with filename extension 'dat'.

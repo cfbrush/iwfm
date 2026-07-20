@@ -18,7 +18,7 @@
 
 
 
-'''Create and save a plot from a geopandas dataframe.'''
+'''Create and save plot from geopandas dataframe.'''
 
 def geop_saveplot(gdf, outname, **kwargs):
     '''Create and save plot from geopandas dataframe.

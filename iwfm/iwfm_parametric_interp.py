@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Interpolate parametric-grid aquifer parameter values to model nodes.'''
+'''Interpolate parametric-grid values to target points using finite element shape functions, matching IWFM's parametric grid method: linear (barycentric) interpolation within triangles and bilinear interpolation within quadrilaterals.'''
 
 import numpy as np
 

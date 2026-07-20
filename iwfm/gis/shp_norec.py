@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return number of records in a PyShp shapefile.'''
+'''Return the number of records in a shapefile.'''
 
 def shp_norec(f):
     '''Return the number of records in a shapefile.

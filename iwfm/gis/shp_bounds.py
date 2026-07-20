@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return bounding box of a PyShp shapefile.'''
+'''Return bounding box for PyShp shapefile.'''
 
 def shp_bounds(f):
     '''Return bounding box for PyShp shapefile.

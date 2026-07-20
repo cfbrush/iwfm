@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Create stream reach shapefile for an IWFM model.'''
+'''Create an IWFM stream reaches shapefile from IWFM Preprocessor stream specification information.'''
 
 def reach2shp(reach_list, stnodes_dict, node_coords, shape_name, epsg=26910, 
         verbose=False):

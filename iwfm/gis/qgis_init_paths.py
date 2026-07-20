@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Constant definitions.'''
+'''Initialize QGIS paths.'''
 # Windows 10 paths - can they be read?
 PYTHONPATH_W10 = r'C:\Programs\QGIS3.4\python'
 PLUGINSPATH_W10 = r'C:\Programs\QGIS3.4\python\plugins'  # for processing module, etc

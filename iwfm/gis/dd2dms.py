@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Convert from decimal degrees to degree-minute-second.'''
+'''Convert lat-lon point from decimal degrees to degree-minute-second.'''
 
 def dd2dms(lat, lon):
     '''Convert lat-lon point from decimal degrees to degree-minute-second.

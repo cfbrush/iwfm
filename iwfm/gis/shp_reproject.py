@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Reproject a shapefile.'''
+'''Project a shapefile to another shapefile in <spatRef> coordinate system.'''
 
 def shp_reproject(srcName, tgtName, epsg=26910):
     '''Project a shapefile to another shapefile in <spatRef> coordinate system.

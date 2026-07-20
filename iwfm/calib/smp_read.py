@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read a PEST .smp file with observed values.'''
+'''Read observed values smp file into list of lists obs.'''
 
 def smp_read(smp_file_name):
     '''Read observed values smp file into list of lists obs.

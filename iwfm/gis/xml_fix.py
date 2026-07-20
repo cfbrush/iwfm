@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Fix a broken XML file.'''
+'''Read a broken XML file and write repaired file.'''
 
 def xml_fix(infile, outfile, verbose=False):
     '''Read a broken XML file and write repaired file.

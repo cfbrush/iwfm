@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read IWFM stream reach file.'''
+'''Read group definitions of stream reaches.'''
 
 def iwfm_read_stream_reaches(reach_file):
     '''Read group definitions of stream reaches.

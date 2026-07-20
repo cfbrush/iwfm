@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read IWFM preprocessor elements file.'''
+'''Read an IWFM Element file, and return a list of the nodes making up each element.'''
 
 def iwfm_read_elements(elem_file, verbose=False):
     '''Read an IWFM Element file, and return a list of the nodes making up each element.

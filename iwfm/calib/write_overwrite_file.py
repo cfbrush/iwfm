@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Write IWFM Groundwater Overwrite file.'''
+'''Receive a list of parameters and write them to an IWFM-2015 overwrite file.'''
 
 def write_overwrite_file(overwrite_file, in_lines, parnodes, nlay, parvals, fp, ctime, verbose=False):
     '''Receive a list of parameters and write them to an IWFM-2015 overwrite file.

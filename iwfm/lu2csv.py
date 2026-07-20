@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read IWFM land use file and write to a csv file.'''
+'''Read an IWFM land use file and write to a csv file.'''
 
 from iwfm.debug.logger_setup import logger
 

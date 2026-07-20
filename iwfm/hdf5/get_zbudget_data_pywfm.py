@@ -18,10 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Open an IWFM ZBudget HDF file and Zones file and retreive all of the data using DWR's PyWFM package to interface wth the IWFM DLL.
-
-DEPRECATED: Use get_zbudget_data_h5.py instead for cross-platform support.
-'''
+'''Open an IWFM Budget HDF file and retreive all of the data.'''
 
 def get_zbudget_data(zbud_file, zone_file, area_units = 'ACRES', 
                     area_conversion_factor   = 0.0000229568411, volume_units = 'AC-FT', 

@@ -19,10 +19,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read in a list of element pairs for a submodel.
-
-Use existing model Elements, Nodes, Stream specification and stratigraphy files to produce new preprocessor files for the submodel and a list of model node pairs.
-'''
+'''Read in the Preprocessor main file of a model and a list of element pairs for a submodel.'''
 
 def iwfm_sub_preproc(
     in_pp_file, elem_pairs_file, out_base_name, verbose=False):

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Extract land surface altitude from IWFM stratigraphy information.'''
+'''Extract land surface elevation from IWFM stratigraphy information.'''
 
 def iwfm_lse(strat):
     '''Extract land surface elevation from IWFM stratigraphy information.

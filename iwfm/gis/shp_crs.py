@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return shapefile coordinate reference system.'''
+'''Return the shapefile coordinate reference system from the sidecar .prj file.'''
 
 def shp_crs(filename):
     '''Return the shapefile coordinate reference system from the sidecar .prj file.

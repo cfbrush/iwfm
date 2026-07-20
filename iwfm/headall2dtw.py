@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read headall.out file and stratigraphy file and write depth to water with one csv file for each model layer.'''
+'''Read IWFM HeadAll.out file, subtract heads from land surface elevation, and write out as a time series with one csv file for each layer.'''
 
 def headall2dtw(heads_file, pre_file, output_root, verbose=False):
     '''Read IWFM HeadAll.out file, subtract heads from land surface elevation, and write out as a time series with one csv file for each layer.

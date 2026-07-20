@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Print field property strings for a PyShp shapefile.'''
+'''Print the field property strings for a PyShp shapefile.'''
 
 def shp_fields_print(f):
     '''Print the field property strings for a PyShp shapefile.

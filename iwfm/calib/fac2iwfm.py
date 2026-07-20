@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Transfer parameter values from pilot points to model nodes.'''
+'''Transfer parameter values from pilot points to model nodes from fac2reali.f90 by M Tonkin.'''
 
 def fac2iwfm(pp_file_name, param_file_name, save_name, rlow=0.0, rhigh=1000000.0, empty=-999.0, verbose=False):
     '''Transfer parameter values from pilot points to model nodes from fac2reali.f90 by M Tonkin.

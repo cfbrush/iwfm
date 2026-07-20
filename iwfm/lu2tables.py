@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read IWFM land use file and write to a separate file for each land use type.'''
+'''Read an IWFM land use file and write contents to a separate file for each land use type.'''
 
 from iwfm.debug.logger_setup import logger
 

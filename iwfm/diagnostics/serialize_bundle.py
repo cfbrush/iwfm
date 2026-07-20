@@ -3,7 +3,7 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
-'''Serialize DiagnosticBundle to compact JSON.'''
+'''Convert DiagnosticBundle to compact JSON string.'''
 
 import json
 import math

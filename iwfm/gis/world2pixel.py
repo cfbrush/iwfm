@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Use a gdal geomatrix to calculate the pixel location of a geospatial coordinate.'''
+'''Use a GDAL geomatrix to calculate the pixel location of a geospatial coordinate.'''
 
 def world2pixel(geoMatrix, x, y):
     '''Use a GDAL geomatrix to calculate the pixel location of a geospatial coordinate.

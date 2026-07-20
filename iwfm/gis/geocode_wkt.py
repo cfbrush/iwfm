@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return the lat-lon of a street address.'''
+'''Return the lat-lon of a street address in WKT format.'''
 
 def geocode_wkt(address, verbose=False):
     '''Return the lat-lon of a street address in WKT format.

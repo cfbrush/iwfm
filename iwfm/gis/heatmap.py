@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read (x,y) points from a CSV file and creates a heatmap overlaid on a web map.'''
+'''Read (x,y) points from a CSV file and create a heatmap overlaid on a web map.'''
 
 def heatmap(infile, outfile, title):
     '''Read (x,y) points from a CSV file and create a heatmap overlaid on a web map.

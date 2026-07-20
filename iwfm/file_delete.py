@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Delete file.'''
+'''Delete a file.'''
 
 from iwfm.debug.logger_setup import logger
 

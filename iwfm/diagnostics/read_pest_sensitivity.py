@@ -4,7 +4,7 @@
 # License: GNU GPL v2.0+
 
 
-'''Parse PEST .sen file for parameter sensitivities.'''
+'''Parse PEST .sen file and return parameter sensitivities.'''
 
 def read_pest_sensitivity(sen_file, iteration=None, verbose=False):
     """Parse PEST .sen file and return parameter sensitivities.

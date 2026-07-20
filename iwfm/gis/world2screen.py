@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Convert geospatial coordinates to screen pixels for display.'''
+'''Convert geospatial coordinates to screen pixels.'''
 
 def world2screen(bbox, w, h, x, y):
     '''Convert geospatial coordinates to screen pixels.

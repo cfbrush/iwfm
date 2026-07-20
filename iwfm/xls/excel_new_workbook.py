@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Open a new Excel workbook with one sheet (DEPRECATED).'''
+'''Open a new Excel workbook with one sheet.'''
 
 import warnings
 from iwfm.debug.logger_setup import logger

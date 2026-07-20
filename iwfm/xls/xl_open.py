@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Open an excel workbook (DEPRECATED).'''
+'''Open an excel workbook.'''
 
 import warnings
 from iwfm.debug.logger_setup import logger

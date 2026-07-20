@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Combines all of the PDF files in a folder into one PDF file info and gwhyd_sim columns, and returns the dictionary.'''
+'''Combine all of the PDF files in a folder into one PDF file modified from https://geektechstuff.com/2018/02/17/python-3-merge-multiple-pdfs-into-one-pdf/.'''
 
 def pdf_combine(start_dir, save_dir, save_name):
     '''Combine all of the PDF files in a folder into one PDF file modified from https://geektechstuff.com/2018/02/17/python-3-merge-multiple-pdfs-into-one-pdf/.

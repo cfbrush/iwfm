@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Point shape from geojson object.'''
+'''Create a point shape from a geojson object.'''
 
 def geojson2shp(geojs):
     '''Create a point shape from a geojson object.

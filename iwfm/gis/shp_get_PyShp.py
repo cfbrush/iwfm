@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Open a shapefile with PyShp.'''
+'''Read a shapefile with PyShp.'''
 
 def shp_get_PyShp(infile, verbose=False):
     '''Read a shapefile with PyShp.

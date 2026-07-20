@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return one row or record for a PyShp shapefile.'''
+'''Return one row or record for a shapefile opened with PyShp, works better for large DBF files.'''
 
 def shp_getrow_lg(inshape, rec):
     '''Return one row or record for a shapefile opened with PyShp, works better for large DBF files.

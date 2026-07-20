@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Extract one column from a VIC file to another file.'''
+'''Read an observation sample bore (smp) file, and return a list of observation sites and a list of observation data as [site_id, days since start, date as datetime object].'''
 
 from iwfm.debug.logger_setup import logger
 

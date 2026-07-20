@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Inverse-distance-weighted interpolation of per-layer nodal values to a point.'''
+'''Interpolate per-layer nodal values to the point (x, y) using inverse distance weighting over the nodes of the element containing the point.'''
 
 from iwfm.debug.logger_setup import logger
 

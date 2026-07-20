@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read root zone parameters from a file and organize them into lists.'''
+'''Read an IWFM Rootzone main input file and return a list of the files called.'''
 
 def iwfm_read_rz(rz_file, verbose=False):
     '''Read an IWFM Rootzone main input file and return a list of the files called.

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Write flow data frm table to csv file.'''
+'''Write flow data from a table to a csv file.'''
 
 def write_flows(data_file_base, file_type, table, site_info, verbose=False):
     '''Write flow data from a table to a csv file.

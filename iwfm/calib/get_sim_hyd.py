@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Get simulated hydrograph values.'''
+'''Get simulated hydrograph values and return as a list of lists with row=timestep, 1st col=dates and remaining cols=sites, dates as datetime objects, everything else as numpy arrays of floats.'''
 
 from iwfm.debug.logger_setup import logger
 

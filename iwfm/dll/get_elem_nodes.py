@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''IWFM DLL: Get FE element configuration data.'''
+'''IWFM DLL: Get FE element's nodes.'''
 
 def get_elem_nodes(iwfm_dll,elem_id):
     '''IWFM DLL: Get FE element's nodes.

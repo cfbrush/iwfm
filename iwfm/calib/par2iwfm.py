@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Use kriging to translate parameter values from pilot points to model nodes.'''
+'''Implement krige function to create new parameter values.'''
 
 def par2iwfm(A, B):
     '''Implement krige function to create new parameter values.

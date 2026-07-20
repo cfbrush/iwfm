@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Calculate water level statistics and write out to a file info and gwhyd_sim columns, and return the dictionary.'''
+'''Calculate water level statistics and write out to a file.'''
 
 def wdl_meas_stats(input_file, verbose=False):
     '''Calculate water level statistics and write out to a file.

@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read csv file of nodes and create a shapefile of the nodes with the node ids.'''
+'''Create a shapefile of the nodes with the node ids.'''
 
 def nodes2shp_csv(node_coord_dict, shapename='nodes.shp', epsg=26910, verbose=False):
     '''Create a shapefile of the nodes with the node ids.

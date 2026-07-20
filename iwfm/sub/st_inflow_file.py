@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Copy the stream inflow file and replace the contents with those of the new submodel, and write out the new file.'''
+'''Read the original stream inflow file, determine which stream nodes are in the submodel, and write out a new file.'''
 
 def sub_st_inflow_file(old_filename, new_filename, snode_list, verbose=False):
     '''Read the original stream inflow file, determine which stream nodes are in the submodel, and write out a new file.

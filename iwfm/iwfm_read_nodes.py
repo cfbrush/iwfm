@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read IWFM preprocessor nodes file.'''
+'''Read an IWFM Node file and return a list of the nodes and their coordinates.'''
 
 def iwfm_read_nodes(node_file, factor=0.0):
     '''Read an IWFM Node file and return a list of the nodes and their coordinates.

@@ -3,7 +3,7 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
-'''Read Diagnostics_Residual.hdf with chunked access and return ResidualSummary.'''
+'''Read Diagnostics_Residual.hdf using chunked access.'''
 
 import numpy as np
 from iwfm.diagnostics.diag_dataclasses import ResidualSummary

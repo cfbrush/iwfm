@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Create shapely Polygon of boundary for an IWFM model.'''
+'''Create a shapely Polygon of the boundary of an IWFM model.'''
 
 def elem2boundingpoly(elem_nodes, node_coords, verbose=False):
     '''Create a shapely Polygon of the boundary of an IWFM model.

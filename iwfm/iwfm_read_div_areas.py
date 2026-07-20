@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read diversion areas from an IWFM Diversion Specification File.'''
+'''Read diversion areas from IWFM divirsion specification file.'''
 
 def iwfm_read_div_areas(divspec_file_name):
     '''Read diversion areas from IWFM divirsion specification file.

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Modify IWFM land use files for a scenario.'''
+'''Merge four single-date IWFM land use files (non-ponded ag, ponded ag, native/riparian, urban) into one combined scenario land use table, matched by element ID.'''
 
 def _read_lu_table(filename, skip, verbose=False):
     '''Read a single-date IWFM land use file.

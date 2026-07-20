@@ -18,7 +18,7 @@
 #-----------------------------------------------------------------------------
 
 
-'''Read a PEST-style settings file.'''
+'''Subroutine read_settings reads the settings.fig file located in the current directory.'''
 
 def read_settings(in_file='settings.fig'):
     '''Subroutine read_settings reads the settings.fig file located in the current directory.

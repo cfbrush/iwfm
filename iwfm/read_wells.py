@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read from Groundwater.dat file and builds a dictionary of groundwater hydrograph info and gwhyd_sim columns, and returns the dictionary.'''
+'''Read IWFM Groundwater.dat file and return a dictionary of groundwater hydrograph info and gwhyd_sim columns.'''
 
 def read_wells(infile, verbose=False):
     '''Read IWFM Groundwater.dat file and return a dictionary of groundwater hydrograph info and gwhyd_sim columns.

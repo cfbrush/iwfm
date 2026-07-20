@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read the element file and returns a list of the nodes in the submodel.'''
+'''Read the element file and return a list of the nodes in the submodel.'''
 
 def sub_pp_node_list(elem_file, elem_list):
     '''Read the element file and return a list of the nodes in the submodel.

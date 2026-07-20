@@ -19,7 +19,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Copy the old Simulation streams main file and replaces the contents with those of the new submodel, and writes out the new file, then calls methods to modify the other Simulation stream component files.'''
+'''Read the original Simulation streams main file, determine which elements are in the submodel, and write out a new file, then modifies the other Simulation stream component files.'''
 
 def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=None, verbose=False):
     '''Read the original Simulation streams main file, determine which elements are in the submodel, and write out a new file, then modifies the other Simulation stream component files.

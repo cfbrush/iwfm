@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Bearing between two lat-lon points.'''
+'''Return the bearing between two (lat,lon) points p1 = [lat1,lon1], p2 = [lat2,lon2] in degrees Description of algorithm at https://www.mathsisfun.com/sine-cosine-tangent.html.'''
 
 import math
 

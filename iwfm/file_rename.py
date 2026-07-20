@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Rename file.'''
+'''Rename a file.'''
 
 from iwfm.debug.logger_setup import logger
 

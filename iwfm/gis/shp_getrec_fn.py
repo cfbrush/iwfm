@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return the item in column of field_name for record i for a PyShp shapefile.'''
+'''Return the item in the column specified by field_name for record i for a PyShp shapefile.'''
 
 def shp_getrec_fn(f, i, field_name):
     '''Return the item in the column specified by field_name for record i for a PyShp shapefile.

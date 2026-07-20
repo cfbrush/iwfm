@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read the lake file and returns information on lakes in the submodel.'''
+'''Read the lake file and return information for lakes in the submodel.'''
 
 def sub_pp_lakes(lake_file, elem_list):
     '''Read the lake file and return information for lakes in the submodel.

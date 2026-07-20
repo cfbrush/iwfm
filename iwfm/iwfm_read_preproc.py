@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read IWFM preprocessor main file and return dictionary of file names.'''
+'''Read an IWFM Preprocessor main input file, and return a PreprocessorFiles dataclass with file names and some settings.'''
 
 from iwfm.iwfm_dataclasses import PreprocessorFiles
 

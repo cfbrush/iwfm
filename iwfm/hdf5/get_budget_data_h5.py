@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read IWFM Budget HDF file using h5py (cross-platform alternative to pywfm).'''
+'''Read budget data from IWFM HDF5 file using h5py.'''
 
 import pandas as pd
 

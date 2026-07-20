@@ -4,7 +4,7 @@
 # License: GNU GPL v2.0+
 
 
-'''Detect elements with persistent mass balance residuals.'''
+'''Identify elements with residuals far above the layer mean.'''
 
 def detect_mass_balance_hotspots(mb_summary, threshold_multiplier=5.0):
     """Identify elements with residuals far above the layer mean.

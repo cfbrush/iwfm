@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Convert WKT-format text string into polygon.'''
+'''Turn WKT text description into object.'''
 
 def wkt2poly(intxt):
     '''Turn WKT text description into object.

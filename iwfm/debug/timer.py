@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Decorator to display function execution time.'''
+'''Wrapper to display function execution time.'''
 
 import time
 from functools import wraps

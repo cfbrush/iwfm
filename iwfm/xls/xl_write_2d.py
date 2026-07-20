@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Write 2D array to excel workbook (DEPRECATED).'''
+'''Write a 2D array to an existing excel workbook.'''
 
 import warnings
 from iwfm.debug.logger_setup import logger

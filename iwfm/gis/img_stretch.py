@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Stretches the color bands of an image.'''
+'''Stretch the color bands of an image.'''
 
 def img_stretch(infile, outfile):
     '''Stretch the color bands of an image.

@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Convert IWFM Groundwater Budget HDF5 file to text format.'''
+'''Convert IWFM Budget HDF5 file to text format.'''
 
 import os
 

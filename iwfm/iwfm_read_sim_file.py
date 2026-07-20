@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read IWFM simulation main file and return dictionary of file names.'''
+'''Read an IWFM Simulation main input file and return a list of the files called and some settings.'''
 
 def iwfm_read_sim_file(sim_file, verbose=False):
     '''Read an IWFM Simulation main input file and return a list of the files called and some settings.

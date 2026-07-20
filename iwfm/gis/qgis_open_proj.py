@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Open QGIS project.'''
+'''Open a QGIS project.'''
 
 def qgis_open_proj(filename, verbose=False, debug=0):
     '''Open a QGIS project.

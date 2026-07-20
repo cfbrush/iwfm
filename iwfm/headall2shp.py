@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read headall.out file and nodal coordinates file and create shapefiles of heads.'''
+'''Read headall.out file and stratigraphy file and produce head maps.'''
 
 def headall2shp(heads_file, pre_file, out_date, basename, label='Heads', units='ft', epsg=26910, verbose=True):
     '''Read headall.out file and stratigraphy file and produce head maps.

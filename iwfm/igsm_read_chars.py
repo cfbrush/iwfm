@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read an IGSM pre-processor element characteristics file.'''
+'''Read an IGSM Element Characteristics file and return a list of characteristics for each element.'''
 
 def igsm_read_chars(char_file, elem_nodes):
     '''Read an IGSM Element Characteristics file and return a list of characteristics for each element.

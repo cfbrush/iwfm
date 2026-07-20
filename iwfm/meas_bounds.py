@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Determine the earliest and latest measurement dates in a SMP observation file.'''
+'''Determine the earliest and latest measurement dates in a SMP-format groundwater head observation file.'''
 
 def meas_bounds(gwhyd_obs):
     '''Determine the earliest and latest measurement dates in a SMP-format groundwater head observation file.

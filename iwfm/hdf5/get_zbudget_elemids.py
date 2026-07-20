@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Open an IWFM ZBudget HDF file and retreive all of the data using DWR's PyWFM package to interface wth the IWFM DLL.'''
+'''Return the element IDs referenced in an IWFM Z-Budget zone definition file.'''
 
 from iwfm.debug.logger_setup import logger
 

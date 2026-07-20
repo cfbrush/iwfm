@@ -18,10 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Open an IWFM Budget HDF file and retreive all of the data using DWR's PyWFM package to interface wth the IWFM DLL.
-
-DEPRECATED: Use get_budget_data_h5.py instead for cross-platform support.
-'''
+'''Open an IWFM Budget HDF file and retreive all of the data.'''
 
 def get_budget_data(bud_file, 
                     area_conversion_factor = 0.0000229568411, 

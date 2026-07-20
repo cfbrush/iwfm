@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return shape geometry for a PyShp shapefile.'''
+'''Return shape geometry for PyShp shapefile.'''
 
 def shp_geomtype(f):
     '''Return shape geometry for PyShp shapefile.

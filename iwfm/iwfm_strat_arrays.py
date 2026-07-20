@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Parse IWFM stratigraphy information into arrays.'''
+'''Read IWFM nodal stratigraphy information into individual arrays.'''
 
 def iwfm_strat_arrays(strat):
     '''Read IWFM nodal stratigraphy information into individual arrays.

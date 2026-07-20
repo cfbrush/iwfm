@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''QGIS project layer names.'''
+'''Get a list of QGIS project layer names and paths.'''
 
 def qgis_layer_names(project):
     '''Get a list of QGIS project layer names and paths.

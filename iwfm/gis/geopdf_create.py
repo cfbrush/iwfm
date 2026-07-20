@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Create a geopdf canvas.'''
+'''Create a geopdf canvas that can be drawn on.'''
 
 def geopdf_create(filename):
     '''Create a geopdf canvas that can be drawn on.

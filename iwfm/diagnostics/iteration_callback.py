@@ -3,7 +3,7 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
-'''Post-iteration callback: assemble bundle, serialize, optionally apply changes.'''
+'''Post-iteration callback for LLM-supervised PEST.'''
 
 import os
 import json

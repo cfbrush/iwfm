@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Initialize the Excel application (DEPRECATED).'''
+'''Initialize the Excel application.'''
 
 import warnings
 from iwfm.debug.logger_setup import logger

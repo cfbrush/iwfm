@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return no days between two dates.'''
+'''Return the number of days from start_date to in_date.'''
 
 def index_date(in_date, start_date='10/01/1984'):
     '''Return the number of days from start_date to in_date.

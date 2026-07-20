@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read a PDF file and write tables to a csv file info and gwhyd_sim columns, and returns the dictionary.'''
+'''Read a PDF file and write tables to a csv file.'''
 
 def pdf2csv(input_file, output_file, verbose=False, log_file='pdf2csv.log'):
     '''Read a PDF file and write tables to a csv file.

@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Copy the old strat file and replaces the contents with those of the new submodel, and writes out the new file.'''
+'''Copy the original stratigraphy file and replace the contents with those of the new submodel, and write out the new file.'''
 
 def sub_pp_strat_file(strat_file, new_strat_file, node_list):
     '''Copy the original stratigraphy file and replace the contents with those of the new submodel, and write out the new file.

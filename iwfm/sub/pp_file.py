@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Copy the old preprocessor input file, replaces the file names with those of the new submodel, and writes out the new file.'''
+'''Copy the old preprocessor input file, replacing the file names with those of the new model, and write out the new file.'''
 
 def sub_pp_file(in_pp_file, pre_files, pre_files_new, has_lake=False):
     '''Copy the old preprocessor input file, replacing the file names with those of the new model, and write out the new file.

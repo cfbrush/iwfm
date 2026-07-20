@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read headall.out file and write out a csv time series file for each layer.'''
+'''Read an IWFM HeadAll.out file and write out as a time series with one csv file for each layer.'''
 
 def headall2ts(input_file, output_file, verbose=False):
     '''Read an IWFM HeadAll.out file and write out as a time series with one csv file for each layer.

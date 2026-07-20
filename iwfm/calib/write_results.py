@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Write simulated and observed values to a text file.'''
+'''Write simulated and observed values for one observation well to a text file.'''
 
 def write_results(name, date, meas, sim, start_date):
     '''Write simulated and observed values for one observation well to a text file.

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read headall.out file and return as lists.'''
+'''Read an IWFM HeadAll.out file and return the data as floats, with lists of dates and model nodes and the number of model layers.'''
 
 from iwfm.debug.logger_setup import logger
 

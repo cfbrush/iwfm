@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Overlay histograms of two parameters to visualize the distribution of two datasets.'''
+'''Overlay two histograms to visualize the distribution of two datasets.'''
 
 def overlay_histograms(data1, data2, file_name, label1='Data 1', label2='Data 2', format='pdf', alpha=0.5, bins='auto'):
     '''

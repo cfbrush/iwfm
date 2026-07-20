@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read a shapefile and writes a choropleth image.'''
+'''Read a shapefile and write a choropleth image.'''
 
 import shapefile  # pyshp
 from iwfm.gis.world2screen import world2screen

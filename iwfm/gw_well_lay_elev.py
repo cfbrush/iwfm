@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Find layer elevations for each observation well.'''
+'''Find aquifer and aquitard layer elevations at each well by inverse-distance weighting from the nodes of the element containing the well.'''
 
 def gw_well_lay_elev(d_wellinfo, elem_nodes_d, node_xy_d, strat, verbose=False):
     '''Find aquifer and aquitard layer elevations at each well by inverse-distance weighting from the nodes of the element containing the well.

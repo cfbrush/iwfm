@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read root zone parameters and create figures of the parameters.'''
+'''Read a shapefile of IWFM model elements and map IWFM Rootzone parameters to the elements.'''
 
 def map_params_rz(node_file_name, elem_file_name, out_name, rz_file_name, 
                   format='tiff', point_width=100, verbose=False):

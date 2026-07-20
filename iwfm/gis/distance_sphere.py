@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Distance between two lat-lon points on a sphere.'''
+'''Use the Haversine formula to calculate the distance between two (lat,lon) points on a sphere.'''
 
 import math
 

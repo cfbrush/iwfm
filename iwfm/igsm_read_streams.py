@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read an IGSM pre-processor streams file.'''
+'''Read an IGSM Stream Geometry file and return (a) a list of stream reaches and (b) a dictionary of stream nodes, and (c) the number of stream nodes.'''
 
 def igsm_read_streams(stream_file):
     '''Read an IGSM Stream Geometry file and return (a) a list of stream reaches and (b) a dictionary of stream nodes, and (c) the number of stream nodes.

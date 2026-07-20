@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Convert cubic feet per second to acre-feet per day.'''
+'''Convert flow in CFS to daily volume in Acre-Feet.'''
 
 def cfs2afd(cfs):
     '''Convert flow in CFS to daily volume in Acre-Feet.

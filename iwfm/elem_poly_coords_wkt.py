@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return a list of the (x,y) coordinates for the nodes of each elememnt.'''
+'''Return a list ofelement coordinates in WKT form: ['POLYGON ((X0 Y0, X1 Y1, X2 Y2, X3 Y3, X0 Y0)),'<,...>].'''
 
 def elem_poly_coords_wkt(elem_nodes, node_coords):
     '''Return a list ofelement coordinates in WKT form: ['POLYGON ((X0 Y0, X1 Y1, X2 Y2, X3 Y3, X0 Y0)),'<,...>].

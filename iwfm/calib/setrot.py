@@ -20,10 +20,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''From setrot() by C.
-
-Deutsch, September 1989. Sets up the matrix to transform cartesian coordinates to coordinates accounting for angles and anisotropy (see GSLIB manual for a detailed definition).
-'''
+'''Set up the matrix to transform cartesian coordinates to coordinates accounting for angles and anisotropy (from setrot() by C.'''
 
 def setrot(ang1, ang2, ang3, anis1, anis2):
     '''Set up the matrix to transform cartesian coordinates to coordinates accounting for angles and anisotropy (from setrot() by C.

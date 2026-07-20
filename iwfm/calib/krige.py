@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Perform spatial interpolation from grid A to grid B using kriging factors.'''
+'''Perform spatial interpolation using kriging factors from grid A to grid B.'''
 
 def krige(A, B):
     '''Perform spatial interpolation using kriging factors from grid A to grid B.

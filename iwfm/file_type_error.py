@@ -17,10 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Message re.
-
-Wrong file type.
-'''
+'''Raise ValueError for an input file of the wrong type.'''
 
 def file_type_error(filename, filetype):
     '''Raise ValueError for an input file of the wrong type.

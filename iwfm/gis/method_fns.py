@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Print methods associated with a shapefile.'''
+'''Return the functions associated with the shpfile library.'''
 
 from inspect import getmembers
 

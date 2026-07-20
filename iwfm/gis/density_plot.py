@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read a shapefile and writes it as an image.'''
+'''Read a shapefile and write it as an image.'''
 
 import shapefile  # pyshp
 import random

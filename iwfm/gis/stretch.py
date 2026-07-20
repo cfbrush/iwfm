@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Performs a histogram stretch on a gdal_array array image.'''
+'''Perform a histogram stretch on a gdal_array array image.'''
 
 def stretch(a):
     '''Perform a histogram stretch on a gdal_array array image.

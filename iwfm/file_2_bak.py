@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Create backup of file.'''
+'''Rename a file to contain .bak extension.'''
 
 def file_2_bak(filename, force=1):
     '''Rename a file to contain .bak extension.

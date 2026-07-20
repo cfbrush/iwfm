@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Write observed values to a PEST smp file.'''
+'''Write observations to a PEST smp file smp format:' OBSLOCATIONID MM/DD/YYYY HH:MM:SS 123.456'.'''
 
 from iwfm.debug.logger_setup import logger
 

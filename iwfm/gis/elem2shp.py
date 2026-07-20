@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Create elements shapefile for an IWFM model.'''
+'''Create an IWFM element shapefile.'''
 
 def elem2shp(elem_ids, elem_nodes, node_coord_dict, elem_sub, lakes, shape_name,
              epsg=26910, verbose=False):

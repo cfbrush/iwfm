@@ -17,10 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''The ppk2fac file requires sequential model node numbers.
-
-This script replaces the sequential model node numbers with the actual node numbers.
-'''
+'''Convert the ppk2fac file to the fac2fac file.'''
 
 def ppk2fac_trans(factors_file, trans_file, out_file, verbose=False):
     '''Convert the ppk2fac file to the fac2fac file.

@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Copy the old well pumping file and replaces the contents with those of the new submodel, and writes out the new file.'''
+'''Copy the old well pumping file and replace the contents with those of the new submodel, and write out the new file.'''
 
 def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verbose=False):
     '''Copy the old well pumping file and replace the contents with those of the new submodel, and write out the new file.

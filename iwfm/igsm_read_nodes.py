@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read an IGSM pre-processor node file.'''
+'''Read the nodal coordinates from the nodes file.'''
 
 def igsm_read_nodes(node_file):
     '''Read the nodal coordinates from the nodes file.

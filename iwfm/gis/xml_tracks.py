@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Get tracking points from an XML file.'''
+'''Reproject from UTM to geographic coordinates.'''
 
 def xml_tracks(filename, verbose=False):
     '''Reproject from UTM to geographic coordinates.

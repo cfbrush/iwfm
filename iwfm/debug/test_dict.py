@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Test that key is in dictionary, for debugging.'''
+'''Print dictionary value for key.'''
 
 def test_dict(name, d, key):  # test dictionary
     '''Print dictionary value for key.

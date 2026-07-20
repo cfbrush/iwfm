@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Extract aquifer bottom from IWFM stratigraphy information.'''
+'''Extract aquitard bottom altitude from IWFM stratigraphy information.'''
 
 def iwfm_aquifer_bottom(strat):
     '''Extract aquitard bottom altitude from IWFM stratigraphy information.

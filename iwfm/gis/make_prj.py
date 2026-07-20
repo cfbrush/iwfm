@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Make PRJ file <filename>.prj for epsg cose <epsg_code>.'''
+'''Make projection file <filename>.prj for epsg code <epsg_code>.'''
 
 def make_prj(filename, epsg_code):
     '''Make projection file <filename>.prj for epsg code <epsg_code>.

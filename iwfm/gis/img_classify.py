@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Classifies a remotely sensed image.'''
+'''Classify a remotely sensed image.'''
 
 def img_classify(source, target):
     '''Classify a remotely sensed image.

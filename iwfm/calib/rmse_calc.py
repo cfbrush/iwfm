@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Calculate root mean square error between two lists of values.'''
+'''Return the RMSE between measured (targets) and simulated (predictions) values.'''
 
 def rmse_calc(predictions, targets):
     '''Return the RMSE between measured (targets) and simulated (predictions) values.

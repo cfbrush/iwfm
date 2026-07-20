@@ -3,7 +3,7 @@
 # Copyright (C) 2020-2026 University of California
 # License: GNU GPL v2.0+
 
-'''Read Diagnostics_ElemMB.hdf and return MassBalanceSummary.'''
+'''Read Diagnostics_ElemMB.hdf and compute summary statistics.'''
 
 import numpy as np
 from iwfm.diagnostics.diag_dataclasses import MassBalanceSummary

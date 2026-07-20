@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Download a file using FTP.'''
+'''Download a file from a server and save to the specified directory and file name.'''
 
 def ftp_fetch(server, dir, filename='download.txt', verbose=False):
     '''Download a file from a server and save to the specified directory and file name.

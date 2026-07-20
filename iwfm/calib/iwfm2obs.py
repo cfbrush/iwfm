@@ -25,7 +25,7 @@
 #-----------------------------------------------------------------------------
 
 
-'''Read IWFM hydrograph output files and corresponding observation smp files, interpolate simulated values to the observation times ('simulated equivalents'), and save them in an smp file, optionally writing a paired instruction file.'''
+'''Interpolate model output to match the times and locations of calibration observations and put them into a PEST-compatible smp-formatted output file.'''
 
 def iwfm2obs(verbose=False, head_divisor=None):
     '''Interpolate model output to match the times and locations of calibration observations and put them into a PEST-compatible smp-formatted output file.

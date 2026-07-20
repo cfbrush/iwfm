@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Distance between two lat-lon points on an ellipse.'''
+'''Use the Vincenty formula to calculate the distance between two (lat,lon) points on an ellipsoid Earth.'''
 
 import math
 

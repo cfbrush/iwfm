@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Read precipition values from a file and organize them into lists.'''
+'''Read precipitation values from a file and organize them into lists.'''
 
 def iwfm_read_precip_vals(precip_file, verbose=False):
     '''Read precipitation values from a file and organize them into lists.

@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Save QGIS project.'''
+'''Save a QGIS project.'''
 
 def qgis_save_project(project, name=''):  # save the project
     '''Save a QGIS project.

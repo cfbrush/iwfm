@@ -19,10 +19,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Write IWFM ZBudget data for a set of Zones to a csv file.
-
-For Groundwater ZBudgets, remove the inter-zone flows as these are different for each zone.
-'''
+'''Write info from an IWFM ZBudget HDF file to an output file.'''
 
 def zbudget2csv(outfile, zone_names, column_headers, zone_values, titles, zone_list, 
                          zone_extent_ids):

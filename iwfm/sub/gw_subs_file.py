@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Copy the groundwater subsidence file and replace the contents with those of the new submodel, and writes out the new file.'''
+'''Read the original groundwater subsidence file, determine which nodes are in the submodel, and write out a new file.'''
 
 def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbose=False):
     '''Read the original groundwater subsidence file, determine which nodes are in the submodel, and write out a new file.

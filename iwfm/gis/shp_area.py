@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return area of a polygon for PyShp shapefile.'''
+'''Return the geodesic area of a polygon in geographic (lon-lat) coordinates.'''
 
 def shp_area(polygon):
     '''Return the geodesic area of a polygon in geographic (lon-lat) coordinates.

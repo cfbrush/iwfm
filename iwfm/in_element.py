@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Return number of element containing (x,y) point or 0 if none the nearest node to each (x,y) point.'''
+'''Return the element containing the point (x,y), or 0 if not in any element.'''
 
 def in_element(e_nodes, e_nos, d_nodexy, x, y):
     '''Return the element containing the point (x,y), or 0 if not in any element.

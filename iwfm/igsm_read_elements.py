@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read an IGSM pre-processor element file.'''
+'''Read an IGSM Element file, and return a list of the nodes making up each element.'''
 
 def igsm_read_elements(elem_file):
     '''Read an IGSM Element file, and return a list of the nodes making up each element.

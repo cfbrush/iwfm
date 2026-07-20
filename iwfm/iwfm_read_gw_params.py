@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read IWFM simulation groundwater file groundwater parameters.'''
+'''Read an IWFM Simulation Groundwater file and return a list of parameters.'''
 
 def iwfm_read_gw_params(gw_file, node_coords=None):
     '''Read an IWFM Simulation Groundwater file and return a list of parameters.

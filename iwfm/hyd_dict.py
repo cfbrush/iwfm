@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read Groundwater.dat file and return dictionary of well info.'''
+'''Read hydrograph info from Groundwater.dat file and build a dictionary of groundwater hydrograph info.'''
 
 def hyd_dict(gwhyd_info_file):
     '''Read hydrograph info from Groundwater.dat file and build a dictionary of groundwater hydrograph info.

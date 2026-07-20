@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read an IGSM pre-processor stratigraphy file.'''
+'''Read an IGSM Stratigraphy file and return a list of stratigraphy for each node.'''
 
 def igsm_read_strat(strat_file, node_coords):
     '''Read an IGSM Stratigraphy file and return a list of stratigraphy for each node.

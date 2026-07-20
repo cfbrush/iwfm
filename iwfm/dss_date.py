@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Convert datetime object to DSS-format straing.'''
+'''Convert datetime object 'date' into a string in DSS format MM/DD/YYYY_HH:MM with HH in 24-hour format, midnight = 24:00.'''
 
 def dss_date(date):
     '''Convert datetime object 'date' into a string in DSS format MM/DD/YYYY_HH:MM with HH in 24-hour format, midnight = 24:00.

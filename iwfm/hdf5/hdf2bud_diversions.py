@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 # -----------------------------------------------------------------------------
 
-'''Convert IWFM Stream Diversions HDF5 file to text format matching the original .bud file.'''
+'''Convert IWFM Stream Diversions HDF5 file to text format.'''
 
 import os
 

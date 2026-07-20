@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read simulated groundwater hydrographs.'''
+'''Read simulated groundwater hydrographs from IWFM file.'''
 
 def simhyd_obs(gwhyd_file):
     '''Read simulated groundwater hydrographs from IWFM file.
