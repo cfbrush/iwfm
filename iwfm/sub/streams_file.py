@@ -19,10 +19,10 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read the original Simulation streams main file, determine which elements are in the submodel, and write out a new file, then modifies the other Simulation stream component files.'''
+'''Read the original Simulation streams main file, determine which elements are in the submodel, and write out a new file, then modify the other Simulation stream component files.'''
 
 def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=None, verbose=False):
-    '''Read the original Simulation streams main file, determine which elements are in the submodel, and write out a new file, then modifies the other Simulation stream component files.
+    '''Read the original Simulation streams main file, determine which elements are in the submodel, and write out a new file, then modify the other Simulation stream component files.
 
     Handles stream component versions 4.0, 4.1, 4.2 and 5.0 (formats from
     the IWFM-2015.1.1443 templates):

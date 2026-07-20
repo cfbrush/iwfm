@@ -19,10 +19,10 @@
 # -----------------------------------------------------------------------------
 
 
-'''Read the original Simulation rootzone main file, determine which elements are in the submodel, and writes out a new file, then modify the other Simulation rootzone component files.'''
+'''Read the original Simulation rootzone main file, determine which elements are in the submodel, and write out a new file, then modify the other Simulation rootzone component files.'''
 
 def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=None, verbose=False):
-    '''Read the original Simulation rootzone main file, determine which elements are in the submodel, and writes out a new file, then modify the other Simulation rootzone component files.
+    '''Read the original Simulation rootzone main file, determine which elements are in the submodel, and write out a new file, then modify the other Simulation rootzone component files.
 
     Parameters
     ----------

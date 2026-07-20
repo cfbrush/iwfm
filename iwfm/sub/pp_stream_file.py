@@ -18,7 +18,7 @@
 # -----------------------------------------------------------------------------
 
 
-'''Copy the old stream file and replaces the contents with those of the new submodel, and writes out the new file.'''
+'''Copy the old stream file and replaces the contents with those of the new submodel, and write out the new file.'''
 
 def sub_pp_stream_file(stream_file, new_stream_file, snode_dict, reach_info,
     rattab_dict, rating_header, stream_aq):
