@@ -67,9 +67,16 @@ def sub_lake_file(sim_files, sim_files_new, lake_info, verbose=False):
 
     sub_ids = {int(info[0]) for info in lake_info}
 
-    # lake component version from the first line, e.g. '#4.0'
-    version = lake_lines[0][1:].strip() if len(lake_lines[0]) > 1 else ''
-    v5 = version.startswith('5')
+    # lake component version from the first line, e.g. '#4.0'.
+    # Untagged files are treated as v4.0.
+    from iwfm.file_utils import component_version
+    version = component_version(lake_lines)
+    if version is not None and not (version.startswith('4') or version == '5.0'):
+        raise NotImplementedError(
+            f'sub_lake_file(): lake component version {version!r} '
+            f'is not supported (4.x, 5.0)'
+        )
+    v5 = version == '5.0'
 
     def is_data(index):
         line = lake_lines[index].strip()

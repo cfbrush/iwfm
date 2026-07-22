@@ -62,6 +62,7 @@ def new_sim_files(out_base_name):
         pc_file      = out_base_name + '_PondedCrop.dat',
         ur_file      = out_base_name + '_Urban.dat',
         nv_file      = out_base_name + '_NativeVeg.dat',
+        dest_file    = out_base_name + '_SurfFlowDest.dat',
         nva_file     = out_base_name + '_NativeVeg_Area.dat',
         npa_file     = out_base_name + '_NonPondedCrop_Area.dat',
         pca_file     = out_base_name + '_PondedCrop_Area.dat',

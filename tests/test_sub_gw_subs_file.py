@@ -573,3 +573,28 @@ class TestSubGwSubsFileParametric:
         # node range spec rewritten to the submodel nodes
         assert '    1, 3' in out
         assert '    1-3' not in out
+
+
+class TestSubGwSubsFileVersionGuard:
+    """v5.0 subsidence files (SUBDZ line, reworked parameters) are refused."""
+
+    def test_v5_file_raises(self, tmp_path):
+        from shapely.geometry import Polygon
+        from iwfm.sub.gw_subs_file import sub_gw_subs_file
+        content = '#5.0\n' + create_subs_file(0, [], 0, [[1] + [1.0] * 20, [2] + [1.0] * 20])
+        old_file = tmp_path / 'Subsidence.dat'
+        old_file.write_text(content)
+        with pytest.raises(NotImplementedError, match="version '5.0'"):
+            sub_gw_subs_file(str(old_file), str(tmp_path / 'out.dat'), [1],
+                             Polygon([(0, 0), (10, 0), (10, 10), (0, 10)]))
+
+    def test_v4_tag_accepted(self, tmp_path):
+        from shapely.geometry import Polygon
+        from iwfm.sub.gw_subs_file import sub_gw_subs_file
+        content = '#4.0\n' + create_subs_file(0, [], 0, [[1] + [1.0] * 20, [2] + [1.0] * 20])
+        old_file = tmp_path / 'Subsidence.dat'
+        old_file.write_text(content)
+        new_file = tmp_path / 'out.dat'
+        sub_gw_subs_file(str(old_file), str(new_file), [1],
+                         Polygon([(0, 0), (10, 0), (10, 10), (0, 10)]))
+        assert new_file.exists()

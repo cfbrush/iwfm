@@ -38,6 +38,32 @@ if TYPE_CHECKING:
     import numpy as np
 
 
+def component_version(file_lines: List[str]) -> str | None:
+    """Return the IWFM component version tag from a file's first line.
+
+    IWFM simulation component files begin with a version tag line such as
+    ``#4.11`` ("DO NOT DELETE ABOVE LINE"). Returns the version string
+    (e.g. ``'4.11'``), or None when the first line carries no tag (legacy
+    files and test fixtures).
+
+    Parameters
+    ----------
+    file_lines : list
+        lines of the component file (from str.splitlines())
+
+    Returns
+    -------
+    str or None
+        version tag without the leading ``#``, or None if untagged
+    """
+    import re
+
+    if not file_lines:
+        return None
+    tag = re.match(r'#\s*(\d+(?:\.\d+)*)', file_lines[0])
+    return tag.group(1) if tag else None
+
+
 def skip_to_next_line(lines: List[str], line_index: int, skip_lines: int = 0) -> int:
     """
     Advance to the next non-comment line without parsing it.

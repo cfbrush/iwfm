@@ -57,6 +57,18 @@ def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbo
         subs_lines = f.read().splitlines()
     subs_lines.append('')
 
+    # subsidence component version from the first line, e.g. '#4.0'.
+    # v5.0 adds a SUBDZ file line and reworks the parameter section, so the
+    # v4.0 line layout below would misparse it — refuse clearly instead.
+    # Files without a version tag are treated as v4.0.
+    from iwfm.file_utils import component_version
+    subs_version = component_version(subs_lines)
+    if subs_version and not subs_version.startswith('4'):
+        raise NotImplementedError(
+            f'sub_gw_subs_file(): subsidence component version '
+            f'{subs_version!r} is not supported (only 4.x)'
+        )
+
     # Skip initial comments and file names/factors (5 data lines), then read nouts
     nouts_str, line_index = read_next_line_value(subs_lines, -1, column=0, skip_lines=5)
     nouts = int(nouts_str)

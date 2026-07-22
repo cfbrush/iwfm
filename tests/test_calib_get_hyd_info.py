@@ -163,3 +163,16 @@ class TestGetHydInfoImports:
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
+
+
+class TestGetHydInfoSubsidenceVersionGuard:
+    """v5.0 subsidence files are refused; untagged/v4 files proceed."""
+
+    def test_v5_subsidence_raises(self, tmp_path):
+        from iwfm.calib.get_hyd_info import get_hyd_info
+        main_file = tmp_path / 'Subsidence.dat'
+        main_file.write_text('#5.0\nC comment\n  1  / NOUTS\n')
+        file_dict = {'Subsidence': [str(main_file), '', '', '', '', True,
+                                    True, 0, 5, [5, 2]]}
+        with pytest.raises(NotImplementedError, match="version '5.0'"):
+            get_hyd_info('Subsidence', file_dict)

@@ -210,3 +210,17 @@ class TestStreamVersions:
         assert 'ICTYPE' in text and 'TUNITQ' in text and 'FACTHQ' in text
         assert '\t101\t5.0' in lines
         assert '\t103\t5.2' not in lines
+
+
+class TestUnknownVersionGuard:
+
+    def test_unknown_stream_version_raises(self, tmp_path):
+        content = V40.replace('#4.0', '#6.0', 1)
+        old = tmp_path / 'Streams.dat'
+        old.write_text(content)
+        sim_files = SimulationFiles(stream_file=str(old))
+        sim_files_new = SimulationFiles(
+            stream_file=str(tmp_path / 'S.dat'), stin_file='x',
+            divspec_file='x', bp_file='x', div_file='x')
+        with pytest.raises(NotImplementedError, match="version '6.0'"):
+            iwfm.sub_streams_file(sim_files, sim_files_new, [], SUB_SNODES)

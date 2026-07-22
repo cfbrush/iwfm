@@ -75,10 +75,17 @@ def sub_streams_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path=
         stream_lines = f.read().splitlines()
     stream_lines.append('')
 
-    # stream component version from the first line, e.g. '#4.2'
-    stream_type = stream_lines[0][1:].strip() if len(stream_lines[0]) > 1 else ''
-    v42 = stream_type.startswith('4.2')
-    v5 = stream_type.startswith('5')
+    # stream component version from the first line, e.g. '#4.2'.
+    # Untagged files are treated as v4.0/4.1.
+    from iwfm.file_utils import component_version
+    stream_type = component_version(stream_lines)
+    if stream_type is not None and stream_type not in ('4.0', '4.1', '4.2', '5.0'):
+        raise NotImplementedError(
+            f'sub_streams_file(): stream component version {stream_type!r} '
+            f'is not supported (4.0, 4.1, 4.2, 5.0)'
+        )
+    v42 = stream_type == '4.2'
+    v5 = stream_type == '5.0'
 
     _, line_index = read_next_line_value(stream_lines, 0, column=0, skip_lines=0)  # skip initial comments (starting from line 1)
 

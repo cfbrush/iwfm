@@ -54,7 +54,10 @@ def iwfm_read_streams(stream_file, verbose=False):
     iwfm.file_test(stream_file)
     with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
-    stream_type = stream_lines[0][1:]
+    # 4.0/4.1/4.2/5.0 use the modern reach format; any other tag (or no tag)
+    # deliberately falls through to the legacy up/dn-node reach format below
+    from iwfm.file_utils import component_version
+    stream_type = component_version(stream_lines)
 
     nreach, stream_index = read_next_line_value(stream_lines, 0)
     nreach = int(nreach)

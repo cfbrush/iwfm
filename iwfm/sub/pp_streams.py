@@ -60,7 +60,8 @@ def sub_pp_streams(stream_file, node_list):
     with open(stream_file, encoding='utf-8') as f:
         stream_lines = f.read().splitlines()
 
-    stream_type = stream_lines[0][1:]
+    from iwfm.file_utils import component_version
+    stream_type = component_version(stream_lines)
 
     # Skip comments to NRH line
     _, line_index = read_next_line_value(stream_lines, -1, column=0, skip_lines=0)

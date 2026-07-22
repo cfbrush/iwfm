@@ -186,7 +186,7 @@ class TestSimulationFiles:
             'sub_file', 'drain_file', 'stream_file', 'stin_file',
             'divspec_file', 'bp_file', 'div_file', 'lake_file',
             'lmax_file', 'root_file', 'np_file', 'pc_file', 'ur_file',
-            'nv_file', 'nva_file', 'npa_file', 'pca_file', 'ura_file',
+            'nv_file', 'dest_file', 'nva_file', 'npa_file', 'pca_file', 'ura_file',
             'swshed_file', 'unsat_file', 'irrfrac', 'supplyadj',
             'precip', 'et', 'start', 'step', 'end',
         ]

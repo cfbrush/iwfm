@@ -57,6 +57,19 @@ def get_hyd_info(ftype,file_dict,model_dir=''):
     iwfm.file_test(main_file)
     with open(main_file, encoding='utf-8') as f:
         in_lines = f.read().splitlines()                      # open and read input file
+
+    # the Subsidence skip counts assume the v4.0 file layout; v5.0 adds a
+    # SUBDZ file line that would misalign them — refuse clearly instead.
+    # Files without a version tag are treated as v4.0.
+    if ftype == 'Subsidence':
+        from iwfm.file_utils import component_version
+        subs_version = component_version(in_lines)
+        if subs_version and not subs_version.startswith('4'):
+            raise NotImplementedError(
+                f'get_hyd_info(): subsidence component version '
+                f'{subs_version!r} is not supported (only 4.x)'
+            )
+
     line_index = 5  # skip first few lines
     logger.debug(f'  Read {len(in_lines):,} lines from {main_file}')
 

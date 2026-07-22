@@ -89,6 +89,16 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
         gw_lines = f.read().splitlines()
     gw_lines.append('')
 
+    # only groundwater component version 4.x exists — fail loudly on a
+    # future major version rather than misparse. Untagged files proceed.
+    from iwfm.file_utils import component_version
+    gw_version = component_version(gw_lines)
+    if gw_version is not None and not gw_version.startswith('4'):
+        raise NotImplementedError(
+            f'sub_gw_file(): groundwater component version {gw_version!r} '
+            f'is not supported (only 4.x)'
+        )
+
     gw_dict = {}
 
     # -- file names --

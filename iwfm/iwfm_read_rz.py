@@ -45,7 +45,26 @@ def iwfm_read_rz(rz_file, verbose=False):
     with open(rz_file, encoding='utf-8') as f:
         rz_lines = f.read().splitlines()                # open and read input file
 
-    np_file, line_index = read_next_line_value(rz_lines, -1, skip_lines=4)  # non-ponded ag file
+    # v5.0 restructures the file list (single AGFL replaces the non-ponded/
+    # ponded pair), so the 4.x positional reads below would silently map the
+    # wrong files — refuse clearly. Untagged files are treated as 4.x.
+    from iwfm.file_utils import component_version
+    rz_version = component_version(rz_lines)
+    if rz_version and not rz_version.startswith('4'):
+        raise NotImplementedError(
+            f'rootzone component version {rz_version!r} is not supported '
+            f'(only 4.x)'
+        )
+
+    _, line_index = read_next_line_value(rz_lines, -1, skip_lines=3)
+    try:
+        if 'GWUPTK' not in rz_lines[line_index]:
+            float(rz_lines[line_index].split()[0])
+        # numeric -> GWUPTK line (v4.1+); advance to the first file name
+        _, line_index = read_next_line_value(rz_lines, line_index)
+    except ValueError:
+        pass  # 4.0/4.01 have no GWUPTK; already at the first file name
+    np_file = rz_lines[line_index].split()[0]              # non-ponded ag file
 
     p_file, line_index = read_next_line_value(rz_lines, line_index)   # ponded ag file
 

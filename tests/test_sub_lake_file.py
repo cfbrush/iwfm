@@ -167,3 +167,12 @@ class TestSubLakeFileGeneral:
         captured = capsys.readouterr()
         assert 'Wrote submodel lake file' in captured.out
         assert sim_files_new.lake_file in captured.out
+
+
+class TestUnknownVersionGuard:
+
+    def test_unknown_lake_version_raises(self, tmp_path):
+        sim_files, sim_files_new = make_files(
+            tmp_path, LAKE_V40.replace('#4.0', '#6.0', 1))
+        with pytest.raises(NotImplementedError, match="version '6.0'"):
+            iwfm.sub_lake_file(sim_files, sim_files_new, lake_info_for([1]))

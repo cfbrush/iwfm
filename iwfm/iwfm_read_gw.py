@@ -119,6 +119,17 @@ def iwfm_read_gw(gw_file, verbose=False, node_coords=None):
     with open(gw_file, encoding='utf-8') as f:
         file_lines = f.read().splitlines()
 
+    # only groundwater component version 4.x exists; the marker-based
+    # parsing below absorbs drift within 4.x, but a future major version
+    # should fail loudly rather than misparse. Untagged files proceed.
+    from iwfm.file_utils import component_version
+    gw_version = component_version(file_lines)
+    if gw_version is not None and not gw_version.startswith('4'):
+        raise NotImplementedError(
+            f'iwfm_read_gw(): groundwater component version {gw_version!r} '
+            f'is not supported (only 4.x)'
+        )
+
     # get sub-process file names (or 'none' if not present)
     _, line_index = read_next_line_value(file_lines, 0, column=0)
     bc_file = get_name(file_lines[line_index])

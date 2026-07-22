@@ -223,6 +223,7 @@ class SimulationFiles(_DictAccessMixin):
     pc_file: str = ''
     ur_file: str = ''
     nv_file: str = ''
+    dest_file: str = ''
     nva_file: str = ''
     npa_file: str = ''
     pca_file: str = ''
