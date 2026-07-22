@@ -46,10 +46,6 @@ def sub_rz_pc_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
     nothing
     '''
     import iwfm
-    from iwfm.file_utils import read_next_line_value
-
-    comments = ['C','c','*','#']
-    ncrop = 5
 
     # Use iwfm utility for file validation
     iwfm.file_test(old_filename)
@@ -58,59 +54,41 @@ def sub_rz_pc_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
         pc_lines = f.read().splitlines()
     pc_lines.append('')
 
-    _, line_index = read_next_line_value(pc_lines, -1, column=0, skip_lines=0)  # skip initial comments
+    # -- locate the land-use area file entry by its LUFLP tag. The header
+    #    preamble before it varies by model era (older files start with the
+    #    area file; newer ones lead with crop counts and CCODE lines).
+    line_index = None
+    for i, line in enumerate(pc_lines):
+        if line.strip() and line[0] not in 'Cc*#' and 'LUFLP' in line:
+            line_index = i
+            break
+    if line_index is None:
+        raise ValueError(f'{old_filename}: no LUFLP area-file entry found')
 
-    # ponded crop area file name
-    parea_file = pc_lines[line_index].split()[0]               # original crop area file name
-    parea_file = parea_file.replace('\\', '/')                  # convert backslashes to forward slashes
-    # Resolve relative path from simulation base directory if provided
+    area_file = pc_lines[line_index].split()[0]
+    area_file = area_file.replace('\\', '/')
     if base_path is not None:
-        parea_file = str(base_path / parea_file)
-    pc_lines[line_index] = '   ' + sim_files_new.pca_file + '		        / LUFLP'
+        area_file = str(base_path / area_file)
+    pc_lines[line_index] = '   ' + sim_files_new.pca_file + '\t\t        / LUFLP'
 
-    # budget section
-    _, line_index = read_next_line_value(pc_lines, line_index, column=0, skip_lines=0)  # skip comments
-    nbud = int(pc_lines[line_index].split()[0])                     # number of crop budgets
-    _, line_index = read_next_line_value(pc_lines, line_index, column=0, skip_lines=2 + nbud)  # skip budget section
-
-    _, line_index = read_next_line_value(pc_lines, line_index, column=0, skip_lines=0)  # skip factor
-    _, line_index = read_next_line_value(pc_lines, line_index, column=0, skip_lines=ncrop - 1)  # skip crop root depths
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # curve numbers
-
-    _, line_index = read_next_line_value(pc_lines, line_index - 1, column=0, skip_lines=0)  # skip comments
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # crop ETc
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # water supply requirement
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # irrigation periods
-
-    _, line_index = read_next_line_value(pc_lines, line_index - 1, column=0, skip_lines=2)  # skip comments and two file names
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # ponding depths
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # application depths
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # return flow depths
-
-    line_index = iwfm.sub_remove_items(pc_lines, line_index, elems)    # re-use flow depths
-
-    # initial conditions - process manually because end of file
-    _, line_index = read_next_line_value(pc_lines, line_index - 1, column=0, skip_lines=0)  # skip file name and comments
-    # Check bounds before accessing - skip_ahead returns -1 at end of file
-    if (line_index >= 0 and
-        line_index < len(pc_lines) and
-        pc_lines[line_index].strip() and
-        int(pc_lines[line_index].split()[0]) > 0):
-        # Loop while current line is not a comment and not empty
-        while (line_index < len(pc_lines) and
-               pc_lines[line_index] and
-               pc_lines[line_index][0] not in comments):
-            if int(pc_lines[line_index].split()[0]) not in elems:
-                del pc_lines[line_index]
+    # -- element sections: the number of sections, their order, and where
+    #    file-name/factor lines fall between them varies by model era, and
+    #    any section may collapse to a single all-elements row (element ID
+    #    0). Sweep by marker: header/file/factor lines carry an inline
+    #    '/ TAG' comment, element rows do not.
+    line_index += 1
+    while line_index < len(pc_lines):
+        line = pc_lines[line_index]
+        if not line.strip() or line[0] in 'Cc*#':
+            line_index += 1                       # comment or blank
+        elif '/' in line:
+            line_index += 1                       # file name or factor line
+        else:
+            element_id = int(line.split()[0])
+            if element_id == 0 or element_id in elems:
+                line_index += 1                   # all-elements row, or keep
             else:
-                line_index += 1
+                del pc_lines[line_index]
 
     pc_lines.append('')
 
@@ -120,7 +98,7 @@ def sub_rz_pc_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
         print(f'      Wrote ponded crop file {sim_files_new.pc_file}')
 
     # -- ponded crop area file --
-    iwfm.sub_lu_file(parea_file, sim_files_new.pca_file, elems, verbose=verbose)
+    iwfm.sub_lu_file(area_file, sim_files_new.pca_file, elems, verbose=verbose)
 
     return
 

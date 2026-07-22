@@ -55,9 +55,29 @@ def iwfm_read_rz_file_names(rz_file_name, verbose=False):
     with open(rz_file_name, encoding='utf-8') as f:
         rz_lines = f.read().splitlines()
 
-    # Skip to the file names section (after RZCONV, RZITERMX, FACTCN, GWUPTK)
+    # v5.0 restructures the file list (single AGFL replaces the non-ponded/
+    # ponded pair), so the 4.x positional reads below would silently map the
+    # wrong files — refuse clearly. Untagged files are treated as 4.x.
+    from iwfm.file_utils import component_version
+    rz_version = component_version(rz_lines)
+    if rz_version and not rz_version.startswith('4'):
+        raise NotImplementedError(
+            f'rootzone component version {rz_version!r} is not supported '
+            f'(only 4.x)'
+        )
+
+    # Skip to the file names section (RZCONV, RZITERMX, FACTCN, plus GWUPTK
+    # in v4.1+ — detected by its numeric value; 4.0/4.01 lack it).
     # Read the four file names: AGNPFL, PFL, URBFL, NVRVFL
-    rz_npc_file_name, line_index = read_next_line_value(rz_lines, -1, skip_lines=4)
+    _, line_index = read_next_line_value(rz_lines, -1, skip_lines=3)
+    try:
+        if 'GWUPTK' not in rz_lines[line_index]:
+            float(rz_lines[line_index].split()[0])
+        # numeric -> GWUPTK line (v4.1+); advance to the first file name
+        _, line_index = read_next_line_value(rz_lines, line_index)
+    except ValueError:
+        pass  # 4.0/4.01 have no GWUPTK; already at the first file name
+    rz_npc_file_name = rz_lines[line_index].split()[0]
     rz_pc_file_name, line_index = read_next_line_value(rz_lines, line_index)
     rz_ur_file_name, line_index = read_next_line_value(rz_lines, line_index)
     rz_nv_file_name, line_index = read_next_line_value(rz_lines, line_index)

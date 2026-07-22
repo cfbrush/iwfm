@@ -46,9 +46,6 @@ def sub_rz_nv_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
     nothing
     '''
     import iwfm
-    from iwfm.file_utils import read_next_line_value
-
-    comments = ['C','c','*','#']
 
     # Use iwfm utility for file validation
     iwfm.file_test(old_filename)
@@ -57,35 +54,41 @@ def sub_rz_nv_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
         nv_lines = f.read().splitlines()
     nv_lines.append('')
 
-    _, line_index = read_next_line_value(nv_lines, -1, column=0, skip_lines=0)  # skip initial comments
+    # -- locate the land-use area file entry by its LUFLNVRV tag. The header
+    #    preamble before it varies by model era (older files start with the
+    #    area file; newer ones lead with crop counts and CCODE lines).
+    line_index = None
+    for i, line in enumerate(nv_lines):
+        if line.strip() and line[0] not in 'Cc*#' and 'LUFLNVRV' in line:
+            line_index = i
+            break
+    if line_index is None:
+        raise ValueError(f'{old_filename}: no LUFLNVRV area-file entry found')
 
-    # native and riparian vegetation area file name
-    nvarea_file = nv_lines[line_index].split()[0]               # original area file name
-    nvarea_file = nvarea_file.replace('\\', '/')                  # convert backslashes to forward slashes
-    # Resolve relative path from simulation base directory if provided
+    area_file = nv_lines[line_index].split()[0]
+    area_file = area_file.replace('\\', '/')
     if base_path is not None:
-        nvarea_file = str(base_path / nvarea_file)
-    nv_lines[line_index] = '   ' + sim_files_new.nva_file + '		        / LUFLNVRV'
+        area_file = str(base_path / area_file)
+    nv_lines[line_index] = '   ' + sim_files_new.nva_file + '\t\t        / LUFLNVRV'
 
-    _, line_index = read_next_line_value(nv_lines, line_index, column=0, skip_lines=3)  # skip comments and three factors
-
-    line_index = iwfm.sub_remove_items(nv_lines, line_index, elems)    # parameters
-
-    # initial conditions - process manually because end of file
-    _, line_index = read_next_line_value(nv_lines, line_index, column=0, skip_lines=0)  # skip file name and comments
-    # Check bounds before accessing - skip_ahead returns -1 at end of file
-    if (line_index >= 0 and
-        line_index < len(nv_lines) and
-        nv_lines[line_index].strip() and
-        int(nv_lines[line_index].split()[0]) > 0):
-        # Loop while current line is not a comment and not empty
-        while (line_index < len(nv_lines) and
-               nv_lines[line_index] and
-               nv_lines[line_index][0] not in comments):
-            if int(nv_lines[line_index].split()[0]) not in elems:
-                del nv_lines[line_index]
+    # -- element sections: the number of sections, their order, and where
+    #    file-name/factor lines fall between them varies by model era, and
+    #    any section may collapse to a single all-elements row (element ID
+    #    0). Sweep by marker: header/file/factor lines carry an inline
+    #    '/ TAG' comment, element rows do not.
+    line_index += 1
+    while line_index < len(nv_lines):
+        line = nv_lines[line_index]
+        if not line.strip() or line[0] in 'Cc*#':
+            line_index += 1                       # comment or blank
+        elif '/' in line:
+            line_index += 1                       # file name or factor line
+        else:
+            element_id = int(line.split()[0])
+            if element_id == 0 or element_id in elems:
+                line_index += 1                   # all-elements row, or keep
             else:
-                line_index += 1
+                del nv_lines[line_index]
 
     nv_lines.append('')
 
@@ -96,7 +99,7 @@ def sub_rz_nv_file(old_filename, sim_files_new, elems, base_path=None, verbose=F
 
 
     # -- native and riparian area file --
-    iwfm.sub_lu_file(nvarea_file, sim_files_new.nva_file, elems, verbose=verbose)
+    iwfm.sub_lu_file(area_file, sim_files_new.nva_file, elems, verbose=verbose)
 
 
     return

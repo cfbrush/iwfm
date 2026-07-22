@@ -38,7 +38,7 @@ C Comment line 4
  PARAM1  ! First parameter
  PARAM2  ! Second parameter
  PARAM3  ! Third parameter
- PARAM4  ! Fourth parameter
+ 1  ! GWUPTK flag
  npc_crops.dat       ! Non-ponded crops file
  ponded_crops.dat    ! Ponded crops file
  urban_data.dat      ! Urban file
@@ -85,7 +85,7 @@ C Comment line 4
  PARAM1
  PARAM2
  PARAM3
- PARAM4
+ 1
  file1.dat    ! This is an inline comment with extra text
  file2.dat    ! Another comment
  file3.dat    ! Comment
@@ -119,7 +119,7 @@ C Comment line 4
  PARAM1
  PARAM2
  PARAM3
- PARAM4
+ 1
  file1.dat
 C Extra comment line here
  file2.dat
@@ -156,7 +156,7 @@ C Comment line 4
  PARAM1
  PARAM2
  PARAM3
- PARAM4
+ 1
  ./data/npc_crops.dat
  ../input/ponded_crops.dat
  /absolute/path/urban.dat
@@ -191,7 +191,7 @@ C Comment line 4
  PARAM1
  PARAM2
  PARAM3
- PARAM4
+ 1
  file1.dat
   file2.dat
 \tfile3.dat
@@ -229,7 +229,7 @@ C Comment line 4
  PARAM1
  PARAM2
  PARAM3
- PARAM4
+ 1
  file1.dat
  file2.dat
  file3.dat

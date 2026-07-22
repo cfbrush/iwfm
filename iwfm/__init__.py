@@ -248,6 +248,7 @@ from iwfm.sub.rz_npc_file import sub_rz_npc_file
 from iwfm.sub.rz_pc_file import sub_rz_pc_file
 from iwfm.sub.rz_urban_file import sub_rz_urban_file
 from iwfm.sub.rz_nv_file import sub_rz_nv_file
+from iwfm.sub.rz_dest_file import sub_rz_dest_file
 from iwfm.sub.remove_items import sub_remove_items
 from iwfm.sub.lu_file import sub_lu_file
 

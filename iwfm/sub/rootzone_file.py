@@ -61,8 +61,27 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
     with open(sim_files.root_file, encoding='utf-8') as f:
         rz_lines = f.read().splitlines()
 
-    # Skip initial comments and 4 factor lines
-    _, line_index = read_next_line_value(rz_lines, 0, column=0, skip_lines=4)
+    # v5.0 restructures the file list entirely; all 4.x layouts are handled
+    # by the marker-based navigation below. Untagged files are treated as 4.x.
+    from iwfm.file_utils import component_version
+    rz_version = component_version(rz_lines)
+    if rz_version and not rz_version.startswith('4'):
+        raise NotImplementedError(
+            f'sub_rootzone_file(): rootzone component version {rz_version!r} '
+            f'is not supported (only 4.x)'
+        )
+
+    # Skip initial comments and the factor lines: RZCONV, RZITERMX, FACTCN,
+    # plus GWUPTK in v4.1+ (absent in 4.0/4.01). A factor line's first token
+    # is numeric; the AGNPFL line that follows holds a file name.
+    _, line_index = read_next_line_value(rz_lines, 0, column=0, skip_lines=3)
+    try:
+        if 'GWUPTK' not in rz_lines[line_index]:
+            float(rz_lines[line_index].split()[0])
+        # numeric -> this is GWUPTK; advance to AGNPFL
+        _, line_index = read_next_line_value(rz_lines, line_index, column=0)
+    except ValueError:
+        pass  # 4.0/4.01: no GWUPTK, already at AGNPFL
 
     rz_dict = {}
 
@@ -128,17 +147,44 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
         rz_lines[line_index] = '   ' + sim_files_new.nv_file + '		        / NVRVFL'
     rz_dict['nv_file'] = nv_file
 
-    # skip input lines and comments to soil parameters section
-    _, line_index = read_next_line_value(rz_lines, line_index, column=0, skip_lines=13)
+    # advance over the remaining header lines to the element soil-parameter
+    # rows. The header line count varies by version (13 after NVRVFL in
+    # v4.11, 14 in v4.12/4.13, fewer in older 4.x), but every header data
+    # line carries an inline '/ TAG' comment and element rows do not — so
+    # scan by marker instead of a fixed count. v4.12+ moves the surface-flow
+    # destinations to a separate DESTFL file; capture and rewrite that
+    # entry when present.
+    dest_file, saw_destfl = '', False
+    while True:
+        _, next_index = read_next_line_value(rz_lines, line_index, column=0)
+        if '/' not in rz_lines[next_index]:
+            line_index = next_index          # first element row
+            break
+        line_index = next_index
+        if 'DESTFL' in rz_lines[line_index]:
+            saw_destfl = True
+            token = rz_lines[line_index].split()[0]
+            if token[0] != '/':              # a destination file is named
+                dest_file = token.replace('\\', '/')
+                if base_path is not None:
+                    dest_file = str(base_path / dest_file)
+                rz_lines[line_index] = '   ' + sim_files_new.dest_file + '\t\t        / DESTFL'
+    rz_dict['dest_file'] = dest_file
 
-    # remove elements not in submodel, modify stream node of elements in submodel
+    # remove elements not in submodel; for versions with inline destinations
+    # (pre-4.12: element row tail is `... TYPDEST DEST PondedK`), redirect
+    # stream destinations that leave the submodel to outside-of-model.
+    # v4.12+ rows carry no inline destinations (they live in DESTFL).
     while line_index < len(rz_lines):
         t = rz_lines[line_index].split()
+        if not t:
+            break
         if int(t[0]) in elems:
-            if int(t[10]) == 1:  # runoff flows to a stream node
-                if int(t[11]) not in sub_snodes:
-                    t[10] = 0    # change to export
-                    rz_lines[line_index] = '\t'.join(t)
+            if not saw_destfl and len(t) >= 3:
+                if int(float(t[-3])) == 1:   # runoff flows to a stream node
+                    if int(float(t[-2])) not in sub_snodes:
+                        t[-3] = '0'          # change to outside of model
+                        rz_lines[line_index] = '\t'.join(t)
             line_index += 1
         else:
             del rz_lines[line_index]
@@ -158,6 +204,10 @@ def sub_rootzone_file(sim_files, sim_files_new, elem_list, sub_snodes, base_path
     # -- native & riparian files --
     if have_nv:
         iwfm.sub_rz_nv_file(nv_file, sim_files_new, elems, base_path, verbose=verbose)
+
+    # -- surface flow destination file (rootzone v4.12+) --
+    if dest_file:
+        iwfm.sub_rz_dest_file(dest_file, sim_files_new.dest_file, elems, sub_snodes, verbose=verbose)
 
     # -- write out rootzone main file --
     with open(sim_files_new.root_file, 'w', encoding='utf-8') as outfile:

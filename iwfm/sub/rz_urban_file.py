@@ -46,9 +46,6 @@ def sub_rz_urban_file(old_filename, sim_files_new, elems, base_path=None, verbos
     nothing
     '''
     import iwfm
-    from iwfm.file_utils import read_next_line_value
-
-    comments = ['C','c','*','#']
 
     # Use iwfm utility for file validation
     iwfm.file_test(old_filename)
@@ -57,36 +54,41 @@ def sub_rz_urban_file(old_filename, sim_files_new, elems, base_path=None, verbos
         ur_lines = f.read().splitlines()
     ur_lines.append('')
 
-    _, line_index = read_next_line_value(ur_lines, -1, column=0, skip_lines=0)  # skip initial comments
+    # -- locate the land-use area file entry by its LUFLU tag. The header
+    #    preamble before it varies by model era (older files start with the
+    #    area file; newer ones lead with crop counts and CCODE lines).
+    line_index = None
+    for i, line in enumerate(ur_lines):
+        if line.strip() and line[0] not in 'Cc*#' and 'LUFLU' in line:
+            line_index = i
+            break
+    if line_index is None:
+        raise ValueError(f'{old_filename}: no LUFLU area-file entry found')
 
-    urarea_file = ur_lines[line_index].split()[0]                # original urban area file name
-    urarea_file = urarea_file.replace('\\', '/')                  # convert backslashes to forward slashes
-    # Resolve relative path from simulation base directory if provided
+    area_file = ur_lines[line_index].split()[0]
+    area_file = area_file.replace('\\', '/')
     if base_path is not None:
-        urarea_file = str(base_path / urarea_file)
-    ur_lines[line_index] =  '   ' + sim_files_new.ura_file + '		        / LUFLU'
+        area_file = str(base_path / area_file)
+    ur_lines[line_index] = '   ' + sim_files_new.ura_file + '\t\t        / LUFLU'
 
-    _, line_index = read_next_line_value(ur_lines, line_index, column=0, skip_lines=2)  # skip comments and two factors
-
-    _, line_index = read_next_line_value(ur_lines, line_index, column=0, skip_lines=2)  # skip three file names
-
-    line_index = iwfm.sub_remove_items(ur_lines, line_index, elems)    # curve numbers etc
-
-    # initial conditions - process manually because end of file
-    _, line_index = read_next_line_value(ur_lines, line_index - 1, column=0, skip_lines=0)  # skip file name and comments
-    # Check bounds before accessing - skip_ahead returns -1 at end of file
-    if (line_index >= 0 and
-        line_index < len(ur_lines) and
-        ur_lines[line_index].strip() and
-        int(ur_lines[line_index].split()[0]) > 0):
-        # Loop while current line is not a comment and not empty
-        while (line_index < len(ur_lines) and
-               ur_lines[line_index] and
-               ur_lines[line_index][0] not in comments):
-            if int(ur_lines[line_index].split()[0]) not in elems:
-                del ur_lines[line_index]
+    # -- element sections: the number of sections, their order, and where
+    #    file-name/factor lines fall between them varies by model era, and
+    #    any section may collapse to a single all-elements row (element ID
+    #    0). Sweep by marker: header/file/factor lines carry an inline
+    #    '/ TAG' comment, element rows do not.
+    line_index += 1
+    while line_index < len(ur_lines):
+        line = ur_lines[line_index]
+        if not line.strip() or line[0] in 'Cc*#':
+            line_index += 1                       # comment or blank
+        elif '/' in line:
+            line_index += 1                       # file name or factor line
+        else:
+            element_id = int(line.split()[0])
+            if element_id == 0 or element_id in elems:
+                line_index += 1                   # all-elements row, or keep
             else:
-                line_index += 1
+                del ur_lines[line_index]
 
     ur_lines.append('')
 
@@ -97,7 +99,7 @@ def sub_rz_urban_file(old_filename, sim_files_new, elems, base_path=None, verbos
 
 
     # -- urban area file --
-    iwfm.sub_lu_file(urarea_file, sim_files_new.ura_file, elems, verbose=verbose)
+    iwfm.sub_lu_file(area_file, sim_files_new.ura_file, elems, verbose=verbose)
 
 
     return

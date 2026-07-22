@@ -61,6 +61,10 @@ def read_lu_file(filename, skip=4):
     line = data[index].split()
 
     while index < len(data):
+        # skip blank lines and comment separators between time periods
+        if not data[index].strip() or data[index][0] in comments:
+            index += 1
+            continue
         line = data[index].split()
         # if first item is a date, then clean up and start a new table
 

@@ -926,5 +926,61 @@ class TestSubRzNpcFileWithRealFile:
         assert ncrop == 20, f"C2VSimCG should have 20 non-ponded crops, got {ncrop}"
 
 
+class TestCgStyleStructure:
+    """C2VSimCG-era structure: a section collapsed to a single all-elements
+    (ID 0) row, and MINSMFL/TRGSMFL/DPFL file lines interleaved between
+    element sections at positions the old fixed-sequence code mis-walked."""
+
+    def test_zero_row_sections_and_interleaved_files(self, tmp_path):
+        import iwfm
+        area = tmp_path / 'Area.dat'
+        area.write_text(
+            'C area file\n'
+            '  4  / NSP\n  1  / NFQ\n  x.dss  / DSSFL\n  1.0  / FACTAR\n'
+            'C----\n'
+            ' 09/30/2001_24:00\t1\t1.0\t2.0\n\t2\t1.0\t2.0\n\t3\t1.0\t2.0\n')
+        lines = [
+            'C npc fixture', '  2                          / NCROP',
+            '  1                          / FLDMD',
+            '  CR01                       / CCODE', '  CR02                       / CCODE',
+            f'  {area.name}               / LUFLNP',
+            '  0                          / NBCROP',
+            '                             / CLWUBUDFL', '                             / CRZBUDFL',
+            '  RootDepths.dat             / RZFRACFL', '  1.0                        / FACT',
+            '  1  4.0  1                  / crop 1', '  2  6.0  2                  / crop 2',
+            'C---- curve numbers',
+            '  1  50  60', '  2  51  61', '  3  52  62',
+            'C---- water supply requirement (all elements)',
+            '  0  0  0',
+            'C---- irrigation periods',
+            '  1  1  1', '  2  1  1', '  3  1  1',
+            'C---- min soil moisture',
+            '  MinSM.dat                  / MINSMFL',
+            '  0  1  2',
+            'C---- target soil moisture',
+            '  TargetSM.dat               / TRGSMFL',
+            '  1  1  2', '  2  1  2', '  3  1  2',
+            'C---- initial conditions',
+            '  1  0.5  0.1  0.1', '  2  0.5  0.1  0.1', '  3  0.5  0.1  0.1',
+        ]
+        npc = tmp_path / 'NonPondedCrop.dat'
+        npc.write_text('\n'.join(lines) + '\n')
+        new = iwfm.new_sim_files(str(tmp_path / 'Sub'))
+        iwfm.sub_rz_npc_file(str(npc), new, [1, 3], base_path=tmp_path)
+
+        out = open(new.np_file).read().splitlines()
+        data = [l for l in out if l.strip() and l[0] not in 'Cc*#']
+        # element 2 rows removed from every element section
+        assert not any(l.split()[0] == '2' and '/' not in l for l in data
+                       if l.split()[0].isdigit() and 'crop' not in l)
+        # crop rows (tagged) survive, zero-rows survive, file lines survive
+        assert sum(1 for l in data if '/' not in l and l.split()[0] == '0') == 2
+        assert any('MINSMFL' in l for l in data)
+        assert any('TRGSMFL' in l for l in data)
+        # element 1 and 3 rows kept in all 4 element sections
+        assert sum(1 for l in data if '/' not in l and l.split()[0] == '1') == 4
+        assert sum(1 for l in data if '/' not in l and l.split()[0] == '3') == 4
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

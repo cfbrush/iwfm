@@ -48,8 +48,6 @@ def sub_rz_npc_file(old_filename, sim_files_new, elems, base_path=None, verbose=
     import iwfm
     from iwfm.file_utils import read_next_line_value
 
-    comments = ['C','c','*','#']
-
     # Use iwfm utility for file validation
     iwfm.file_test(old_filename)
 
@@ -77,37 +75,27 @@ def sub_rz_npc_file(old_filename, sim_files_new, elems, base_path=None, verbose=
     _, line_index = read_next_line_value(npc_lines, line_index, column=0, skip_lines=1)  # skip file name and factor
     _, line_index = read_next_line_value(npc_lines, line_index, column=0, skip_lines=ncrop - 1)  # skip crop root depths
 
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems)    # curve numbers
-
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems)    # crop ETc
-
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems)    # ag water supply requirement
-
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems)    # irrigation periods
-
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems, skip=1)    # minimum soil moisture
-
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems, skip=1)    # target soil moisture
-
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems)    # return flow fractions
-
-    line_index = iwfm.sub_remove_items(npc_lines, line_index, elems)    # reuse fractions
-
-    # initial conditions - process manually because end of file
-    _, line_index = read_next_line_value(npc_lines, line_index, column=0, skip_lines=0)  # skip file name and comments
-    # Check bounds before accessing - skip_ahead returns -1 at end of file
-    if (line_index >= 0 and
-        line_index < len(npc_lines) and
-        npc_lines[line_index].strip() and
-        int(npc_lines[line_index].split()[0]) > 0):
-        # Loop while current line is not a comment and not empty
-        while (line_index < len(npc_lines) and
-               npc_lines[line_index] and
-               npc_lines[line_index][0] not in comments):
-            if int(npc_lines[line_index].split()[0]) not in elems:
-                del npc_lines[line_index]
+    # -- element sections (curve numbers, ETc pointers, water supply
+    #    requirement, irrigation periods, min/target soil moisture, return
+    #    flow and re-use fractions, minimum percolation, initial conditions).
+    #    The number of sections, their order, and where file-name/factor
+    #    lines (MINSMFL, TRGSMFL, DPFL, ...) fall between them varies by
+    #    model era, and any section may collapse to a single all-elements
+    #    row (element ID 0). Sweep by marker instead of a fixed sequence:
+    #    header/file/factor lines carry an inline '/ TAG' comment, element
+    #    rows do not.
+    while line_index < len(npc_lines):
+        line = npc_lines[line_index]
+        if not line.strip() or line[0] in 'Cc*#':
+            line_index += 1                       # comment or blank
+        elif '/' in line:
+            line_index += 1                       # file name or factor line
+        else:
+            element_id = int(line.split()[0])
+            if element_id == 0 or element_id in elems:
+                line_index += 1                   # all-elements row, or keep
             else:
-                line_index += 1
+                del npc_lines[line_index]
 
     npc_lines.append('')
 

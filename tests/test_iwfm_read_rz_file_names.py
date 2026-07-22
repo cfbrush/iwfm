@@ -19,6 +19,7 @@
 
 import tempfile
 import os
+import pytest
 
 
 def create_rz_file(rzconv, rzitermx, factcn, gwuptk, agnpfl, pfl, urbfl, nvrvfl):
@@ -429,3 +430,35 @@ class TestIwfmReadRzFileNames:
 
         finally:
             os.unlink(temp_file)
+
+
+class TestRootzoneVersionGuard:
+    """v5.0 rootzone files (restructured file list) are refused; 4.x and
+    untagged files proceed."""
+
+    def test_v5_raises(self, tmp_path):
+        from iwfm.iwfm_read_rz_file_names import iwfm_read_rz_file_names
+        content = '#5.0\n' + create_rz_file(
+            0.01, 30, 1.0, 1, 'npc.dat', 'pc.dat', 'urban.dat', 'nv.dat')
+        rz_file = tmp_path / 'RootZone.dat'
+        rz_file.write_text(content)
+        with pytest.raises(NotImplementedError, match="version '5.0'"):
+            iwfm_read_rz_file_names(str(rz_file))
+
+    def test_v4_tag_accepted(self, tmp_path):
+        from iwfm.iwfm_read_rz_file_names import iwfm_read_rz_file_names
+        content = '#4.13\n' + create_rz_file(
+            0.01, 30, 1.0, 1, 'npc.dat', 'pc.dat', 'urban.dat', 'nv.dat')
+        rz_file = tmp_path / 'RootZone.dat'
+        rz_file.write_text(content)
+        npc, pc, ur, nv = iwfm_read_rz_file_names(str(rz_file))
+        assert npc.endswith('npc.dat')
+
+    def test_iwfm_read_rz_v5_raises(self, tmp_path):
+        from iwfm.iwfm_read_rz import iwfm_read_rz
+        content = '#5.0\n' + create_rz_file(
+            0.01, 30, 1.0, 1, 'npc.dat', 'pc.dat', 'urban.dat', 'nv.dat')
+        rz_file = tmp_path / 'RootZone.dat'
+        rz_file.write_text(content)
+        with pytest.raises(NotImplementedError, match="version '5.0'"):
+            iwfm_read_rz(str(rz_file))
