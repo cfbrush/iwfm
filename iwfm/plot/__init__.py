@@ -32,8 +32,6 @@ from iwfm.plot.contour_levels import contour_levels
 from iwfm.plot.get_maxs import get_maxs
 from iwfm.plot.get_mins import get_mins
 
-from iwfm.plot.simhyd_obs import simhyd_obs
-
 from iwfm.plot.head_hydrographs import read_hyd_info
 from iwfm.plot.head_hydrographs import read_obs_heads
 from iwfm.plot.head_hydrographs import plot_head_hydrograph

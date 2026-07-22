@@ -22,6 +22,30 @@ import numpy as np
 
 
 def do_avgonly(smp_in, ins_lines, pcf_lines):
+    '''Replace each node's observation columns with their row-wise average.
+
+    Parameters
+    ----------
+    smp_in : numpy.ndarray
+        observation array; columns from index 3 onward are averaged
+
+    ins_lines : list
+        PEST instruction file lines (passed through unchanged)
+
+    pcf_lines : list
+        PEST control file lines (passed through unchanged)
+
+    Returns
+    -------
+    smp_out : numpy.ndarray
+        smp_in with columns 3+ replaced by their row-wise mean
+
+    ins_lines : list
+        unchanged
+
+    pcf_lines : list
+        unchanged
+    '''
     smp_out = smp_in
 
     # Calculate average values for each node in each layer

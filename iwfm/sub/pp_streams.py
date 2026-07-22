@@ -125,6 +125,13 @@ def sub_pp_streams(stream_file, node_list):
 
 
 def exit_now(stream_type):
+    '''Raise NotImplementedError for an unsupported stream specification version.
+
+    Parameters
+    ----------
+    stream_type : str
+        stream specification file version tag
+    '''
     raise NotImplementedError(
         f'sub_pp_streams(): no method to read stream specification type '
         f'{stream_type!r}'

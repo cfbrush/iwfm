@@ -61,7 +61,27 @@ def _safe_get_filename(line, line_num, field_name='filename'):
 
 
 class iwfm_model:
+    '''Read an IWFM model's preprocessor and simulation input files.
+
+    Instantiating this class reads the preprocessor main file, nodes,
+    elements, and stratigraphy, plus the simulation main file, and stores
+    the results as instance attributes.
+    '''
+
     def __init__(self, pre_fpath, sim_file, verbose=False):
+        '''Read the IWFM preprocessor and simulation files for this model.
+
+        Parameters
+        ----------
+        pre_fpath : str
+            path to the preprocessor main input file
+
+        sim_file : str
+            simulation main input file name
+
+        verbose : bool, default=False
+            turn command-line output on or off
+        '''
         self.mtype = 'IWFM'
         fpath_line = pre_fpath.split('\\')  # Preprocessor file path to list
         self.pre_file = fpath_line.pop(
@@ -109,27 +129,35 @@ class iwfm_model:
 
     # -- functions to return information
     def get_nlayers(self):
+        '''Return the number of aquifer layers.'''
         return self._nlayers
 
     def get_lse(self):
+        '''Return the land surface elevation at each node, or None if not read.'''
         return getattr(self, '_lse', None)
 
     def aquifer_thickness(self):
+        '''Return the aquifer thickness at each node and layer, or None if not read.'''
         return getattr(self, 'aquifer_thick', None)
 
     def get_aquifer_top(self):
+        '''Return the aquifer top elevation at each node and layer, or None if not read.'''
         return getattr(self, '_aquifer_top', None)
 
     def get_aquifer_bottom(self):
+        '''Return the aquifer bottom elevation at each node and layer, or None if not read.'''
         return getattr(self, '_aquifer_bottom', None)
 
     def aquitard_thickness(self):
+        '''Return the aquitard thickness at each node and layer, or None if not read.'''
         return getattr(self, 'aquitard_thick', None)
 
     def get_aquitard_top(self):
+        '''Return the aquitard top elevation at each node and layer, or None if not read.'''
         return getattr(self, '_aquitard_top', None)
 
     def get_aquitard_bottom(self):
+        '''Return the aquitard bottom elevation at each node and layer, or None if not read.'''
         return getattr(self, '_aquitard_bottom', None)
 
     # -- the functions that do the work 
@@ -442,7 +470,13 @@ class iwfm_model:
 
 
     def read_strat(self, strat_file):
+        '''Read an IWFM Stratigraphy file and store layer elevations and thicknesses.
 
+        Parameters
+        ----------
+        strat_file : str
+            IWFM Stratigraphy file name
+        '''
         iwfm.file_test(strat_file)
         with open(strat_file, encoding='utf-8') as f:
             strat_lines = f.read().splitlines()

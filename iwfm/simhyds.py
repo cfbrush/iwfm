@@ -22,8 +22,16 @@ import bisect
 import iwfm
 
 class simhyds:
+    '''Simulated hydrograph values read from an IWFM hydrograph output file.'''
 
     def __init__(self, filename):
+        '''Read an IWFM hydrograph output file into sim_vals and sim_dates.
+
+        Parameters
+        ----------
+        filename : str
+            IWFM hydrograph output file name
+        '''
         self.sim_vals, self.sim_dates = [], []
         self.filename = filename
         with open(filename, 'r', encoding='utf-8') as inputfile:
@@ -106,25 +114,31 @@ class simhyds:
         ) * (num / den)
 
     def get_head(self, row, col):
+        '''Return the simulated value at the given row and column.'''
         return self.sim_vals[row][col]
 
     def date(self, row):
+        '''Return the date for the given row.'''
         return self.sim_vals[row][0]
 
     def start_date(self):
+        '''Return the first simulated date, or None if no data was read.'''
         if not self.sim_vals:
             return None
         return self.sim_vals[0][0]
 
     def end_date(self):
+        '''Return the last simulated date, or None if no data was read.'''
         if not self.sim_vals:
             return None
         return self.sim_vals[-1][0]
 
     def nlines(self):
+        '''Return the number of simulated time steps.'''
         return len(self.sim_vals)
 
     def ncols(self):
+        '''Return the number of data columns, or 0 if no data was read.'''
         if not self.sim_vals:
             return 0
         return len(self.sim_vals[0])

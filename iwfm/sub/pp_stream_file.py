@@ -315,6 +315,13 @@ snodes_header_42 = [
 
 
 def exit_now(stream_type):
+    '''Raise NotImplementedError for an unsupported stream specification version.
+
+    Parameters
+    ----------
+    stream_type : str
+        stream specification file version tag
+    '''
     raise NotImplementedError(
         f'sub_pp_stream_file(): no method to write stream specification type '
         f'{stream_type!r}'

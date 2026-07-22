@@ -37,13 +37,22 @@ class Unbuffered(object):
     '''
 
     def __init__(self, stream):
+        '''Wrap stream so writes are flushed immediately.
+
+        Parameters
+        ----------
+        stream : file-like object
+            stream to wrap, e.g. sys.stdout
+        '''
         self.stream = stream
 
     def write(self, data):
+        '''Write data to the wrapped stream and flush immediately.'''
         self.stream.write(data)
         self.stream.flush()
 
     def writelines(self, datas):
+        '''Write a sequence of lines to the wrapped stream and flush immediately.'''
         self.stream.writelines(datas)
         self.stream.flush()
 
