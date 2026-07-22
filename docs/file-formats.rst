@@ -31,10 +31,23 @@ Component file versions
 -----------------------
 
 Several simulation components are versioned; the version tag is the first
-line of the file (e.g. ``#4.2``). The package handles:
+line of the file (e.g. ``#4.2``). 
 
-- **Streams (preprocessor and simulation)**: 4.0, 4.1, 4.2, 5.0
+  The package handles:
+
+- **Groundwater (simulation)**: 4.0 
 - **Lakes (simulation)**: 4.0, 5.0
+- **Rootzone (simulation)**: 4.0, 4.01, 4.1, 4.11, 4.12, 4.13
+- **Streams (preprocessor and simulation)**: 4.0, 4.1, 4.2, 5.0
+- **Subsidence (simulation/groundwater)**: 4.0
+
+  Not yet supported:
+
+- **Rootzone (simulation)**: 5.0
+- **Subsidence (simulation/groundwater)**: 5.0
+
+Rootzone land use component files are identical across all 4.x versions.
+They do not contain version tags; the version is inherited from the main file.
 
 Dates
 -----
@@ -42,3 +55,5 @@ Dates
 IWFM uses DSS-style timestamps, e.g. ``09/30/1990_24:00``. Conversion
 helpers include :func:`iwfm.date2text`, :func:`iwfm.text_date`,
 :func:`iwfm.dss_date`, and :func:`iwfm.generate_timesteps`.
+
+

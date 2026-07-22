@@ -10,12 +10,13 @@ Highlights
 ----------
 
 - Readers for preprocessor files (nodes, elements, stratigraphy, streams,
-  lakes) and simulation files (groundwater, root zone, unsaturated zone)
+  lakes) and simulation files (groundwater, root zone, streams, unsaturated zone)
 - Budget and ZBudget post-processing (HDF5 → text/CSV/Excel)
-- Head, hydrograph, and land-use processing
+- Plot groundwater hydrographs and parameter maps
 - Submodel extraction (cut a subdomain out of an existing model)
-- GIS export (shapefiles, maps), calibration utilities (PEST support),
-  and external data fetching (CDEC, NWIS, USACE, USBR)
+- GIS file creation (shapefiles)
+- Calibration utilities (PEST support)
+- Fetching external data (CDEC, NWIS, USACE, USBR)
 
 .. toctree::
    :maxdepth: 1
