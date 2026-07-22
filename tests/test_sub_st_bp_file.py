@@ -427,3 +427,26 @@ class TestSubStBpFileWithRealFile:
 
         assert 'M&T_Flood' in content
         assert '3Bs_Flood' in content
+
+
+class TestSubStBpFileEncodingFallback:
+    """Agency bypass files can carry Windows-1252 bytes (curly quotes in
+    reach names, e.g. C2VSimCG); the reader must fall back from strict
+    UTF-8 instead of failing (2026-07 real-model audit regression)."""
+
+    def test_cp1252_byte_in_name_falls_back(self, tmp_path):
+        content = create_bypass_spec_file_content()
+        # 0x92 = cp1252 right single quote; invalid as UTF-8
+        raw = content.replace('Bypass_1', 'Owner’s_Bypass').encode('cp1252')
+        assert b'\x92' in raw
+        input_file = tmp_path / 'old_bypass.dat'
+        input_file.write_bytes(raw)
+        output_file = tmp_path / 'new_bypass.dat'
+
+        result = iwfm.sub_st_bp_file(str(input_file), str(output_file),
+                                     [[1001]], [101, 102, 103, 104])
+
+        assert result == 4
+        # output is written as UTF-8 and still names the kept bypasses
+        out = output_file.read_text(encoding='utf-8')
+        assert 'Bypass_2' in out

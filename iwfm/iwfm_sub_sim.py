@@ -70,7 +70,9 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     # -- resolve relative paths in sim_files to absolute paths
     sim_base_path = Path(in_sim_file).resolve().parent
     for key in sim_files:
-        if isinstance(sim_files[key], str) and key.endswith('_file'):
+        # empty entries mark optional files the model does not use; leave them
+        # blank so the skip guards below fire instead of resolving to a directory
+        if isinstance(sim_files[key], str) and key.endswith('_file') and sim_files[key]:
             # Convert Windows backslashes and resolve relative to simulation file directory
             sim_files[key] = str(sim_base_path / sim_files[key].replace('\\', '/'))
 

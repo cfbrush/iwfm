@@ -512,5 +512,78 @@ class TestSubGwPumpWellFile:
             assert '2' in ngrp_line
 
 
+class TestAuditRegressions:
+    """Regressions from the 2026-07 real-model audit (C2VSimFG WellSpec):
+    comment lines interleaved among data rows, and group header lines that
+    carry a trailing free-text name without a '/' separator."""
+
+    def _run(self, content, elems, tmpdir):
+        from iwfm.sub.gw_pump_well_file import sub_gw_pump_well_file
+        from shapely.geometry import Polygon
+
+        old_file = os.path.join(tmpdir, 'old_well.dat')
+        with open(old_file, 'w') as f:
+            f.write(content)
+        new_file = os.path.join(tmpdir, 'new_well.dat')
+        bounding_poly = Polygon([(0, 0), (100, 0), (100, 100), (0, 100)])
+        result = sub_gw_pump_well_file(old_file, new_file, elems, bounding_poly)
+        with open(new_file) as f:
+            return result, f.read()
+
+    def test_comment_interleaved_well_rows(self):
+        """Comment lines between well location rows and between spec rows."""
+        well_locations = [
+            (1, 50.0, 50.0, 1.0, 100.0, 200.0),
+            (2, 25.0, 75.0, 1.0, 100.0, 200.0),
+        ]
+        well_specs = [
+            (1, 1, 1.0, 3, -1, 0, 1, 0, 1, 1.0),
+            (2, 2, 1.0, 3, -1, 0, 1, 0, 2, 1.0),
+        ]
+        content = create_well_file(2, well_locations, well_specs, 0, [])
+        # insert comment lines between the data rows of both sections
+        lines = content.split('\n')
+        loc_2 = next(i for i, l in enumerate(lines)
+                     if l.startswith('    2     25.0'))
+        lines.insert(loc_2, 'C interleaved comment in location section')
+        spec_2 = next(i for i, l in enumerate(lines)
+                      if l.startswith('    2     2     1.0'))
+        lines.insert(spec_2, 'C interleaved comment in spec section')
+        content = '\n'.join(lines)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            result, new_content = self._run(content, [1, 2], tmpdir)
+
+        assert result is True
+        nwell_line = [l for l in new_content.split('\n') if '/ NWELL' in l][0]
+        assert nwell_line.split()[0] == '2'
+        assert 'C interleaved comment in location section' in new_content
+
+    def test_group_header_trailing_name_without_slash(self):
+        """FG-style group header `ID NELEM IELEM NKWSD - CLASS 1` (free-text
+        name, no '/'): first three tokens parse; the name must not crash."""
+        well_locations = [(1, 50.0, 50.0, 1.0, 100.0, 200.0)]
+        well_specs = [(1, 1, 1.0, 3, 6, 1, 1, 0, 1, 1.0)]
+        groups = [(1, [1, 2]), (2, [3])]
+        content = create_well_file(1, well_locations, well_specs, 2, groups)
+        lines = content.split('\n')
+        hdr_1 = next(i for i, l in enumerate(lines)
+                     if l.startswith('    1     2     1'))
+        lines[hdr_1] = lines[hdr_1] + '  NKWSD - CLASS 1'
+        hdr_2 = next(i for i, l in enumerate(lines)
+                     if l.startswith('    2     1     3'))
+        lines[hdr_2] = lines[hdr_2] + '  ANOTHER DISTRICT NAME'
+        # comment line between the two element groups
+        lines.insert(hdr_2, 'C comment between element groups')
+        content = '\n'.join(lines)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            result, new_content = self._run(content, [1, 2, 3], tmpdir)
+
+        assert result is True
+        ngrp_line = [l for l in new_content.split('\n') if '/ NGRP' in l][0]
+        assert ngrp_line.split()[0] == '2'
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

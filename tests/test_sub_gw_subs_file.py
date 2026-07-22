@@ -598,3 +598,33 @@ class TestSubGwSubsFileVersionGuard:
         sub_gw_subs_file(str(old_file), str(new_file), [1],
                          Polygon([(0, 0), (10, 0), (10, 10), (0, 10)]))
         assert new_file.exists()
+
+
+class TestSubGwSubsFileNodeForm:
+    """SUBTYP=1 hydrograph rows are `ID 1 IOUTSL NODE NAME` — filtered by
+    node membership, not location (2026-07 real-model audit regression)."""
+
+    def test_node_form_rows_filtered_by_node(self, tmp_path):
+        from shapely.geometry import Polygon
+        from iwfm.sub.gw_subs_file import sub_gw_subs_file
+
+        node_params = [[1] + [1.0] * 20, [2] + [1.0] * 20]
+        hydrographs = [
+            (1, 1, 1, 0, 0, 2, 'Node_Inside'),      # node 2: keep
+            (2, 1, 1, 0, 0, 99, 'Node_Outside'),    # node 99: drop
+            (3, 0, 1, 5.0, 5.0, 0, 'XY_Inside'),    # location form: keep
+        ]
+        content = create_subs_file(3, hydrographs, 0, node_params)
+        old_file = tmp_path / 'Subsidence.dat'
+        old_file.write_text(content)
+        new_file = tmp_path / 'out.dat'
+
+        sub_gw_subs_file(str(old_file), str(new_file), [1, 2],
+                         Polygon([(0, 0), (10, 0), (10, 10), (0, 10)]))
+
+        out = new_file.read_text()
+        assert 'Node_Inside' in out
+        assert 'Node_Outside' not in out
+        assert 'XY_Inside' in out
+        nouts_line = [l for l in out.splitlines() if '/ NOUTS' in l][0]
+        assert nouts_line.split()[0] == '2'

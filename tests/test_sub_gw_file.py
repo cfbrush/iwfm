@@ -681,3 +681,94 @@ class TestSubGwFileParametric:
         lines = [l for l in out.splitlines() if l.strip() and l[0] not in 'Cc*#']
         init_ids = [l.split()[0] for l in lines[-2:]]
         assert init_ids == ['1', '3']
+
+
+class TestSubGwFileAuditRegressions:
+    """Regressions from the 2026-07 real-model audit: NOUTH found by
+    FACTXY-peek marker scan (header length varies by IWFM version),
+    node-form (IHYDTYP=1) hydrograph rows, and comment lines interleaved
+    among the hydrograph rows."""
+
+    def _run(self, content, node_list=(1, 2), tmp_poly=(0, 0, 100, 100)):
+        from iwfm.sub.gw_file import sub_gw_file
+        from shapely.geometry import Polygon
+
+        x0, y0, x1, y1 = tmp_poly
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_file = os.path.join(tmpdir, 'old_gw.dat')
+            with open(old_file, 'w') as f:
+                f.write(content)
+            new_gw_file = os.path.join(tmpdir, 'new_gw.dat')
+            sim_files = SimulationFiles(gw_file=old_file)
+            sim_files_new = SimulationFiles(gw_file=new_gw_file)
+            bounding_poly = Polygon([(x0, y0), (x1, y0), (x1, y1), (x0, y1)])
+            sub_gw_file(sim_files, sim_files_new, list(node_list), [[1], [2]],
+                        bounding_poly)
+            return open(new_gw_file).read()
+
+    def _base_content(self, hydrographs, nouth):
+        node_params = [
+            [1, 70.0, 6.2e-06, 0.13, 0.0, 4.9] + [10.0, 1.0e-06, 0.1, 0.0, 1.0] * 3,
+            [2, 54.0, 1.1e-05, 0.10, 0.0, 2.9] + [10.0, 1.0e-06, 0.1, 0.0, 1.0] * 3,
+        ]
+        initial_heads = [(1, 100.0, 95.0, 90.0, 90.0), (2, 95.0, 90.0, 85.0, 85.0)]
+        return create_gw_file('', '', '', '', nouth, hydrographs, 0,
+                              node_params, 0, [], initial_heads)
+
+    def test_node_form_hydrographs_filtered_by_node(self):
+        """IHYDTYP=1 rows are `ID 1 LAYER NODE NAME` — filter by node, not
+        location. Node 2 is in the submodel, node 9 is not."""
+        hydrographs = [
+            (1, 1, 1, 2, '', '', 'Node_Inside'),    # node 2: keep
+            (2, 1, 1, 9, '', '', 'Node_Outside'),   # node 9: drop
+            (3, 0, 1, 50.0, 50.0, '', 'XY_Inside'), # location form: keep
+        ]
+        out = self._run(self._base_content(hydrographs, 3))
+
+        assert 'Node_Inside' in out
+        assert 'Node_Outside' not in out
+        assert 'XY_Inside' in out
+        nouth_line = [l for l in out.splitlines() if '/ NOUTH' in l][0]
+        assert nouth_line.split()[0] == '2'
+
+    def test_comment_interleaved_hydrograph_rows(self):
+        """Comment lines between hydrograph rows must be tolerated."""
+        hydrographs = [
+            (1, 0, 1, 25.0, 25.0, '', 'Well_A'),
+            (2, 0, 1, 500.0, 500.0, '', 'Well_Far'),
+            (3, 0, 1, 40.0, 40.0, '', 'Well_B'),
+        ]
+        content = self._base_content(hydrographs, 3)
+        lines = content.split('\n')
+        row_2 = next(i for i, l in enumerate(lines) if 'Well_Far' in l)
+        lines.insert(row_2, 'C interleaved comment among hydrograph rows')
+        content = '\n'.join(lines)
+
+        out = self._run(content)
+
+        assert 'Well_A' in out and 'Well_B' in out
+        assert 'Well_Far' not in out
+        nouth_line = [l for l in out.splitlines() if '/ NOUTH' in l][0]
+        assert nouth_line.split()[0] == '2'
+
+    def test_nouth_found_with_extra_header_line(self):
+        """Header length between SUBSFL and NOUTH varies by IWFM version
+        (optional IHTPFLAG etc.); the FACTXY-peek marker scan must find
+        NOUTH regardless of an extra header data line."""
+        hydrographs = [
+            (1, 0, 1, 25.0, 25.0, '', 'Well_Keep'),
+            (2, 0, 1, 500.0, 500.0, '', 'Well_Drop'),
+        ]
+        content = self._base_content(hydrographs, 2)
+        lines = content.split('\n')
+        kdeb = next(i for i, l in enumerate(lines) if '/ KDEB' in l)
+        lines.insert(kdeb, '      0                         / IHTPFLAG')
+        content = '\n'.join(lines)
+
+        out = self._run(content)
+
+        assert 'Well_Keep' in out
+        assert 'Well_Drop' not in out
+        nouth_line = [l for l in out.splitlines() if '/ NOUTH' in l][0]
+        assert nouth_line.split()[0] == '1'
+        assert '/ IHTPFLAG' in out
