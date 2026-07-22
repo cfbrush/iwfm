@@ -63,6 +63,8 @@ def iwfm_read_sim_file(sim_file, verbose=False):
     root_file, line_index = read_next_line_value(sim_lines, line_index)  # root zone main file
 
     swshed_file, line_index = read_next_line_value(sim_lines, line_index)  # small watersheds file
+    if swshed_file[0] == '/':
+        swshed_file = ''         # optional: some models have no small watersheds
 
     unsat_file, line_index = read_next_line_value(sim_lines, line_index)  # unsaturated zone file
     if unsat_file[0] == '/':

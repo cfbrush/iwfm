@@ -77,8 +77,9 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     # -- verify that required input files exist
     import os
     missing_files = []
-    # unsat_file is optional: IDC-based models (e.g. SVSim) have none
-    required_files = ['gw_file', 'swshed_file']
+    # unsat_file and swshed_file are optional: IDC-based models have no
+    # unsaturated zone file; some models have no small watersheds
+    required_files = ['gw_file']
 
     for key in required_files:
         if key not in sim_files:
@@ -201,7 +202,10 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     bounding_poly = gis.elem2boundingpoly(elem_nodes, node_coords)
 
     # -- create submodel Small Watersheds file
-    iwfm.sub_swhed_file(sim_files.swshed_file, sim_files_new.swshed_file, node_list, snode_dict, verbose)
+    if sim_files.swshed_file and os.path.exists(sim_files.swshed_file):
+        iwfm.sub_swhed_file(sim_files.swshed_file, sim_files_new.swshed_file, node_list, snode_dict, verbose)
+    elif verbose:
+        print('  No small watersheds file; skipped')
 
     # -- create submodel Unsaturated Zone file
     if sim_files.unsat_file and os.path.exists(sim_files.unsat_file):
