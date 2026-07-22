@@ -83,8 +83,13 @@ def sub_gw_subs_file(old_filename, new_filename, node_list, bounding_poly, verbo
     for l in range(0, nouts):
         t = subs_lines[line_index].split()
         id = int(t[0])
-        point = Point(float(t[3]), float(t[4]))
-        if not point.within(bounding_poly):
+        # SUBTYP=0 rows are `ID 0 IOUTSL X Y ...` (filter by location);
+        # SUBTYP=1 rows are `ID 1 IOUTSL NODE NAME` (filter by node)
+        if int(t[1]) == 1:
+            keep = int(t[3]) in node_list
+        else:
+            keep = Point(float(t[3]), float(t[4])).within(bounding_poly)
+        if not keep:
             del subs_lines[line_index]
         else:
             new_nouts += 1

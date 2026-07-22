@@ -160,21 +160,40 @@ def sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, s
     gw_dict['subs_file'] = subs_file
 
     # -- hydrograph section --
-    # skip 16 non-comment lines to get to NOUTH
-    nhyds_str, line_index = read_next_line_value(gw_lines, line_index, skip_lines=16)
-    nhyds = int(nhyds_str)
+    # The number of header lines between SUBSFL and NOUTH varies by IWFM
+    # version (optional IHTPFLAG, KDEB, ...), so scan for the NOUTH line by
+    # marker instead of a fixed skip count: NOUTH is the line whose next
+    # data line is FACTXY (same approach as iwfm_read_gw).
+    comments = 'Cc*#'
+    _, line_index = read_next_line_value(gw_lines, line_index)
+    while line_index < len(gw_lines):
+        peek = line_index + 1
+        while peek < len(gw_lines) and gw_lines[peek].strip() and               gw_lines[peek].strip()[0] in comments:
+            peek += 1
+        if peek < len(gw_lines) and 'FACTXY' in gw_lines[peek].upper():
+            break
+        if 'NOUTH' in gw_lines[line_index].upper():
+            break
+        _, line_index = read_next_line_value(gw_lines, line_index)
+    nhyds = int(gw_lines[line_index].split()[0])
     hyds_line = line_index
 
     # skip 3 lines (NOUTH, FACTXY, GWHYDOUTFL) to get to hydrograph data
     _, line_index = read_next_line_value(gw_lines, line_index, skip_lines=2)
 
-    # check each hydrographs and remove the hydrographs outside the submodel boundary
+    # check each hydrograph and remove those outside the submodel boundary.
+    # IHYDTYP=0 rows are `ID 0 LAYER X Y NAME` (filter by location);
+    # IHYDTYP=1 rows are `ID 1 LAYER NODE NAME` (filter by node)
     new_hyds = 0
     for i in range(0, nhyds):
+        while gw_lines[line_index].strip() == '' or gw_lines[line_index][0] in comments:
+            line_index += 1
         t = gw_lines[line_index].split()
-        point = Point(float(t[3]), float(t[4]))
-
-        if not point.within(bounding_poly):
+        if int(t[1]) == 1:
+            keep = int(t[3]) in nodes
+        else:
+            keep = Point(float(t[3]), float(t[4])).within(bounding_poly)
+        if not keep:
             del gw_lines[line_index]
         else:
             new_hyds += 1

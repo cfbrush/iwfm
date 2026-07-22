@@ -68,6 +68,9 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
 
     keep_wells = []
     for l in range(0, nwells):
+        # tolerate comment lines interleaved among the well rows
+        while well_lines[line_index].strip() == '' or well_lines[line_index][0] in 'Cc*#':
+            line_index += 1
         t = well_lines[line_index].split()
         id = int(t[0])
         point = Point(float(t[1]), float(t[2]))
@@ -83,6 +86,9 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
     _, line_index = read_next_line_value(well_lines, line_index - 1, skip_lines=0)
 
     for l in range(0, nwells):
+        # tolerate comment lines interleaved among the rows
+        while well_lines[line_index].strip() == '' or well_lines[line_index][0] in 'Cc*#':
+            line_index += 1
         t = well_lines[line_index].split()
         if int(t[0]) not in keep_wells:
             del well_lines[line_index]
@@ -101,10 +107,13 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
     if ngrp > 0:
         _, line_index = read_next_line_value(well_lines, line_index, column=0, skip_lines=0)
     for id in range(0, ngrp):
+        # tolerate comment lines between element groups
+        while well_lines[line_index].strip() == '' or well_lines[line_index][0] in 'Cc*#':
+            line_index += 1
         grp_line, ielems = line_index, []
 
         # Parse element group line with error checking
-        line_data = well_lines[line_index].split()
+        line_data = well_lines[line_index].split('/')[0].split()
         if len(line_data) < 3:
             raise ValueError(
                 'Malformed well file while processing element groups\n'
@@ -127,11 +136,15 @@ def sub_gw_pump_well_file(old_filename, new_filename, elems, bounding_poly, verb
                 f'      - Check the format around line {line_index + 1} in the original file'
             )
 
-        grp_id, nelem, ielem, *z = [int(e) for e in line_data]
+        # header is `grp_id nelem first_elem`, optionally followed by a
+        # free-text group name (with or without a '/' separator)
+        grp_id, nelem, ielem = (int(e) for e in line_data[:3])
         if ielem in elems:  # keep the item
             ielems.append(ielem)
         line_index += 1
         for j in range(1, nelem):
+            while well_lines[line_index].strip() == '' or well_lines[line_index][0] in 'Cc*#':
+                line_index += 1
             ielem = int(well_lines[line_index].split()[0])
             if ielem in elems:  # keep the item
                 ielems.append(ielem)

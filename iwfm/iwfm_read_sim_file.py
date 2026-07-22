@@ -65,6 +65,8 @@ def iwfm_read_sim_file(sim_file, verbose=False):
     swshed_file, line_index = read_next_line_value(sim_lines, line_index)  # small watersheds file
 
     unsat_file, line_index = read_next_line_value(sim_lines, line_index)  # unsaturated zone file
+    if unsat_file[0] == '/':
+        unsat_file = ''          # optional: IDC-based models have none
 
     precip_file, line_index = read_next_line_value(sim_lines, line_index, skip_lines=2)  # precipitation file
 

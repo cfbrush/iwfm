@@ -77,7 +77,8 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     # -- verify that required input files exist
     import os
     missing_files = []
-    required_files = ['gw_file', 'swshed_file', 'unsat_file']
+    # unsat_file is optional: IDC-based models (e.g. SVSim) have none
+    required_files = ['gw_file', 'swshed_file']
 
     for key in required_files:
         if key not in sim_files:
@@ -203,7 +204,10 @@ def iwfm_sub_sim(in_sim_file, elem_pairs_file, out_base_name, verbose=False, deb
     iwfm.sub_swhed_file(sim_files.swshed_file, sim_files_new.swshed_file, node_list, snode_dict, verbose)
 
     # -- create submodel Unsaturated Zone file
-    iwfm.sub_unsat_file(sim_files.unsat_file, sim_files_new.unsat_file, elem_list, verbose)
+    if sim_files.unsat_file and os.path.exists(sim_files.unsat_file):
+        iwfm.sub_unsat_file(sim_files.unsat_file, sim_files_new.unsat_file, elem_list, verbose)
+    elif verbose:
+        print('  No unsaturated zone file (IDC-based model); skipped')
 
     # -- process submodel Groundwater files
     iwfm.sub_gw_file(sim_files, sim_files_new, node_list, elem_list, bounding_poly, sim_base_path, verbose=verbose)

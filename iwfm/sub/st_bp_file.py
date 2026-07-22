@@ -54,8 +54,14 @@ def sub_st_bp_file(old_filename, new_filename, elem_list, snode_list, verbose=Fa
         elems.append(int(e[0]))
 
     iwfm.file_test(old_filename)
-    with open(old_filename, encoding='utf-8') as f:
-        bp_lines = f.read().splitlines()
+    # some agency files carry Windows-1252 bytes (curly quotes in reach
+    # names); fall back from strict UTF-8 rather than fail
+    try:
+        with open(old_filename, encoding='utf-8') as f:
+            bp_lines = f.read().splitlines()
+    except UnicodeDecodeError:
+        with open(old_filename, encoding='latin-1') as f:
+            bp_lines = f.read().splitlines()
     bp_lines.append('\n\n\n\n\n')
 
     _, line_index = read_next_line_value(bp_lines, -1, column=0, skip_lines=0)  # skip initial comments
