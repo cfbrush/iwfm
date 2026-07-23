@@ -1,6 +1,6 @@
 # elem2shp.py
 # Create elements shapefile for an IWFM model
-# Copyright (C) 2020-2025 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -86,7 +86,8 @@ def elem2shp(elem_ids, elem_nodes, node_coord_dict, elem_sub, lakes, shape_name,
     # Create .prj file for spatial reference
     with open(f"{shapename[:-4]}.prj", "w", encoding='utf-8') as prj:
         epsg = pyproj.CRS.from_epsg(epsg)
-        prj.write(epsg.to_wkt())
+        # .prj sidecars use ESRI WKT1; QGIS/ArcGIS do not accept WKT2 here
+        prj.write(epsg.to_wkt(version='WKT1_ESRI'))
     
     # Save and close the shapefile
     w.close()

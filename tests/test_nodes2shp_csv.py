@@ -99,7 +99,9 @@ class TestNodes2ShpCsv:
         out = str(tmp_path / "n.shp")
         nodes2shp_csv(coords, shapename=out, epsg=26910)
         prj = (tmp_path / "n.prj").read_text()
-        assert 'NAD' in prj or 'UTM' in prj or 'PROJCRS' in prj or 'PROJCS' in prj
+        # .prj sidecars must be ESRI WKT1 (PROJCS[...); QGIS rejects WKT2
+        assert prj.startswith('PROJCS[')
+        assert 'NAD' in prj and 'UTM' in prj
 
     def test_empty_coords(self, tmp_path):
         out = str(tmp_path / "empty.shp")

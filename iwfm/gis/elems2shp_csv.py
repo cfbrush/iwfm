@@ -1,7 +1,7 @@
 # elems2shp_csv.py
 # Read csv files of elements and nodes and create a shapefile of the elements
 # with no information other than the element id and the node ids
-# Copyright (C) 2024-2025 University of California
+# Copyright (C) 2024-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -45,7 +45,6 @@ def elems2shp_csv(elem_nodes, node_coord_dict, shapename='elems.shp', epsg=26910
     '''
 
     import shapefile
-    import pyproj
     from pyproj import CRS
 
     # Create list of element polygons
@@ -79,16 +78,11 @@ def elems2shp_csv(elem_nodes, node_coord_dict, shapename='elems.shp', epsg=26910
         w.record(              # Add attributes
             *([elem_nodes[i][0]] + elem_nodes[i][1:] + [0] * (max_nodes - len(elem_nodes[i]) + 1))
         )
-    # Write projection file
+    # Write projection file; .prj sidecars use ESRI WKT1 (QGIS and ArcGIS
+    # do not accept WKT2 in .prj files)
     with open(f"{shapename}.prj", "w", encoding='utf-8') as prj:
         crs = CRS.from_epsg(int(epsg))
-        # Use WKT2_2019 if available, otherwise default WKT
-        try:
-            wkt = crs.to_wkt(pyproj.enums.WktVersion.WKT2_2019)
-        except (AttributeError, TypeError):
-            # Fallback for older pyproj versions or if WKT2_2019 not available
-            wkt = crs.to_wkt()
-        prj.write(wkt)
+        prj.write(crs.to_wkt(version='WKT1_ESRI'))
 
     w.close()
     if verbose: print(f'  Wrote shapefile {shapename}.shp')

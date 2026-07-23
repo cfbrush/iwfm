@@ -1,6 +1,6 @@
 # igsm_elem2shp.py
 # Create an elements shapefile for an IGSM model
-# Copyright (C) 2020-2024 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -92,7 +92,8 @@ def igsm_elem2shp(elem_nodes,node_coords,elem_char,lake_elems,shape_name,
     # Write projection file
     with open(f"{elem_shapename}.prj", "w", encoding='utf-8') as prj:
         epsg = f'EPSG:{epsg}'
-        prj.write(pyproj.CRS(epsg).to_wkt())
+        # .prj sidecars use ESRI WKT1; QGIS/ArcGIS do not accept WKT2 here
+        prj.write(pyproj.CRS(epsg).to_wkt(version='WKT1_ESRI'))
     
     w.close()
     if verbose:

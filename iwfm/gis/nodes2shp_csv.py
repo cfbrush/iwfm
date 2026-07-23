@@ -1,6 +1,6 @@
 # nodes2shp_csv.py
 # Read csv file of nodes and create a shapefile of the nodes with the node ids
-# Copyright (C) 2024 University of California
+# Copyright (C) 2024-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -71,7 +71,8 @@ def nodes2shp_csv(node_coord_dict, shapename='nodes.shp', epsg=26910, verbose=Fa
     # Write projection file
     with open(f"{shapename}.prj", "w", encoding='utf-8') as prj:
         epsg = f'EPSG:{epsg}'
-        prj.write(pyproj.CRS(epsg).to_wkt())
+        # .prj sidecars use ESRI WKT1; QGIS/ArcGIS do not accept WKT2 here
+        prj.write(pyproj.CRS(epsg).to_wkt(version='WKT1_ESRI'))
     
     w.close()
     if verbose: print(f'  Wrote shapefile {shapename}.shp')

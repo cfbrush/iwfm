@@ -1,6 +1,6 @@
 # nodes2shp.py
 # Create node shapefiles for an IWFM model
-# Copyright (C) 2020-2024 University of California
+# Copyright (C) 2020-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -60,7 +60,8 @@ def nodes2shp(node_coords, shape_name, epsg=26910, verbose=False):
     # Create .prj file for spatial reference
     with open(f"{shapename[:-4]}.prj", "w", encoding='utf-8') as prj:
         epsg = pyproj.CRS.from_epsg(epsg)
-        prj.write(epsg.to_wkt())
+        # .prj sidecars use ESRI WKT1; QGIS/ArcGIS do not accept WKT2 here
+        prj.write(epsg.to_wkt(version='WKT1_ESRI'))
     
     # Save and close the shapefile
     w.close()

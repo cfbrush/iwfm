@@ -80,7 +80,8 @@ def snodes2shp(nsnodes, snodes_list, node_coords, shape_name, epsg=26910, verbos
     # Write projection file
     with open(f"{shapename}.prj", "w", encoding='utf-8') as prj:
         epsg = f'EPSG:{epsg}'
-        prj.write(pyproj.CRS(epsg).to_wkt())
+        # .prj sidecars use ESRI WKT1; QGIS/ArcGIS do not accept WKT2 here
+        prj.write(pyproj.CRS(epsg).to_wkt(version='WKT1_ESRI'))
     
     w.close()
     if verbose:

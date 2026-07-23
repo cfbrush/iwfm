@@ -80,7 +80,8 @@ def reach2shp(reach_list, stnodes_dict, node_coords, shape_name, epsg=26910,
     # Create .prj file for spatial reference
     with open(f"{shapename[:-4]}.prj", "w", encoding='utf-8') as prj:
         epsg = pyproj.CRS.from_epsg(epsg)
-        prj.write(epsg.to_wkt())
+        # .prj sidecars use ESRI WKT1; QGIS/ArcGIS do not accept WKT2 here
+        prj.write(epsg.to_wkt(version='WKT1_ESRI'))
     
     # Save and close the shapefile
     w.close()
