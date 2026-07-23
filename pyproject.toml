@@ -8,12 +8,18 @@ version = "0.0.1"
 license = {text = "GPL-2.0-or-later"}
 description = "IWFM Python package"
 readme = {text = "Classes, methods and functions to read, write and modify IWFM files", content-type = "text/plain"}
-requires-python = ">=3.8"
+# floor set by the scientific stack (numpy/scipy/pandas/matplotlib/pyproj
+# all require >=3.11); 3.11-3.14 verified by full test suite 2026-07-23
+requires-python = ">=3.11"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS :: MacOS X",

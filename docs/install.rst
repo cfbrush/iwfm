@@ -11,7 +11,7 @@ directory (the one containing ``pyproject.toml``):
 The ``-e`` flag lets you edit source files while using the package; Python
 recompiles changed files at execution time.
 
-Python 3.8+ is supported.
+Python 3.11--3.14 is supported (all four verified by the full test suite).
 
 Optional extras
 ---------------
