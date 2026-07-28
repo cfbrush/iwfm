@@ -67,6 +67,7 @@ _lazy_names = (
     'headdiff_read',
     'hyds_missed',
     'read_obs_wells',
+    'rei_residual_clusters',
     'sim_4_sites',
     'well_pairs_2_obs_list',
     # -- file writing functions -------------------------------
