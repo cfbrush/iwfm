@@ -90,7 +90,8 @@ def test_read_sim_hyd_function_signature():
     params = list(sig.parameters.keys())
 
     assert 'gwhyd_file' in params
-    assert len(params) == 1
+    assert 'head_divisor' in params
+    assert sig.parameters['head_divisor'].default == 1.0
 
 
 def test_read_sim_hyd_basic(tmp_path):

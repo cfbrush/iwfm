@@ -93,15 +93,7 @@ def iwfm2obs(verbose=False, head_divisor=None):
     # FACTLTOU (e.g. 100) is used to boost printed precision; dividing recovers ~1e-5 ft.
     # Auto-detected from the GW file unless head_divisor is passed explicitly (override).
     # Legacy models have FACTLTOU=1 -> divisor 1 -> unchanged 3-decimal output.
-    def _read_factltou(path):
-        try:
-            for ln in open(path, encoding='latin-1', errors='ignore'):
-                if 'FACTLTOU' in ln and not ln.lstrip().startswith('C'):
-                    return float(ln.split()[0])
-        except Exception:
-            pass
-        return 1.0
-    gw_divisor = head_divisor if head_divisor is not None else _read_factltou(sim_path(sim_file_d['gw_file']))
+    gw_divisor = head_divisor if head_divisor is not None else iwfm.read_factltou(sim_path(sim_file_d['gw_file']))
     logger.info(f'Groundwater head divisor (FACTLTOU) = {gw_divisor}'
                 + (' -> 6-decimal output' if gw_divisor != 1.0 else ' -> 3-decimal output (legacy)'))
     if verbose: print(f'  GW head divisor (FACTLTOU) = {gw_divisor}')

@@ -117,6 +117,7 @@ from iwfm.simhyd_obs import simhyd_obs
 from iwfm.wdl_meas_stats import wdl_meas_stats
 from iwfm.wdl_ts_4_wells import wdl_ts_4_wells
 from iwfm.read_hyd_dict import read_hyd_dict
+from iwfm.read_factltou import read_factltou
 from iwfm.read_sim_hyd import read_sim_hyd
 from iwfm.read_sim_hyds import read_sim_hyds
 

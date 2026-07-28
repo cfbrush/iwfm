@@ -19,13 +19,18 @@
 
 '''Read simulated values from one IWFM output hydrograph file into a numpy array.'''
 
-def read_sim_hyd(gwhyd_file):
+def read_sim_hyd(gwhyd_file, head_divisor=1.0):
     '''Read simulated values from one IWFM output hydrograph file into a numpy array.
 
     Parameters
     ----------
     gwhyd_file : str
         input file name
+
+    head_divisor : float, default 1.0
+        Divisor applied to each value, to undo the FACTLTOU head-output
+        scale factor when the model was run with FACTLTOU != 1 (see
+        iwfm.read_factltou). Default 1.0 leaves values unchanged.
 
     Returns
     -------
@@ -49,7 +54,7 @@ def read_sim_hyd(gwhyd_file):
         except ValueError as e:
             raise ValueError(f"Error reading {gwhyd_file} line {j+1}: {str(e)}") from e
         temp = [date_dt]                   # date
-        alist = [float(x) for x in items]       # values to floats
+        alist = [float(x) / head_divisor for x in items]  # values to floats, unscaled
         temp.extend(alist)
         temp_sim.append(temp)
 

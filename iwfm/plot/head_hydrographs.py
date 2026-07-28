@@ -339,9 +339,16 @@ def plot_all_hydrographs(gw_file, obsfile, simfiles, plot_title='',
     run_names = []
     if simfiles:
         from iwfm.read_sim_hyd import read_sim_hyd
+        from iwfm.read_factltou import read_factltou
+
+        # Heads in the hydrograph files are scaled by FACTLTOU (from the
+        # groundwater file); divide by it so plots are in model units.
+        head_divisor = read_factltou(gw_file)
+        if verbose and head_divisor != 1.0:
+            print(f"FACTLTOU = {head_divisor}: dividing simulated heads by {head_divisor}")
 
         for simfile, run_name in simfiles:
-            sim_data = read_sim_hyd(simfile)
+            sim_data = read_sim_hyd(simfile, head_divisor=head_divisor)
             sim_runs.append(sim_data)
             # Use provided run_name, or filename without extension
             if not run_name:

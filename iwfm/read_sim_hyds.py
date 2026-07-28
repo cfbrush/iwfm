@@ -19,13 +19,18 @@
 
 '''Read simulated values from multiple IWFM output hydrograph files into numpy arrays.'''
 
-def read_sim_hyds(gwhyd_files):
+def read_sim_hyds(gwhyd_files, head_divisor=1.0):
     '''Read simulated values from multiple IWFM output hydrograph files into numpy arrays.
 
     Parameters
     ----------
     gwhyd_files : list
         list of input file names
+
+    head_divisor : float, default 1.0
+        Divisor applied to each value, to undo the FACTLTOU head-output
+        scale factor when the model was run with FACTLTOU != 1 (see
+        iwfm.read_factltou). Default 1.0 leaves values unchanged.
 
     Returns
     -------
@@ -37,7 +42,7 @@ def read_sim_hyds(gwhyd_files):
     gwhyd_sim = []
 
     for k in range(0, len(gwhyd_files)):
-        sim_hyd = read_sim_hyd(gwhyd_files[k])
+        sim_hyd = read_sim_hyd(gwhyd_files[k], head_divisor=head_divisor)
         gwhyd_sim.append(sim_hyd)
 
     return gwhyd_sim
