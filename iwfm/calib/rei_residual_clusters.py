@@ -85,15 +85,16 @@ def _parse_hydrograph_coords(gw_dat):
 
 
 def _parse_stream_gages(streams_dat):
+    """GAGE-NAME -> (stream node id, description)."""
     gages = {}
-    pat = re.compile(r'^\s*(\d+)\s+(\S+)\s*/')
+    pat = re.compile(r'^\s*(\d+)\s+(\S+)\s*/\s*(.*?)\s*$')
     with open(streams_dat, encoding='utf-8', errors='replace') as f:
         for line in f:
             if line.lstrip().startswith(('C', 'c', '*', '#')):
                 continue
             m = pat.match(line)
             if m:
-                gages[m.group(2)] = int(m.group(1))
+                gages[m.group(2)] = (int(m.group(1)), m.group(3))
     return gages
 
 
@@ -334,7 +335,7 @@ def _find_split_worthy_stream_families(sites, gages, families, adjustable,
     for s, r in sites.items():
         if r['group'] not in stream_groups or s not in gages:
             continue
-        gaged.append((s, gages[s], r['sum_wr'] / max(r['n'], 1), r['sumsq']))
+        gaged.append((s, gages[s][0], r['sum_wr'] / max(r['n'], 1), r['sumsq']))
     if len(gaged) < 2:
         return []
     # robust magnitude scale: the median |bias| (a phi-weighted mean would be
@@ -475,14 +476,16 @@ def rei_residual_clusters(rei, pst, gw_dat, streams_dat,
         key=lambda kv: -kv[1]['sumsq'])[:10]
     out_streams = []
     for s, r in stream_sites:
-        node = gages.get(s)
+        node, desc = gages.get(s, (None, ''))
         near_sp = []
         if node is not None:
             near_sp = [n for n, i in sorted(stream_ids.items(),
                                             key=lambda kv: abs(kv[1] - node))
                        if abs(stream_ids[n] - node) <= stream_node_window][:6]
-        out_streams.append({'gage': s, 'stream_node': node,
+        out_streams.append({'gage': s, 'description': desc,
+                            'stream_node': node,
                             'phi_share_pct': round(100.0 * r['sumsq'] / total, 2),
+                            'mean_bias': round(r['sum_wr'] / max(r['n'], 1), 2),
                             'nearby_adjustable_stream_params': near_sp})
 
     families = _parse_tied_families(pst)
