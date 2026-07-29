@@ -1,6 +1,6 @@
 # __init__.py for iwfm.calib package
 # Classes, methods and functions for interactions between IWFM model calibration
-# Copyright (C) 2018-2024 University of California
+# Copyright (C) 2018-2026 University of California
 # -----------------------------------------------------------------------------
 # This information is free; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -19,78 +19,77 @@
 # -- PEST functions ---------------------------------------
 '''Classes, methods and functions for interactions between IWFM model calibration.'''
 
-# Submodules are imported lazily (PEP 562): each function lives in a module of
-# the same name and is only imported on first attribute access. This keeps
-# `python -m iwfm.calib.<tool>` from triggering runpy's "found in sys.modules"
-# RuntimeWarning and avoids importing the whole package up front.
+# Imports must be eager: each function shares its module's name, so lazy
+# (PEP 562) attribute access breaks as soon as any code imports a submodule
+# directly (`from iwfm.calib.par2iwfm import par2iwfm` binds the *module* as
+# the package attribute, permanently shadowing the function). Console
+# verbosity is controlled by the WARNING-level default handler in
+# iwfm.debug.logger_setup, not by import laziness.
 
-_lazy_names = (
-    # -- PEST functions ---------------------------------------
-    'read_settings',
-    'fac2iwfm',
-    'iwfm2obs',
-    'real2iwfm',
-    'par2iwfm',
-    'ppk2fac_trans',
-    'stacdep2obs',
-    'divshort2obs',
-    'iwfm_exe_time',
-    # -- supporting functions ---------------------------------
-    'krige',
-    'ltbud',
-    'ltsmp',
-    'setrot',
-    'find_nearest_index',
-    # -- PEST SMP files ---------------------------------------
-    'smp_read',
-    'obs_smp',
-    'sim_smp',
-    'smp_avg',
-    'to_smp_ins',
-    # -- math functions ---------------------------------------
-    'bias_calc',
-    'compare',
-    'do_avgonly',
-    'idw',
-    'interp_val',
-    'res_stats',
-    'rmse_calc',
-    'pest_res_stats',
-    'sim_equiv',
-    # -- data functions ---------------------------------------
-    'get_hyd_fname',
-    'get_hyd_info',
-    'get_hyd_names',
-    'get_obs_hyd',
-    'get_sim_hyd',
-    'headdiff_hyds',
-    'headdiff_read',
-    'hyds_missed',
-    'read_obs_wells',
-    'rei_residual_clusters',
-    'sim_4_sites',
-    'well_pairs_2_obs_list',
-    # -- file writing functions -------------------------------
-    'write_missing',
-    'write_results',
-    'write_rmse_bias',
-    'simout2gw',
-    # -- iwfm file functions (maybe move to an iwfm-specific subfolder)
-    'read_overwrite_file',
-    'write_overwrite_file',
+# `python -m iwfm.calib.<tool>` triggers a benign runpy RuntimeWarning because
+# this package pre-imports every tool module; suppress that exact message only
+import warnings
+warnings.filterwarnings(
+    'ignore',
+    message=r".*'iwfm\.calib\..*' found in sys\.modules after import of package 'iwfm\.calib'.*",
+    category=RuntimeWarning,
 )
 
-__all__ = list(_lazy_names)
+from iwfm.calib.read_settings import read_settings
+from iwfm.calib.fac2iwfm import fac2iwfm
+from iwfm.calib.iwfm2obs import iwfm2obs
+from iwfm.calib.real2iwfm import real2iwfm
+from iwfm.calib.par2iwfm import par2iwfm
+from iwfm.calib.ppk2fac_trans import ppk2fac_trans
+from iwfm.calib.stacdep2obs import stacdep2obs
+from iwfm.calib.divshort2obs import divshort2obs
+from iwfm.calib.iwfm_exe_time import iwfm_exe_time
 
+# -- supporting functions ---------------------------------------
+from iwfm.calib.krige import krige
+from iwfm.calib.ltbud import ltbud
+from iwfm.calib.ltsmp import ltsmp
+from iwfm.calib.setrot import setrot
+from iwfm.calib.find_nearest_index import find_nearest_index
 
-def __getattr__(name):
-    if name in _lazy_names:
-        from importlib import import_module
-        func = getattr(import_module(f'iwfm.calib.{name}'), name)
-        globals()[name] = func  # cache so __getattr__ only runs once per name
-        return func
-    raise AttributeError(f"module 'iwfm.calib' has no attribute '{name}'")
+# -- PEST SMP files ---------------------------------------
+from iwfm.calib.smp_read import smp_read
+from iwfm.calib.obs_smp import obs_smp
+from iwfm.calib.sim_smp import sim_smp
+from iwfm.calib.smp_avg import smp_avg
+from iwfm.calib.to_smp_ins import to_smp_ins
 
+# -- math functions ---------------------------------------
+from iwfm.calib.bias_calc import bias_calc
+from iwfm.calib.compare import compare
+from iwfm.calib.do_avgonly import do_avgonly
+from iwfm.calib.idw import idw
+from iwfm.calib.interp_val import interp_val
+from iwfm.calib.res_stats import res_stats
+from iwfm.calib.rmse_calc import rmse_calc
+from iwfm.calib.pest_res_stats import pest_res_stats
+from iwfm.calib.sim_equiv import sim_equiv
 
-def __dir__():
-    return sorted(set(globals()) | set(_lazy_names))
+# -- data functions ---------------------------------------
+from iwfm.calib.get_hyd_fname import get_hyd_fname
+from iwfm.calib.get_hyd_info import get_hyd_info
+from iwfm.calib.get_hyd_names import get_hyd_names
+from iwfm.calib.get_obs_hyd import get_obs_hyd
+from iwfm.calib.get_sim_hyd import get_sim_hyd
+from iwfm.calib.headdiff_hyds import headdiff_hyds
+from iwfm.calib.headdiff_read import headdiff_read
+from iwfm.calib.hyds_missed import hyds_missed
+from iwfm.calib.read_obs_wells import read_obs_wells
+from iwfm.calib.rei_residual_clusters import rei_residual_clusters
+from iwfm.calib.sim_4_sites import sim_4_sites
+from iwfm.calib.well_pairs_2_obs_list import well_pairs_2_obs_list
+
+# -- file writing functions ---------------------------------------
+from iwfm.calib.write_missing import write_missing
+from iwfm.calib.write_results import write_results
+from iwfm.calib.write_rmse_bias import write_rmse_bias
+from iwfm.calib.simout2gw import simout2gw
+
+# -- iwfm file functions (maybe move to an iwfm-specific subfolder)
+from iwfm.calib.read_overwrite_file import read_overwrite_file
+from iwfm.calib.write_overwrite_file import write_overwrite_file

@@ -291,10 +291,11 @@ def _find_split_worthy_families(sites, hydro, families, adjustable, pnodes,
         side_a = sorted(m for m in mem_xy
                         if math.dist(mem_xy[m], cp) <= math.dist(mem_xy[m], cn))
         side_b = sorted(m for m in mem_xy if m not in set(side_a))
-        wb = lambda ms: (sum(mem_bias.get(m, 0.0) *
-                             sum(w for w, _ in mem_obs.get(m, [])) for m in ms)
-                         / max(sum(sum(w for w, _ in mem_obs.get(m, []))
-                                   for m in ms), 1e-30))
+        def wb(ms):
+            return (sum(mem_bias.get(m, 0.0) *
+                        sum(w for w, _ in mem_obs.get(m, [])) for m in ms)
+                    / max(sum(sum(w for w, _ in mem_obs.get(m, []))
+                              for m in ms), 1e-30))
         # coherence gate: the spatial partition must actually separate the
         # sign groups — if both sides average the same sign, the family has
         # regional bias (a value/bounds problem), not split-worthy contrast.
@@ -408,7 +409,7 @@ def rei_residual_clusters(rei, pst, gw_dat, streams_dat,
     which adjustable parameters overlie it. See module docstring.
 
     elements_dat + nodes_dat (both required together, optional): also locate
-    element-indexed params (rootzone kr_/kp_) at element centroids."""
+    element-indexed params (rootzone ``kr_``/``kp_``) at element centroids."""
     sites, total = _parse_rei(rei)
     hydro = _parse_hydrograph_coords(gw_dat)
     gages = _parse_stream_gages(streams_dat)
